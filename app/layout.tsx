@@ -14,8 +14,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="dark">
+      <body className={`${inter.className} dark:bg-neutral-800`}>
+        {children}
+      </body>
       {draftMode().isEnabled && <VisualEditing />}
     </html>
   );
