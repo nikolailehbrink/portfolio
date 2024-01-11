@@ -5,8 +5,8 @@ import { draftMode } from "next/headers";
 
 import { loadQuery } from "@/sanity/lib/store";
 import { POSTS_QUERY, POST_QUERY } from "@/sanity/lib/queries";
-import Post from "@/components/Post";
-import PostPreview from "@/components/PostPreview";
+import Post from "@/components/blog/Post";
+import PostPreview from "@/components/blog/PostPreview";
 import { client } from "@/sanity/lib/client";
 
 export async function generateStaticParams() {

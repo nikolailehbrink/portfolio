@@ -4,7 +4,7 @@ import { POSTS_QUERY } from "@/sanity/lib/queries";
 import { QueryResponseInitial, useQuery } from "@sanity/react-loader";
 import { SanityDocument } from "next-sanity";
 
-import Posts from "@/components/Posts";
+import Posts from "@/components/blog/Posts";
 
 export default function PostsPreview({
   initial,
