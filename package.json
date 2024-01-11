@@ -14,13 +14,15 @@
     "@sanity/overlays": "^2.3.4",
     "@sanity/react-loader": "^1.7.3",
     "@sanity/vision": "^3.24.1",
+    "@tailwindcss/container-queries": "^0.1.1",
     "next": "14.0.4",
     "next-sanity": "^7.0.8",
     "react": "^18",
     "react-dom": "^18",
     "rxjs": "^7.8.1",
     "sanity": "^3.24.1",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "tailwind-scrollbar": "^3.0.5"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
@@ -32,6 +34,7 @@
     "eslint-config-next": "14.0.4",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5"
   }
 }
