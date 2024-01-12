@@ -15,6 +15,9 @@
     "@sanity/react-loader": "^1.7.3",
     "@sanity/vision": "^3.24.1",
     "@tailwindcss/container-queries": "^0.1.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.309.0",
     "next": "14.0.4",
     "next-sanity": "^7.0.8",
     "react": "^18",
@@ -22,6 +25,7 @@
     "rxjs": "^7.8.1",
     "sanity": "^3.24.1",
     "styled-components": "^6.1.8",
+    "tailwind-merge": "^2.2.0",
     "tailwind-scrollbar": "^3.0.5"
   },
   "devDependencies": {
