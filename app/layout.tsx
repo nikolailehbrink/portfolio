@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="dark">
       <body
-        className={`${blinker.variable} font-sans dark:bg-neutral-800 dark:text-white`}
+        className={`${blinker.variable} font-sans text-[17px] dark:bg-neutral-800 dark:text-white`}
       >
         {children}
         <SocialNavigation />
