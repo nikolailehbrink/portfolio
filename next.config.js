@@ -16,7 +16,7 @@ const nextConfig = {
     // into React components. See https://react-svgr.com/docs/next/
 
     // Grab the existing rule that handles SVG imports
-    // @ts-ignore - this is a private property that is not typed
+    // @ts-expect-error - this is a private property that is not typed
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.(".svg")
     );
