@@ -7,7 +7,7 @@ export const socialNavigation = [
     icon: <GithubLogo weight="duotone" size={32} />,
   },
   {
-    link: "https://www.linkedin.com/in/nikolai-lehbrink/",
+    link: "https://www.linkedin.com/in/nikolailehbrink/",
     platform: "LinkedIn",
     icon: <LinkedinLogo weight="duotone" size={32} />,
   },
