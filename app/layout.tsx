@@ -5,6 +5,7 @@ import "./globals.css";
 import VisualEditing from "@/components/VisualEditing";
 import type { ReactNode } from "react";
 import SocialNavigation from "@/components/home/SocialNavigation";
+import MainNavigation from "@/components/home/MainNavigation";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body
         className={`${blinker.variable} font-sans text-[17px] dark:bg-neutral-800 dark:text-white`}
       >
+        <MainNavigation />
         {children}
         <SocialNavigation />
       </body>
