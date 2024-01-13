@@ -14,7 +14,7 @@ export default function PostsPreview({
   const { data } = useQuery<SanityDocument[] | null>(
     POSTS_QUERY,
     {},
-    { initial }
+    { initial },
   );
 
   return data ? (

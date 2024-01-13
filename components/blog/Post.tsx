@@ -11,11 +11,11 @@ export default function Post({ post }: { post: SanityDocument }) {
   const { title, mainImage, body } = post;
 
   return (
-    <main className="container mx-auto prose dark:prose-invert prose-lg p-4">
+    <main className="container prose prose-lg mx-auto p-4 dark:prose-invert">
       {title ? <h1>{title}</h1> : null}
       {mainImage ? (
         <Image
-          className="float-left m-0 w-1/3 mr-4 rounded-lg"
+          className="float-left m-0 mr-4 w-1/3 rounded-lg"
           src={builder
             .image(mainImage)
             .width(300)

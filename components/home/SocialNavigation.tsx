@@ -2,11 +2,11 @@ import { socialNavigation } from "@/data/Home/SocialNavigation";
 
 export default function SocialNavigation() {
   return (
-    <nav className="fixed z-50 flex flex-col gap-2 lg:bottom-4 max-lg:right-2 bottom-2 lg:left-4 ">
+    <nav className="fixed bottom-2 z-50 flex flex-col gap-2 max-lg:right-2 lg:bottom-4 lg:left-4">
       {socialNavigation.map(({ link, icon }) => (
         <a
           key={link}
-          className="flex items-center p-2 bg-neutral-50 opacity-80 hover:opacity-100 transition-opacity rounded-full text-neutral-950"
+          className="flex items-center rounded-full bg-neutral-50 p-2 text-neutral-950 opacity-80 transition-opacity hover:opacity-100"
           href={link}
           target="_blank"
           rel="noopener noreferrer"
