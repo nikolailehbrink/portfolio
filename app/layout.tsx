@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="dark">
       <body
-        className={`${blinker.variable} font-sans text-[17px] dark:bg-neutral-800 dark:text-white`}
+        className={`${blinker.variable} min-h-dvh font-sans text-[17px] dark:bg-neutral-900 dark:text-neutral-50`}
       >
         <MainNavigation />
         {children}
