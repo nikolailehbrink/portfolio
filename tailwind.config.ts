@@ -13,11 +13,9 @@ const config = {
         sm: "2rem",
         lg: "4rem",
       },
-      screens: {
-        "2xl": "1400px",
-      },
     },
     extend: {
+      screens: { "2xl": "1440px" },
       fontFamily: {
         sans: ["var(--font-blinker)", ...defaultTheme.fontFamily.sans],
       },
