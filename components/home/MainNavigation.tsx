@@ -38,7 +38,7 @@ export default function MainNavigation() {
         <menu className="flex flex-1 justify-center gap-4 tracking-wide max-lg:flex-col lg:items-center">
           {mainNavigation.map(({ link, title, icon }) => (
             <li key={link} className="flex items-center gap-2">
-              {icon}
+              <i className="w-7">{icon}</i>
               <Link
                 className="border-y-2 border-y-transparent transition-colors hover:border-b-white"
                 href={link}
@@ -52,7 +52,7 @@ export default function MainNavigation() {
           {navigationButton && (
             <Button asChild>
               <Link href={navigationButton.link}>
-                {navigationButton.icon}
+                <i className="w-7">{navigationButton.icon}</i>
                 {navigationButton.title}
               </Link>
             </Button>

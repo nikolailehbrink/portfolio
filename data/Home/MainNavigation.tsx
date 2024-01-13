@@ -8,27 +8,27 @@ export const mainNavigation = [
   {
     link: "/#services",
     title: "Leistungen",
-    icon: <Rocket className="w-7" />,
+    icon: <Rocket />,
   },
   {
     link: "/#projects",
     title: "Projekte",
-    icon: <Archive className="w-7" />,
+    icon: <Archive />,
   },
   {
     link: "/#experience",
     title: "Erfahrung",
-    icon: <Experience className="w-7" />,
+    icon: <Experience />,
   },
   {
     link: "/blog",
     title: "Blog",
-    icon: <Blog className="w-7" />,
+    icon: <Blog />,
   },
 ];
 
 export const navigationButton = {
   link: "/#contact",
   title: "Kontakt",
-  icon: <Message className="w-7" />,
+  icon: <Message />,
 };
