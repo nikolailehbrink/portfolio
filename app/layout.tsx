@@ -6,6 +6,7 @@ import VisualEditing from "@/components/VisualEditing";
 import type { ReactNode } from "react";
 import SocialNavigation from "@/components/home/SocialNavigation";
 import MainNavigation from "@/components/home/MainNavigation";
+import Footer from "@/components/home/Footer";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],
@@ -27,8 +28,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${blinker.variable} flex min-h-dvh flex-col font-sans  dark:bg-neutral-900 dark:text-neutral-50`}
       >
         <MainNavigation />
-        {children}
+        <main className="mt-8 flex-grow">{children}</main>
         <SocialNavigation />
+        <Footer />
       </body>
       {draftMode().isEnabled && <VisualEditing />}
     </html>
