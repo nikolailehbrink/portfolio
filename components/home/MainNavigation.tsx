@@ -3,28 +3,34 @@ import { mainNavigation, navigationButton } from "@/data/Home/MainNavigation";
 import Logo from "@/app/icon.svg";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import MenuButton from "./MenuButton";
+import { usePathname } from "next/navigation";
+import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
 
 export default function MainNavigation() {
   const [showMenu, setShowMenu] = useState(false);
+  const pathname = usePathname();
+  const menuRef = useRef(null);
+  const menuButtonRef = useRef(null);
+
+  useMenuClickOutside(
+    menuRef,
+    menuButtonRef,
+    () => setShowMenu(false),
+    showMenu,
+  );
+
   return (
     <header className="container sticky top-4 z-50  flex max-lg:justify-start">
-      <label
-        htmlFor="menu-toggle"
-        className="fixed right-4 top-4 flex h-12 w-12 cursor-pointer flex-col rounded border-2 p-2 lg:hidden"
-      >
-        <input
-          onChange={() => setShowMenu(!showMenu)}
-          className="peer hidden"
-          type="checkbox"
-          id="menu-toggle"
-        />
-        <span className="my-[3px] h-[3px] w-1/2 rounded bg-neutral-100 transition-all peer-checked:w-full peer-checked:origin-top-left peer-checked:translate-x-[5px] peer-checked:rotate-45"></span>
-        <span className="my-[3px] h-[3px] w-full rounded bg-neutral-100 transition-all peer-checked:translate-y-[1px] peer-checked:-rotate-45"></span>
-        <span className="my-[3px] h-[3px] w-3/4 rounded bg-neutral-100 transition-all peer-checked:w-0 peer-checked:-rotate-45 peer-checked:opacity-0"></span>
-      </label>
+      <MenuButton
+        ref={menuButtonRef}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+      />
       <nav
+        ref={menuRef}
         className={cn(
           `flex rounded-lg border-2 border-neutral-700 bg-neutral-900 p-2 font-bold max-lg:fixed max-lg:right-0 max-lg:top-20 max-lg:mr-4 max-lg:flex-col max-lg:items-center max-lg:gap-6 max-lg:p-8 max-lg:transition-transform lg:w-full lg:rounded-full`,
           !showMenu && "max-lg:translate-x-[calc(100%_+_1rem)]",
@@ -35,15 +41,30 @@ export default function MainNavigation() {
             <Logo className="h-12 w-12 rounded-full" />
           </Link>
         </div>
-        <menu className="flex flex-1 justify-center gap-4 tracking-wide max-lg:flex-col lg:items-center">
+        <menu
+          id="navigation"
+          role="menu"
+          aria-labelledby="menubutton"
+          className="flex flex-1 justify-center gap-4 tracking-wide max-lg:flex-col lg:items-center"
+        >
           {mainNavigation.map(({ link, title, icon }) => (
-            <li key={link} className="flex items-center gap-2">
-              <i className="w-7">{icon}</i>
+            <li role="none" key={link} className="">
               <Link
-                className="border-y-2 border-y-transparent transition-colors hover:border-b-white"
+                role="menuitem"
+                className="group flex items-center gap-2"
                 href={link}
               >
-                {title}
+                <i className="block w-7">{icon}</i>
+                <span
+                  className={cn(
+                    "border-y-2 border-y-transparent transition-colors ",
+                    pathname === link
+                      ? "border-b-blue-300"
+                      : "group-hover:border-b-white",
+                  )}
+                >
+                  {title}
+                </span>
               </Link>
             </li>
           ))}
