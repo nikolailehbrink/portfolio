@@ -1,6 +1,6 @@
 "use client";
 import { mainNavigation, navigationButton } from "@/data/Home/MainNavigation";
-import Logo from "@/public/logo.svg";
+import Logo from "@/app/icon.svg";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { useState } from "react";
