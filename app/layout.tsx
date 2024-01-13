@@ -22,9 +22,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark text-[17px]">
       <body
-        className={`${blinker.variable} min-h-dvh font-sans text-[17px] dark:bg-neutral-900 dark:text-neutral-50`}
+        className={`${blinker.variable} flex min-h-dvh flex-col font-sans  dark:bg-neutral-900 dark:text-neutral-50`}
       >
         <MainNavigation />
         {children}
