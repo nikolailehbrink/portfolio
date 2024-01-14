@@ -29,13 +29,13 @@ export default function HeaderSection() {
             kontaktieren - ich freue mich auf deine Nachricht!
           </p>
           <div className="flex gap-4">
-            <Button asChild>
+            <Button size={"shadow"} asChild>
               <Link href="#projects">
                 <Archive className="size-7" />
                 Projekte
               </Link>
             </Button>
-            <Button asChild variant={"secondary"}>
+            <Button asChild size={"shadow"} variant={"secondary"}>
               <Link href="#contact">
                 <Message className="size-7" />
                 Contact
