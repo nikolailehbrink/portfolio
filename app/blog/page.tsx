@@ -1,4 +1,4 @@
-import { SanityDocument } from "next-sanity";
+import type { SanityDocument } from "next-sanity";
 import { draftMode } from "next/headers";
 
 import Posts from "@/components/blog/Posts";
@@ -12,7 +12,7 @@ export default async function Page() {
     {},
     {
       perspective: draftMode().isEnabled ? "previewDrafts" : "published",
-    }
+    },
   );
   console.log(initial);
 
