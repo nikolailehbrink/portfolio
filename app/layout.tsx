@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${blinker.variable} flex min-h-dvh flex-col font-sans  dark:bg-neutral-900 dark:text-neutral-50`}
       >
         <MainNavigation />
-        <main className="mt-8 flex-grow">{children}</main>
+        <main className="mt-8 grow">{children}</main>
         <SocialNavigation />
         <Footer />
       </body>
