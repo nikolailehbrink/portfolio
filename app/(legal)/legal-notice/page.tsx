@@ -2,12 +2,8 @@ export default function Page() {
   return (
     <>
       <header>
-        <h1 className="mb-2">Legal notice</h1>
-        <time
-          dateTime="2023-07-23T23:03:30+02:00"
-          itemProp="datePublished"
-          className="text-sm"
-        >
+        <h1>Legal notice</h1>
+        <time dateTime="2023-07-23T23:03:30+02:00" itemProp="datePublished">
           23. Juli 2023
         </time>
       </header>
@@ -30,7 +26,7 @@ export default function Page() {
         E-Mail: mail@nikolailehbr.ink
       </p>
 
-      <h2>Verbraucher­streit­beilegung/Universal­schlichtungs­stelle</h2>
+      <h2>Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
 
       <p>
         Ich bin nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor

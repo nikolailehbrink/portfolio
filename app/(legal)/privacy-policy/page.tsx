@@ -2,12 +2,8 @@ export default function page() {
   return (
     <>
       <header>
-        <h1 className="mb-2">Privacy policy</h1>
-        <time
-          dateTime="2022-10-06T14:04:42+02:00"
-          itemProp="datePublished"
-          className="text-sm"
-        >
+        <h1>Privacy policy</h1>
+        <time dateTime="2022-10-06T14:04:42+02:00" itemProp="datePublished">
           6. Oktober 2022
         </time>
       </header>
