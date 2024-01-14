@@ -3,11 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer
-      id="colophon"
-      className="site-footer bg-neutral-950 py-6"
-      role="contentinfo"
-    >
+    <footer className="bg-neutral-950 py-4" role="contentinfo">
       <div className="container flex justify-between max-lg:flex-col">
         <span>
           &copy; {new Date().getFullYear()} | Nikolai Lehbrink - Web Development
