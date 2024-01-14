@@ -111,3 +111,14 @@
     @apply border-border;
   }
 }
+@layer components {
+  .badge {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-3 py-2 text-sm font-bold tracking-wide;
+    &.badge-blue {
+      @apply bg-blue;
+    }
+    &.badge-orange {
+      @apply bg-orange text-orange-950;
+    }
+  }
+}
