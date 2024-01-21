@@ -1,4 +1,3 @@
-"use client";
 import HeaderIllustration from "@/public/header-illustration.svg";
 import Archive from "@/public/icons/archive.svg";
 import Message from "@/public/icons/message.svg";
