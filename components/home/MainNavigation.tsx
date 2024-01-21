@@ -48,7 +48,7 @@ export default function MainNavigation() {
           className="flex flex-1 justify-center gap-4 tracking-wide max-lg:flex-col lg:items-center"
         >
           {mainNavigation.map(({ link, title, icon }) => (
-            <li role="none" key={link} className="">
+            <li role="none" key={link}>
               <Link
                 role="menuitem"
                 className="group flex items-center gap-2"
