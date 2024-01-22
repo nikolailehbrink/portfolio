@@ -122,3 +122,6 @@
     }
   }
 }
+section[id] {
+  @apply py-12 first:pt-0 lg:min-h-[calc(100vh_-_200px)];
+}
