@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
-import { draftMode } from "next/headers";
 import { Blinker } from "next/font/google";
 import "./globals.css";
-import VisualEditing from "@/components/VisualEditing";
 import type { ReactNode } from "react";
-import SocialNavigation from "@/components/home/SocialNavigation";
-import MainNavigation from "@/components/home/MainNavigation";
-import Footer from "@/components/home/Footer";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],
@@ -30,11 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body
         className={`${blinker.variable} flex min-h-dvh flex-col font-sans dark:bg-neutral-900 dark:text-neutral-50`}
       >
-        <MainNavigation />
-        <main className="mt-8 grow">{children}</main>
-        <SocialNavigation />
-        <Footer />
-        {draftMode().isEnabled && <VisualEditing />}
+        {children}
       </body>
     </html>
   );
