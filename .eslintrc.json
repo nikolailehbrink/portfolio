@@ -11,7 +11,8 @@
     "prefer-const": "error",
     "object-shorthand": "warn",
     "react/jsx-no-target-blank": "off",
-    "@typescript-eslint/consistent-type-imports": "warn"
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/no-explicit-any": "warn"
   },
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
