@@ -125,3 +125,16 @@
 section[id] {
   @apply py-12 first:pt-0 lg:min-h-[calc(100vh_-_200px)];
 }
+
+.grid-of-expertise {
+  @apply flex flex-col gap-2 rounded-lg border-2 border-border p-2;
+  svg {
+    @apply h-14 rounded border-2 border-border bg-gradient-to-tr from-neutral-950 to-neutral-900 fill-white p-2;
+  }
+  svg:nth-child(3n + 1) {
+    @apply fill-blue;
+  }
+  svg:nth-child(3n + 2) {
+    @apply fill-orange;
+  }
+}
