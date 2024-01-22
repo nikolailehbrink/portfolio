@@ -34,8 +34,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main className="mt-8 grow">{children}</main>
         <SocialNavigation />
         <Footer />
+        {draftMode().isEnabled && <VisualEditing />}
       </body>
-      {draftMode().isEnabled && <VisualEditing />}
     </html>
   );
 }
