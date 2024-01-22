@@ -20,6 +20,12 @@ export default defineType({
       },
     }),
     defineField({
+      name: "link",
+      title: "Link",
+      type: "url",
+      description: "Link to the real project",
+    }),
+    defineField({
       name: "image",
       title: "Image",
       type: "image",

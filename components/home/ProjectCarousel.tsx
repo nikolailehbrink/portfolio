@@ -11,6 +11,7 @@ import type { SanityDocument } from "next-sanity";
 import { loadQuery } from "@/sanity/lib/store";
 import { dataset, projectId } from "@/sanity/env";
 import imageUrlBuilder from "@sanity/image-url";
+import { ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 
 const builder = imageUrlBuilder({ projectId, dataset });
 
@@ -45,8 +46,22 @@ export default async function ProjectCarousel() {
               />
             </div>
             <div>
-              <h2 className="text-xl font-bold">{project.title}</h2>
-              <p className=" line-clamp-2">{project.description}</p>
+              <h2 className="text-xl font-bold">
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    className="inline-flex items-center gap-1 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {project.title}
+                    <ArrowSquareOut size={24} weight="duotone" />
+                  </a>
+                ) : (
+                  project.title
+                )}
+              </h2>
+              <p className="line-clamp-2">{project.description}</p>
             </div>
           </CarouselItem>
         ))}
