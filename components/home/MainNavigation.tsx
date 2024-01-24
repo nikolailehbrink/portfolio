@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import MenuButton from "./MenuButton";
 import { usePathname } from "next/navigation";
 import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
+import Pen from "@/public/icons/pen.svg";
 
 export default function MainNavigation() {
   const [showMenu, setShowMenu] = useState(false);
@@ -68,6 +69,16 @@ export default function MainNavigation() {
               </Link>
             </li>
           ))}
+          {process.env.NODE_ENV === "development" && (
+            <li>
+              <Link className="group flex items-center gap-2" href={"/studio"}>
+                <Pen />
+                <span className="border-y-2 border-y-transparent transition-colors group-hover:border-b-white">
+                  Studio
+                </span>
+              </Link>
+            </li>
+          )}
         </menu>
         <div className="hidden flex-1 justify-end lg:flex">
           {navigationButton && (
