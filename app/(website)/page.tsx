@@ -1,3 +1,4 @@
+import ContactSection from "@/components/home/ContactSection";
 import ExperienceSection from "@/components/home/ExperienceSection";
 import HeaderSection from "@/components/home/HeaderSection";
 import ProjectSection from "@/components/home/ProjectSection";
@@ -10,6 +11,7 @@ export default function Page() {
       <ServiceSection />
       <ProjectSection />
       <ExperienceSection />
+      <ContactSection />
     </>
   );
 }
