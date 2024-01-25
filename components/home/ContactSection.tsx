@@ -3,6 +3,7 @@ import Message from "@/public/icons/message.svg";
 import MobileAndroid from "@/public/icons/mobile-android.svg";
 import WhatsApp from "@/public/icons/whatsapp.svg";
 import AvatarImage from "../AvatarImage";
+import ContactForm from "../ContactForm";
 
 export default function ContactSection() {
   return (
@@ -44,6 +45,7 @@ export default function ContactSection() {
             </div>
           </div>
         </div>
+        <ContactForm />
       </div>
     </section>
   );

@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@phosphor-icons/react": "^2.0.15",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@sanity/client": "^6.11.1",
     "@sanity/image-url": "^1.0.2",
@@ -25,11 +27,14 @@
     "next-sanity": "^7.0.8",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.49.3",
+    "resend": "^3.1.0",
     "rxjs": "^7.8.1",
     "sanity": "^3.24.1",
     "styled-components": "^6.1.8",
     "tailwind-merge": "^2.2.0",
-    "tailwind-scrollbar": "^3.0.5"
+    "tailwind-scrollbar": "^3.0.5",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
