@@ -35,8 +35,6 @@ export default async function ExperienceSection() {
         >
           {experiences
             .toSorted((a, b) => {
-              console.log(a.period.from, b.period.from);
-
               const dateA = a.period.to ? new Date(a.period.from) : new Date();
               const dateB = b.period.to ? new Date(b.period.from) : new Date();
               return dateB.getTime() - dateA.getTime();
