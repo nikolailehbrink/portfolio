@@ -71,7 +71,10 @@ export default function MainNavigation() {
           ))}
           {process.env.NODE_ENV === "development" && (
             <li>
-              <Link className="group flex items-center gap-2" href={"/studio"}>
+              <Link
+                className="group flex items-center gap-2"
+                href={"/studio/structure"}
+              >
                 <Pen />
                 <span className="border-y-2 border-y-transparent transition-colors group-hover:border-b-white">
                   Studio
