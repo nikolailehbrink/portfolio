@@ -16,6 +16,11 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import MessageSend from "@/public/icons/message-send.svg";
 import Spinner from "@/public/icons/spinner.svg";
+import ChatBubbleUser from "@/public/icons/chat-bubble-user.svg";
+import MobileAndroid from "@/public/icons/mobile-android.svg";
+import Email from "@/public/icons/email.svg";
+import Notebooks from "@/public/icons/notebooks.svg";
+import CommentAltLines from "@/public/icons/comment-alt-lines.svg";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -49,8 +54,8 @@ const formSchema = z.object({
     .or(z.literal("")),
   message: z
     .string()
-    .min(2, {
-      message: "Message must be at least 2 characters.",
+    .min(20, {
+      message: "Message must be at least 20 characters.",
     })
     .max(500, {
       message: "Message must be less than 500 characters.",
@@ -110,7 +115,10 @@ export default function ContactForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <div className="flex items-center gap-1">
+                <ChatBubbleUser className="w-7" />
+                <FormLabel>Name</FormLabel>
+              </div>
               <FormControl>
                 <Input placeholder="John Doe" {...field} />
               </FormControl>
@@ -123,9 +131,17 @@ export default function ContactForm() {
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone</FormLabel>
+              <div className="flex items-center gap-1">
+                <MobileAndroid className="w-7" />
+                <FormLabel>Phone</FormLabel>
+              </div>
               <FormControl>
-                <Input placeholder="+49123456789" {...field} />
+                <Input
+                  type="tel"
+                  pattern={phoneRegex.source}
+                  placeholder="+49123456789"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -136,9 +152,17 @@ export default function ContactForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email *</FormLabel>
+              <div className="flex items-center gap-1">
+                <Email className="w-7" />
+                <FormLabel>Email *</FormLabel>
+              </div>
               <FormControl>
-                <Input required placeholder="john.doe@example.com" {...field} />
+                <Input
+                  type="email"
+                  required
+                  placeholder="john.doe@example.com"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -149,7 +173,10 @@ export default function ContactForm() {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subject</FormLabel>
+              <div className="flex items-center gap-1">
+                <Notebooks className="w-7" />
+                <FormLabel>Subject</FormLabel>
+              </div>
               <FormControl>
                 <Input placeholder="What can I help with?" {...field} />
               </FormControl>
@@ -162,7 +189,10 @@ export default function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem className="@sm:!col-span-2">
-              <FormLabel>Message *</FormLabel>
+              <div className="flex items-center gap-1">
+                <CommentAltLines className="w-7" />
+                <FormLabel>Message *</FormLabel>
+              </div>
               <FormControl>
                 <Textarea
                   required
@@ -174,6 +204,7 @@ export default function ContactForm() {
             </FormItem>
           )}
         />
+        <p className="text-xs @sm:!col-span-2">* Required</p>
         <Button
           className="self-start justify-self-start"
           size={"shadow"}
