@@ -1,21 +1,24 @@
 "use client";
-import { mainNavigation, navigationButton } from "@/data/Home/MainNavigation";
+
+import {
+  mainNavigation,
+  navigationButton,
+  sanityButton,
+} from "@/data/Home/MainNavigation";
 import Logo from "@/app/icon.svg";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import MenuButton from "./MenuButton";
-import { usePathname } from "next/navigation";
 import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
-import Pen from "@/public/icons/pen.svg";
+import NavigationLink from "./NavigationLink";
 
 export default function MainNavigation() {
   const [showMenu, setShowMenu] = useState(false);
-  const pathname = usePathname();
   const menuRef = useRef(null);
   const menuButtonRef = useRef(null);
-
+  const { link, title, icon } = sanityButton;
   useMenuClickOutside(
     menuRef,
     menuButtonRef,
@@ -46,40 +49,16 @@ export default function MainNavigation() {
           id="navigation"
           role="menu"
           aria-labelledby="menubutton"
-          className="flex flex-1 justify-center gap-4 tracking-wide max-lg:flex-col lg:items-center"
+          className="flex justify-center gap-4 tracking-wide max-lg:flex-col lg:items-center"
         >
           {mainNavigation.map(({ link, title, icon }) => (
             <li role="none" key={link}>
-              <Link
-                role="menuitem"
-                className="group flex items-center gap-2"
-                href={link}
-              >
-                <i className="block w-7">{icon}</i>
-                <span
-                  className={cn(
-                    "border-y-2 border-y-transparent transition-colors ",
-                    pathname === link
-                      ? "border-b-blue-300"
-                      : "group-hover:border-b-white",
-                  )}
-                >
-                  {title}
-                </span>
-              </Link>
+              <NavigationLink link={link} title={title} icon={icon} />
             </li>
           ))}
           {process.env.NODE_ENV === "development" && (
             <li>
-              <Link
-                className="group flex items-center gap-2"
-                href={"/studio/structure"}
-              >
-                <Pen />
-                <span className="border-y-2 border-y-transparent transition-colors group-hover:border-b-white">
-                  Studio
-                </span>
-              </Link>
+              <NavigationLink link={link} title={title} icon={icon} />
             </li>
           )}
         </menu>
