@@ -21,6 +21,8 @@ import MobileAndroid from "@/public/icons/mobile-android.svg";
 import Email from "@/public/icons/email.svg";
 import Notebooks from "@/public/icons/notebooks.svg";
 import CommentAltLines from "@/public/icons/comment-alt-lines.svg";
+import type { ResendResponse } from "@/types/resend";
+import { toast } from "sonner";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -80,24 +82,28 @@ export default function ContactForm() {
     handleSubmit,
     control,
     formState: { isSubmitting },
-    // reset,
+    reset,
   } = form;
 
   // 2. Define a submit handler.
   async function onSubmit(values: formSchemaType) {
-    // console.log(values);
-
     try {
-      const data = await fetch("/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
       });
-      console.log({ data });
 
-      // reset();
+      const { error } = (await response.json()) as ResendResponse;
+      if (error) {
+        toast.error("Something went wrong! Please try again later.");
+        return;
+      }
+      toast.success("Thank you for your message!");
+
+      reset();
     } catch (error) {
       console.error(error);
     }

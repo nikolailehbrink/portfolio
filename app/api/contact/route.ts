@@ -1,41 +1,31 @@
 import type { formSchemaType } from "@/components/ContactForm";
 import { Resend } from "resend";
-import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { isDev } from "@/lib/utils";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(request: NextRequest) {
-  // console.log(await request.json());
+export async function POST(request: Request) {
   const { email, message, name, phone, subject } =
     (await request.json()) as formSchemaType;
 
-  console.log(email, message, name, phone, subject);
+  console.log({ email, message, name, phone, subject });
 
   try {
-    const { data, error } = await resend.emails.send({
+    const data = await resend.emails.send({
       from: "Kontaktformular <contact@nikolailehbr.ink>",
-      to: ["mail@nikolailehbr.ink"],
-      subject: subject ? subject : "Neue Anfrage",
+      to: [isDev() ? "delivered@resend.dev" : "mail@nikolailehbr.ink"],
+      subject: subject || "New inquiry",
       html: `
-        <div>
-          <p>Email: ${email}</p>
+          <p>Email: <a href="mailto:${email}${subject && "?subject=" + encodeURIComponent("Re: " + subject)}">${email}</a></p>
           ${name ? `<p>Name: ${name}</p>` : ""}
           ${phone ? `<p>Phone: ${phone}</p>` : ""}
           <p>Message: ${message}</p>
-        </div>
       `,
     });
 
-    if (error) {
-      throw error;
-    }
-    console.log(data);
-
-    return NextResponse.json(data);
+    return Response.json(data);
   } catch (error) {
-    console.log(error);
-
     return NextResponse.json({ error });
   }
 }
