@@ -65,7 +65,6 @@ const formSchema = z.object({
 export type formSchemaType = z.infer<typeof formSchema>;
 
 export default function ContactForm() {
-  // 1. Define your form.
   const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -136,12 +135,7 @@ export default function ContactForm() {
                 <FormLabel>Phone</FormLabel>
               </div>
               <FormControl>
-                <Input
-                  type="tel"
-                  pattern={phoneRegex.source}
-                  placeholder="+49123456789"
-                  {...field}
-                />
+                <Input type="tel" placeholder="+49123456789" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
