@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Blinker } from "next/font/google";
 import "./globals.css";
 import type { ReactNode } from "react";
+import { Toaster } from "@/components/ui/sonner";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${blinker.variable} flex min-h-dvh flex-col font-sans dark:bg-neutral-900 dark:text-neutral-50`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );
