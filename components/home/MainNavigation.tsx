@@ -9,7 +9,7 @@ import Logo from "@/app/icon.svg";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, isDev } from "@/lib/utils";
 import MenuButton from "./MenuButton";
 import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
 import NavigationLink from "./NavigationLink";
@@ -18,7 +18,7 @@ export default function MainNavigation() {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
   const menuButtonRef = useRef(null);
-  const { link, title, icon } = sanityButton;
+  const { link: sanityLink, title, icon } = sanityButton;
   useMenuClickOutside(
     menuRef,
     menuButtonRef,
@@ -56,9 +56,9 @@ export default function MainNavigation() {
               <NavigationLink link={link} title={title} icon={icon} />
             </li>
           ))}
-          {process.env.NODE_ENV === "development" && (
+          {isDev() && (
             <li>
-              <NavigationLink link={link} title={title} icon={icon} />
+              <NavigationLink link={sanityLink} title={title} icon={icon} />
             </li>
           )}
         </menu>
