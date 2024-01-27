@@ -27,7 +27,7 @@ export default function MainNavigation() {
   );
 
   return (
-    <header className="container sticky top-4 z-50  flex max-lg:justify-start">
+    <header className="container sticky top-4 z-50 flex duration-1000 animate-in fade-in slide-in-from-top-28 max-lg:justify-start">
       <MenuButton
         ref={menuButtonRef}
         showMenu={showMenu}
