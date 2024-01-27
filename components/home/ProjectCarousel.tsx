@@ -11,7 +11,7 @@ import type { SanityDocument } from "next-sanity";
 import { loadQuery } from "@/sanity/lib/store";
 import { dataset, projectId } from "@/sanity/env";
 import imageUrlBuilder from "@sanity/image-url";
-import { ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
+import ExternalLink from "@/public/icons/external-link.svg";
 
 const builder = imageUrlBuilder({ projectId, dataset });
 
@@ -55,7 +55,7 @@ export default async function ProjectCarousel() {
                     rel="noopener noreferrer"
                   >
                     {project.title}
-                    <ArrowSquareOut size={24} weight="duotone" />
+                    <ExternalLink className="w-5" />
                   </a>
                 ) : (
                   project.title
