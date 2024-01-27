@@ -13,7 +13,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
       toastOptions={{
-        duration: 50000,
         classNames: {
           toast:
             "group font-sans group-[.toaster]:text-sm toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:border-2 group-[.toaster]:shadow-lg",
