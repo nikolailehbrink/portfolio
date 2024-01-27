@@ -9,7 +9,10 @@ export default function ContactSection() {
   return (
     <section id="contact" className="flex items-center">
       <div className="container grid gap-6 rounded-lg lg:grid-cols-2 lg:gap-12">
-        <div className="flex flex-col items-start gap-4 self-start">
+        <div
+          id="contact-content"
+          className="flex flex-col items-start gap-4 self-start"
+        >
           <div className="badge badge-orange">
             <Message />
             Kontakt

@@ -23,13 +23,14 @@ export default async function ProjectCarousel() {
       opts={{
         align: "start",
       }}
+      id="project-carousel"
       className="relative mx-auto max-w-[1920px] space-y-4 px-4 max-xl:container xl:px-8"
     >
       <CarouselContent>
         {projects.map((project) => (
           <CarouselItem
             key={project._id}
-            className="flex basis-full flex-col gap-2 sm:basis-1/2 xl:basis-1/4"
+            className="carousel-item flex basis-full flex-col gap-2 sm:basis-1/2 xl:basis-1/4"
           >
             <div className="relative overflow-hidden rounded-lg">
               <Image
