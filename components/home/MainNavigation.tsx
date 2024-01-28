@@ -29,6 +29,8 @@ export default function MainNavigation() {
 
   const pathname = usePathname();
 
+  const isHome = pathname === "/";
+
   return (
     <header className="container sticky top-4 z-50 flex duration-1000 max-lg:justify-start lg:animate-in lg:fade-in lg:slide-in-from-top-28">
       <MenuButton
@@ -44,8 +46,11 @@ export default function MainNavigation() {
         )}
       >
         <div className="relative flex flex-1">
-          <Link href={pathname === "/" ? "#top" : "/"}>
-            <Logo className="h-12 w-12 rounded-full" />
+          <Link
+            href={isHome ? "#top" : "/"}
+            aria-label={isHome ? "Scroll to top" : "Go to home page"}
+          >
+            <Logo className="size-12 rounded-full" />
           </Link>
         </div>
         <menu
@@ -60,7 +65,7 @@ export default function MainNavigation() {
             </li>
           ))}
           {isDev && (
-            <li>
+            <li role="none">
               <NavigationLink link={sanityLink} title={title} icon={icon} />
             </li>
           )}
