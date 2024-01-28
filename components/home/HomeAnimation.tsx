@@ -1,14 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { twConfig } from "@/lib/utils";
-
-gsap.registerPlugin(ScrollTrigger);
-
-console.log(twConfig.theme.spacing[4]);
+import { useGSAP, gsap } from "@/lib/gsap";
 
 type Props = {
   children: ReactNode;
