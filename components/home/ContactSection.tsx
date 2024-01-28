@@ -30,20 +30,20 @@ export default function ContactSection() {
           <div className="space-y-2">
             <h2 className="text-xl font-bold">Telefon</h2>
             <div className="flex items-center justify-center gap-2">
-              <WhatsApp className="w-7" />
+              <WhatsApp className="size-7" />
               <a href="https://wa.me/message/W26MWW6VUYEFD1">
                 +49 (0) 179 4393782
               </a>
             </div>
             <div className="flex items-center justify-center gap-2">
-              <MobileAndroid className="w-7" />
+              <MobileAndroid className="size-7" />
               <a href="tel:+491794393782">+49 (0) 179 4393782</a>
             </div>
           </div>
           <div className="space-y-2">
             <h2 className="text-xl font-bold">E-Mail</h2>
             <div className="flex items-center justify-center gap-2">
-              <Email className="w-7" />
+              <Email className="size-7" />
               <a href="mailto:mail@nikolailehbr.ink">mail@nikolailehbr.ink</a>
             </div>
           </div>

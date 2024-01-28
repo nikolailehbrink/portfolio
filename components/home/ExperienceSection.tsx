@@ -21,7 +21,7 @@ export default async function ExperienceSection() {
           className="flex flex-col items-start gap-4 self-start lg:sticky lg:top-28"
         >
           <div className="badge badge-orange">
-            <Experience className="w-6" />
+            <Experience />
             Work Experience
           </div>
           <h2 className="text-5xl font-bold">My Journey</h2>

@@ -122,7 +122,7 @@ export default function ContactForm() {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-1">
-                <ChatBubbleUser className="w-7" />
+                <ChatBubbleUser className="size-7" />
                 <FormLabel>Name</FormLabel>
               </div>
               <FormControl>
@@ -138,7 +138,7 @@ export default function ContactForm() {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-1">
-                <MobileAndroid className="w-7" />
+                <MobileAndroid className="size-7" />
                 <FormLabel>Phone</FormLabel>
               </div>
               <FormControl>
@@ -154,7 +154,7 @@ export default function ContactForm() {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-1">
-                <Email className="w-7" />
+                <Email className="size-7" />
                 <FormLabel>Email *</FormLabel>
               </div>
               <FormControl>
@@ -175,7 +175,7 @@ export default function ContactForm() {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-1">
-                <Notebooks className="w-7" />
+                <Notebooks className="size-7" />
                 <FormLabel>Subject</FormLabel>
               </div>
               <FormControl>
@@ -191,7 +191,7 @@ export default function ContactForm() {
           render={({ field }) => (
             <FormItem className="@sm:!col-span-2">
               <div className="flex items-center gap-1">
-                <CommentAltLines className="w-7" />
+                <CommentAltLines className="size-7" />
                 <FormLabel>Message *</FormLabel>
               </div>
               <FormControl>
@@ -212,9 +212,9 @@ export default function ContactForm() {
           type="submit"
         >
           {isSubmitting ? (
-            <Spinner className="w-7 animate-spin" />
+            <Spinner className="size-7 animate-spin" />
           ) : (
-            <MessageSend className="w-7" />
+            <MessageSend className="size-7" />
           )}
           Submit
         </Button>

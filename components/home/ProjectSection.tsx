@@ -12,7 +12,7 @@ export default function ProjectSection() {
         className="container flex flex-col items-start gap-4 lg:items-center"
       >
         <div className="badge badge-blue">
-          <Archive className="w-6" />
+          <Archive />
           Projekte
         </div>
         <h2 className="text-5xl font-bold">Behind the Screens</h2>

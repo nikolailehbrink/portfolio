@@ -69,7 +69,7 @@ export default function MainNavigation() {
           {navigationButton && (
             <Button asChild>
               <Link href={navigationButton.link}>
-                <i className="w-7">{navigationButton.icon}</i>
+                <i className="size-7">{navigationButton.icon}</i>
                 {navigationButton.title}
               </Link>
             </Button>
