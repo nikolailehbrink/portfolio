@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "prism-themes/themes/prism-a11y-dark.css";
+
 @layer base {
   :root {
     --background: 0 0% 100%;
