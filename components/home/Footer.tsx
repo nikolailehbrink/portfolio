@@ -14,8 +14,8 @@ export default function Footer() {
     <footer className="bg-neutral-950 py-4" role="contentinfo">
       <div className="container flex justify-between max-lg:flex-col">
         <span>
-          &copy; {new Date().getFullYear()} | Nikolai Lehbrink - Web Development
-          & Design
+          &copy; {new Date().getFullYear()} | Nikolai Lehbrink - Conception,
+          Design and Development
         </span>
         <menu className="flex gap-2">
           <li>
