@@ -13,6 +13,7 @@ import { cn, isDev } from "@/lib/utils";
 import MenuButton from "./MenuButton";
 import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
 import NavigationLink from "./NavigationLink";
+import { usePathname } from "next/navigation";
 
 export default function MainNavigation() {
   const [showMenu, setShowMenu] = useState(false);
@@ -25,6 +26,8 @@ export default function MainNavigation() {
     () => setShowMenu(false),
     showMenu,
   );
+
+  const pathname = usePathname();
 
   return (
     <header className="container sticky top-4 z-50 flex duration-1000 max-lg:justify-start lg:animate-in lg:fade-in lg:slide-in-from-top-28">
@@ -41,7 +44,7 @@ export default function MainNavigation() {
         )}
       >
         <div className="relative flex flex-1">
-          <Link href={"/"}>
+          <Link href={pathname === "/" ? "#top" : "/"}>
             <Logo className="h-12 w-12 rounded-full" />
           </Link>
         </div>
