@@ -18,7 +18,7 @@ export default async function ExperienceSection() {
       <div className="container grid gap-6 lg:grid-cols-2 lg:gap-12 lg:py-24">
         <div
           id="experience-content"
-          className="flex flex-col items-start gap-4 self-start lg:sticky lg:top-28"
+          className="flex flex-col items-start gap-4 self-start lg:sticky lg:top-24"
         >
           <div className="badge badge-orange">
             <Experience />
@@ -57,7 +57,7 @@ export default async function ExperienceSection() {
 
               return (
                 <li key={index} className="-ml-6 flex gap-4 lg:gap-8">
-                  <div className="sticky top-4 flex h-12 w-12 shrink-0 justify-center rounded-full border-2 border-transparent bg-blue-500 p-3 shadow-[0_0_0_8px] shadow-neutral-950 lg:top-28">
+                  <div className="sticky top-4 flex h-12 w-12 shrink-0 justify-center rounded-full border-2 border-transparent bg-blue-500 p-3 shadow-[0_0_0_8px] shadow-neutral-950 lg:top-24">
                     <Image
                       className="w-12 object-contain -hue-rotate-[50deg]"
                       src={builder

@@ -32,7 +32,7 @@ export default function MainNavigation() {
   const isHome = pathname === "/";
 
   return (
-    <header className="container sticky top-4 z-50 flex duration-1000 max-lg:justify-start lg:animate-in lg:fade-in lg:slide-in-from-top-28">
+    <header className="container sticky top-4 z-50 flex max-lg:justify-start lg:duration-1000 lg:animate-in lg:fade-in lg:slide-in-from-top-28">
       <MenuButton
         ref={menuButtonRef}
         showMenu={showMenu}

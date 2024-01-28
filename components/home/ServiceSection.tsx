@@ -15,7 +15,7 @@ export default async function ServiceSection() {
   return (
     <section
       id="services"
-      className="flex items-center bg-gradient-to-b from-transparent to-neutral-950 py-8"
+      className="flex items-center bg-gradient-to-b from-transparent to-neutral-950 lg:py-24 xl:scroll-mt-16"
     >
       <div className="container grid items-start gap-6 lg:grid-cols-2 lg:gap-12">
         <div className="grid items-start gap-4 max-lg:order-1 xl:grid-cols-2">
@@ -43,7 +43,7 @@ export default async function ServiceSection() {
             </div>
           ))}
         </div>
-        <div className="service-content flex flex-col items-start gap-3 max-xl:relative lg:sticky lg:top-28">
+        <div className="service-content flex flex-col items-start gap-3 max-xl:relative lg:sticky lg:top-24">
           <div className="badge badge-orange">
             <Rocket className="w-5" />
             Leistungen
