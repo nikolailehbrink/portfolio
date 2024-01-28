@@ -85,7 +85,6 @@ export default function ContactForm() {
     reset,
   } = form;
 
-  // 2. Define a submit handler.
   async function onSubmit(values: formSchemaType) {
     try {
       const response = await fetch("/api/contact", {

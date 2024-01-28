@@ -1,6 +1,6 @@
 // ./app/[slug]/page.tsx
 
-import { QueryParams, SanityDocument } from "next-sanity";
+import type { QueryParams, SanityDocument } from "next-sanity";
 import { draftMode } from "next/headers";
 
 import { loadQuery } from "@/sanity/lib/store";

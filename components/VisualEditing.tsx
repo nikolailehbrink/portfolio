@@ -1,6 +1,7 @@
 "use client";
 
-import { enableOverlays, HistoryAdapterNavigate } from "@sanity/overlays";
+import type { HistoryAdapterNavigate } from "@sanity/overlays";
+import { enableOverlays } from "@sanity/overlays";
 import { useLiveMode } from "@sanity/react-loader";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";

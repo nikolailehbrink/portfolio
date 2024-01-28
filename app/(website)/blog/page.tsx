@@ -14,7 +14,6 @@ export default async function Page() {
       perspective: draftMode().isEnabled ? "previewDrafts" : "published",
     },
   );
-  console.log(initial);
 
   return draftMode().isEnabled ? (
     <PostsPreview initial={initial} />
