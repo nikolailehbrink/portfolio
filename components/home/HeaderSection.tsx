@@ -28,22 +28,13 @@ export default function HeaderSection() {
             kontaktieren - ich freue mich auf deine Nachricht!
           </p>
           <div className="flex gap-4 delay-1000">
-            <Button
-              // className="delay-1000 duration-1000 animate-in fade-in slide-in-from-right-4 fill-mode-both"
-              size={"shadow"}
-              asChild
-            >
+            <Button size={"shadow"} asChild>
               <Link href="#projects">
                 <Archive className="size-7" />
                 Projekte
               </Link>
             </Button>
-            <Button
-              asChild
-              size={"shadow"}
-              variant={"secondary"}
-              // className="delay-1000 duration-1000 animate-in fade-in slide-in-from-right-8 fill-mode-both"
-            >
+            <Button asChild size={"shadow"} variant={"secondary"}>
               <Link href="#contact">
                 <Message className="size-7" />
                 Contact
