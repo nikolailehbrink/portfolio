@@ -6,6 +6,12 @@ import PostsPreview from "@/components/blog/PostsPreview";
 import { loadQuery } from "@/sanity/lib/store";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
 
+export const metadata = {
+  title: "Blog",
+  description:
+    "A collection of articles about my experience in web development and design.",
+};
+
 export default async function Page() {
   const initial = await loadQuery<SanityDocument[]>(
     POSTS_QUERY,
