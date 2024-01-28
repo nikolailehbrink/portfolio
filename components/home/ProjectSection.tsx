@@ -7,7 +7,10 @@ export default function ProjectSection() {
       id="projects"
       className="flex flex-col justify-center gap-6 lg:gap-12"
     >
-      <div className="container flex flex-col items-start gap-4 lg:items-center">
+      <div
+        id="project-content"
+        className="container flex flex-col items-start gap-4 lg:items-center"
+      >
         <div className="badge badge-blue">
           <Archive className="w-6" />
           Projekte

@@ -7,6 +7,7 @@ import { useGSAP, gsap } from "@/lib/gsap";
 type Props = {
   children: ReactNode;
 };
+
 export default function HomeAnimation({ children }: Props) {
   useGSAP(() => {
     gsap.from("#header-illustration", {
@@ -18,11 +19,8 @@ export default function HomeAnimation({ children }: Props) {
     gsap.from("#header-illustration .bubble", {
       scale: 0.3,
       rotate: -25,
-      scrollTrigger: {
-        trigger: "#header-illustration",
-        scrub: 1,
-      },
-      stagger: 0.1,
+      autoAlpha: 0,
+      stagger: 0.2,
     });
 
     gsap.from("section#header #gradient-blur", {
@@ -37,7 +35,7 @@ export default function HomeAnimation({ children }: Props) {
     gsap.from("section#services .service-box", {
       autoAlpha: 0,
       stagger: 0.5,
-      y: 100,
+      y: twConfig.theme.spacing[32],
       scrollTrigger: {
         start: "top bottom",
         end: "bottom 75%",
@@ -55,12 +53,13 @@ export default function HomeAnimation({ children }: Props) {
         start: "top bottom",
         end: "bottom bottom",
         scrub: 2,
-        trigger: "section#services .container .grid",
+        trigger: "section#services .service-content",
         toggleActions: "restart none none none",
+        // markers: true,
       },
     });
 
-    gsap.from("section#projects > .container > *", {
+    gsap.from("#project-content > *", {
       autoAlpha: 0,
       stagger: 0.2,
       y: twConfig.theme.spacing[4],
@@ -76,14 +75,15 @@ export default function HomeAnimation({ children }: Props) {
 
     gsap.from("#projects .carousel-item", {
       autoAlpha: 0,
-      stagger: 0.4,
+      stagger: 0.5,
       x: 50,
       scrollTrigger: {
-        end: "center 65%",
-        trigger: "section#projects #project-carousel",
-        scrub: 3,
+        start: "top center",
+        end: "bottom bottom",
+        trigger: "section#projects",
         // markers: true,
-        toggleActions: "restart none restart none",
+        scrub: 3,
+        toggleActions: "play none reverse restart",
       },
     });
 
@@ -120,7 +120,7 @@ export default function HomeAnimation({ children }: Props) {
       gsap.from(listElement, {
         autoAlpha: 0,
         duration: 0.5,
-        y: 50,
+        y: twConfig.theme.spacing[8],
         scrollTrigger: {
           start: "top 90%",
           end: "bottom 25%",
@@ -145,18 +145,19 @@ export default function HomeAnimation({ children }: Props) {
       autoAlpha: 0,
       y: twConfig.theme.spacing[16],
       scrollTrigger: {
-        start: "top 80%",
+        start: "10% 80%",
         end: "bottom 25%",
         trigger: "section#contact",
         toggleActions: "play none none reverse",
-        // markers: true,
+        // markers: trXue,
       },
     });
     gsap.from("#contact-form", {
       autoAlpha: 0.5,
-      x: `-${twConfig.theme.spacing[48]}`,
-      scale: 0.6,
+      // backgroundColor: twConfig.theme.colors.neutral[800],
       y: `-${twConfig.theme.spacing[16]}`,
+      scale: 0.3,
+      transformOrigin: "bottom left",
       scrollTrigger: {
         start: "top bottom",
         end: "25% center",
