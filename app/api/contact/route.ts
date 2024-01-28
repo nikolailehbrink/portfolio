@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   try {
     const data = await resend.emails.send({
       from: "Kontaktformular <contact@nikolailehbr.ink>",
-      to: [isDev() ? "delivered@resend.dev" : "mail@nikolailehbr.ink"],
+      to: [isDev ? "delivered@resend.dev" : "mail@nikolailehbr.ink"],
       subject: subject || "New inquiry",
       html: `
           <p>Email: <a href="mailto:${email}${subject && "?subject=" + encodeURIComponent("Re: " + subject)}">${email}</a></p>

@@ -56,7 +56,7 @@ export default function MainNavigation() {
               <NavigationLink link={link} title={title} icon={icon} />
             </li>
           ))}
-          {isDev() && (
+          {isDev && (
             <li>
               <NavigationLink link={sanityLink} title={title} icon={icon} />
             </li>
