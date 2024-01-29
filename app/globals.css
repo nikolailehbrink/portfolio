@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "prism-themes/themes/prism-a11y-dark.css";
-
-.refractor-marker {
-  @apply my-1 bg-orange-950;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
