@@ -14,7 +14,7 @@ export default function Post({ post }: { post: SanityPost }) {
   return (
     <article className="container space-y-8 py-8">
       {title ? (
-        <h1 className="mx-auto max-w-3xl text-2xl font-bold lg:text-center lg:text-4xl">
+        <h1 className="mx-auto max-w-3xl text-2xl font-bold sm:text-3xl lg:text-center lg:text-5xl">
           {title}
         </h1>
       ) : null}
