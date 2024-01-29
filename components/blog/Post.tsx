@@ -1,12 +1,16 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import type { SanityDocument } from "next-sanity";
+import { getImageDimensions } from "@sanity/asset-utils";
 
 import Code from "../Code";
+import PostImageComponent from "../PostImageComponent";
 import { urlFor } from "@/sanity/lib/image";
 
 export default function Post({ post }: { post: SanityDocument }) {
   const { title, mainImage, body } = post;
+
+  const { width, height } = getImageDimensions(mainImage);
 
   return (
     <article className="container space-y-8 py-8">
@@ -18,10 +22,14 @@ export default function Post({ post }: { post: SanityDocument }) {
       {mainImage ? (
         <Image
           className="w-full rounded-lg"
-          width={1200}
-          height={630}
           src={urlFor(mainImage).fit("max").url()}
+          width={width}
+          height={height}
           alt={mainImage.alt || ""}
+          sizes="
+          (max-width: 768px) 95vw,
+          (max-width: 1200px) 80vw,
+          70vw"
         />
       ) : null}
       {body ? (
@@ -33,6 +41,7 @@ export default function Post({ post }: { post: SanityDocument }) {
               // ...
               types: {
                 code: Code,
+                image: PostImageComponent,
               },
             }}
           />
