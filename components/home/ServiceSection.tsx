@@ -3,11 +3,8 @@ import Rocket from "@/public/icons/rocket.svg";
 
 import { loadQuery } from "@/sanity/lib/store";
 import { SERVICES_QUERY } from "@/sanity/lib/queries";
-import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
-import { dataset, projectId } from "@/sanity/env";
-
-const builder = imageUrlBuilder({ projectId, dataset });
+import { urlFor } from "@/sanity/lib/image";
 
 export default async function ServiceSection() {
   const { data: services } = await loadQuery<SanityDocument[]>(SERVICES_QUERY);
@@ -27,15 +24,10 @@ export default async function ServiceSection() {
               <div className="mb-2 inline-flex rounded-lg bg-neutral-800 p-1 text-white">
                 <Image
                   className="w-12 -hue-rotate-[50deg]"
-                  src={builder
-                    .image(service.image)
-                    .width(300)
-                    .height(300)
-                    .quality(80)
-                    .url()}
+                  src={urlFor(service.image).size(60, 60).quality(80).url()}
                   alt={service.image.alt}
-                  height={100}
-                  width={100}
+                  height={60}
+                  width={60}
                 />
               </div>
               <h2 className="mb-2 text-xl font-bold">{service.title}</h2>

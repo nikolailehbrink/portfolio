@@ -1,12 +1,9 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import imageUrlBuilder from "@sanity/image-url";
 import type { SanityDocument } from "next-sanity";
 
-import { dataset, projectId } from "@/sanity/env";
 import Code from "../Code";
-
-const builder = imageUrlBuilder({ projectId, dataset });
+import { urlFor } from "@/sanity/lib/image";
 
 export default function Post({ post }: { post: SanityDocument }) {
   const { title, mainImage, body } = post;
@@ -21,9 +18,9 @@ export default function Post({ post }: { post: SanityDocument }) {
       {mainImage ? (
         <Image
           className="w-full rounded-lg"
-          src={builder.image(mainImage).width(1200).height(630).url()}
           width={1200}
           height={630}
+          src={urlFor(mainImage).fit("max").url()}
           alt={mainImage.alt || ""}
         />
       ) : null}

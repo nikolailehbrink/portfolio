@@ -8,11 +8,7 @@ import { POSTS_QUERY, POST_QUERY } from "@/sanity/lib/queries";
 import Post from "@/components/blog/Post";
 import PostPreview from "@/components/blog/PostPreview";
 import { client } from "@/sanity/lib/client";
-import imageUrlBuilder from "@sanity/image-url";
-
-import { dataset, projectId } from "@/sanity/env";
-
-const builder = imageUrlBuilder({ projectId, dataset });
+import { urlFor } from "@/sanity/lib/image";
 
 export async function generateStaticParams() {
   const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY);
@@ -32,7 +28,7 @@ export async function generateMetadata({ params }: { params: QueryParams }) {
     openGraph: {
       images: [
         {
-          url: builder.image(mainImage).width(1200).height(630).url(),
+          url: urlFor(mainImage).width(1200).height(630).url(),
           width: 1200,
           height: 630,
           alt: mainImage.alt || "Post Image",

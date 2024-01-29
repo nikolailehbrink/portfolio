@@ -9,11 +9,8 @@ import {
 import { PROJECTS_QUERY } from "@/sanity/lib/queries";
 import type { SanityDocument } from "next-sanity";
 import { loadQuery } from "@/sanity/lib/store";
-import { dataset, projectId } from "@/sanity/env";
-import imageUrlBuilder from "@sanity/image-url";
 import ExternalLink from "@/public/icons/external-link.svg";
-
-const builder = imageUrlBuilder({ projectId, dataset });
+import { urlFor } from "@/sanity/lib/image";
 
 export default async function ProjectCarousel() {
   const { data: projects } = await loadQuery<SanityDocument[]>(PROJECTS_QUERY);
@@ -35,8 +32,7 @@ export default async function ProjectCarousel() {
             <div className="relative overflow-hidden rounded-lg">
               <Image
                 className="transition-all duration-500 hover:rotate-3 hover:scale-110"
-                src={builder
-                  .image(project.image)
+                src={urlFor(project.image)
                   .width(1000)
                   .height(1000)
                   .quality(80)

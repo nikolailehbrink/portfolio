@@ -2,12 +2,9 @@ import Experience from "@/public/icons/experience.svg";
 import { EXPERIENCES_QUERY } from "@/sanity/lib/queries";
 import { loadQuery } from "@/sanity/lib/store";
 import type { SanityDocument } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
-import { dataset, projectId } from "@/sanity/env";
 import ExpertiseGrid from "./ExpertiseGrid";
-
-const builder = imageUrlBuilder({ projectId, dataset });
+import { urlFor } from "@/sanity/lib/image";
 
 export default async function ExperienceSection() {
   const { data: experiences } =
@@ -60,10 +57,9 @@ export default async function ExperienceSection() {
                   <div className="sticky top-4 flex h-12 w-12 shrink-0 justify-center rounded-full border-2 border-transparent bg-blue-500 p-3 shadow-[0_0_0_8px] shadow-neutral-950 lg:top-24">
                     <Image
                       className="w-12 object-contain -hue-rotate-[50deg]"
-                      src={builder
-                        .image(experience.company.logo)
+                      src={urlFor(experience.company.logo)
                         .format("webp")
-                        .width(64)
+                        .size(64, 64)
                         .url()}
                       alt={`Logo of ${experience.company.name}`}
                       height={64}
