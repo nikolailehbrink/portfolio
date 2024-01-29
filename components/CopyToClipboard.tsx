@@ -5,6 +5,12 @@ import Copy from "@/public/icons/copy.svg";
 import FileTimes from "@/public/icons/file-times.svg";
 import FileCheck from "@/public/icons/file-check.svg";
 import { toast } from "sonner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 type Props = {
   text: string;
@@ -34,8 +40,15 @@ export default function CopyToClipboard({ text }: Props) {
   };
 
   return (
-    <button disabled={loading} className="flex" onClick={copyToClipboard}>
-      <i className="size-6">{icon}</i>
-    </button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button disabled={loading} className="flex" onClick={copyToClipboard}>
+            <i className="size-6">{icon}</i>
+          </button>
+        </TooltipTrigger>
+        <TooltipContent>Copy to clipboard</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }
