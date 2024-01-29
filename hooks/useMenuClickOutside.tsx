@@ -9,8 +9,6 @@ export function useMenuClickOutside(
 ) {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      console.log(event.target);
-
       if (
         menuRef.current &&
         !menuRef.current.contains(event.target as Node) &&

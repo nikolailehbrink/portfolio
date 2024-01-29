@@ -9,8 +9,6 @@ export async function POST(request: Request) {
   const { email, message, name, phone, subject } =
     (await request.json()) as formSchemaType;
 
-  console.log({ email, message, name, phone, subject });
-
   try {
     const data = await resend.emails.send({
       from: "Kontaktformular <contact@nikolailehbr.ink>",
