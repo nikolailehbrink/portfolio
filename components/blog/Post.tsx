@@ -4,13 +4,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import type { SanityDocument } from "next-sanity";
 
 import { dataset, projectId } from "@/sanity/env";
-import Refractor from "react-refractor";
-import js from "refractor/lang/javascript";
-import typescript from "refractor/lang/typescript";
-import tsx from "refractor/lang/tsx";
-Refractor.registerLanguage(js);
-Refractor.registerLanguage(typescript);
-Refractor.registerLanguage(tsx);
+import Code from "../Code";
 
 const builder = imageUrlBuilder({ projectId, dataset });
 
@@ -41,18 +35,7 @@ export default function Post({ post }: { post: SanityDocument }) {
             components={{
               // ...
               types: {
-                code: ({ value }: any) => {
-                  console.log(value);
-
-                  return (
-                    <Refractor
-                      // In this example, `props` is the value of a `code` field
-                      language={value.language}
-                      value={value.code}
-                      markers={value.highlightedLines}
-                    />
-                  );
-                },
+                code: Code,
               },
             }}
           />

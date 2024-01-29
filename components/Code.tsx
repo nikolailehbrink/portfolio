@@ -1,23 +1,29 @@
 import Refractor from "react-refractor";
 import js from "refractor/lang/javascript";
+import ts from "refractor/lang/typescript";
+import tsx from "refractor/lang/tsx";
 
 Refractor.registerLanguage(js);
+Refractor.registerLanguage(ts);
+Refractor.registerLanguage(tsx);
 
-type Props = {
-  _type: string;
+export type CodeProps = {
+  filename?: string;
+  _type: "code";
+  _key: string;
   language: string;
-  highlightedLines: number[];
+  highlightedLines?: number[];
   code: string;
-  filename: string;
 };
 
-export default function Code(props: Props) {
+export default function Code({
+  value: { language, code, highlightedLines },
+}: {
+  value: CodeProps;
+}) {
   return (
-    <Refractor
-      // In this example, `props` is the value of a `code` field
-      language={props.language}
-      value={props.code}
-      markers={props.highlightedLines}
-    />
+    <div className="from rounded-xl bg-gradient-to-r from-blue-200 to-blue-400 p-8 pl-12 pr-0">
+      <Refractor language={language} value={code} markers={highlightedLines} />
+    </div>
   );
 }
