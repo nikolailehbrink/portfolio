@@ -1,5 +1,5 @@
 import footerNavigation from "@/data/Home/FooterNavigation";
-import { Code } from "@phosphor-icons/react/dist/ssr";
+import CodeBranch from "@/public/icons/code-branch.svg";
 import Link from "next/link";
 import {
   Tooltip,
@@ -7,7 +7,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { twConfig } from "@/lib/utils";
 
 export default function Footer() {
   return (
@@ -18,7 +17,7 @@ export default function Footer() {
           Design and Development
         </span>
         <menu className="flex gap-2">
-          <li>
+          <li className="flex items-center">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
@@ -26,11 +25,7 @@ export default function Footer() {
                     target="_blank"
                     href={"https://github.com/nikolailehbrink/website"}
                   >
-                    <Code
-                      className="inline"
-                      size={twConfig.theme.spacing[6]}
-                      weight="duotone"
-                    />
+                    <CodeBranch className="w-6" />
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent>
