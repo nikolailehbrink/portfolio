@@ -1,13 +1,12 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import type { SanityDocument } from "next-sanity";
 import { getImageDimensions } from "@sanity/asset-utils";
-
 import Code from "../Code";
 import PostImageComponent from "../PostImageComponent";
 import { urlFor } from "@/sanity/lib/image";
+import type { SanityPost } from "@/types/sanity/sanityPost";
 
-export default function Post({ post }: { post: SanityDocument }) {
+export default function Post({ post }: { post: SanityPost }) {
   const { title, mainImage, body } = post;
 
   const { width, height } = getImageDimensions(mainImage);

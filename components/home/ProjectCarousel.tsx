@@ -7,13 +7,13 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { PROJECTS_QUERY } from "@/sanity/lib/queries";
-import type { SanityDocument } from "next-sanity";
 import { loadQuery } from "@/sanity/lib/store";
 import ExternalLink from "@/public/icons/external-link.svg";
 import { urlFor } from "@/sanity/lib/image";
+import type { SanityProject } from "@/types/sanity/sanityProject";
 
 export default async function ProjectCarousel() {
-  const { data: projects } = await loadQuery<SanityDocument[]>(PROJECTS_QUERY);
+  const { data: projects } = await loadQuery<SanityProject[]>(PROJECTS_QUERY);
 
   return (
     <Carousel
@@ -37,7 +37,7 @@ export default async function ProjectCarousel() {
                   .height(1000)
                   .quality(80)
                   .url()}
-                alt={project.image.alt}
+                alt={project.image.alt || "Project image"}
                 width={1000}
                 height={1000}
               />

@@ -1,14 +1,14 @@
 import Experience from "@/public/icons/experience.svg";
 import { EXPERIENCES_QUERY } from "@/sanity/lib/queries";
 import { loadQuery } from "@/sanity/lib/store";
-import type { SanityDocument } from "next-sanity";
 import Image from "next/image";
 import ExpertiseGrid from "./ExpertiseGrid";
 import { urlFor } from "@/sanity/lib/image";
+import type { SanityWorkExperience } from "@/types/sanity/sanityWorkExperience";
 
 export default async function ExperienceSection() {
   const { data: experiences } =
-    await loadQuery<SanityDocument[]>(EXPERIENCES_QUERY);
+    await loadQuery<SanityWorkExperience[]>(EXPERIENCES_QUERY);
 
   return (
     <section id="experience" className="flex items-center bg-neutral-950">

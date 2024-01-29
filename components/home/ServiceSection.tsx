@@ -1,13 +1,13 @@
-import type { SanityDocument } from "next-sanity";
 import Rocket from "@/public/icons/rocket.svg";
 
 import { loadQuery } from "@/sanity/lib/store";
 import { SERVICES_QUERY } from "@/sanity/lib/queries";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
+import { SanityService } from "@/types/sanity/sanityService";
 
 export default async function ServiceSection() {
-  const { data: services } = await loadQuery<SanityDocument[]>(SERVICES_QUERY);
+  const { data: services } = await loadQuery<SanityService[]>(SERVICES_QUERY);
 
   return (
     <section
@@ -25,7 +25,7 @@ export default async function ServiceSection() {
                 <Image
                   className="w-12 -hue-rotate-[50deg]"
                   src={urlFor(service.image).size(60, 60).quality(80).url()}
-                  alt={service.image.alt}
+                  alt={service.image.alt || "Service icon"}
                   height={60}
                   width={60}
                 />
