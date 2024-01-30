@@ -146,34 +146,35 @@ code {
   counter-reset: step;
   counter-increment: step 0;
   .line {
+    @apply border-l-4 border-transparent;
     &::before {
       counter-increment: step;
-      @apply mr-6 inline-block w-4 text-right text-neutral-600 content-[counter(step)];
+      @apply mr-6 inline-block w-4 border-transparent text-right text-neutral-600 content-[counter(step)];
     }
     &.highlighted,
     &.diff {
-      @apply -mx-5 inline-block w-[calc(100%+(theme(spacing.5)*2))] border-l-4  px-5;
+      @apply -ml-4 -mr-5 inline-block w-[calc(100%+(theme(spacing.5)+theme(spacing.4)))] pl-4 pr-5;
     }
     &.highlighted {
-      @apply border-blue bg-neutral-800;
+      @apply border-neutral-500 bg-neutral-800;
     }
     &.diff {
       &.add,
       &.remove {
         span:first-child::before {
-          @apply absolute inline-flex w-4;
+          @apply -ml-4 inline-flex w-4;
         }
       }
       &.add {
-        @apply border-green-500 bg-green-500/30 before:text-green-700;
+        @apply border-blue bg-blue/25 before:text-blue;
         span:first-child::before {
-          @apply text-green-500 content-["+"];
+          @apply text-blue content-["+"];
         }
       }
       &.remove {
-        @apply border-red-500 bg-red-500/30 opacity-70 *:!text-neutral-400;
+        @apply border-orange bg-orange/30 opacity-70 *:!text-neutral-400 before:text-orange;
         span:first-child::before {
-          @apply text-red-500 content-["-"];
+          @apply text-orange content-["-"];
         }
       }
     }

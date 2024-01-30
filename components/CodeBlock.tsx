@@ -41,10 +41,10 @@ export default async function CodeBlock({
 
   const html = await codeToHtml(transformedCode, {
     lang: language,
-    theme: "nord",
+    theme: "ayu-dark",
     transformers: [transformerNotationHighlight(), transformerNotationDiff()],
   });
-  console.log({ code }, { transformedCode });
+
   return (
     <div className="not-prose overflow-hidden rounded-lg bg-gradient-to-r from-blue-200 to-blue-400 p-4 !pr-0 md:p-8 lg:p-12 [&>pre]:rounded-none">
       <div className="overflow-hidden rounded-s-lg">
@@ -55,7 +55,7 @@ export default async function CodeBlock({
           <CopyToClipboard text={code} />
         </div>
         <div
-          className="border-t-2 border-border text-sm [&>pre]:overflow-x-auto [&>pre]:!bg-neutral-900 [&>pre]:px-5 [&>pre]:py-3 [&>pre]:leading-snug [&>pre]:scrollbar-thin"
+          className="border-t-2 border-border text-sm [&>pre]:overflow-x-auto [&>pre]:!bg-neutral-900 [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&>pre]:scrollbar-thin"
           dangerouslySetInnerHTML={{ __html: html }}
         ></div>
       </div>
