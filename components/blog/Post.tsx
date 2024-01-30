@@ -19,7 +19,7 @@ export default function Post({ post }: { post: SanityPost }) {
 
   return (
     <article className="container space-y-8 py-8 lg:pt-16">
-      <GoBackButton />
+      <GoBackButton className="lg:sticky lg:top-24" />
       <div className="flex flex-col items-center justify-center gap-4">
         <div className="flex gap-2">
           {categories.map((category) => (

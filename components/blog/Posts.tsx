@@ -1,9 +1,11 @@
 import type { SanityPost } from "@/types/sanity/sanityPost";
 import Link from "next/link";
+import GoBackButton from "../GoBackButton";
 
 export default function Posts({ posts }: { posts: SanityPost[] }) {
   return (
     <main className="container mx-auto grid grid-cols-1 divide-y divide-blue-100">
+      <GoBackButton />
       {/* <pre>{JSON.stringify(posts[0].title, null, 2)}</pre> */}
       {posts?.length > 0 ? (
         posts.map((post) => (
