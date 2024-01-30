@@ -141,3 +141,41 @@ section[id] {
     @apply fill-orange;
   }
 }
+
+code {
+  counter-reset: step;
+  counter-increment: step 0;
+  .line {
+    &::before {
+      counter-increment: step;
+      @apply mr-6 inline-block w-4 text-right text-neutral-600 content-[counter(step)];
+    }
+    &.highlighted,
+    &.diff {
+      @apply -mx-5 inline-block w-[calc(100%+(theme(spacing.5)*2))] border-l-4  px-5;
+    }
+    &.highlighted {
+      @apply border-blue bg-neutral-800;
+    }
+    &.diff {
+      &.add,
+      &.remove {
+        span:first-child::before {
+          @apply absolute inline-flex w-4;
+        }
+      }
+      &.add {
+        @apply border-green-500 bg-green-500/30 before:text-green-700;
+        span:first-child::before {
+          @apply text-green-500 content-["+"];
+        }
+      }
+      &.remove {
+        @apply border-red-500 bg-red-500/30 opacity-70 *:!text-neutral-400;
+        span:first-child::before {
+          @apply text-red-500 content-["-"];
+        }
+      }
+    }
+  }
+}

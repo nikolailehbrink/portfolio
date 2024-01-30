@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import Code from "../Code";
+import CodeBlock from "../CodeBlock";
 import PostImageComponent from "../PostImageComponent";
 import type { SanityPost } from "@/types/sanity/sanityPost";
 import { useNextSanityImage } from "next-sanity-image";
@@ -42,7 +42,7 @@ export default function Post({ post }: { post: SanityPost }) {
             components={{
               // ...
               types: {
-                code: Code,
+                code: ({ value }) => <CodeBlock {...value} />,
                 image: PostImageComponent,
               },
             }}
