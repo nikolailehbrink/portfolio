@@ -62,7 +62,7 @@ export default defineType({
     // as a block type.
     defineArrayMember({
       type: "image",
-      options: { hotspot: true },
+      options: { hotspot: true, metadata: ["lqip"] },
       fields: [
         {
           name: "alt",

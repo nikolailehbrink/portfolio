@@ -6,7 +6,11 @@ export type Slug = {
 export type Image = {
   _type: "image";
   alt?: string;
-  asset: Reference;
+  asset: Reference & {
+    metadata: {
+      lqip: string;
+    };
+  };
 };
 
 export type Reference = {

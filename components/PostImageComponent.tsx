@@ -7,6 +7,9 @@ type PostImageProps = {
   asset: {
     _ref: string;
     _type: string;
+    metadata: {
+      lqip: string;
+    };
   };
   _type: string;
   alt: string;
