@@ -2,7 +2,17 @@ import type { SanityDocument } from "next-sanity";
 import type { Image, Reference, Slug } from "./sanity";
 
 export type SanityPost = SanityDocument & {
-  author: Reference;
+  author: {
+    name: string;
+    slug: Slug;
+    image: { asset: Reference; alt: string };
+    bio: string | null;
+  };
+  categories: {
+    _id: string;
+    title: string;
+    description: string;
+  }[];
   body: Body[];
   mainImage: Image;
   slug: Slug;

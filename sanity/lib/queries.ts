@@ -24,6 +24,23 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
         }
       }
     },
+    author->{
+      name,
+      slug,
+      image{
+        asset->{
+          _id,
+          url
+        },
+        alt
+      },
+      bio
+    },
+    categories[]->{
+      _id,
+      title,
+      description,
+    }
   }`;
 
 export const SERVICES_QUERY = groq`*[_type == "service" && defined(slug)]`;
