@@ -1,15 +1,17 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import { getImageDimensions } from "@sanity/asset-utils";
 import Code from "../Code";
 import PostImageComponent from "../PostImageComponent";
-import { urlFor } from "@/sanity/lib/image";
 import type { SanityPost } from "@/types/sanity/sanityPost";
+import { useNextSanityImage } from "next-sanity-image";
+import { client } from "@/sanity/lib/client";
 
 export default function Post({ post }: { post: SanityPost }) {
   const { title, mainImage, body } = post;
 
-  const { width, height } = getImageDimensions(mainImage);
+  const { height, src, width } = useNextSanityImage(client, mainImage, {
+    imageBuilder: (image) => image.fit("max").width(1920).height(1080),
+  });
 
   return (
     <article className="container space-y-8 py-8">
@@ -20,15 +22,16 @@ export default function Post({ post }: { post: SanityPost }) {
       ) : null}
       {mainImage ? (
         <Image
-          className="w-full rounded-lg"
-          src={urlFor(mainImage).fit("max").url()}
+          className="aspect-video w-full rounded-lg object-cover"
+          src={src}
           width={width}
           height={height}
           alt={mainImage.alt || ""}
+          priority
           sizes="
           (max-width: 768px) 95vw,
           (max-width: 1200px) 80vw,
-          70vw"
+          1304px"
         />
       ) : null}
       {body ? (
