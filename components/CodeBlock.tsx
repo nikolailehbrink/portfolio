@@ -55,7 +55,7 @@ export default async function CodeBlock({
           <CopyToClipboard text={code} />
         </div>
         <div
-          className="border-t-2 border-border text-sm [&>pre]:overflow-x-auto [&>pre]:!bg-neutral-900 [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&>pre]:scrollbar-thin"
+          className="border-t-2 border-border text-sm [&>pre>code]:block [&>pre>code]:w-fit [&>pre>code]:min-w-full [&>pre]:overflow-x-auto [&>pre]:!bg-neutral-900 [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&>pre]:scrollbar-thin"
           dangerouslySetInnerHTML={{ __html: html }}
         ></div>
       </div>
