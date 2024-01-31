@@ -67,7 +67,7 @@ export default function PostTeaser({ post }: { post: SanityPost }) {
             Top Pick
           </div>
           <section className="-mb-1 flex gap-2 text-sm text-neutral-400">
-            <time dateTime={postCreated.toISOString()}>
+            <time itemProp="datePublished" dateTime={postCreated.toISOString()}>
               {new Intl.DateTimeFormat("en-US", {
                 year: "numeric",
                 month: "short",
