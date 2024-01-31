@@ -7,6 +7,7 @@ import PostPreview from "@/components/blog/PostPreview";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityPost } from "@/types/sanity/sanityPost";
+import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
   const posts = await client.fetch<SanityPost[]>(POSTS_QUERY);
@@ -16,12 +17,22 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: QueryParams }) {
+export async function generateMetadata(
+  {
+    params,
+  }: {
+    params: QueryParams;
+  },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const {
-    data: { title, mainImage },
+    data: { title, mainImage, author, categories, excerpt },
   } = await loadQuery<SanityPost>(POST_QUERY, params);
 
   return {
+    authors: [{ name: author.name }],
+    keywords: categories.map((category) => category.title),
+    description: excerpt ?? (await parent).description,
     title,
     openGraph: {
       images: [
