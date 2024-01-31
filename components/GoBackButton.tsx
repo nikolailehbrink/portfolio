@@ -4,15 +4,26 @@ import { useRouter } from "next/navigation";
 import ArrowCircleLeft from "@/public/icons/arrow-circle-left.svg";
 import { cn } from "@/lib/utils";
 
-export default function GoBackButton({ className }: { className?: string }) {
+export default function GoBackButton({
+  className,
+  text = "Go back",
+}: {
+  className?: string;
+  text?: string;
+}) {
   const router = useRouter();
   return (
     <button
       onClick={() => router.back()}
-      className={cn("flex gap-2", className)}
+      className={cn(
+        "group/back inline-flex justify-start gap-2 justify-self-start",
+        className,
+      )}
     >
       <ArrowCircleLeft className="size-6" />
-      Go back
+      <span className="group-hover/back:underline group-hover/back:underline-offset-4">
+        {text}
+      </span>
     </button>
   );
 }
