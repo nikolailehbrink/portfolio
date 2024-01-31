@@ -5,7 +5,7 @@ export type SanityPost = SanityDocument & {
   author: {
     name: string;
     slug: Slug;
-    image: { asset: Reference; alt: string };
+    image: { asset: { _id: string; metadata: { lqip: string } }; alt: string };
     bio: string | null;
   };
   categories: {
