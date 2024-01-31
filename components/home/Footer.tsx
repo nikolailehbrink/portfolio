@@ -11,7 +11,7 @@ import {
 export default function Footer() {
   return (
     <footer className="bg-neutral-950 py-4" role="contentinfo">
-      <div className="container flex justify-between max-lg:flex-col">
+      <div className="container flex justify-between gap-2 max-lg:flex-col">
         <span>
           &copy; {new Date().getFullYear()} | Nikolai Lehbrink - Conception,
           Design and Development
