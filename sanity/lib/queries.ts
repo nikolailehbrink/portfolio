@@ -1,6 +1,35 @@
 import { groq } from "next-sanity";
 
-export const POSTS_QUERY = groq`*[_type == "post" && defined(slug)]`;
+export const POSTS_QUERY = groq`*[_type == "post" && defined(slug)]{
+  ...,
+  mainImage{
+    asset->{
+      _id,
+      metadata{
+          lqip
+      }
+    }
+  }, 
+  author->{
+    name,
+    slug,
+    image{
+      asset->{
+        _id,
+        metadata{
+          lqip
+        }
+      },
+      alt
+    },
+    bio
+  },
+  categories[]->{
+    _id,
+    title,
+    description,
+  },
+}`;
 
 export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
     ...,
