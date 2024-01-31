@@ -1,18 +1,28 @@
 import type { SanityPost } from "@/types/sanity/sanityPost";
-import Link from "next/link";
 import GoBackButton from "../GoBackButton";
+import PostTeaser from "./PostTeaser";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function Posts({ posts }: { posts: SanityPost[] }) {
+  const firstPost = posts[0];
+  const otherPosts = posts.slice(1);
+
   return (
-    <main className="container mx-auto grid grid-cols-1 divide-y divide-blue-100">
+    <main className="container mx-auto my-8 grid grid-cols-1 space-y-8">
       <GoBackButton />
-      {/* <pre>{JSON.stringify(posts[0].title, null, 2)}</pre> */}
-      {posts?.length > 0 ? (
-        posts.map((post) => (
-          <Link key={post._id} href={`/blog/${post.slug.current}`}>
-            <h2 className="p-4 hover:bg-blue-50">{post.title}</h2>
-          </Link>
-        ))
+      {firstPost && <PostTeaser post={firstPost} />}
+      {otherPosts?.length > 0 ? (
+        <div
+          className={cn(
+            "grid gap-8 lg:grid-cols-2 xl:grid-cols-3",
+            otherPosts.length < 3 && "xl:grid-cols-2",
+          )}
+        >
+          {otherPosts.map((post) => (
+            <PostTeaser key={post._id} post={post} />
+          ))}
+        </div>
       ) : (
         <div className="p-4 text-red-500">No posts found</div>
       )}
