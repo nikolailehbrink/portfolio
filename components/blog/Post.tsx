@@ -10,7 +10,7 @@ import { useReadingTime } from "@/hooks/useReadingTime";
 import { getSanityBodyText } from "@/sanity/helpers";
 
 export default function Post({ post }: { post: SanityPost }) {
-  const { title, mainImage, body, _createdAt, categories } = post;
+  const { title, mainImage, body, _createdAt, categories, excerpt } = post;
 
   const { height, src, width } = useNextSanityImage(client, mainImage, {
     imageBuilder: (image) => image.fit("max").width(1920).height(1080),
@@ -36,8 +36,11 @@ export default function Post({ post }: { post: SanityPost }) {
         {title ? (
           <h1 className="max-w-3xl  text-3xl font-bold lg:text-5xl">{title}</h1>
         ) : null}
-        <div className="flex gap-2 text-neutral-400">
-          <time dateTime={postCreated.toISOString()}>
+        {excerpt && (
+          <p className="prose prose-lg mx-auto dark:prose-invert">{excerpt}</p>
+        )}
+        <div className="flex gap-2 text-sm text-neutral-400">
+          <time itemProp="datePublished" dateTime={postCreated.toISOString()}>
             {new Intl.DateTimeFormat("en-US", {
               year: "numeric",
               month: "short",
@@ -45,6 +48,7 @@ export default function Post({ post }: { post: SanityPost }) {
             }).format(postCreated)}
           </time>
           <span>|</span>
+
           <p>{minutesToRead}m read</p>
         </div>
       </div>
@@ -60,10 +64,13 @@ export default function Post({ post }: { post: SanityPost }) {
           (max-width: 768px) 95vw,
           (max-width: 1200px) 80vw,
           1304px"
+          placeholder="blur"
+          blurDataURL={mainImage.asset.metadata.lqip}
         />
       ) : null}
+
       {body ? (
-        <section className="prose prose-lg mx-auto dark:prose-invert">
+        <section className="prose mx-auto dark:prose-invert sm:prose-lg">
           <PortableText
             value={body}
             components={{

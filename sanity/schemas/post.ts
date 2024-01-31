@@ -20,6 +20,15 @@ export default defineType({
       },
     }),
     defineField({
+      name: "excerpt",
+      title: "Excerpt",
+      type: "text",
+      validation: (Rule) =>
+        Rule.max(200).warning(
+          "Shorter excerpts are usually better for SEO and social media previews. Max length is 200 characters.",
+        ),
+    }),
+    defineField({
       name: "author",
       title: "Author",
       type: "reference",

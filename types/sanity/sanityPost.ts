@@ -14,6 +14,7 @@ export type SanityPost = SanityDocument & {
     description: string;
   }[];
   body: Body[];
+  excerpt?: string;
   mainImage: Image;
   slug: Slug;
   title: string;

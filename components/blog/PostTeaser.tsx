@@ -9,9 +9,16 @@ import { useReadingTime } from "@/hooks/useReadingTime";
 import { getSanityBodyText } from "@/sanity/helpers";
 
 export default function PostTeaser({ post }: { post: SanityPost }) {
-  const { author, _createdAt, mainImage, body, categories, title, slug } = post;
-
-  console.log(mainImage);
+  const {
+    author,
+    _createdAt,
+    mainImage,
+    body,
+    categories,
+    title,
+    slug,
+    excerpt,
+  } = post;
 
   const postCreated = new Date(_createdAt);
 
@@ -74,12 +81,11 @@ export default function PostTeaser({ post }: { post: SanityPost }) {
           </section>
 
           <h2 className="text-2xl font-bold sm:text-3xl">{title}</h2>
-          <p className="line-clamp-2 @4xl:line-clamp-4">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum, alias
-            assumenda ullam similique esse culpa expedita blanditiis quae. Et
-            iusto sit quis culpa ipsa? Similique fuga quisquam omnis cupiditate?
-            Dicta.
-          </p>
+          {excerpt && (
+            <p className="line-clamp-2 max-w-prose text-neutral-300 @4xl:line-clamp-4">
+              {excerpt}
+            </p>
+          )}
           <div className="mt-2 hidden items-center gap-2 @4xl:flex">
             <Image
               src={urlFor(author.image.asset).size(48, 48).url()}
