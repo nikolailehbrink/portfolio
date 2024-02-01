@@ -38,6 +38,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className="dark scroll-smooth text-balance text-[17px] scrollbar-thin scrollbar-track-neutral-900 scrollbar-thumb-neutral-600 hover:scrollbar-thumb-neutral-500 active:scrollbar-thumb-blue"
     >
       <body
+        suppressHydrationWarning
         className={`${blinker.variable} flex min-h-dvh flex-col font-sans dark:bg-neutral-900 dark:text-neutral-50`}
       >
         {children}
