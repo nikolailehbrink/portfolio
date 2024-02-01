@@ -7,13 +7,7 @@ export default function AvatarImage({
   alt = "GitHub profile image of Nikolai Lehbrink",
   ...props
 }: AvatarImageProps) {
-  return (
-    <Image
-      alt={alt}
-      width={460}
-      height={460}
-      {...props}
-      src={"https://avatars.githubusercontent.com/u/38915700?v=4"}
-    />
-  );
+  const imageUrl = "https://avatars.githubusercontent.com/u/38915700?v=4";
+
+  return <Image alt={alt} width={120} height={120} {...props} src={imageUrl} />;
 }
