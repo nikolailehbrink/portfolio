@@ -43,7 +43,12 @@ export default function CopyToClipboard({ text }: Props) {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <button disabled={loading} className="flex" onClick={copyToClipboard}>
+          <button
+            aria-label="Copy to clipboard"
+            disabled={loading}
+            className="flex"
+            onClick={copyToClipboard}
+          >
             <i className="size-6">{icon}</i>
           </button>
         </TooltipTrigger>
