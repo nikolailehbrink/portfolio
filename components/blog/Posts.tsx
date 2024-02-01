@@ -9,7 +9,7 @@ export default function Posts({ posts }: { posts: SanityPost[] }) {
   const otherPosts = posts.slice(1);
 
   return (
-    <main className="container mx-auto my-8 grid grid-cols-1 space-y-8">
+    <main className="container mx-auto my-8 space-y-8">
       <GoBackButton />
       <header className="prose mx-auto dark:prose-invert md:text-center">
         <h1 className="my-3 text-5xl">Blog</h1>
