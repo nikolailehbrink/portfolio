@@ -20,8 +20,9 @@ export default function Footer() {
           <li className="flex items-center">
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger asChild>
                   <Link
+                    aria-label="Link to source code"
                     target="_blank"
                     href={"https://github.com/nikolailehbrink/website"}
                   >
