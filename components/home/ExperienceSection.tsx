@@ -1,10 +1,9 @@
 import Experience from "@/public/icons/experience.svg";
 import { EXPERIENCES_QUERY } from "@/sanity/lib/queries";
 import { loadQuery } from "@/sanity/lib/store";
-import Image from "next/image";
 import ExpertiseGrid from "./ExpertiseGrid";
-import { urlFor } from "@/sanity/lib/image";
 import type { SanityWorkExperience } from "@/types/sanity/sanityWorkExperience";
+import WorkExperience from "./WorkExperience";
 
 export default async function ExperienceSection() {
   const { data: experiences } =
@@ -39,53 +38,9 @@ export default async function ExperienceSection() {
               const dateB = b.period.to ? new Date(b.period.from) : new Date();
               return dateB.getTime() - dateA.getTime();
             })
-            .map((experience, index) => {
-              const period = [
-                new Date(experience.period.from),
-                experience.period.to
-                  ? new Date(experience.period.to)
-                  : new Date(),
-              ];
-              const options = { year: "numeric", month: "long" } as const;
-              const dateTimeFormat = new Intl.DateTimeFormat("en-US", options);
-              const formattedPeriod = period
-                .map((date) => dateTimeFormat.format(date))
-                .join(" - ");
-
-              return (
-                <li key={index} className="-ml-6 flex gap-4 lg:gap-8">
-                  <div className="sticky top-4 flex h-12 w-12 shrink-0 justify-center rounded-full border-2 border-transparent bg-blue-500 p-3 shadow-[0_0_0_8px] shadow-neutral-950 lg:top-24">
-                    <Image
-                      className="w-12 object-contain -hue-rotate-[50deg]"
-                      src={urlFor(experience.company.logo)
-                        .format("webp")
-                        .size(64, 64)
-                        .url()}
-                      alt={`Logo of ${experience.company.name}`}
-                      height={64}
-                      width={64}
-                    />
-                  </div>
-                  <div className="mt-[5.5px] flex flex-col items-start gap-3">
-                    <span className="rounded-full bg-blue px-3 py-2 text-sm">
-                      {formattedPeriod}
-                    </span>
-
-                    <hgroup>
-                      <h2 className="text-2xl font-bold">{experience.title}</h2>
-                      <a
-                        href={experience.company.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {experience.company.name}
-                      </a>
-                    </hgroup>
-                    <p>{experience.description}</p>
-                  </div>
-                </li>
-              );
-            })}
+            .map((experience) => (
+              <WorkExperience key={experience._id} experience={experience} />
+            ))}
         </ol>
       </div>
     </section>
