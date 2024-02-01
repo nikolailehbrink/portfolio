@@ -1,5 +1,5 @@
-import Email from "@/public/icons/email.svg";
-import Message from "@/public/icons/message.svg";
+import EnvelopeHeart from "@/public/icons/envelope-heart.svg";
+import CommentCheck from "@/public/icons/comment-check.svg";
 import MobileAndroid from "@/public/icons/mobile-android.svg";
 import WhatsApp from "@/public/icons/whatsapp.svg";
 import AvatarImage from "../AvatarImage";
@@ -14,7 +14,7 @@ export default function ContactSection() {
           className="flex flex-col items-start gap-4 self-start"
         >
           <div className="badge badge-orange">
-            <Message />
+            <CommentCheck />
             Kontakt
           </div>
           <h2 className="text-5xl font-bold">Lets get in touch!</h2>
@@ -43,7 +43,7 @@ export default function ContactSection() {
           <div className="space-y-2">
             <h2 className="text-xl font-bold">E-Mail</h2>
             <div className="flex items-center justify-center gap-2">
-              <Email className="size-7" />
+              <EnvelopeHeart className="size-7" />
               <a href="mailto:mail@nikolailehbr.ink">mail@nikolailehbr.ink</a>
             </div>
           </div>

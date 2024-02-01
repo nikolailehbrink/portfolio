@@ -1,4 +1,4 @@
-import Experience from "@/public/icons/experience.svg";
+import Diary from "@/public/icons/diary.svg";
 import { EXPERIENCES_QUERY } from "@/sanity/lib/queries";
 import { loadQuery } from "@/sanity/lib/store";
 import ExpertiseGrid from "./ExpertiseGrid";
@@ -17,7 +17,7 @@ export default async function ExperienceSection() {
           className="flex flex-col items-start gap-4 self-start lg:sticky lg:top-24"
         >
           <div className="badge badge-orange">
-            <Experience />
+            <Diary />
             Work Experience
           </div>
           <h2 className="text-5xl font-bold">My Journey</h2>

@@ -1,8 +1,8 @@
 import Rocket from "@/public/icons/rocket.svg";
 import Archive from "@/public/icons/archive.svg";
-import Experience from "@/public/icons/experience.svg";
-import Message from "@/public/icons/message.svg";
-import Blog from "@/public/icons/blog.svg";
+import Diary from "@/public/icons/diary.svg";
+import CommentCheck from "@/public/icons/comment-check.svg";
+import Newspaper from "@/public/icons/newspaper.svg";
 import ToiletPaper from "@/public/icons/toilet-paper.svg";
 
 export const mainNavigation = [
@@ -19,19 +19,19 @@ export const mainNavigation = [
   {
     link: "/#experience",
     title: "Experience",
-    icon: <Experience />,
+    icon: <Diary />,
   },
   {
     link: "/blog",
     title: "Blog",
-    icon: <Blog />,
+    icon: <Newspaper />,
   },
 ];
 
 export const navigationButton = {
   link: "/#contact",
   title: "Contact",
-  icon: <Message />,
+  icon: <CommentCheck />,
 };
 
 export const sanityButton = {

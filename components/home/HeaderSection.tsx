@@ -1,6 +1,6 @@
 import HeaderIllustration from "@/public/header-illustration.svg";
 import Archive from "@/public/icons/archive.svg";
-import Message from "@/public/icons/message.svg";
+import CommentCheck from "@/public/icons/comment-check.svg";
 import Link from "next/link";
 import { Button } from "../ui/button";
 
@@ -36,7 +36,7 @@ export default function HeaderSection() {
             </Button>
             <Button asChild size={"shadow"} variant={"secondary"}>
               <Link href="#contact">
-                <Message className="size-7" />
+                <CommentCheck className="size-7" />
                 Contact
               </Link>
             </Button>

@@ -14,11 +14,11 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import MessageSend from "@/public/icons/message-send.svg";
-import Spinner from "@/public/icons/spinner.svg";
+import Message from "@/public/icons/message.svg";
+import SpinnerAlt from "@/public/icons/spinner-alt.svg";
 import ChatBubbleUser from "@/public/icons/chat-bubble-user.svg";
 import MobileAndroid from "@/public/icons/mobile-android.svg";
-import Email from "@/public/icons/email.svg";
+import EnvelopeHeart from "@/public/icons/envelope-heart.svg";
 import Notebooks from "@/public/icons/notebooks.svg";
 import CommentAltLines from "@/public/icons/comment-alt-lines.svg";
 import type { ResendResponse } from "@/types/resend";
@@ -153,7 +153,7 @@ export default function ContactForm() {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-1">
-                <Email className="size-7" />
+                <EnvelopeHeart className="size-7" />
                 <FormLabel>Email *</FormLabel>
               </div>
               <FormControl>
@@ -211,9 +211,9 @@ export default function ContactForm() {
           type="submit"
         >
           {isSubmitting ? (
-            <Spinner className="size-7 animate-spin" />
+            <SpinnerAlt className="size-7 animate-spin" />
           ) : (
-            <MessageSend className="size-7" />
+            <Message className="size-7" />
           )}
           Submit
         </Button>
