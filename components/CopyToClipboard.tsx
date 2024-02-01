@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Copy from "@/public/icons/copy.svg";
-import FileTimes from "@/public/icons/file-times.svg";
-import FileCheck from "@/public/icons/file-check.svg";
+import Copy from "@/assets/icons/unicons/copy.svg";
+import FileTimes from "@/assets/icons/unicons/file-times.svg";
+import FileCheck from "@/assets/icons/unicons/file-check.svg";
 import { toast } from "sonner";
 import {
   Tooltip,

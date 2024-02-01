@@ -1,5 +1,5 @@
 import footerNavigation from "@/data/Home/FooterNavigation";
-import CodeBranch from "@/public/icons/code-branch.svg";
+import CodeBranch from "@/assets/icons/unicons/code-branch.svg";
 import Link from "next/link";
 import {
   Tooltip,

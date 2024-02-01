@@ -4,7 +4,7 @@ import type { SanityPost } from "@/types/sanity/sanityPost";
 import { useNextSanityImage } from "next-sanity-image";
 import Image from "next/image";
 import Link from "next/link";
-import Star from "@/public/icons/star.svg";
+import Star from "@/assets/icons/unicons/star.svg";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { getSanityBodyText } from "@/sanity/helpers";
 

@@ -1,4 +1,4 @@
-import Rocket from "@/public/icons/rocket.svg";
+import Rocket from "@/assets/icons/unicons/rocket.svg";
 
 import { loadQuery } from "@/sanity/lib/store";
 import { SERVICES_QUERY } from "@/sanity/lib/queries";

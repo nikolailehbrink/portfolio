@@ -14,13 +14,13 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import Message from "@/public/icons/message.svg";
-import SpinnerAlt from "@/public/icons/spinner-alt.svg";
-import ChatBubbleUser from "@/public/icons/chat-bubble-user.svg";
-import MobileAndroid from "@/public/icons/mobile-android.svg";
-import EnvelopeHeart from "@/public/icons/envelope-heart.svg";
-import Notebooks from "@/public/icons/notebooks.svg";
-import CommentAltLines from "@/public/icons/comment-alt-lines.svg";
+import Message from "@/assets/icons/unicons/message.svg";
+import SpinnerAlt from "@/assets/icons/unicons/spinner-alt.svg";
+import ChatBubbleUser from "@/assets/icons/unicons/chat-bubble-user.svg";
+import MobileAndroid from "@/assets/icons/unicons/mobile-android.svg";
+import EnvelopeHeart from "@/assets/icons/unicons/envelope-heart.svg";
+import Notebooks from "@/assets/icons/unicons/notebooks.svg";
+import CommentAltLines from "@/assets/icons/unicons/comment-alt-lines.svg";
 import type { ResendResponse } from "@/types/resend";
 import { toast } from "sonner";
 

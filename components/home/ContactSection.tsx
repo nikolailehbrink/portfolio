@@ -1,7 +1,7 @@
-import EnvelopeHeart from "@/public/icons/envelope-heart.svg";
-import CommentCheck from "@/public/icons/comment-check.svg";
-import MobileAndroid from "@/public/icons/mobile-android.svg";
-import WhatsApp from "@/public/icons/whatsapp.svg";
+import EnvelopeHeart from "@/assets/icons/unicons/envelope-heart.svg";
+import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
+import MobileAndroid from "@/assets/icons/unicons/mobile-android.svg";
+import WhatsApp from "@/assets/icons/unicons/whatsapp.svg";
 import AvatarImage from "../AvatarImage";
 import ContactForm from "../ContactForm";
 

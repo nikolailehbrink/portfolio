@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import ArrowCircleLeft from "@/public/icons/arrow-circle-left.svg";
+import ArrowCircleLeft from "@/assets/icons/unicons/arrow-circle-left.svg";
 import { cn } from "@/lib/utils";
 
 export default function GoBackButton({

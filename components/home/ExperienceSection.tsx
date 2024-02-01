@@ -1,4 +1,4 @@
-import Diary from "@/public/icons/diary.svg";
+import Diary from "@/assets/icons/unicons/diary.svg";
 import { EXPERIENCES_QUERY } from "@/sanity/lib/queries";
 import { loadQuery } from "@/sanity/lib/store";
 import ExpertiseGrid from "./ExpertiseGrid";

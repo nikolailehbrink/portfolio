@@ -1,9 +1,9 @@
-import Rocket from "@/public/icons/rocket.svg";
-import Archive from "@/public/icons/archive.svg";
-import Diary from "@/public/icons/diary.svg";
-import CommentCheck from "@/public/icons/comment-check.svg";
-import Newspaper from "@/public/icons/newspaper.svg";
-import ToiletPaper from "@/public/icons/toilet-paper.svg";
+import Rocket from "@/assets/icons/unicons/rocket.svg";
+import Archive from "@/assets/icons/unicons/archive.svg";
+import Diary from "@/assets/icons/unicons/diary.svg";
+import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
+import Newspaper from "@/assets/icons/unicons/newspaper.svg";
+import ToiletPaper from "@/assets/icons/unicons/toilet-paper.svg";
 
 export const mainNavigation = [
   {

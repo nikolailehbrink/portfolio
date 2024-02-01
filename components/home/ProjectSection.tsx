@@ -1,4 +1,4 @@
-import Archive from "@/public/icons/archive.svg";
+import Archive from "@/assets/icons/unicons/archive.svg";
 import ProjectCarousel from "./ProjectCarousel";
 
 export default function ProjectSection() {

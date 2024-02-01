@@ -1,6 +1,6 @@
 import HeaderIllustration from "@/public/header-illustration.svg";
-import Archive from "@/public/icons/archive.svg";
-import CommentCheck from "@/public/icons/comment-check.svg";
+import Archive from "@/assets/icons/unicons/archive.svg";
+import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import Link from "next/link";
 import { Button } from "../ui/button";
 

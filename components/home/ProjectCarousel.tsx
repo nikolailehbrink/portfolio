@@ -8,7 +8,7 @@ import {
 } from "../ui/carousel";
 import { PROJECTS_QUERY } from "@/sanity/lib/queries";
 import { loadQuery } from "@/sanity/lib/store";
-import ExternalLink from "@/public/icons/external-link.svg";
+import ExternalLink from "@/assets/icons/unicons/external-link.svg";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityProject } from "@/types/sanity/sanityProject";
 
