@@ -87,7 +87,7 @@ export default function HomeAnimation({ children }: Props) {
       },
     });
 
-    gsap.from(".grid-of-expertise svg", {
+    gsap.from("#expertise-grid svg", {
       fill: "#FFF",
       fillOpacity: 0.3,
       backgroundImage: "none",
@@ -95,7 +95,7 @@ export default function HomeAnimation({ children }: Props) {
       duration: 0.5,
       scrollTrigger: {
         scrub: true,
-        trigger: "#grids-of-expertise",
+        trigger: "#expertise-grid",
         end: "bottom 15%",
         start: "top 85%",
         toggleActions: "restart none restart none",
