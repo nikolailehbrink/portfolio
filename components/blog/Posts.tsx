@@ -20,7 +20,7 @@ export default function Posts({ posts }: { posts: SanityPost[] }) {
           <Link href="/#contact">reach out to me.</Link>
         </p>
       </header>
-      {firstPost && <PostTeaser post={firstPost} />}
+      {firstPost && <PostTeaser post={firstPost} priority />}
       {otherPosts?.length > 0 ? (
         <div
           className={cn(

@@ -8,7 +8,13 @@ import Star from "@/public/icons/star.svg";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { getSanityBodyText } from "@/sanity/helpers";
 
-export default function PostTeaser({ post }: { post: SanityPost }) {
+export default function PostTeaser({
+  post,
+  priority = false,
+}: {
+  post: SanityPost;
+  priority?: boolean;
+}) {
   const {
     author,
     _createdAt,
@@ -35,7 +41,7 @@ export default function PostTeaser({ post }: { post: SanityPost }) {
       <div className="relative grid grid-cols-1 items-center gap-4 @4xl:grid-cols-2 @4xl:gap-8">
         <div className="relative overflow-hidden rounded-lg">
           <Image
-            priority
+            priority={priority}
             src={src}
             height={height}
             width={width}
@@ -64,7 +70,7 @@ export default function PostTeaser({ post }: { post: SanityPost }) {
           {/* TODO: Implement Top Pick functionality */}
           <div className="hidden items-center gap-1 rounded-lg border-2 border-blue-300 bg-blue px-2 py-1 text-xs @4xl:inline-flex">
             <Star className="w-3" />
-            Top Pick
+            <p>Top Pick</p>
           </div>
           <section className="-mb-1 flex gap-2 text-sm text-neutral-400">
             <time itemProp="datePublished" dateTime={postCreated.toISOString()}>
@@ -105,6 +111,7 @@ export default function PostTeaser({ post }: { post: SanityPost }) {
         <Link
           className="absolute inset-0 focus-visible:rounded-lg focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-neutral-300 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
           href={`/blog/${slug.current}`}
+          aria-label="Read more about this post"
         ></Link>
       </div>
     </div>
