@@ -15,23 +15,25 @@ export default function HeaderSection() {
             Lehbrink
           </h1>
           <p className="delay-300">
-            Herzlich willkommen auf meiner Portfolio-Webseite! Ich bin ein
-            26-jähriger Webentwickler aus Bremen, Deutschland, der seine
-            Leidenschaft während des Studiums entdeckt hat. Seitdem gestalte und
-            entwickle ich Webseiten und freue mich, dir hier einige meiner
-            Projekte vorzustellen.
+            Welcome to my website! I&apos;m a 26-year-old tech enthusiast from
+            Bremen, Germany, where I discovered my passion for web development.
+            On this site, I&apos;m thrilled to share my experience, insights and
+            favorite projects with you.
           </p>
           <p className="delay-500">
-            Ich bin stets offen für neue Herausforderungen und Möglichkeiten zur
-            Zusammenarbeit. Suchst du Kreativität, Zuverlässigkeit und
-            Engagement, bist du hier genau richtig. Zögere nicht, mich zu
-            kontaktieren - ich freue mich auf deine Nachricht!
+            Take a look at my{" "}
+            <Link className="underline underline-offset-2" href={"/blog"}>
+              blog
+            </Link>{" "}
+            for articles about things I learned and might help you. If
+            you&apos;re interested in working together or just want to chat,
+            feel free to reach out.
           </p>
           <div className="flex gap-4 delay-1000">
             <Button size={"shadow"} asChild>
               <Link href="#projects">
                 <Archive className="size-7" />
-                Projekte
+                Projects
               </Link>
             </Button>
             <Button asChild size={"shadow"} variant={"secondary"}>
