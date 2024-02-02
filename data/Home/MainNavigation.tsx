@@ -1,4 +1,4 @@
-import Rocket from "@/assets/icons/unicons/rocket.svg";
+import Desktop from "@/assets/icons/unicons/desktop.svg";
 import Archive from "@/assets/icons/unicons/archive.svg";
 import Diary from "@/assets/icons/unicons/diary.svg";
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
@@ -9,7 +9,7 @@ export const mainNavigation = [
   {
     link: "/#services",
     title: "Services",
-    icon: <Rocket />,
+    icon: <Desktop />,
   },
   {
     link: "/#projects",

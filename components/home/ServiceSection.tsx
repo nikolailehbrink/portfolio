@@ -1,4 +1,4 @@
-import Rocket from "@/assets/icons/unicons/rocket.svg";
+import Desktop from "@/assets/icons/unicons/desktop.svg";
 
 import { loadQuery } from "@/sanity/lib/store";
 import { SERVICES_QUERY } from "@/sanity/lib/queries";
@@ -37,8 +37,8 @@ export default async function ServiceSection() {
         </div>
         <div className="service-content flex flex-col items-start gap-3 max-xl:relative lg:sticky lg:top-24">
           <div className="badge badge-orange">
-            <Rocket className="w-5" />
             Leistungen
+            <Desktop className="w-5" />
           </div>
           <h2 className="text-5xl font-bold">Precision &amp; Passion</h2>
           <p>
