@@ -4,11 +4,7 @@ import type { ReactNode } from "react";
 import { twConfig } from "@/lib/utils";
 import { useGSAP, gsap } from "@/lib/gsap";
 
-type Props = {
-  children: ReactNode;
-};
-
-export default function HomeAnimation({ children }: Props) {
+export default function HomeAnimation({ children }: { children: ReactNode }) {
   useGSAP(() => {
     gsap.from("#header-illustration", {
       scale: 0.2,
