@@ -11,7 +11,7 @@ export default async function ServiceSection() {
 
   return (
     <section
-      id="services"
+      id="passion"
       className="flex items-center bg-gradient-to-b from-transparent to-neutral-950 lg:py-24 xl:scroll-mt-16"
     >
       <div className="container grid items-start gap-6 lg:grid-cols-2 lg:gap-12">

@@ -7,8 +7,8 @@ import ToiletPaper from "@/assets/icons/unicons/toilet-paper.svg";
 
 export const mainNavigation = [
   {
-    link: "/#services",
-    title: "Services",
+    link: "/#passion",
+    title: "Passion",
     icon: <Desktop />,
   },
   {

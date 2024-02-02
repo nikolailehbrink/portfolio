@@ -32,7 +32,7 @@ export default function HomeAnimation({ children }: Props) {
       },
     });
 
-    gsap.from("section#services .service-box", {
+    gsap.from("section#passion .service-box", {
       autoAlpha: 0,
       stagger: 0.5,
       y: twConfig.theme.spacing[32],
@@ -40,7 +40,7 @@ export default function HomeAnimation({ children }: Props) {
         start: "top bottom",
         end: "bottom 75%",
         scrub: 2,
-        trigger: "section#services .container .grid",
+        trigger: "section#passion .container .grid",
         toggleActions: "restart none none none",
       },
     });
@@ -53,7 +53,7 @@ export default function HomeAnimation({ children }: Props) {
         start: "top bottom",
         end: "bottom bottom",
         scrub: 2,
-        trigger: "section#services .service-content",
+        trigger: "section#passion .service-content",
         toggleActions: "restart none none none",
         // markers: true,
       },
