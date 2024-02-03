@@ -69,7 +69,8 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
       _id,
       title,
       description,
-    }
+    },
+    "headings": body[length(style) == 2 && string::startsWith(style, "h")]
   }`;
 
 export const SERVICES_QUERY = groq`*[_type == "service" && defined(slug)]|order(orderRank)`;

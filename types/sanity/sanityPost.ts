@@ -1,7 +1,9 @@
 import type { SanityDocument } from "next-sanity";
 import type { Image, Reference, Slug } from "./sanity";
+import type { PortableTextBlock } from "@portabletext/types";
 
 export type SanityPost = SanityDocument & {
+  headings: PortableTextBlock[];
   author: {
     name: string;
     slug: Slug;
