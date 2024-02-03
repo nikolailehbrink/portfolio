@@ -13,18 +13,18 @@ export default function ProjectSection() {
       >
         <div className="badge badge-blue">
           <Archive />
-          Projekte
+          Projects
         </div>
-        <h2 className="text-5xl font-bold">Behind the Screens</h2>
+        <h2 className="text-5xl font-bold">Behind the Screen</h2>
         <p className="max-w-prose lg:text-center">
-          Schau dir mein Portfolio an! Hier findest du verschiedene Projekte,
-          von handgemachten Webseiten bis hin zu frischen Interface-Designs -
-          alles Ausdruck meiner Begeisterung für das Digitale.
+          After my studies and some experience from working as a student in an
+          advertising agency, I wanted to be able to take on jobs independently.
+          So I filled out all the paperwork and became self-employed relatively
+          quickly towards the end of 2021.
         </p>
         <p className="max-w-prose lg:text-center">
-          Aber nicht nur das, ich designe auch für Printmedien und setze dabei
-          immer hohe Maßstäbe an Qualität und Nutzen. Denn ich bin der Meinung:
-          Jedes Projekt, egal wie groß, verdient nur das Beste.
+          Since then, I&apos;ve worked alongside some interesting people and
+          companies, for whom I&apos;ve created the following projects.
         </p>
       </div>
       <ProjectCarousel />

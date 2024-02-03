@@ -15,16 +15,17 @@ export default function ContactSection() {
         >
           <div className="badge badge-orange">
             <CommentCheck />
-            Kontakt
+            Contact
           </div>
-          <h2 className="text-5xl font-bold">Lets get in touch!</h2>
+          <h2 className="text-5xl font-bold">Your Move!</h2>
           <div>
             <AvatarImage className="float-left mr-4 size-16 rounded-full border-2 border-orange [shape-outside:circle(50%)] lg:size-28" />
             <p className="max-w-[30rem] italic">
-              „Hi, and welcome to my website. After some revisions and
-              experimenting with various designs over the years, I&apos;m quite
-              proud of the final outcome. If you have any comments or just want
-              to say &apos;hello&apos;, feel free to contact me!“
+              &ldquo;Well... Not everybody makes it to the bottom of the page,
+              but you are one of them! So why don&apos;t say hello and have a
+              chat about anything you are interested in? I would also greatly
+              aprreciate feedback on the site or just a friendly conversation.
+              Looking forward!&rdquo; - Nikolai
             </p>
           </div>
           <div className="space-y-2">

@@ -18,12 +18,12 @@ export default async function ExperienceSection() {
         >
           <div className="badge badge-orange">
             <Diary />
-            Work Experience
+            Experience
           </div>
-          <h2 className="text-5xl font-bold">My Journey</h2>
+          <h2 className="text-5xl font-bold">Resume</h2>
           <p>
-            This section provides an overview of my work history and the various
-            software and tools I have used so far.
+            Here you can find an overview of my work history and the software
+            and tools I use on a regular basis or have used in the past.
           </p>
           <ExpertiseGrid />
         </div>
