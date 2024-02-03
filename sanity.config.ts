@@ -8,6 +8,8 @@ import { presentationTool } from "sanity/presentation";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
+
 import { codeInput } from "@sanity/code-input";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
@@ -30,7 +32,32 @@ export default defineConfig({
         },
       },
     }),
-    structureTool(),
+    structureTool({
+      structure: (S, context) => {
+        return S.list()
+          .title("Content")
+          .items([
+            orderableDocumentListDeskItem({
+              type: "service",
+              S,
+              context,
+              title: "Service",
+            }),
+            orderableDocumentListDeskItem({
+              type: "project",
+              S,
+              context,
+              title: "Project",
+            }),
+            S.divider(),
+
+            ...S.documentTypeListItems().filter(
+              (item) =>
+                item.getId() !== "project" && item.getId() !== "service",
+            ),
+          ]);
+      },
+    }),
     // Vision is a tool that lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),

@@ -72,8 +72,8 @@ export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
     }
   }`;
 
-export const SERVICES_QUERY = groq`*[_type == "service" && defined(slug)]`;
+export const SERVICES_QUERY = groq`*[_type == "service" && defined(slug)]|order(orderRank)`;
 
-export const PROJECTS_QUERY = groq`*[_type == "project" && defined(slug)]`;
+export const PROJECTS_QUERY = groq`*[_type == "project" && defined(slug)]|order(orderRank)`;
 
 export const EXPERIENCES_QUERY = groq`*[_type == "experience"]`;

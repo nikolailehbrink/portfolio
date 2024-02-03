@@ -20,6 +20,12 @@ export default defineType({
       },
     }),
     defineField({
+      name: "orderRank",
+      title: "Order Rank",
+      type: "string",
+      hidden: true,
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "text",
