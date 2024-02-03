@@ -1,9 +1,11 @@
 import { defineField, defineType } from "sanity";
+import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 
 export default defineType({
   name: "post",
   title: "Post",
   type: "document",
+  icon: Newspaper,
   fields: [
     defineField({
       name: "title",

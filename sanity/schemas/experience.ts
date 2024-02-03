@@ -1,9 +1,11 @@
 import { defineField, defineType } from "sanity";
+import Diary from "@/assets/icons/unicons/diary.svg";
 
 export default defineType({
   name: "experience",
   title: "Work Experience",
   type: "document",
+  icon: Diary,
   fields: [
     defineField({
       name: "title",

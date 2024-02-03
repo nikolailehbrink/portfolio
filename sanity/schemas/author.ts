@@ -1,9 +1,11 @@
 import { defineField, defineType } from "sanity";
+import ChatBubbleUser from "@/assets/icons/unicons/chat-bubble-user.svg";
 
 export default defineType({
   name: "author",
   title: "Author",
   type: "document",
+  icon: ChatBubbleUser,
   fields: [
     defineField({
       name: "name",

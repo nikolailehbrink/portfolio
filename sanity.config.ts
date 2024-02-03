@@ -16,6 +16,9 @@ import { codeInput } from "@sanity/code-input";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schema";
 
+import Desktop from "@/assets/icons/unicons/desktop.svg";
+import Archive from "@/assets/icons/unicons/archive.svg";
+
 export default defineConfig({
   basePath: "/studio",
   projectId,
@@ -38,12 +41,14 @@ export default defineConfig({
           .title("Content")
           .items([
             orderableDocumentListDeskItem({
+              icon: Desktop,
               type: "service",
               S,
               context,
               title: "Service",
             }),
             orderableDocumentListDeskItem({
+              icon: Archive,
               type: "project",
               S,
               context,
