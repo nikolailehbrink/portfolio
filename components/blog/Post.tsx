@@ -1,7 +1,5 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import { toPlainText } from "@portabletext/react";
-
 import CodeBlock from "../CodeBlock";
 import PostImageComponent from "../PostImageComponent";
 import type { SanityPost } from "@/types/sanity/sanityPost";
@@ -10,13 +8,9 @@ import { client } from "@/sanity/lib/client";
 import GoBackButton from "../GoBackButton";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { getSanityBodyText, parseOutline } from "@/sanity/helpers";
-import LinkAlt from "@/assets/icons/unicons/link-alt.svg";
-import Link from "next/link";
 import TableOfContents from "./TableOfContents";
-import slugify from "slugify";
-import type { PortableTextComponentProps } from "@portabletext/react";
-import type { PortableTextBlock } from "@portabletext/types";
 import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
+import LinkableHeader from "./LinkableHeader";
 
 export default function Post({ post }: { post: SanityPost }) {
   const { title, mainImage, body, _createdAt, categories, excerpt, headings } =
@@ -117,28 +111,3 @@ export default function Post({ post }: { post: SanityPost }) {
     </article>
   );
 }
-
-const LinkableHeader = ({
-  children,
-  value,
-}: PortableTextComponentProps<PortableTextBlock>) => {
-  const HeadingTag = value.style as keyof JSX.IntrinsicElements;
-  const slug = slugify(toPlainText(value));
-
-  return (
-    <HeadingTag
-      id={slug}
-      className="relative flex scroll-mt-24 items-center gap-2"
-    >
-      <Link
-        href={`#${slug}`}
-        className=" lg:absolute lg:-left-7"
-        aria-hidden="true"
-        tabIndex={-1}
-      >
-        <LinkAlt className="w-5" />
-      </Link>
-      {children}
-    </HeadingTag>
-  );
-};
