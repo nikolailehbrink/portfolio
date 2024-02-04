@@ -8,7 +8,6 @@ import {
 import Logo from "@/app/icon.svg";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { useRef, useState } from "react";
 import { cn, isDev } from "@/lib/utils";
 import MenuButton from "./MenuButton";
 import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
@@ -16,16 +15,9 @@ import NavigationLink from "./NavigationLink";
 import { usePathname } from "next/navigation";
 
 export default function MainNavigation() {
-  const [showMenu, setShowMenu] = useState(false);
-  const menuRef = useRef(null);
-  const menuButtonRef = useRef(null);
   const { link: sanityLink, title, icon } = sanityButton;
-  useMenuClickOutside(
-    menuRef,
-    menuButtonRef,
-    () => setShowMenu(false),
-    showMenu,
-  );
+  const { menuRef, menuButtonRef, showMenu, setShowMenu } =
+    useMenuClickOutside();
 
   const pathname = usePathname();
 

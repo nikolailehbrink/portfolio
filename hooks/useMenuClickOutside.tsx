@@ -1,32 +1,37 @@
-import type { RefObject } from "react";
-import { useEffect } from "react";
+"use client";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
-export function useMenuClickOutside(
-  menuRef: RefObject<HTMLElement>,
-  buttonRef: RefObject<HTMLElement>,
-  onClickOutside: () => void,
-  isMenuOpen: boolean,
-) {
+export function useMenuClickOutside() {
+  const pathname = usePathname();
+  const menuRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const [showMenu, setShowMenu] = useState(false);
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
         menuRef.current &&
         !menuRef.current.contains(event.target as Node) &&
         !(
-          event.target === buttonRef.current ||
-          buttonRef.current?.contains(event.target as Node)
+          event.target === menuButtonRef.current ||
+          menuButtonRef.current?.contains(event.target as Node)
         )
       ) {
-        onClickOutside();
+        setShowMenu(false);
       }
     }
-    if (isMenuOpen) {
+    if (showMenu) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-    // Bind
     return () => {
-      // dispose
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [menuRef, buttonRef, onClickOutside, isMenuOpen]);
+  }, [menuRef, menuButtonRef, showMenu, setShowMenu]);
+
+  useEffect(() => {
+    setShowMenu(false);
+  }, [pathname, setShowMenu]);
+
+  return { menuRef, menuButtonRef, showMenu, setShowMenu };
 }
