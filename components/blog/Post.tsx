@@ -18,8 +18,6 @@ export default function Post({ post }: { post: SanityPost }) {
 
   const outline = parseOutline(headings);
 
-  console.log(outline);
-
   const { height, src, width } = useNextSanityImage(client, mainImage, {
     imageBuilder: (image) => image.fit("max").width(1920).height(1080),
   });
