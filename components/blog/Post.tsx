@@ -11,6 +11,7 @@ import { getSanityBodyText, parseOutline } from "@/sanity/helpers";
 import TableOfContents from "./TableOfContents";
 import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
 import LinkableHeader from "./LinkableHeader";
+import ExternalLink from "@/assets/icons/unicons/external-link.svg";
 
 export default function Post({ post }: { post: SanityPost }) {
   const { title, mainImage, body, _createdAt, categories, excerpt, headings } =
@@ -21,6 +22,8 @@ export default function Post({ post }: { post: SanityPost }) {
   const { height, src, width } = useNextSanityImage(client, mainImage, {
     imageBuilder: (image) => image.fit("max").width(1920).height(1080),
   });
+
+  console.log(body[0]);
 
   const postCreated = new Date(_createdAt);
 
@@ -100,6 +103,24 @@ export default function Post({ post }: { post: SanityPost }) {
                 types: {
                   code: ({ value }) => <CodeBlock {...value} />,
                   image: PostImageComponent,
+                },
+                marks: {
+                  link: ({ children, value: { href } }) => {
+                    const isInternal = href.startsWith("/");
+                    const rel = !isInternal ? "noreferrer noopener" : undefined;
+                    const target = !isInternal ? "_blank" : undefined;
+                    return (
+                      <a
+                        href={href}
+                        target={target}
+                        rel={rel}
+                        className="inline-flex items-center gap-[1px]"
+                      >
+                        {children}
+                        {!isInternal && <ExternalLink className="size-4" />}
+                      </a>
+                    );
+                  },
                 },
               }}
             />
