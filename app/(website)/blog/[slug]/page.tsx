@@ -37,7 +37,7 @@ export async function generateMetadata(
     openGraph: {
       images: [
         {
-          url: urlFor(mainImage).width(1200).height(630).url(),
+          url: urlFor(mainImage).width(1200).height(630).fit("clip").url(),
           width: 1200,
           height: 630,
           alt: mainImage.alt || "Post Image",
