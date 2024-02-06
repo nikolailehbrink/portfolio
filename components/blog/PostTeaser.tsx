@@ -4,7 +4,6 @@ import type { SanityPost } from "@/types/sanity/sanityPost";
 import { useNextSanityImage } from "next-sanity-image";
 import Image from "next/image";
 import Link from "next/link";
-import Star from "@/assets/icons/unicons/star.svg";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { getSanityBodyText } from "@/sanity/helpers";
 
@@ -54,12 +53,12 @@ export default function PostTeaser({
             placeholder="blur"
             blurDataURL={mainImage.asset.metadata.lqip}
           />
-          <div className="absolute inset-0 top-1/2 bg-gradient-to-t from-neutral-950 to-transparent"></div>
-          <div className="absolute bottom-4 right-4 flex gap-2">
+          <div className="absolute inset-0 top-2/3 bg-gradient-to-t from-neutral-950 to-transparent"></div>
+          <div className="absolute bottom-4 right-4 flex gap-1">
             {categories.map((category) => (
               <div
                 key={category._id}
-                className="rounded-lg border-2 border-orange bg-orange-300 px-2 py-1 text-sm font-bold text-orange-950"
+                className="rounded-full border-2 bg-blue-100 px-2 py-1 text-xs font-bold text-blue-950"
               >
                 <p>{category.title}</p>
               </div>
@@ -67,11 +66,6 @@ export default function PostTeaser({
           </div>
         </div>
         <div className="flex flex-col items-start justify-center gap-2">
-          {/* TODO: Implement Top Pick functionality */}
-          <div className="hidden items-center gap-1 rounded-lg border-2 border-blue-300 bg-blue px-2 py-1 text-xs @4xl:inline-flex">
-            <Star className="w-3" />
-            <p>Top Pick</p>
-          </div>
           <section className="-mb-1 flex gap-2 text-sm text-neutral-400">
             <time itemProp="datePublished" dateTime={postCreated.toISOString()}>
               {new Intl.DateTimeFormat("en-US", {
