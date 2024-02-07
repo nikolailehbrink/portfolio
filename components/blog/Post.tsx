@@ -91,7 +91,7 @@ export default function Post({ post }: { post: SanityPost }) {
               <TableOfContents outline={outline} />
             </nav>
           )}
-          <section className="prose dark:prose-invert sm:prose-lg xl:mx-auto">
+          <section className="prose text-pretty dark:prose-invert sm:prose-lg xl:mx-auto">
             <PortableText
               value={body}
               components={{
