@@ -12,6 +12,7 @@ import TableOfContents from "./TableOfContents";
 import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
 import LinkableHeader from "./LinkableHeader";
 import ExternalLink from "@/assets/icons/unicons/external-link.svg";
+import GitHub from "@/assets/icons/unicons/github.svg";
 
 export default function Post({ post }: { post: SanityPost }) {
   const { title, mainImage, body, _createdAt, categories, excerpt, headings } =
@@ -112,6 +113,7 @@ export default function Post({ post }: { post: SanityPost }) {
                   ),
                   link: ({ children, value: { href } }) => {
                     const isInternal = href.startsWith("/");
+                    const isGitHubLink = href.startsWith("https://github.com");
                     const rel = !isInternal ? "noreferrer noopener" : undefined;
                     const target = !isInternal ? "_blank" : undefined;
                     return (
@@ -122,7 +124,10 @@ export default function Post({ post }: { post: SanityPost }) {
                         className="inline-flex items-center gap-[1px]"
                       >
                         {children}
-                        {!isInternal && <ExternalLink className="size-4" />}
+                        {!isInternal && !isGitHubLink && (
+                          <ExternalLink className="size-4" />
+                        )}
+                        {isGitHubLink && <GitHub className="size-5" />}
                       </a>
                     );
                   },
