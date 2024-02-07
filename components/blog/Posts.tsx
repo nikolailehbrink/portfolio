@@ -20,8 +20,11 @@ export default function Posts({ posts }: { posts: SanityPost[] }) {
           <Link href="/#contact">reach out to me.</Link>
         </p>
       </header>
-      {firstPost && <PostTeaser post={firstPost} priority />}
-      {otherPosts?.length > 0 ? (
+      {firstPost &&
+      
+      
+      <PostTeaser post={firstPost} priority />}
+      {otherPosts?.length > 0 && (
         <div
           className={cn(
             "grid gap-8 lg:grid-cols-2 xl:grid-cols-3",
@@ -32,8 +35,6 @@ export default function Posts({ posts }: { posts: SanityPost[] }) {
             <PostTeaser key={post._id} post={post} />
           ))}
         </div>
-      ) : (
-        <div className="p-4 text-red-500">No posts found</div>
       )}
     </main>
   );
