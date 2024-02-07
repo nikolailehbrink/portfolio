@@ -20,7 +20,7 @@ export default function PostImageComponent({
   value: PostImageProps;
 }) {
   const imageProps = useNextSanityImage(client, value, {
-    imageBuilder: (image) => image.fit("max"),
+    imageBuilder: (image) => image.fit("max").quality(100),
   });
 
   return (
