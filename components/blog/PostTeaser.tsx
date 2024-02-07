@@ -33,7 +33,7 @@ export default function PostTeaser({
 
   const postText = getSanityBodyText(body);
 
-  const { words, minutesToRead } = useReadingTime(postText);
+  const { minutesToRead } = useReadingTime(postText);
 
   return (
     <div className="group/teaser @container">
@@ -58,7 +58,7 @@ export default function PostTeaser({
             {categories.map((category) => (
               <div
                 key={category._id}
-                className="rounded-full border-2 bg-blue-100 px-2 py-1 text-xs font-bold text-blue-950"
+                className="rounded-full bg-blue-100 px-2 py-1 text-xs font-bold text-blue-950"
               >
                 <p>{category.title}</p>
               </div>
@@ -76,8 +76,6 @@ export default function PostTeaser({
             </time>
             <span>|</span>
             <p>{minutesToRead}m read</p>
-            <span>|</span>
-            <p>{words} words</p>
           </section>
 
           <h2 className="text-2xl font-bold sm:text-3xl">{title}</h2>
