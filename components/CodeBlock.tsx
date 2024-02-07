@@ -1,12 +1,16 @@
+import type { BundledLanguage } from "shiki";
 import { codeToHtml } from "shiki";
 import {
   transformerNotationHighlight,
   transformerNotationDiff,
 } from "@shikijs/transformers";
 import CopyToClipboard from "./CopyToClipboard";
-import type { Code } from "@/types/sanity/sanity";
 
-type Props = Omit<Code, "_type" | "_key"> & {
+type Props = {
+  code: string;
+  language?: BundledLanguage;
+  filename?: string;
+  highlightedLines?: number[];
   removedLines?: number[];
   addedLines?: number[];
 };
@@ -55,7 +59,7 @@ export default async function CodeBlock({
           <CopyToClipboard text={code} />
         </div>
         <div
-          className="border-t-2 border-border text-sm [&>pre>code]:block [&>pre>code]:w-fit [&>pre>code]:min-w-full [&>pre]:overflow-x-auto [&>pre]:!bg-neutral-900 [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&>pre]:scrollbar-thin"
+          className="border-t-2 border-border text-sm [&>pre]:overflow-x-auto [&>pre]:!bg-neutral-900 [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&>pre]:scrollbar-thin [&_code]:block [&_code]:w-fit [&_code]:min-w-full"
           dangerouslySetInnerHTML={{ __html: html }}
         ></div>
       </div>
