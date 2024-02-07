@@ -105,6 +105,11 @@ export default function Post({ post }: { post: SanityPost }) {
                   image: PostImageComponent,
                 },
                 marks: {
+                  code: ({ children }) => (
+                    <code className="not-prose rounded-md border border-neutral-700 bg-neutral-800 px-[3px] py-[2px] text-sm">
+                      {children}
+                    </code>
+                  ),
                   link: ({ children, value: { href } }) => {
                     const isInternal = href.startsWith("/");
                     const rel = !isInternal ? "noreferrer noopener" : undefined;
