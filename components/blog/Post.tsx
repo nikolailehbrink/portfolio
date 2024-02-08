@@ -24,8 +24,6 @@ export default function Post({ post }: { post: SanityPost }) {
     imageBuilder: (image) => image.fit("max").width(1920).height(1080),
   });
 
-  console.log(body[0]);
-
   const postCreated = new Date(_createdAt);
 
   const postText = getSanityBodyText(body);
@@ -37,15 +35,16 @@ export default function Post({ post }: { post: SanityPost }) {
       <GoBackButton className="xl:sticky xl:top-[6.5rem]" />
       <div className="flex flex-col justify-center gap-4 sm:items-center sm:text-center">
         <div className="flex gap-2">
-          {categories.map((category) => (
-            <div key={category._id} className="badge badge-orange">
-              {category.title}
-            </div>
-          ))}
+          {categories.length > 0 &&
+            categories.map((category) => (
+              <div key={category._id} className="badge badge-orange">
+                {category.title}
+              </div>
+            ))}
         </div>
-        {title ? (
+        {title && (
           <h1 className="max-w-3xl  text-3xl font-bold lg:text-5xl">{title}</h1>
-        ) : null}
+        )}
         {excerpt && (
           <p className="prose prose-lg mx-auto dark:prose-invert">{excerpt}</p>
         )}
@@ -58,11 +57,10 @@ export default function Post({ post }: { post: SanityPost }) {
             }).format(postCreated)}
           </time>
           <span>|</span>
-
           <p>{minutesToRead}m read</p>
         </div>
       </div>
-      {mainImage ? (
+      {mainImage && (
         <Image
           className="relative z-10 aspect-video w-full rounded-lg object-cover"
           src={src}
@@ -77,9 +75,9 @@ export default function Post({ post }: { post: SanityPost }) {
           placeholder="blur"
           blurDataURL={mainImage.asset.metadata.lqip}
         />
-      ) : null}
+      )}
 
-      {body ? (
+      {body && (
         <div className="flex gap-2 max-xl:flex-col">
           {outline.length > 0 && (
             <nav className="sticky h-full space-y-2 text-pretty rounded-xl border-2 border-border bg-neutral-950 p-4 px-6 lg:p-6 lg:px-8 xl:top-36 xl:w-[300px]">
@@ -136,7 +134,7 @@ export default function Post({ post }: { post: SanityPost }) {
             />
           </section>
         </div>
-      ) : null}
+      )}
     </article>
   );
 }
