@@ -1,11 +1,37 @@
 import Link from "next/link";
+import ExclamationTriangle from "@/assets/icons/unicons/exclamation-triangle.svg";
+import Newspaper from "@/assets/icons/unicons/newspaper.svg";
+import HomeAlt from "@/assets/icons/unicons/home-alt.svg";
+import { Button } from "@/components/ui/button";
+import { funFacts } from "@/data/Home/FunFacts";
 
 export default function NotFound() {
   return (
-    <div>
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-      <Link href="/">Return Home</Link>
+    <div className="container flex flex-grow flex-col items-center justify-center space-y-4 text-pretty text-center">
+      <header className="flex flex-col items-center">
+        <ExclamationTriangle className="size-12" />
+        <h1 className="text-4xl font-bold lg:text-5xl">
+          There is nothing here!
+        </h1>
+      </header>
+      <div className="max-w-prose space-y-1">
+        <p>But since you stranded here, here is a fun fact for you:</p>
+        <p>{funFacts[Math.floor(Math.random() * funFacts.length)]}</p>
+      </div>
+      <div className="flex gap-3">
+        <Button asChild size={"shadow"} variant={"default"}>
+          <Link href="/">
+            <HomeAlt className="size-5" />
+            Go Home
+          </Link>
+        </Button>
+        <Button asChild size={"shadow"} variant={"secondary"}>
+          <Link href="/blog">
+            <Newspaper className="size-5" />
+            Blog
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }
