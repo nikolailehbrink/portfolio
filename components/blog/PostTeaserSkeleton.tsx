@@ -17,7 +17,6 @@ export default function PostTeaserSkeleton({
           </div>
         </div>
         <div className="flex flex-col items-start justify-center gap-4">
-          <Skeleton className="hidden h-7 w-20 @4xl:flex" />
           <div className="flex gap-2 text-sm text-neutral-400">
             <Skeleton className="h-4 w-14"></Skeleton>
             <Skeleton className="h-4 w-14"></Skeleton>
