@@ -6,20 +6,7 @@ import { useGSAP, gsap } from "@/lib/gsap";
 
 export default function HomeAnimation({ children }: { children: ReactNode }) {
   useGSAP(() => {
-    gsap.from("#header-illustration", {
-      scale: 0.2,
-      autoAlpha: 0,
-      ease: "power2.out",
-    });
-
-    gsap.from("#header-illustration .bubble", {
-      scale: 0.3,
-      rotate: -25,
-      autoAlpha: 0,
-      stagger: 0.2,
-    });
-
-    gsap.from("section#header #gradient-blur", {
+    gsap.to("section#header #gradient-blur", {
       rotate: 270,
       scrollTrigger: {
         start: "top top",
