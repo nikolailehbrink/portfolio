@@ -8,6 +8,7 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityPost } from "@/types/sanity/sanityPost";
 import type { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const posts = await client.fetch<SanityPost[]>(POSTS_QUERY);
@@ -25,9 +26,13 @@ export async function generateMetadata(
   },
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const {
-    data: { title, mainImage, author, categories, excerpt },
-  } = await loadQuery<SanityPost>(POST_QUERY, params);
+  const { data } = await loadQuery<SanityPost>(POST_QUERY, params);
+
+  if (!data) {
+    notFound();
+  }
+
+  const { title, mainImage, author, categories, excerpt } = data;
 
   return {
     authors: [{ name: author.name }],
