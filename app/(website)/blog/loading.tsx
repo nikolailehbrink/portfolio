@@ -18,8 +18,6 @@ export default function Loading() {
 
       <div className="grid gap-8 lg:grid-cols-2">
         <PostTeaserSkeleton className="lg:col-span-2" />
-        <PostTeaserSkeleton />
-        <PostTeaserSkeleton />
       </div>
     </div>
   );
