@@ -1,4 +1,6 @@
+"use client";
 import type { Viewport } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Blinker } from "next/font/google";
 import "./globals.css";
 import type { ReactNode } from "react";
@@ -29,6 +31,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       >
         {children}
         <Toaster />
+        <Analytics
+          beforeSend={(event) => {
+            if (event.url.includes("/studio")) {
+              return null;
+            }
+            return event;
+          }}
+        />
       </body>
     </html>
   );
