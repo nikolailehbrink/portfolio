@@ -32,15 +32,20 @@ export default async function ExperienceSection() {
           id="work-places"
           className="flex flex-col gap-8 border-l-[3px] border-white/10 max-lg:mx-4 "
         >
-          {experiences
-            .toSorted((a, b) => {
-              const dateA = a.period.to ? new Date(a.period.from) : new Date();
-              const dateB = b.period.to ? new Date(b.period.from) : new Date();
-              return dateB.getTime() - dateA.getTime();
-            })
-            .map((experience) => (
-              <WorkExperience key={experience._id} experience={experience} />
-            ))}
+          {experiences.length > 0 &&
+            experiences
+              .sort((a, b) => {
+                const dateA = a.period.to
+                  ? new Date(a.period.from)
+                  : new Date();
+                const dateB = b.period.to
+                  ? new Date(b.period.from)
+                  : new Date();
+                return dateB.getTime() - dateA.getTime();
+              })
+              .map((experience) => (
+                <WorkExperience key={experience._id} experience={experience} />
+              ))}
         </ol>
       </div>
     </section>
