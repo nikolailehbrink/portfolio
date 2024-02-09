@@ -2,9 +2,9 @@ import headerIllustration from "@/assets/header-illustration/header-illustration
 import bubbleGym from "@/assets/header-illustration/bubble-gym.svg?url";
 import bubbleRope from "@/assets/header-illustration/bubble-rope.svg?url";
 import bubblePiano from "@/assets/header-illustration/bubble-piano.svg?url";
+import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 
 import Archive from "@/assets/icons/unicons/archive.svg";
-import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
@@ -26,13 +26,9 @@ export default function HeaderSection() {
             favorite projects with you.
           </p>
           <p className="delay-300">
-            Take a look at my{" "}
-            <Link className="underline underline-offset-2" href={"/blog"}>
-              blog
-            </Link>{" "}
-            for articles about things I learned and might help you. If
-            you&apos;re interested in working together or just want to chat,
-            feel free to reach out.
+            Take a look at my blog for articles about things I learned and might
+            help you out. If you&apos;re interested in working together or just
+            want to chat, feel free to contact me.
           </p>
           <div className="flex gap-4 delay-500">
             <Button size={"shadow"} asChild>
@@ -42,9 +38,9 @@ export default function HeaderSection() {
               </Link>
             </Button>
             <Button asChild size={"shadow"} variant={"secondary"}>
-              <Link href="#contact">
-                <CommentCheck className="size-7" />
-                Contact
+              <Link href="/blog">
+                <Newspaper className="size-7" />
+                Blog
               </Link>
             </Button>
           </div>
