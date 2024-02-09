@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Viewport } from "next";
 import { Blinker } from "next/font/google";
 import "./globals.css";
 import type { ReactNode } from "react";
@@ -12,20 +12,6 @@ const blinker = Blinker({
   display: "swap",
   variable: "--font-blinker",
 });
-
-export const metadata: Metadata = {
-  title: {
-    template: "%s | Nikolai Lehbrink",
-    default: "Nikolai Lehbrink - Web Developer & Designer",
-  },
-  description:
-    "Web enthusiast from Germany. Specializing in React and Next.js, dedicated to creating performant, cutting-edge web applications.",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://nikolailehbr.ink",
-  },
-};
 
 export const viewport: Viewport = {
   themeColor: twConfig.theme.colors.blue.DEFAULT,
