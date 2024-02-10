@@ -1,5 +1,8 @@
 import Archive from "@/assets/icons/unicons/archive.svg";
+import { Suspense } from "react";
+import ProjectCarouselItems from "./ProjectCarouselItems";
 import ProjectCarousel from "./ProjectCarousel";
+import ProjectCarouselSkeleton from "./ProjectCarouselSkeleton";
 
 export default function ProjectSection() {
   return (
@@ -27,7 +30,12 @@ export default function ProjectSection() {
           companies, for whom I&apos;ve created the following projects.
         </p>
       </div>
-      <ProjectCarousel />
+
+      <ProjectCarousel>
+        <Suspense fallback={<ProjectCarouselSkeleton />}>
+          <ProjectCarouselItems />
+        </Suspense>
+      </ProjectCarousel>
     </section>
   );
 }
