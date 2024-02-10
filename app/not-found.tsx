@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ExclamationTriangle from "@/assets/icons/unicons/exclamation-triangle.svg";
+import SearchAlt from "@/assets/icons/unicons/search-alt.svg";
 import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import HomeAlt from "@/assets/icons/unicons/home-alt.svg";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,7 @@ export default function NotFound() {
   return (
     <div className="container flex flex-grow flex-col items-center justify-center space-y-4 text-pretty text-center">
       <header className="flex flex-col items-center">
-        <ExclamationTriangle className="size-12" />
+        <SearchAlt className="size-12" />
         <h1 className="text-4xl font-bold lg:text-5xl">
           There is nothing here!
         </h1>
