@@ -19,7 +19,7 @@ export default function Error({
   useEffect(() => {
     Sentry.captureException(error);
   }, [error]);
-  console.error(error);
+
   return (
     <div className="container flex flex-grow flex-col items-center justify-center space-y-4 text-pretty text-center">
       <header className="flex flex-col items-center">
