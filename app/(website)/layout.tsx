@@ -7,6 +7,7 @@ import { draftMode } from "next/headers";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.nikolailehbr.ink/"),
   title: {
     template: "%s | Nikolai Lehbrink",
     default: "Nikolai Lehbrink - Web Developer & Designer",
