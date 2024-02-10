@@ -6,6 +6,8 @@ import SyncExclamation from "@/assets/icons/unicons/sync-exclamation.svg";
 import HomeAlt from "@/assets/icons/unicons/home-alt.svg";
 import { Button } from "@/components/ui/button";
 import { funFacts } from "@/data/Home/FunFacts";
+import { useEffect } from "react";
+import * as Sentry from "@sentry/nextjs";
 
 export default function Error({
   error,
@@ -14,6 +16,9 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    Sentry.captureException(error);
+  }, [error]);
   console.error(error);
   return (
     <div className="container flex flex-grow flex-col items-center justify-center space-y-4 text-pretty text-center">
