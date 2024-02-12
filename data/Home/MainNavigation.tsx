@@ -4,6 +4,7 @@ import Diary from "@/assets/icons/unicons/diary.svg";
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import ToiletPaper from "@/assets/icons/unicons/toilet-paper.svg";
+import Robot from "@/assets/icons/unicons/robot.svg";
 
 export const mainNavigation = [
   {
@@ -25,6 +26,11 @@ export const mainNavigation = [
     link: "/blog",
     title: "Blog",
     icon: <Newspaper />,
+  },
+  {
+    link: "/chat",
+    title: "Chat",
+    icon: <Robot />,
   },
 ];
 

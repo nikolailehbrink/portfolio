@@ -24,7 +24,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <MainNavigation />
-      <main className="mt-4 grow">{children}</main>
+      <main className="mt-4 flex grow flex-col">{children}</main>
       <SocialNavigation />
       <Footer />
       {draftMode().isEnabled && <VisualEditing />}
