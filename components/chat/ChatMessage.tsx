@@ -6,25 +6,21 @@ export default function ChatMessage(chatMessage: Message) {
   return (
     <div
       className={cn(
-        "flex gap-4 text-pretty",
-        chatMessage.role === "assistant"
-          ? "items-start"
-          : "flex-row-reverse items-end",
+        "flex items-start gap-2 text-pretty sm:gap-4",
+        chatMessage.role === "user" && "flex-row-reverse",
       )}
     >
       <ChatAvatar role={chatMessage.role} />
-      <div className="flex gap-2">
-        <p
-          className={cn(
-            "rounded-xl  px-4 py-2",
-            chatMessage.role === "assistant"
-              ? "mr-32 bg-neutral-900"
-              : "ml-32 bg-blue",
-          )}
-        >
-          {chatMessage.content}
-        </p>
-      </div>
+      <p
+        className={cn(
+          "max-w-prose rounded-xl px-4 py-2",
+          chatMessage.role === "assistant"
+            ? "bg-neutral-950 sm:bg-neutral-900 lg:mr-32"
+            : "bg-blue lg:ml-32",
+        )}
+      >
+        {chatMessage.content}
+      </p>
     </div>
   );
 }

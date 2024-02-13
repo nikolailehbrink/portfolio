@@ -13,7 +13,10 @@ export default function ChatInput({
   "handleSubmit" | "input" | "handleInputChange" | "isLoading"
 >) {
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-xl">
+    <form
+      onSubmit={handleSubmit}
+      className="mx-auto max-w-screen-lg space-y-4 rounded-xl"
+    >
       <div className="flex w-full items-start justify-between gap-4 ">
         <Input
           autoFocus
