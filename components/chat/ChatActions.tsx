@@ -13,16 +13,16 @@ export default function ChatActions({
   showReload: boolean;
 }) {
   return (
-    <div className="space-x-4">
+    <div className="flex flex-wrap gap-2">
       {showStop && (
-        <Button variant="outline" size="sm" onClick={() => stop()}>
-          <PauseCircle className="mr-2 h-4 w-4" />
+        <Button size="sm" onClick={() => stop()}>
+          <PauseCircle className="size-4" />
           Stop generating
         </Button>
       )}
       {showReload && (
-        <Button variant="outline" size="sm" onClick={() => reload()}>
-          <RefreshCw className="mr-2 h-4 w-4" />
+        <Button size="sm" onClick={() => reload()}>
+          <RefreshCw className="size-4" />
           Regenerate
         </Button>
       )}

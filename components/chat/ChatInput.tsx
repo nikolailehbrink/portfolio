@@ -13,7 +13,7 @@ export default function ChatInput({
   "handleSubmit" | "input" | "handleInputChange" | "isLoading"
 >) {
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-xl p-4">
+    <form onSubmit={handleSubmit} className="space-y-4 rounded-xl">
       <div className="flex w-full items-start justify-between gap-4 ">
         <Input
           autoFocus
@@ -23,9 +23,9 @@ export default function ChatInput({
           value={input}
           onChange={handleInputChange}
         />
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" size={"sm"} disabled={isLoading}>
           <CommentCheck className="size-7" />
-          Send message
+          {/* Send message */}
         </Button>
       </div>
     </form>

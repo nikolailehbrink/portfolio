@@ -1,9 +1,4 @@
-import VisualEditing from "@/components/VisualEditing";
-import Footer from "@/components/home/Footer";
-import MainNavigation from "@/components/home/MainNavigation";
-import SocialNavigation from "@/components/home/SocialNavigation";
 import type { Metadata } from "next";
-import { draftMode } from "next/headers";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
@@ -21,13 +16,5 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <MainNavigation />
-      <main className="mt-4 flex grow flex-col">{children}</main>
-      <SocialNavigation />
-      <Footer />
-      {draftMode().isEnabled && <VisualEditing />}
-    </>
-  );
+  return children;
 }
