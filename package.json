@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "node app\\api\\chat\\engine\\generate.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.0",
@@ -30,7 +31,9 @@
     "ai": "^2.2.34",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "dotenv": "^16.4.4",
     "embla-carousel-react": "^8.0.0-rc21",
+    "llamaindex": "^0.1.10",
     "lucide-react": "^0.316.0",
     "next": "14.1.0",
     "next-sanity": "^7.0.15",

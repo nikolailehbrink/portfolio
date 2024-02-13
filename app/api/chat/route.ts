@@ -1,29 +1,57 @@
-import OpenAI from "openai";
-import { OpenAIStream, StreamingTextResponse } from "ai";
-import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+import { StreamingTextResponse } from "ai";
+import type { ChatMessage } from "llamaindex";
+import { OpenAI } from "llamaindex";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { createChatEngine } from "./engine";
+import { LlamaIndexStream } from "./llamaindex-stream";
 
-// Create an OpenAI API client (that's edge friendly!)
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-// Set the runtime to edge for best performance
-export const runtime = "edge";
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { messages } = body as { messages: ChatMessage[] };
+    const userMessage = messages.pop();
+    if (!messages || !userMessage || userMessage.role !== "user") {
+      return NextResponse.json(
+        {
+          error:
+            "messages are required in the request body and the last message must be from the user",
+        },
+        { status: 400 },
+      );
+    }
 
-export async function POST(req: Request) {
-  const { messages } = (await req.json()) as {
-    messages: ChatCompletionMessageParam[];
-  };
+    const llm = new OpenAI({
+      model: (process.env.MODEL as any) ?? "gpt-3.5-turbo",
+      maxTokens: 512,
+    });
 
-  // Ask OpenAI for a streaming chat completion given the prompt
-  const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    stream: true,
-    messages,
-  });
+    const chatEngine = await createChatEngine(llm);
 
-  // Convert the response into a friendly text-stream
-  const stream = OpenAIStream(response);
-  // Respond with the stream
-  return new StreamingTextResponse(stream);
+    // Calling LlamaIndex's ChatEngine to get a streamed response
+    const response = await chatEngine.chat({
+      message: userMessage.content,
+      chatHistory: messages,
+      stream: true,
+    });
+
+    // Transform LlamaIndex stream to Vercel/AI format
+    const { stream } = LlamaIndexStream(response);
+
+    // Return a StreamingTextResponse, which can be consumed by the Vercel/AI client
+    return new StreamingTextResponse(stream);
+  } catch (error) {
+    console.error("[LlamaIndex]", error);
+    return NextResponse.json(
+      {
+        error: (error as Error).message,
+      },
+      {
+        status: 500,
+      },
+    );
+  }
 }
