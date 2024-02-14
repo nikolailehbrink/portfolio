@@ -1,10 +1,7 @@
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import type { UseChatHelpers } from "ai/react";
-import Message from "@/assets/icons/unicons/message.svg";
-import PauseCircle from "@/assets/icons/unicons/pause-circle.svg";
-import CommentRedo from "@/assets/icons/unicons/comment-redo.svg";
 import { useEffect, useRef } from "react";
+import ChatActions from "./ChatActions";
 
 export default function ChatInput({
   handleSubmit,
@@ -13,7 +10,8 @@ export default function ChatInput({
   isLoading,
   showReload,
   reload,
-  isPending,
+  isGenerating,
+  stop,
 }: Pick<
   UseChatHelpers,
   | "handleSubmit"
@@ -22,7 +20,7 @@ export default function ChatInput({
   | "isLoading"
   | "stop"
   | "reload"
-> & { showReload: boolean; isPending: boolean }) {
+> & { showReload: boolean; isGenerating: boolean }) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -30,7 +28,10 @@ export default function ChatInput({
   }, []);
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto mt-4 w-full max-sm:pr-4">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-gradien mx-auto w-full pr-4 pt-4"
+    >
       <div className="flex w-full items-start justify-between gap-2">
         <Input
           ref={inputRef}
@@ -40,36 +41,14 @@ export default function ChatInput({
           value={input}
           onChange={handleInputChange}
         />
-        {showReload && (
-          <Button
-            type="button"
-            aria-label="Regenerate message"
-            size="icon"
-            variant={"secondary"}
-            onClick={() => reload()}
-          >
-            <CommentRedo className="size-7" />
-          </Button>
-        )}
-        {isLoading ? (
-          <Button
-            disabled={isPending}
-            aria-label="Stop generating"
-            size="icon"
-            onClick={() => stop()}
-          >
-            <PauseCircle className="size-7" />
-          </Button>
-        ) : (
-          <Button
-            aria-label="Submit message"
-            type="submit"
-            size="icon"
-            disabled={isLoading || !input.length}
-          >
-            <Message className="size-7" />
-          </Button>
-        )}
+        <ChatActions
+          input={input}
+          isGenerating={isGenerating}
+          isLoading={isLoading}
+          reload={reload}
+          showReload={showReload}
+          stop={stop}
+        />
       </div>
     </form>
   );

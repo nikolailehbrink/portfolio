@@ -1,49 +1,27 @@
 import type { UseChatHelpers } from "ai/react";
-import SpinnerAlt from "@/assets/icons/unicons/spinner-alt.svg";
+import Refresh from "@/assets/icons/unicons/refresh.svg";
 import { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
 import { gsap, useGSAP } from "@/lib/gsap";
-import ChatInput from "./ChatInput";
 
 export default function ChatMessages({
   messages,
-  isLoading,
-  handleSubmit,
-  input,
-  handleInputChange,
-  stop,
-  reload,
-}: Pick<
-  UseChatHelpers,
-  | "messages"
-  | "isLoading"
-  | "input"
-  | "stop"
-  | "reload"
-  | "handleInputChange"
-  | "handleSubmit"
->) {
-  const scrollableChatContainerRef = useRef<HTMLDivElement>(null);
+  isPending,
+}: Pick<UseChatHelpers, "messages"> & {
+  isPending: boolean;
+}) {
+  const scrollableContainerRef = useRef<HTMLDivElement>(null);
+  const initialMessageRef = useRef<HTMLDivElement>(null);
   const lastMessage = messages[messages.length - 1];
 
   const scrollToBottom = () => {
-    if (scrollableChatContainerRef.current) {
-      scrollableChatContainerRef.current.scrollTop =
-        scrollableChatContainerRef.current.scrollHeight;
+    if (scrollableContainerRef.current) {
+      scrollableContainerRef.current.scrollTop =
+        scrollableContainerRef.current.scrollHeight;
     }
   };
 
-  const messageRef = useRef<HTMLDivElement>(null);
-
-  const isLastMessageFromAssistant =
-    messages.length > 0 && lastMessage?.role !== "user";
-  const isPending = isLoading && !isLastMessageFromAssistant;
-
-  const showReload = !isLoading && isLastMessageFromAssistant;
-
   useEffect(() => {
-    console.log("scrolling to bottom");
-
     scrollToBottom();
   }, [messages.length, lastMessage]);
 
@@ -54,37 +32,23 @@ export default function ChatMessages({
         duration: 8,
       });
     },
-    { scope: messageRef },
+    { scope: initialMessageRef },
   );
 
   return (
-    <div className="mx-auto flex w-full max-w-screen-lg flex-1 flex-col overflow-hidden sm:rounded-xl sm:bg-neutral-950 sm:p-4">
-      <div
-        className="flex-1 space-y-4 overflow-auto scrollbar-thin max-sm:pr-4 sm:p-4"
-        ref={scrollableChatContainerRef}
-      >
-        <div ref={messageRef}>
-          <ChatMessage content="Hi!" role="assistant" id="12344" />
+    <div
+      className="flex-1 space-y-4 overflow-auto pr-4 scrollbar-thin "
+      ref={scrollableContainerRef}
+    >
+      <ChatMessage ref={initialMessageRef} content="Hi!" role="assistant" />
+      {messages.map((m) => (
+        <ChatMessage key={m.id} {...m} />
+      ))}
+      {isPending && (
+        <div className="mt-4 flex items-center justify-center">
+          <Refresh className="size-7 animate-spin direction-reverse" />
         </div>
-        {messages.map((m) => (
-          <ChatMessage key={m.id} {...m} />
-        ))}
-        {isPending && (
-          <div className="flex items-center justify-center pt-10">
-            <SpinnerAlt className="size-7 animate-spin" />
-          </div>
-        )}
-      </div>
-      <ChatInput
-        handleSubmit={handleSubmit}
-        isLoading={isLoading}
-        input={input}
-        handleInputChange={handleInputChange}
-        stop={stop}
-        showReload={showReload}
-        reload={reload}
-        isPending={isPending}
-      />
+      )}
     </div>
   );
 }

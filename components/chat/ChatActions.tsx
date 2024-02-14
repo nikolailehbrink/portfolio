@@ -1,31 +1,48 @@
-import { PauseCircle, RefreshCw } from "lucide-react";
-
 import { Button } from "../ui/button";
+import Message from "@/assets/icons/unicons/message.svg";
+import PauseCircle from "@/assets/icons/unicons/pause-circle.svg";
+import CommentRedo from "@/assets/icons/unicons/comment-redo.svg";
+
 import type { UseChatHelpers } from "ai/react";
 
 export default function ChatActions({
   stop,
   reload,
-  showStop,
   showReload,
-}: Pick<UseChatHelpers, "stop" | "reload"> & {
-  showStop: boolean;
+  input,
+  isLoading,
+  isGenerating,
+}: Pick<UseChatHelpers, "stop" | "reload" | "input" | "isLoading"> & {
   showReload: boolean;
+  isGenerating: boolean;
 }) {
   return (
-    <div className="flex flex-wrap gap-2">
-      {showStop && (
-        <Button size="sm" onClick={() => stop()}>
-          <PauseCircle className="size-4" />
-          Stop generating
-        </Button>
-      )}
+    <>
       {showReload && (
-        <Button size="sm" onClick={() => reload()}>
-          <RefreshCw className="size-4" />
-          Regenerate
+        <Button
+          type="button"
+          aria-label="Regenerate message"
+          size="icon"
+          variant={"secondary"}
+          onClick={() => reload()}
+        >
+          <CommentRedo className="size-7" />
         </Button>
       )}
-    </div>
+      {isGenerating ? (
+        <Button aria-label="Stop generating" size="icon" onClick={() => stop()}>
+          <PauseCircle className="size-7" />
+        </Button>
+      ) : (
+        <Button
+          aria-label="Submit message"
+          type="submit"
+          size="icon"
+          disabled={isLoading || !input.length}
+        >
+          <Message className="size-7" />
+        </Button>
+      )}
+    </>
   );
 }
