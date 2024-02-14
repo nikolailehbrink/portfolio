@@ -18,6 +18,9 @@ const nextConfig = {
     ],
   },
   experimental: {
+    outputFileTracingIncludes: {
+      "/*": ["./cache/**/*"],
+    },
     taint: true,
   },
   webpack(config) {
