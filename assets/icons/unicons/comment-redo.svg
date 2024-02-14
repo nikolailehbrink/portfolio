@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em">
+  <path
+    class="uim-tertiary"
+    d="M11 22H3a1 1 0 0 1-.707-1.707l1.675-1.675A9 9 0 1 1 11 22Z"
+  ></path>
+  <path
+    class="uim-primary"
+    d="M21 2a1 1 0 0 0-1 1v.005a5 5 0 1 0 .298 7.748 1 1 0 1 0-1.316-1.506A3 3 0 1 1 19.232 5H18a1 1 0 0 0 0 2h3a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1Z"
+  ></path>
+</svg>

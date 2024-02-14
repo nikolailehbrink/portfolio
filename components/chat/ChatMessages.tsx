@@ -7,7 +7,7 @@ import { gsap, useGSAP } from "@/lib/gsap";
 export default function ChatMessages({
   messages,
   isLoading,
-}: Pick<UseChatHelpers, "messages" | "isLoading" | "reload" | "stop">) {
+}: Pick<UseChatHelpers, "messages" | "isLoading">) {
   const scrollableChatContainerRef = useRef<HTMLDivElement>(null);
   const lastMessage = messages[messages.length - 1];
 
@@ -25,6 +25,8 @@ export default function ChatMessages({
   const isPending = isLoading && !isLastMessageFromAssistant;
 
   useEffect(() => {
+    console.log("scrolling to bottom");
+
     scrollToBottom();
   }, [messages.length, lastMessage]);
 
@@ -39,8 +41,11 @@ export default function ChatMessages({
   );
 
   return (
-    <div className="mx-auto my-8 w-full max-w-screen-lg flex-1 overflow-auto rounded-xl scrollbar-thin sm:bg-neutral-950">
-      <div className="space-y-4 sm:p-8" ref={scrollableChatContainerRef}>
+    <div className="mx-auto mt-8 flex w-full max-w-screen-lg flex-1 flex-col overflow-hidden sm:rounded-lg sm:bg-neutral-950 sm:p-4">
+      <div
+        className="flex-1 space-y-4 overflow-auto scrollbar-thin max-sm:pr-4 sm:p-4"
+        ref={scrollableChatContainerRef}
+      >
         <div ref={messageRef}>
           <ChatMessage content="Hi!" role="assistant" id="12344" />
         </div>
