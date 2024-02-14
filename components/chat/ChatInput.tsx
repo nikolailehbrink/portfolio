@@ -4,6 +4,7 @@ import type { UseChatHelpers } from "ai/react";
 import Message from "@/assets/icons/unicons/message.svg";
 import PauseCircle from "@/assets/icons/unicons/pause-circle.svg";
 import CommentRedo from "@/assets/icons/unicons/comment-redo.svg";
+import { useEffect, useRef } from "react";
 
 export default function ChatInput({
   handleSubmit,
@@ -12,6 +13,7 @@ export default function ChatInput({
   isLoading,
   showReload,
   reload,
+  isPending,
 }: Pick<
   UseChatHelpers,
   | "handleSubmit"
@@ -20,15 +22,21 @@ export default function ChatInput({
   | "isLoading"
   | "stop"
   | "reload"
-> & { showReload: boolean }) {
+> & { showReload: boolean; isPending: boolean }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
-    <form onSubmit={handleSubmit} className="mx-auto max-w-screen-lg">
+    <form onSubmit={handleSubmit} className="mx-auto mt-4 w-full max-sm:pr-4">
       <div className="flex w-full items-start justify-between gap-2">
         <Input
-          autoFocus
+          ref={inputRef}
           name="message"
           placeholder="Type a message"
-          className="flex-1"
+          className="flex-1 focus-visible:border-white focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 sm:bg-neutral-900"
           value={input}
           onChange={handleInputChange}
         />
@@ -45,6 +53,7 @@ export default function ChatInput({
         )}
         {isLoading ? (
           <Button
+            disabled={isPending}
             aria-label="Stop generating"
             size="icon"
             onClick={() => stop()}
@@ -56,7 +65,7 @@ export default function ChatInput({
             aria-label="Submit message"
             type="submit"
             size="icon"
-            disabled={isLoading}
+            disabled={isLoading || !input.length}
           >
             <Message className="size-7" />
           </Button>

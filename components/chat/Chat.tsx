@@ -1,7 +1,6 @@
 "use client";
 
 import { useChat } from "ai/react";
-import ChatInput from "./ChatInput";
 import ChatMessages from "./ChatMessages";
 
 export default function Chat() {
@@ -15,26 +14,20 @@ export default function Chat() {
     stop,
   } = useChat();
 
-  const lastMessage = messages[messages.length - 1];
-
-  const isLastMessageFromAssistant =
-    messages.length > 0 && lastMessage?.role !== "user";
-  const showReload = !isLoading && isLastMessageFromAssistant;
-
   return (
     <>
-      <div className="container mx-auto flex flex-1 flex-col overflow-hidden max-sm:pr-0">
-        <ChatMessages isLoading={isLoading} messages={messages} />
-      </div>
-      <div className="container relative my-4 ">
-        <ChatInput
-          handleSubmit={handleSubmit}
+      <div className="container mx-auto mb-4 mt-4 flex flex-1 flex-col overflow-hidden max-sm:pr-0 sm:mt-8">
+        <h1 className="mb-6 text-5xl font-bold sm:mt-2 sm:text-center">
+          Let&apos;s chat!
+        </h1>
+        <ChatMessages
           isLoading={isLoading}
-          input={input}
+          messages={messages}
           handleInputChange={handleInputChange}
-          stop={stop}
-          showReload={showReload}
+          input={input}
           reload={reload}
+          stop={stop}
+          handleSubmit={handleSubmit}
         />
       </div>
     </>

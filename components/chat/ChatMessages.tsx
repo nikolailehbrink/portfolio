@@ -3,11 +3,26 @@ import SpinnerAlt from "@/assets/icons/unicons/spinner-alt.svg";
 import { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
 import { gsap, useGSAP } from "@/lib/gsap";
+import ChatInput from "./ChatInput";
 
 export default function ChatMessages({
   messages,
   isLoading,
-}: Pick<UseChatHelpers, "messages" | "isLoading">) {
+  handleSubmit,
+  input,
+  handleInputChange,
+  stop,
+  reload,
+}: Pick<
+  UseChatHelpers,
+  | "messages"
+  | "isLoading"
+  | "input"
+  | "stop"
+  | "reload"
+  | "handleInputChange"
+  | "handleSubmit"
+>) {
   const scrollableChatContainerRef = useRef<HTMLDivElement>(null);
   const lastMessage = messages[messages.length - 1];
 
@@ -23,6 +38,8 @@ export default function ChatMessages({
   const isLastMessageFromAssistant =
     messages.length > 0 && lastMessage?.role !== "user";
   const isPending = isLoading && !isLastMessageFromAssistant;
+
+  const showReload = !isLoading && isLastMessageFromAssistant;
 
   useEffect(() => {
     console.log("scrolling to bottom");
@@ -41,7 +58,7 @@ export default function ChatMessages({
   );
 
   return (
-    <div className="mx-auto mt-8 flex w-full max-w-screen-lg flex-1 flex-col overflow-hidden sm:rounded-lg sm:bg-neutral-950 sm:p-4">
+    <div className="mx-auto flex w-full max-w-screen-lg flex-1 flex-col overflow-hidden sm:rounded-xl sm:bg-neutral-950 sm:p-4">
       <div
         className="flex-1 space-y-4 overflow-auto scrollbar-thin max-sm:pr-4 sm:p-4"
         ref={scrollableChatContainerRef}
@@ -58,6 +75,16 @@ export default function ChatMessages({
           </div>
         )}
       </div>
+      <ChatInput
+        handleSubmit={handleSubmit}
+        isLoading={isLoading}
+        input={input}
+        handleInputChange={handleInputChange}
+        stop={stop}
+        showReload={showReload}
+        reload={reload}
+        isPending={isPending}
+      />
     </div>
   );
 }
