@@ -1,6 +1,5 @@
 import { Input } from "../ui/input";
 import type { UseChatHelpers } from "ai/react";
-import { useEffect, useRef } from "react";
 import ChatActions from "./ChatActions";
 
 export default function ChatInput({
@@ -21,12 +20,6 @@ export default function ChatInput({
   | "stop"
   | "reload"
 > & { showReload: boolean; isGenerating: boolean }) {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
   return (
     <form
       onSubmit={handleSubmit}
@@ -34,7 +27,6 @@ export default function ChatInput({
     >
       <div className="flex w-full items-start justify-between gap-2">
         <Input
-          ref={inputRef}
           name="message"
           placeholder="Type a message"
           className="flex-1 focus-visible:border-white focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 sm:bg-neutral-900"
