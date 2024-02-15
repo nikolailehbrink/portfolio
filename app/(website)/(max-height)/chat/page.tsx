@@ -1,4 +1,11 @@
 import Chat from "@/components/chat/Chat";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Personal AI Chat",
+  description:
+    "Have a chat with my digital self, which is well versed in key moments of my life.",
+};
 
 export default function Page() {
   return (
