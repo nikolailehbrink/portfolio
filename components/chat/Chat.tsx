@@ -3,6 +3,7 @@
 import ChatInput from "./ChatInput";
 import { useChat } from "ai/react";
 import ChatMessages from "./ChatMessages";
+import ChatExamples from "./ChatExamples";
 
 export default function Chat() {
   const {
@@ -14,6 +15,7 @@ export default function Chat() {
     reload,
     stop,
   } = useChat();
+    setInput,
 
   const lastMessage = messages[messages.length - 1];
 
@@ -27,6 +29,7 @@ export default function Chat() {
   return (
     <div className="mx-auto flex w-full max-w-screen-lg flex-1 flex-col overflow-hidden sm:rounded-xl sm:bg-neutral-950 sm:p-4 sm:pr-0">
       <ChatMessages messages={messages} isPending={isPending} />
+      {messages.length < 3 && <ChatExamples setInput={setInput} />}
       <ChatInput
         handleSubmit={handleSubmit}
         isLoading={isLoading}

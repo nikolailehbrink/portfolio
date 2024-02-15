@@ -1,0 +1,19 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  data-name="Layer 1"
+  viewBox="0 0 24 24"
+  width="1em"
+>
+  <path
+    class="uim-quaternary"
+    d="M7.5 13.28v5.12l4.5 2.56 4.5-2.56v-5.12L12 10.72l-4.5 2.56z"
+  ></path>
+  <path
+    class="uim-tertiary"
+    d="M3 5.6v5.12l4.5 2.56 4.5-2.56V5.6L7.5 3.04 3 5.6z"
+  ></path>
+  <path
+    class="uim-primary"
+    d="M12 5.6v5.12l4.5 2.56 4.5-2.56V5.6l-4.5-2.56L12 5.6z"
+  ></path>
+</svg>
