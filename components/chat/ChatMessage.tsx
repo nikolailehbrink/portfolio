@@ -1,7 +1,8 @@
 import type { Message } from "ai";
 import ChatAvatar from "./ChatAvatar";
 import { cn } from "@/lib/utils";
-import { ForwardedRef, forwardRef } from "react";
+import type { ForwardedRef } from "react";
+import { forwardRef } from "react";
 
 export default forwardRef(function ChatMessage(
   { content, role }: Pick<Message, "content" | "role">,

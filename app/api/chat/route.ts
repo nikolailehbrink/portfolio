@@ -1,4 +1,6 @@
 import { StreamingTextResponse } from "ai";
+import { encoding_for_model } from "tiktoken";
+
 import type { ChatMessage } from "llamaindex";
 import { OpenAI } from "llamaindex";
 import type { NextRequest } from "next/server";
@@ -11,12 +13,18 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {
+    const encoding = encoding_for_model("gpt-3.5-turbo");
     const json = await request.json();
 
     const { messages, name } = json as {
       messages: ChatMessage[];
       name: string | undefined;
     };
+    const tokens = encoding.encode(messages.map((m) => m.content).join(" "));
+    if (tokens.length > 512) {
+      return NextResponse.json("Token limit reached", { status: 400 });
+    }
+    console.log(tokens.length);
     const userMessage = messages.pop();
     if (!messages || !userMessage || userMessage.role !== "user") {
       return NextResponse.json(

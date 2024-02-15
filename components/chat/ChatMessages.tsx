@@ -3,12 +3,16 @@ import Refresh from "@/assets/icons/unicons/refresh.svg";
 import { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { Button } from "../ui/button";
+import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 
 export default function ChatMessages({
   messages,
   isPending,
+  tokenLimitReached,
 }: Pick<UseChatHelpers, "messages"> & {
   isPending: boolean;
+  tokenLimitReached: boolean;
 }) {
   const scrollableContainerRef = useRef<HTMLDivElement>(null);
   const initialMessageRef = useRef<HTMLDivElement>(null);
@@ -44,9 +48,21 @@ export default function ChatMessages({
       {messages.map((m) => (
         <ChatMessage key={m.id} {...m} />
       ))}
-      {isPending && (
+      {isPending && !tokenLimitReached && (
         <div className="mt-4 flex items-center justify-center">
           <Refresh className="size-7 animate-spin direction-reverse" />
+        </div>
+      )}
+      {tokenLimitReached && (
+        <div className="flex flex-col gap-4">
+          <ChatMessage
+            role="assistant"
+            content={`Thank you for chatting with me. I think it is the right time to contact the "real me" or you can try again tomorrow!`}
+          />
+          <Button className="self-center">
+            <CommentCheck className="w-6" />
+            Contact me
+          </Button>
         </div>
       )}
     </div>
