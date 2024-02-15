@@ -30,6 +30,15 @@ export default function Chat() {
       }
       toast.error("An error occurred");
     },
+    onFinish: async () => {
+      try {
+        const response = await fetch("/api/chat");
+        const tokens = await response.json();
+        console.log(tokens);
+      } catch (e) {
+        toast.error("An error occurred");
+      }
+    },
     body: { name },
   });
 
