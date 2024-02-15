@@ -3,6 +3,7 @@
 import ChatInput from "./ChatInput";
 import { useChat } from "ai/react";
 import ChatMessages from "./ChatMessages";
+import { toast } from "sonner";
 import ChatExamples from "./ChatExamples";
 
 export default function Chat() {
@@ -14,8 +15,10 @@ export default function Chat() {
     handleInputChange,
     reload,
     stop,
-  } = useChat();
     setInput,
+  } = useChat({
+    onError: () => toast.error("An error occurred"),
+  });
 
   const lastMessage = messages[messages.length - 1];
 
