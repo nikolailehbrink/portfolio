@@ -11,8 +11,12 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { messages } = body as { messages: ChatMessage[] };
+    const json = await request.json();
+
+    const { messages, name } = json as {
+      messages: ChatMessage[];
+      name: string | undefined;
+    };
     const userMessage = messages.pop();
     if (!messages || !userMessage || userMessage.role !== "user") {
       return NextResponse.json(

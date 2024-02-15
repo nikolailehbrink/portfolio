@@ -4,9 +4,13 @@ import ChatInput from "./ChatInput";
 import { useChat } from "ai/react";
 import ChatMessages from "./ChatMessages";
 import { toast } from "sonner";
+import { useSearchParams } from "next/navigation";
 import ChatExamples from "./ChatExamples";
 
 export default function Chat() {
+  const searchParams = useSearchParams();
+  const name = searchParams.get("name");
+
   const {
     messages,
     input,
@@ -18,6 +22,7 @@ export default function Chat() {
     setInput,
   } = useChat({
     onError: () => toast.error("An error occurred"),
+    body: { name },
   });
 
   const lastMessage = messages[messages.length - 1];
