@@ -29,16 +29,21 @@ export async function POST(request: NextRequest) {
     }
 
     const llm = new OpenAI({
-      model: (process.env.MODEL as any) ?? "gpt-3.5-turbo",
+      // model: process.env.MODEL ?? "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo",
       maxTokens: 512,
     });
 
     const chatEngine = await createChatEngine(llm);
 
+    const system = `You are chatting with ${name ?? "a user that landed on my personal website"}. Write as if you were me, Nikolai Lehbrink with the data you have on me. Any questions that are outside of the bounds of my personal data should be answered for example with "I don't know".`;
+
+    console.log(system);
+
     // Calling LlamaIndex's ChatEngine to get a streamed response
     const response = await chatEngine.chat({
       message: userMessage.content,
-      chatHistory: messages,
+      chatHistory: [{ content: system, role: "system" }, ...messages],
       stream: true,
     });
 
