@@ -66,6 +66,9 @@ export async function POST(request: NextRequest) {
         const tokenList = encoding.encode(content);
         tokens += tokenList.length;
       },
+      onFinal: () => {
+        encoding.free();
+      },
     };
 
     // Transform LlamaIndex stream to Vercel/AI format
