@@ -42,7 +42,7 @@ export default function Chat() {
     },
     onFinish: async () => {
       try {
-        const response = await fetch("/api/chat");
+        const response = await fetch("/api/chat/token");
         const tokens = (await response.json()) as number;
         setPersistentTokenCount(tokens + persistentTokenCount);
         setChatTokenCount(tokens);
