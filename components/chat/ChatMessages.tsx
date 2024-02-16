@@ -5,6 +5,7 @@ import ChatMessage from "./ChatMessage";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { Button } from "../ui/button";
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
+import Link from "next/link";
 
 export default function ChatMessages({
   messages,
@@ -44,7 +45,9 @@ export default function ChatMessages({
       className="flex-1 space-y-4 overflow-auto pr-4 scrollbar-thin "
       ref={scrollableContainerRef}
     >
-      <ChatMessage ref={initialMessageRef} content="Hi!" role="assistant" />
+      {(messages.length !== 0 || !tokenLimitReached) && (
+        <ChatMessage ref={initialMessageRef} content="Hi!" role="assistant" />
+      )}
       {messages.map((m) => (
         <ChatMessage key={m.id} {...m} />
       ))}
@@ -59,9 +62,11 @@ export default function ChatMessages({
             role="assistant"
             content={`Thank you for chatting with me. I think it is the right time to contact the "real me" or you can try again tomorrow!`}
           />
-          <Button className="self-center">
-            <CommentCheck className="w-6" />
-            Contact me
+          <Button asChild className="self-center">
+            <Link href="/#contact">
+              <CommentCheck className="w-6" />
+              Contact me
+            </Link>
           </Button>
         </div>
       )}

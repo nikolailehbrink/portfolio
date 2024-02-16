@@ -6,12 +6,26 @@ import ChatMessages from "./ChatMessages";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import ChatExamples from "./ChatExamples";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAtom } from "jotai";
+
+import { atomWithStorage } from "jotai/utils";
+
+const persistentToken = atomWithStorage("token", 0);
 
 export default function Chat() {
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
+  const [chatTokenCount, setChatTokenCount] = useState(0);
+  const [persistentTokenCount, setPersistentTokenCount] =
+    useAtom(persistentToken);
   const [tokenLimitReached, setTokenLimitReached] = useState(false);
+
+  useEffect(() => {
+    if (chatTokenCount > 256 || persistentTokenCount > 512) {
+      setTokenLimitReached(true);
+    }
+  }, [chatTokenCount, persistentTokenCount]);
 
   const {
     messages,
@@ -23,18 +37,15 @@ export default function Chat() {
     stop,
     setInput,
   } = useChat({
-    onError: (e) => {
-      if (JSON.parse(e.message) === "Token limit reached") {
-        setTokenLimitReached(true);
-        return;
-      }
+    onError: () => {
       toast.error("An error occurred");
     },
     onFinish: async () => {
       try {
         const response = await fetch("/api/chat");
-        const tokens = await response.json();
-        console.log(tokens);
+        const tokens = (await response.json()) as number;
+        setPersistentTokenCount(tokens + persistentTokenCount);
+        setChatTokenCount(tokens);
       } catch (e) {
         toast.error("An error occurred");
       }
