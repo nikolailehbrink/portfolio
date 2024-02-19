@@ -8,24 +8,28 @@ import { useSearchParams } from "next/navigation";
 import ChatExamples from "./ChatExamples";
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
+import { chatToken } from "@/lib/atoms";
 
-import { atomWithStorage } from "jotai/utils";
-
-const persistentToken = atomWithStorage("token", 0);
+const CHAT_TOKEN_LIMIT = 500;
+const PERSISTENT_TOKEN_LIMIT = 100;
+const TIME_TO_WAIT = 1000 * 60 * 60 * 24 * 3;
 
 export default function Chat() {
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
-  const [chatTokenCount, setChatTokenCount] = useState(0);
-  const [persistentTokenCount, setPersistentTokenCount] =
-    useAtom(persistentToken);
-  const [tokenLimitReached, setTokenLimitReached] = useState(false);
 
-  useEffect(() => {
-    if (chatTokenCount > 256 || persistentTokenCount > 512) {
-      setTokenLimitReached(true);
-    }
-  }, [chatTokenCount, persistentTokenCount]);
+  const [persistentToken, setPersistentToken] = useAtom(chatToken);
+
+  const [chatTokenCount, setChatTokenCount] = useState(0);
+
+  const isChatTokenLimitReached = chatTokenCount > CHAT_TOKEN_LIMIT;
+  const isPersistentTokenLimitReached =
+    persistentToken.count > PERSISTENT_TOKEN_LIMIT;
+
+  const isTokenLimitReached =
+    isChatTokenLimitReached || isPersistentTokenLimitReached;
+
+  const timeToChatAgain = new Date(persistentToken.date + TIME_TO_WAIT);
 
   const {
     messages,
@@ -43,15 +47,27 @@ export default function Chat() {
     onFinish: async () => {
       try {
         const response = await fetch("/api/chat/token");
-        const tokens = (await response.json()) as number;
-        setPersistentTokenCount(tokens + persistentTokenCount);
-        setChatTokenCount(tokens);
+        const token = (await response.json()) as number;
+        setPersistentToken({
+          count: persistentToken.count + token,
+          date: Date.now(),
+        });
+        setChatTokenCount(token);
       } catch (e) {
         toast.error("An error occurred");
       }
     },
     body: { name },
   });
+
+  useEffect(() => {
+    if (
+      isPersistentTokenLimitReached &&
+      persistentToken.date < Date.now() - TIME_TO_WAIT
+    ) {
+      setPersistentToken({ count: 0, date: Date.now() });
+    }
+  }, [isPersistentTokenLimitReached, persistentToken.date, setPersistentToken]);
 
   const lastMessage = messages[messages.length - 1];
 
