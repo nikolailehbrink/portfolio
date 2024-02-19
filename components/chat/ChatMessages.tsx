@@ -48,7 +48,7 @@ export default function ChatMessages({
       ref={scrollableContainerRef}
     >
       {(messages.length !== 0 || !isTokenLimitReached) && (
-        <CustomChatMessage text="Hi! This is Nikolai in a digital form. I wanted to do a kind of different about me section and I thought it would be cool if you can ask anything you want to know about me. So, go ahead and ask me anything! This AI will respond with data from me which it is trained on!" />
+        <CustomChatMessage text="Hi! This is the digital Nikolai with a little note: Sometimes I can produce incorrect output so if something doesn't add up, I can only advise to contact the „real me“. Now that that is out of the way: Feel free to ask me any questions!" />
       )}
       {messages.map((m) => (
         <ChatMessage key={m.id} {...m} />
