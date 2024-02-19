@@ -33,6 +33,7 @@ export default function Chat() {
 
   const {
     messages,
+    setMessages,
     input,
     isLoading,
     handleSubmit,
@@ -83,10 +84,17 @@ export default function Chat() {
       <ChatMessages
         messages={messages}
         isPending={isPending}
-        tokenLimitReached={tokenLimitReached}
+        isPersistentTokenLimitReached={isPersistentTokenLimitReached}
+        isChatTokenLimitReached={isChatTokenLimitReached}
+        isTokenLimitReached={isTokenLimitReached}
+        setMessages={setMessages}
+        setChatTokenCount={setChatTokenCount}
+        timeToChatAgain={timeToChatAgain}
       />
-      {messages.length < 3 && <ChatExamples setInput={setInput} />}
-      {!tokenLimitReached && (
+      {messages.length < 3 && !isTokenLimitReached && (
+        <ChatExamples setInput={setInput} />
+      )}
+      {!isTokenLimitReached && (
         <ChatInput
           handleSubmit={handleSubmit}
           isLoading={isLoading}

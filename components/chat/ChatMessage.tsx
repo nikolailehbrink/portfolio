@@ -1,11 +1,15 @@
 import type { Message } from "ai";
 import ChatAvatar from "./ChatAvatar";
 import { cn } from "@/lib/utils";
-import type { ForwardedRef } from "react";
+import type { ForwardedRef, ReactNode } from "react";
 import { forwardRef } from "react";
 
 export default forwardRef(function ChatMessage(
-  { content, role }: Pick<Message, "content" | "role">,
+  {
+    children,
+    content,
+    role,
+  }: Pick<Message, "content" | "role"> & { children?: ReactNode },
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
@@ -17,7 +21,7 @@ export default forwardRef(function ChatMessage(
       )}
     >
       <ChatAvatar role={role} />
-      <p
+      <div
         className={cn(
           "max-w-prose rounded-lg px-4 py-2",
           role === "assistant"
@@ -25,8 +29,9 @@ export default forwardRef(function ChatMessage(
             : "bg-blue lg:ml-32",
         )}
       >
-        {content}
-      </p>
+        <p>{content}</p>
+        {children}
+      </div>
     </div>
   );
 });

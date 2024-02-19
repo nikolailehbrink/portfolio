@@ -1,22 +1,34 @@
 import type { UseChatHelpers } from "ai/react";
 import Refresh from "@/assets/icons/unicons/refresh.svg";
+import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
-import { gsap, useGSAP } from "@/lib/gsap";
 import { Button } from "../ui/button";
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
+import Newspaper from "@/assets/icons/unicons/newspaper.svg";
+import Robot from "@/assets/icons/unicons/robot.svg";
+
 import Link from "next/link";
+import CustomChatMessage from "./CustomChatMessage";
 
 export default function ChatMessages({
   messages,
+  setMessages,
   isPending,
-  tokenLimitReached,
-}: Pick<UseChatHelpers, "messages"> & {
+  setChatTokenCount,
+  isChatTokenLimitReached,
+  isPersistentTokenLimitReached,
+  isTokenLimitReached,
+  timeToChatAgain,
+}: Pick<UseChatHelpers, "messages" | "setMessages"> & {
+  setChatTokenCount: Dispatch<SetStateAction<number>>;
   isPending: boolean;
-  tokenLimitReached: boolean;
+  isChatTokenLimitReached: boolean;
+  isPersistentTokenLimitReached: boolean;
+  isTokenLimitReached: boolean;
+  timeToChatAgain: Date;
 }) {
   const scrollableContainerRef = useRef<HTMLDivElement>(null);
-  const initialMessageRef = useRef<HTMLDivElement>(null);
   const lastMessage = messages[messages.length - 1];
 
   const scrollToBottom = () => {
@@ -30,44 +42,70 @@ export default function ChatMessages({
     scrollToBottom();
   }, [messages.length, lastMessage]);
 
-  useGSAP(
-    () => {
-      gsap.to("p", {
-        text: "Hi! This is Nikolai in a digital form. I wanted to do a kind of different about me section and I thought it would be cool if you can ask anything you want to know about me. So, go ahead and ask me anything! This AI will respond with data from me which it is trained on!",
-        duration: 8,
-      });
-    },
-    { scope: initialMessageRef },
-  );
-
   return (
     <div
       className="flex-1 space-y-4 overflow-auto pr-4 scrollbar-thin "
       ref={scrollableContainerRef}
     >
-      {(messages.length !== 0 || !tokenLimitReached) && (
-        <ChatMessage ref={initialMessageRef} content="Hi!" role="assistant" />
+      {(messages.length !== 0 || !isTokenLimitReached) && (
+        <CustomChatMessage text="Hi! This is Nikolai in a digital form. I wanted to do a kind of different about me section and I thought it would be cool if you can ask anything you want to know about me. So, go ahead and ask me anything! This AI will respond with data from me which it is trained on!" />
       )}
       {messages.map((m) => (
         <ChatMessage key={m.id} {...m} />
       ))}
-      {isPending && !tokenLimitReached && (
+      {isPending && !isTokenLimitReached && (
         <div className="mt-4 flex items-center justify-center">
           <Refresh className="size-7 animate-spin direction-reverse" />
         </div>
       )}
-      {tokenLimitReached && (
+      {isChatTokenLimitReached && !isPersistentTokenLimitReached && (
         <div className="flex flex-col gap-4">
-          <ChatMessage
-            role="assistant"
-            content={`Thank you for chatting with me. I think it is the right time to contact the "real me" or you can try again tomorrow!`}
-          />
-          <Button asChild className="self-center">
-            <Link href="/#contact">
-              <CommentCheck className="w-6" />
-              Contact me
-            </Link>
-          </Button>
+          <CustomChatMessage text="Thanks for chatting! The limit for this chat has been reached. To continue, please start a new chat. Feel free to also visit my blog or contact me directly if you have any questions!">
+            {/* Has to be pt-2 here, because of gsap animation and animating from display none */}
+            <div className="flex flex-wrap gap-2">
+              <Button
+                className="mt-2"
+                onClick={() => {
+                  setChatTokenCount(0);
+                  setMessages([]);
+                }}
+              >
+                <Robot className="w-6" />
+                New chat
+              </Button>
+              <Button className="mt-2" asChild variant={"secondary"}>
+                <Link href="/#contact">
+                  <CommentCheck className="w-6" />
+                  Contact
+                </Link>
+              </Button>
+              <Button className="mt-2" asChild variant={"outline"}>
+                <Link href="/blog">
+                  <Newspaper className="w-6" />
+                  Blog
+                </Link>
+              </Button>
+            </div>
+          </CustomChatMessage>
+        </div>
+      )}
+      {isPersistentTokenLimitReached && (
+        <div className="flex flex-col gap-3">
+          <CustomChatMessage text="Looks like we had some good conversations, but now it's time for the real me to take over. Why not drop a message?">
+            <Button className="mt-2" asChild variant={"secondary"}>
+              <Link href="/#contact">
+                <CommentCheck className="w-6" />
+                Contact
+              </Link>
+            </Button>
+          </CustomChatMessage>
+          <p className="self-center text-sm">
+            Or come back on{" "}
+            {Intl.DateTimeFormat("en-US", {
+              dateStyle: "long",
+              timeStyle: "short",
+            }).format(timeToChatAgain)}
+          </p>
         </div>
       )}
     </div>
