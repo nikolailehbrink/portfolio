@@ -14,9 +14,9 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const fallbackModel = "gpt-3.5-turbo";
-const model = process.env.MODEL
-  ? Object.keys(ALL_AVAILABLE_OPENAI_MODELS).includes(process.env.MODEL)
-    ? (process.env.MODEL as keyof typeof ALL_AVAILABLE_OPENAI_MODELS)
+const model = process.env.OPENAI_MODEL
+  ? Object.keys(ALL_AVAILABLE_OPENAI_MODELS).includes(process.env.OPENAI_MODEL)
+    ? (process.env.OPENAI_MODEL as keyof typeof ALL_AVAILABLE_OPENAI_MODELS)
     : fallbackModel
   : fallbackModel;
 
