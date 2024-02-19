@@ -20,7 +20,7 @@ const model = process.env.MODEL
     : fallbackModel
   : fallbackModel;
 
-export let tokens = 0;
+let tokens = 0;
 
 export async function POST(request: NextRequest) {
   try {
@@ -93,4 +93,8 @@ export async function POST(request: NextRequest) {
       },
     );
   }
+}
+
+export async function GET() {
+  return NextResponse.json(tokens);
 }

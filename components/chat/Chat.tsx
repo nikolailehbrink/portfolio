@@ -47,7 +47,7 @@ export default function Chat() {
     },
     onFinish: async () => {
       try {
-        const response = await fetch("/api/chat/token");
+        const response = await fetch("/api/chat");
         const token = (await response.json()) as number;
         setPersistentToken({
           count: persistentToken.count + token,
