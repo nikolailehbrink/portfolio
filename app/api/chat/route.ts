@@ -41,6 +41,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (messages.length === 0) {
+      tokens = 0;
+    }
+
     const llm = new OpenAI({
       model,
       maxTokens: 512,
