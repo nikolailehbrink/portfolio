@@ -1,5 +1,6 @@
 import Chat from "@/components/chat/Chat";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Personal AI Chat",
@@ -13,7 +14,10 @@ export default function Page() {
       <h1 className="mb-6 text-5xl font-bold sm:mt-2 sm:text-center">
         Let&apos;s chat!
       </h1>
-      <Chat />
+      {/* useSearchParams() causes client-side rendering up to the closest Suspense boundary during static rendering. */}
+      <Suspense fallback={null}>
+        <Chat />
+      </Suspense>
     </div>
   );
 }
