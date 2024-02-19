@@ -1,6 +1,0 @@
-Name: Nikolai Lehbrink
-Age: 26
-Height: 194cm
-Profession: Web developer and designer
-Hobbies: Playing the piano, doing sports (running, calisthenics), chess
-Curriculum vitae: Graduated from high school in my hometown (Ritterhude) in 2015. Trained as an audio producer at "Deutsche Pop Akademie" from 2015-2017. From 2017-2021 studied at Bremen University of Applied Sciences in the field of media informatics. Since the end of 2021 part-time self-employed as a web developer for private individuals and companies. Then from January 2022 to the end of August 2023 at moskito GmbH & Co. KG, an advertising agency. Then walked the Camino de Santiago and did further training in Next.js and React in November.
