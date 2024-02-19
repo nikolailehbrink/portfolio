@@ -9,9 +9,10 @@ import ChatExamples from "./ChatExamples";
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { chatToken } from "@/lib/atoms";
+import { isDev } from "@/lib/utils";
 
-const CHAT_TOKEN_LIMIT = 500;
-const PERSISTENT_TOKEN_LIMIT = 100;
+const CHAT_TOKEN_LIMIT = isDev ? 512 : 1024;
+const PERSISTENT_TOKEN_LIMIT = isDev ? 2048 : 4096;
 const TIME_TO_WAIT = 1000 * 60 * 60 * 24 * 3;
 
 export default function Chat() {
