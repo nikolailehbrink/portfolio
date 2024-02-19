@@ -4,7 +4,6 @@ import Dumbbell from "@/assets/icons/unicons/dumbbell.svg";
 import Backpack from "@/assets/icons/unicons/backpack.svg";
 import Book from "@/assets/icons/unicons/book.svg";
 import Cell from "@/assets/icons/unicons/cell.svg";
-import Forward from "@/assets/icons/unicons/forward.svg";
 import type { UseChatHelpers } from "ai/react";
 
 const size = twConfig.theme.spacing[6];
@@ -19,7 +18,7 @@ export default function ChatExamples({
     },
     {
       heading: "Background",
-      message: `What did you study in school?`,
+      message: `What did you study?`,
       icon: <Book width={size} />,
     },
     {
@@ -31,11 +30,6 @@ export default function ChatExamples({
       heading: "Skills",
       message: `What is a skill you're proud of?`,
       icon: <Cell width={size} />,
-    },
-    {
-      heading: "Future",
-      message: `What is a dream you have for the future?`,
-      icon: <Forward width={size} />,
     },
   ];
   return (
