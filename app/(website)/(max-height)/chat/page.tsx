@@ -5,7 +5,7 @@ import { Suspense } from "react";
 export const metadata: Metadata = {
   title: "Personal AI Chat",
   description:
-    "Have a chat with my digital self, which is well versed in key moments of my life.",
+    "Have a chat with my digital self, which is well versed in many aspects of my life.",
 };
 
 export default function Page() {
