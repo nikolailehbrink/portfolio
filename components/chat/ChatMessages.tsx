@@ -61,8 +61,8 @@ export default function ChatMessages({
       {isChatTokenLimitReached && !isPersistentTokenLimitReached && (
         <div className="flex flex-col gap-4">
           <CustomChatMessage text="Thanks for chatting! The limit for this chat has been reached. To continue, please start a new chat. Feel free to also visit my blog or contact me directly if you have any questions!">
-            {/* Has to be pt-2 here, because of gsap animation and animating from display none */}
             <div className="flex flex-wrap gap-2">
+              {/* Has to be mt-2 here, because of gsap animation and animating from display none */}
               <Button
                 className="mt-2"
                 onClick={() => {
