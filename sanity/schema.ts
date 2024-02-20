@@ -8,6 +8,7 @@ import service from "./schemas/service";
 import project from "./schemas/project";
 import experience from "./schemas/experience";
 import skill from "./schemas/skill";
+import chat from "./schemas/chat";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -19,5 +20,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     experience,
     skill,
     blockContent,
+    chat,
   ],
 };
