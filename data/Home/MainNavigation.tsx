@@ -8,6 +8,16 @@ import Robot from "@/assets/icons/unicons/robot.svg";
 
 export const mainNavigation = [
   {
+    link: "/chat",
+    title: "AI Chat",
+    icon: <Robot />,
+  },
+  {
+    link: "/blog",
+    title: "Blog",
+    icon: <Newspaper />,
+  },
+  {
     link: "/#passion",
     title: "Passion",
     icon: <Desktop />,
@@ -21,16 +31,6 @@ export const mainNavigation = [
     link: "/#experience",
     title: "Experience",
     icon: <Diary />,
-  },
-  {
-    link: "/blog",
-    title: "Blog",
-    icon: <Newspaper />,
-  },
-  {
-    link: "/chat",
-    title: "Chat",
-    icon: <Robot />,
   },
 ];
 
