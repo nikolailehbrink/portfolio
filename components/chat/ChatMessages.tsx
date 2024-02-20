@@ -10,6 +10,7 @@ import Robot from "@/assets/icons/unicons/robot.svg";
 
 import Link from "next/link";
 import CustomChatMessage from "./CustomChatMessage";
+import { getDateDifferenceInHours } from "@/lib/utils";
 
 export default function ChatMessages({
   messages,
@@ -28,6 +29,8 @@ export default function ChatMessages({
   isTokenLimitReached: boolean;
   timeToChatAgain: Date;
 }) {
+  const hoursToChatAgain = getDateDifferenceInHours(timeToChatAgain);
+
   const scrollableContainerRef = useRef<HTMLDivElement>(null);
   const lastMessage = messages[messages.length - 1];
 
@@ -100,7 +103,11 @@ export default function ChatMessages({
             </Button>
           </CustomChatMessage>
           <p className="self-center text-sm">
-            Or come back on{" "}
+            Or come back in{" "}
+            {hoursToChatAgain +
+              " " +
+              `${hoursToChatAgain === 1 ? "hour" : "hours"}`}{" "}
+            on{" "}
             {Intl.DateTimeFormat("en-US", {
               dateStyle: "long",
               timeStyle: "short",
