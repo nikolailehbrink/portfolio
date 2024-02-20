@@ -2,10 +2,10 @@
 import type { Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { Blinker } from "next/font/google";
-import "./globals.css";
 import type { ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { twConfig } from "@/lib/utils";
+import "@/css/globals.css";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],
