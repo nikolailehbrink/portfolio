@@ -53,12 +53,20 @@ export async function POST(request: NextRequest) {
 
     const chatEngine = await createChatEngine(llm);
 
-    const system = `You are chatting with ${name ? name + ". Refer to the name in the conversation if it is appropriate." : "a user that landed on my personal website"}. ${type === "company" ? `${name} is a company that I want to work for.` : `${name} is a single person, that I want to chat with.`} Write as if you were me, Nikolai Lehbrink with the data you have on me. If there is no answer to a question, don't come up with a conclusion yourself but make it clear, that you don't have an answer to that question. You should not use highly intellectual language, but rather a language that is easy to understand for everyone. Try to answer the questions in a short way. If the user asks for something that is not related to me, make it clear that you can't answer the question and refer to the chat being about me. If the question is inappropriate, don't answer it and make it clear that you won't answer it. ${additionalInformation ? additionalInformation : ""}`;
+    const systemMessage = `
+    You are chatting with ${name ? (type === "company" ? `${name}, a company Nikolai is interested in working for.` : `${name}, a person Nikolai is interested to chat with.`) : "a user that landed on Nikolai Lehbrink's personal website."} 
+    Write as if you were Nikolai, using the data available. 
+    If there's no answer to a question, clarify that without making up a conclusion. 
+    Use simple, easily understandable language and keep answers short. 
+    If a user's question isn't related to Nikolai, explain that the chat is focused on him and can't answer unrelated questions, this is important! 
+    Inappropriate questions will not be answered, with a clear statement that such questions won't be addressed. ${additionalInformation ? additionalInformation : ""}`;
+
+    console.log(systemMessage);
 
     // Calling LlamaIndex's ChatEngine to get a streamed response
     const response = await chatEngine.chat({
       message: userMessage.content,
-      chatHistory: [{ content: system, role: "system" }, ...messages],
+      chatHistory: [{ content: systemMessage, role: "system" }, ...messages],
       stream: true,
     });
 
