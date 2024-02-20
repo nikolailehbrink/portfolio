@@ -1,6 +1,6 @@
 import type { OpenAIStreamCallbacks } from "ai";
 import { StreamingTextResponse } from "ai";
-import { encoding_for_model } from "tiktoken";
+import { encodingForModel } from "js-tiktoken";
 
 import type { ChatMessage } from "llamaindex";
 import { ALL_AVAILABLE_OPENAI_MODELS } from "llamaindex";
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       stream: true,
     });
 
-    const encoding = encoding_for_model(model);
+    const encoding = encodingForModel(model);
 
     const streamCallbacks: OpenAIStreamCallbacks = {
       onToken: (content) => {
@@ -78,9 +78,6 @@ export async function POST(request: NextRequest) {
         // regression when tiktoken called with the full completion
         const tokenList = encoding.encode(content);
         tokens += tokenList.length;
-      },
-      onFinal: () => {
-        encoding.free();
       },
     };
 
