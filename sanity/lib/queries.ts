@@ -79,7 +79,7 @@ export const PROJECTS_QUERY = groq`*[_type == "project" && defined(slug)]|order(
 
 export const EXPERIENCES_QUERY = groq`*[_type == "experience"]`;
 
-export const CHAT_QUERY = groq`*[_type == "chat" && defined(name) && name == $name][0]{
+export const CHAT_QUERY = groq`*[_type == "chat" && slug.current == $slug][0]{
   ...,
   logo{
     asset->{
