@@ -4,21 +4,22 @@ import ChatInput from "./ChatInput";
 import { useChat } from "ai/react";
 import ChatMessages from "./ChatMessages";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
 import ChatExamples from "./ChatExamples";
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { chatToken } from "@/lib/atoms";
 import { isDev } from "@/lib/utils";
+import type { SanityChat } from "@/types/sanity/sanityChat";
 
 const CHAT_TOKEN_LIMIT = isDev ? 512 : 1024;
 const PERSISTENT_TOKEN_LIMIT = isDev ? 2048 : 4096;
 const TIME_TO_WAIT = 1000 * 60 * 60 * 24 * 3;
 
-export default function Chat() {
-  const searchParams = useSearchParams();
-  const name = searchParams.get("name");
-
+export default function Chat({
+  customChat,
+}: {
+  customChat: SanityChat | null;
+}) {
   const [persistentToken, setPersistentToken] = useAtom(chatToken);
 
   const [chatTokenCount, setChatTokenCount] = useState(0);
@@ -59,7 +60,11 @@ export default function Chat() {
         toast.error("An error occurred");
       }
     },
-    body: { name },
+    body: {
+      name: customChat?.name,
+      type: customChat?.type,
+      additionalInformation: customChat?.additionalInformation,
+    },
   });
 
   useEffect(() => {
@@ -83,6 +88,7 @@ export default function Chat() {
   return (
     <div className="mx-auto flex w-full max-w-screen-lg flex-1 flex-col overflow-hidden sm:rounded-xl sm:bg-neutral-950 sm:p-4 sm:pr-0">
       <ChatMessages
+        logo={customChat?.logo}
         messages={messages}
         isPending={isPending}
         isPersistentTokenLimitReached={isPersistentTokenLimitReached}
@@ -93,7 +99,7 @@ export default function Chat() {
         timeToChatAgain={timeToChatAgain}
       />
       {messages.length < 3 && !isTokenLimitReached && (
-        <ChatExamples setInput={setInput} />
+        <ChatExamples setInput={setInput} examples={customChat?.examples} />
       )}
       {!isTokenLimitReached && (
         <ChatInput

@@ -11,6 +11,7 @@ import Robot from "@/assets/icons/unicons/robot.svg";
 import Link from "next/link";
 import CustomChatMessage from "./CustomChatMessage";
 import { getDateDifferenceInHours } from "@/lib/utils";
+import { SanityChat } from "@/types/sanity/sanityChat";
 
 export default function ChatMessages({
   messages,
@@ -21,14 +22,17 @@ export default function ChatMessages({
   isPersistentTokenLimitReached,
   isTokenLimitReached,
   timeToChatAgain,
-}: Pick<UseChatHelpers, "messages" | "setMessages"> & {
-  setChatTokenCount: Dispatch<SetStateAction<number>>;
-  isPending: boolean;
-  isChatTokenLimitReached: boolean;
-  isPersistentTokenLimitReached: boolean;
-  isTokenLimitReached: boolean;
-  timeToChatAgain: Date;
-}) {
+  logo,
+  name,
+}: Pick<UseChatHelpers, "messages" | "setMessages"> &
+  Partial<Pick<SanityChat, "logo" | "name">> & {
+    setChatTokenCount: Dispatch<SetStateAction<number>>;
+    isPending: boolean;
+    isChatTokenLimitReached: boolean;
+    isPersistentTokenLimitReached: boolean;
+    isTokenLimitReached: boolean;
+    timeToChatAgain: Date;
+  }) {
   const hoursToChatAgain = getDateDifferenceInHours(timeToChatAgain);
 
   const scrollableContainerRef = useRef<HTMLDivElement>(null);
@@ -54,7 +58,7 @@ export default function ChatMessages({
         <CustomChatMessage text="Hi! This is the digital Nikolai with a little note: Sometimes I can produce incorrect output so if something doesn't add up, I can only advise to contact the „real me“. Now that that is out of the way: Feel free to ask me any questions!" />
       )}
       {messages.map((m) => (
-        <ChatMessage key={m.id} {...m} />
+        <ChatMessage key={m.id} {...m} name={name} logo={logo} />
       ))}
       {isPending && !isTokenLimitReached && (
         <div className="mt-4 flex items-center justify-center">

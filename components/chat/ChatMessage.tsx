@@ -3,13 +3,17 @@ import ChatAvatar from "./ChatAvatar";
 import { cn } from "@/lib/utils";
 import type { ForwardedRef, ReactNode } from "react";
 import { forwardRef } from "react";
+import type { SanityChat } from "@/types/sanity/sanityChat";
 
 export default forwardRef(function ChatMessage(
   {
     children,
     content,
     role,
-  }: Pick<Message, "content" | "role"> & { children?: ReactNode },
+    logo,
+    name,
+  }: Pick<Message, "content" | "role"> &
+    Partial<Pick<SanityChat, "logo" | "name">> & { children?: ReactNode },
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
@@ -20,7 +24,7 @@ export default forwardRef(function ChatMessage(
         role === "user" && "flex-row-reverse",
       )}
     >
-      <ChatAvatar role={role} />
+      <ChatAvatar role={role} logo={logo} name={name} />
       <div
         className={cn(
           "max-w-prose rounded-lg px-4 py-2",

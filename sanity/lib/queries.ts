@@ -78,3 +78,15 @@ export const SERVICES_QUERY = groq`*[_type == "service" && defined(slug)]|order(
 export const PROJECTS_QUERY = groq`*[_type == "project" && defined(slug)]|order(orderRank)`;
 
 export const EXPERIENCES_QUERY = groq`*[_type == "experience"]`;
+
+export const CHAT_QUERY = groq`*[_type == "chat" && defined(name) && name == $name][0]{
+  ...,
+  logo{
+    asset->{
+      _id,
+      metadata{
+          lqip
+        }
+      }
+    }
+  }`;
