@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "Privacy policy",
+  description:
+    "Privacy policy of Nikolai Lehbrink - Conception, Design and Development",
+  keywords: ["Privacy policy", "Data protection", "Privacy statement"],
+};
 export default function Page() {
   return (
     <>

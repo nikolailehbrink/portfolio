@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Legal Notice",
+  description:
+    "Legal Notice of Nikolai Lehbrink - Conception, Design and Development",
+  keywords: ["Legal Notice", "Imprint", "Impressum"],
+};
+
 export default function Page() {
   return (
     <>
