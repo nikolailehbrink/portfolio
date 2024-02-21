@@ -9,7 +9,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
     const doc$ = context.documentStore.listenQuery(
       `*[_id == $id][0]{slug,title}`,
       params,
-      { perspective: "previewDrafts" } // returns a draft article if it exists
+      { perspective: "previewDrafts" }, // returns a draft article if it exists
     );
     // Return a streaming list of locations
     return doc$.pipe(
@@ -30,7 +30,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
             },
           ],
         };
-      })
+      }),
     );
   }
   return null;
