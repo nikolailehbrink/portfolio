@@ -11,7 +11,7 @@ import Robot from "@/assets/icons/unicons/robot.svg";
 import Link from "next/link";
 import CustomChatMessage from "./CustomChatMessage";
 import { getDateDifferenceInHours } from "@/lib/utils";
-import { SanityChat } from "@/types/sanity/sanityChat";
+import type { SanityChat } from "@/types/sanity/sanityChat";
 
 export default function ChatMessages({
   messages,
@@ -21,7 +21,7 @@ export default function ChatMessages({
   isChatTokenLimitReached,
   isPersistentTokenLimitReached,
   isTokenLimitReached,
-  timeToChatAgain,
+  dateToChatAgain,
   logo,
   name,
 }: Pick<UseChatHelpers, "messages" | "setMessages"> &
@@ -31,9 +31,9 @@ export default function ChatMessages({
     isChatTokenLimitReached: boolean;
     isPersistentTokenLimitReached: boolean;
     isTokenLimitReached: boolean;
-    timeToChatAgain: Date;
+    dateToChatAgain: Date;
   }) {
-  const hoursToChatAgain = getDateDifferenceInHours(timeToChatAgain);
+  const hoursToChatAgain = getDateDifferenceInHours(dateToChatAgain);
 
   const scrollableContainerRef = useRef<HTMLDivElement>(null);
   const lastMessage = messages[messages.length - 1];
@@ -115,7 +115,7 @@ export default function ChatMessages({
             {Intl.DateTimeFormat("en-US", {
               dateStyle: "long",
               timeStyle: "short",
-            }).format(timeToChatAgain)}
+            }).format(dateToChatAgain)}
           </p>
         </div>
       )}

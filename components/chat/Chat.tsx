@@ -31,7 +31,7 @@ export default function Chat({
   const isTokenLimitReached =
     isChatTokenLimitReached || isPersistentTokenLimitReached;
 
-  const timeToChatAgain = new Date(persistentToken.date + TIME_TO_WAIT);
+  const dateToChatAgain = new Date(persistentToken.date + TIME_TO_WAIT);
 
   const {
     messages,
@@ -44,7 +44,8 @@ export default function Chat({
     stop,
     setInput,
   } = useChat({
-    onError: () => {
+    onError: (e) => {
+      console.log(e);
       toast.error("An error occurred");
     },
     onFinish: async () => {
@@ -57,6 +58,7 @@ export default function Chat({
         });
         setChatTokenCount(token);
       } catch (e) {
+        console.log(e);
         toast.error("An error occurred");
       }
     },
@@ -96,7 +98,7 @@ export default function Chat({
         isTokenLimitReached={isTokenLimitReached}
         setMessages={setMessages}
         setChatTokenCount={setChatTokenCount}
-        timeToChatAgain={timeToChatAgain}
+        dateToChatAgain={dateToChatAgain}
       />
       {messages.length < 3 && !isTokenLimitReached && (
         <ChatExamples setInput={setInput} examples={customChat?.examples} />

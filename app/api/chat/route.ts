@@ -11,19 +11,19 @@ import { createChatEngine } from "./engine";
 import { LlamaIndexStream } from "./llamaindex-stream";
 import type { SanityChat } from "@/types/sanity/sanityChat";
 
-export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-const fallbackModel = "gpt-3.5-turbo";
-const model = process.env.OPENAI_MODEL
-  ? Object.keys(ALL_AVAILABLE_OPENAI_MODELS).includes(process.env.OPENAI_MODEL)
-    ? (process.env.OPENAI_MODEL as keyof typeof ALL_AVAILABLE_OPENAI_MODELS)
-    : fallbackModel
-  : fallbackModel;
 
 let tokens = 0;
 
 export async function POST(request: NextRequest) {
+  const fallbackModel = "gpt-3.5-turbo";
+  const model = process.env.OPENAI_MODEL
+    ? Object.keys(ALL_AVAILABLE_OPENAI_MODELS).includes(
+        process.env.OPENAI_MODEL,
+      )
+      ? (process.env.OPENAI_MODEL as keyof typeof ALL_AVAILABLE_OPENAI_MODELS)
+      : fallbackModel
+    : fallbackModel;
   try {
     const json = await request.json();
 
@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
 
     const llm = new OpenAI({
       model,
+      // No random output
       temperature: 0,
       maxTokens: 1024,
     });
