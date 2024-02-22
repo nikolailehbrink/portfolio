@@ -2,9 +2,10 @@ import headerIllustration from "@/assets/header-illustration/header-illustration
 import bubbleGym from "@/assets/header-illustration/bubble-gym.svg?url";
 import bubbleRope from "@/assets/header-illustration/bubble-rope.svg?url";
 import bubblePiano from "@/assets/header-illustration/bubble-piano.svg?url";
-import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 
+import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import Archive from "@/assets/icons/unicons/archive.svg";
+
 import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
