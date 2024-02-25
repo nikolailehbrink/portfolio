@@ -23,7 +23,6 @@ const nextConfig = {
       "/*": ["./cache/**/*"],
     },
     taint: true,
-    typedRoutes: true,
   },
   webpack(config) {
     // Tokenizer https://www.npmjs.com/package/tiktoken#nextjs
