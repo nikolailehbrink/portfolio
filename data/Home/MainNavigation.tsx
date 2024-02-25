@@ -34,7 +34,7 @@ export const mainNavigation = [
   },
 ];
 
-export const navigationButton = {
+export const contactLink = {
   link: "/#contact",
   title: "Contact",
   icon: <CommentCheck />,

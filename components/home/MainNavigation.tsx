@@ -2,7 +2,7 @@
 
 import {
   mainNavigation,
-  navigationButton,
+  contactLink,
   sanityButton,
 } from "@/data/Home/MainNavigation";
 import Logo from "@/app/icon.svg";
@@ -61,17 +61,26 @@ export default function MainNavigation() {
               <NavigationLink link={sanityLink} title={title} icon={icon} />
             </li>
           )}
+          {contactLink && (
+            <li role="none" className="lg:hidden">
+              <NavigationLink
+                link={contactLink.link}
+                title={contactLink.title}
+                icon={contactLink.icon}
+              />
+            </li>
+          )}
         </menu>
-        <div className="hidden flex-1 justify-end lg:flex">
-          {navigationButton && (
+        {contactLink && (
+          <div className="hidden flex-1 justify-end lg:flex">
             <Button asChild>
-              <Link href={navigationButton.link}>
-                <i className="size-7">{navigationButton.icon}</i>
-                {navigationButton.title}
+              <Link href={contactLink.link}>
+                <i className="size-7">{contactLink.icon}</i>
+                {contactLink.title}
               </Link>
             </Button>
-          )}
-        </div>
+          </div>
+        )}
       </nav>
     </header>
   );
