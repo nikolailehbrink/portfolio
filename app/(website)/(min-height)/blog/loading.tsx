@@ -6,10 +6,10 @@ export default function Loading() {
     <div className="container mx-auto my-8 space-y-8">
       <Skeleton className="h-6 w-[100px] rounded-full" />
 
-      <div className="mx-auto flex w-full max-w-prose flex-col items-center gap-4">
+      <div className="mx-auto flex w-full max-w-prose flex-col gap-4 md:items-center">
         <Skeleton className="my-3 h-8 w-24 rounded-full" />
 
-        <div className="flex w-full flex-col items-center space-y-4">
+        <div className="flex w-full flex-col space-y-4 md:items-center">
           <Skeleton className="h-4 w-3/4"></Skeleton>
           <Skeleton className="h-4 w-5/6"></Skeleton>
           <Skeleton className="h-4 w-full"></Skeleton>

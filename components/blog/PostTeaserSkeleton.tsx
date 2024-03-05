@@ -13,7 +13,7 @@ export default function PostTeaserSkeleton({
           <Skeleton className="aspect-video w-full" />
           <div className="absolute inset-0 top-1/2 bg-gradient-to-t from-neutral-950 to-transparent"></div>
           <div className="absolute bottom-4 right-4 flex gap-2">
-            <Skeleton className="h-8 w-16 rounded-lg"></Skeleton>
+            <Skeleton className="h-6 w-16 rounded-full"></Skeleton>
           </div>
         </div>
         <div className="flex flex-col items-start justify-center gap-4">
