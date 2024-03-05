@@ -62,8 +62,6 @@ export async function POST(request: NextRequest) {
     If a user's question isn't related to Nikolai, explain that the chat is focused on him and can't answer unrelated questions, this is important! 
     Inappropriate questions will not be answered, with a clear statement that such questions won't be addressed. ${additionalInformation ? additionalInformation : ""}`;
 
-    console.log(systemMessage);
-
     // Calling LlamaIndex's ChatEngine to get a streamed response
     const response = await chatEngine.chat({
       message: userMessage.content,
