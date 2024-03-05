@@ -7,7 +7,7 @@ import { Suspense } from "react";
 export const metadata = {
   title: "Blog",
   description:
-    "A collection of articles about my experience in web development and design.",
+    "A collection of articles about my experiences and learnings in web development and design.",
 };
 
 export default function Page() {
