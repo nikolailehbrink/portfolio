@@ -3,6 +3,7 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs";
+import { isDev } from "./lib/utils";
 
 Sentry.init({
   dsn: "https://536617f0e4f3e44d7b01bb7b640406bb@o4506721770733568.ingest.sentry.io/4506721773223936",
@@ -27,5 +28,5 @@ Sentry.init({
       blockAllMedia: true,
     }),
   ],
-  enabled: process.env.NODE_ENV !== "development",
+  enabled: !isDev,
 });
