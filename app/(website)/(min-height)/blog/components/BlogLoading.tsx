@@ -1,4 +1,4 @@
-import PostTeaserSkeleton from "@/components/blog/PostTeaserSkeleton";
+import PostTeaserSkeleton from "./PostTeaserSkeleton";
 
 export default function BlogLoading() {
   return (

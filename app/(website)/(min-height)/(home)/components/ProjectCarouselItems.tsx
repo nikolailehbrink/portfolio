@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { CarouselItem } from "../ui/carousel";
 import { PROJECTS_QUERY } from "@/sanity/lib/queries";
 import { loadQuery } from "@/sanity/lib/store";
 import ExternalLink from "@/assets/icons/unicons/external-link.svg";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityProject } from "@/types/sanity/sanityProject";
+import { CarouselItem } from "@/components/ui/carousel";
 
 export default async function ProjectCarouselItems() {
   const { data: projects } = await loadQuery<SanityProject[]>(PROJECTS_QUERY);

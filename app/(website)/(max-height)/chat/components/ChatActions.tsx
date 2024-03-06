@@ -1,9 +1,9 @@
-import { Button } from "../ui/button";
 import Message from "@/assets/icons/unicons/message.svg";
 import PauseCircle from "@/assets/icons/unicons/pause-circle.svg";
 import CommentRedo from "@/assets/icons/unicons/comment-redo.svg";
 
 import type { UseChatHelpers } from "ai/react";
+import { Button } from "@/components/ui/button";
 
 export default function ChatActions({
   stop,

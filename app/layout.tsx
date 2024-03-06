@@ -3,7 +3,7 @@ import { Blinker } from "next/font/google";
 import type { ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { twConfig } from "@/lib/utils";
-import "@/css/globals.css";
+import "@/app/globals.css";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],

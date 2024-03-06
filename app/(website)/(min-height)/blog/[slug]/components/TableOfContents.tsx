@@ -1,4 +1,5 @@
 "use client";
+
 import slugify from "slugify";
 import { toPlainText } from "@portabletext/react";
 import type { HeadingsBlock } from "@/sanity/helpers";

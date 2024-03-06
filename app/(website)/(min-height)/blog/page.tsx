@@ -1,8 +1,8 @@
 import GoBackButton from "@/components/GoBackButton";
-import BlogLoading from "@/components/blog/BlogLoading";
-import SanityPosts from "@/components/blog/SanityPosts";
 import Link from "next/link";
 import { Suspense } from "react";
+import BlogLoading from "./components/BlogLoading";
+import SanityPosts from "./components/SanityPosts";
 
 export const metadata = {
   title: "Blog",

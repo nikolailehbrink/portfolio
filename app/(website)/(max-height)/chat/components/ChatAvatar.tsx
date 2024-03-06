@@ -1,8 +1,8 @@
 import type { SanityChat } from "@/types/sanity/sanityChat";
-import AvatarImage from "../AvatarImage";
 import UserCircle from "@/assets/icons/unicons/user-circle.svg";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
+import AvatarImage from "@/components/AvatarImage";
 
 export default function ChatAvatar({
   role,

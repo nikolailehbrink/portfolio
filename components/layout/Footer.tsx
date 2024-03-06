@@ -1,4 +1,4 @@
-import footerNavigation from "@/data/Home/FooterNavigation";
+import footerNavigation from "@/data/navigation/footer";
 import Link from "next/link";
 import {
   Tooltip,
@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { socialNavigation } from "@/data/Home/SocialNavigation";
+import { socialNavigation } from "@/data/navigation/social";
 
 export default function Footer() {
   return (

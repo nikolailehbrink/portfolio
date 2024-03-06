@@ -4,15 +4,15 @@ import {
   mainNavigation,
   contactLink,
   sanityButton,
-} from "@/data/Home/MainNavigation";
+} from "@/data/navigation/main";
 import Logo from "@/app/icon.svg";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { cn, isDev } from "@/lib/utils";
 import MenuButton from "./MenuButton";
 import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
 import NavigationLink from "./NavigationLink";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function MainNavigation() {
   const { link: sanityLink, title, icon } = sanityButton;

@@ -1,6 +1,6 @@
 import VisualEditing from "@/components/VisualEditing";
-import Footer from "@/components/home/Footer";
-import MainNavigation from "@/components/home/MainNavigation";
+import Footer from "@/components/layout/Footer";
+import MainNavigation from "@/components/layout/navbar/MainNavigation";
 import { draftMode } from "next/headers";
 import type { ReactNode } from "react";
 

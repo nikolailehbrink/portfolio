@@ -3,7 +3,6 @@ import Refresh from "@/assets/icons/unicons/refresh.svg";
 import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
-import { Button } from "../ui/button";
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import Robot from "@/assets/icons/unicons/robot.svg";
@@ -12,6 +11,7 @@ import Link from "next/link";
 import CustomChatMessage from "./CustomChatMessage";
 import { getDateDifferenceInHours } from "@/lib/utils";
 import type { SanityChat } from "@/types/sanity/sanityChat";
+import { Button } from "@/components/ui/button";
 
 export default function ChatMessages({
   messages,

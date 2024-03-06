@@ -1,11 +1,9 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import CodeBlock from "../CodeBlock";
-import PostImageComponent from "../PostImageComponent";
+import PostImageComponent from "./PostImageComponent";
 import type { SanityPost } from "@/types/sanity/sanityPost";
 import { useNextSanityImage } from "next-sanity-image";
 import { client } from "@/sanity/lib/client";
-import GoBackButton from "../GoBackButton";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { getSanityBodyText, parseOutline } from "@/sanity/helpers";
 import TableOfContents from "./TableOfContents";
@@ -13,6 +11,8 @@ import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
 import LinkableHeader from "./LinkableHeader";
 import ExternalLink from "@/assets/icons/unicons/external-link.svg";
 import GitHub from "@/assets/icons/unicons/github.svg";
+import GoBackButton from "@/components/GoBackButton";
+import CodeBlock from "@/components/CodeBlock";
 
 export default function Post({ post }: { post: SanityPost }) {
   const { title, mainImage, body, _createdAt, categories, excerpt, headings } =

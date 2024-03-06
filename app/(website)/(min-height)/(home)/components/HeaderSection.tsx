@@ -7,8 +7,8 @@ import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import Archive from "@/assets/icons/unicons/archive.svg";
 
 import Link from "next/link";
-import { Button } from "../ui/button";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export default function HeaderSection() {
   return (

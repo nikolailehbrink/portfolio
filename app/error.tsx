@@ -5,7 +5,7 @@ import ExclamationTriangle from "@/assets/icons/unicons/exclamation-triangle.svg
 import SyncExclamation from "@/assets/icons/unicons/sync-exclamation.svg";
 import HomeAlt from "@/assets/icons/unicons/home-alt.svg";
 import { Button } from "@/components/ui/button";
-import { funFacts } from "@/data/Home/FunFacts";
+import { funFacts } from "@/data/fun-facts";
 import { useEffect } from "react";
 import * as Sentry from "@sentry/nextjs";
 

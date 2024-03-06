@@ -2,8 +2,8 @@ import EnvelopeHeart from "@/assets/icons/unicons/envelope-heart.svg";
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import MobileAndroid from "@/assets/icons/unicons/mobile-android.svg";
 import WhatsApp from "@/assets/icons/unicons/whatsapp.svg";
-import AvatarImage from "../AvatarImage";
-import ContactForm from "../ContactForm";
+import AvatarImage from "@/components/AvatarImage";
+import ContactForm from "@/components/ContactForm";
 
 export default function ContactSection() {
   return (

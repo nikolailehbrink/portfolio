@@ -1,5 +1,5 @@
-import PostTeaserSkeleton from "@/components/blog/PostTeaserSkeleton";
 import { Skeleton } from "@/components/ui/skeleton";
+import PostTeaserSkeleton from "./components/PostTeaserSkeleton";
 
 export default function Loading() {
   return (

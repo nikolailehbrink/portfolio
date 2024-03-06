@@ -2,13 +2,14 @@ import type { QueryParams } from "next-sanity";
 import { draftMode } from "next/headers";
 import { loadQuery } from "@/sanity/lib/store";
 import { POSTS_QUERY, POST_QUERY } from "@/sanity/lib/queries";
-import Post from "@/components/blog/Post";
-import PostPreview from "@/components/blog/PostPreview";
+
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityPost } from "@/types/sanity/sanityPost";
 import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
+import PostPreview from "./components/PostPreview";
+import Post from "./components/Post";
 
 export async function generateStaticParams() {
   const posts = await client.fetch<SanityPost[]>(POSTS_QUERY);

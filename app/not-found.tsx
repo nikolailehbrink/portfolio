@@ -3,7 +3,7 @@ import SearchAlt from "@/assets/icons/unicons/search-alt.svg";
 import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import HomeAlt from "@/assets/icons/unicons/home-alt.svg";
 import { Button } from "@/components/ui/button";
-import { funFacts } from "@/data/Home/FunFacts";
+import { funFacts } from "@/data/fun-facts";
 
 export default function NotFound() {
   return (

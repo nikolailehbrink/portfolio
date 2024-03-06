@@ -1,5 +1,5 @@
-import { CarouselItem } from "../ui/carousel";
-import { Skeleton } from "../ui/skeleton";
+import { CarouselItem } from "@/components/ui/carousel";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ProjectCarouselSkeleton() {
   return Array.from(Array(4)).map((_, index) => (

@@ -1,10 +1,10 @@
 import { draftMode } from "next/headers";
 
-import Posts from "@/components/blog/Posts";
-import PostsPreview from "@/components/blog/PostsPreview";
 import { loadQuery } from "@/sanity/lib/store";
 import { POSTS_QUERY } from "@/sanity/lib/queries";
 import type { SanityPost } from "@/types/sanity/sanityPost";
+import PostsPreview from "./PostsPreview";
+import Posts from "./Posts";
 
 export default async function SanityPosts() {
   const initial = await loadQuery<SanityPost[]>(

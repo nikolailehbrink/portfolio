@@ -1,9 +1,9 @@
-import Chat from "@/components/chat/Chat";
 import { client } from "@/sanity/lib/client";
 import { CHAT_QUERY } from "@/sanity/lib/queries";
 import type { searchParams } from "@/types/next";
 import type { SanityChat } from "@/types/sanity/sanityChat";
 import type { Metadata } from "next";
+import Chat from "./components/Chat";
 
 export const metadata: Metadata = {
   title: "Personal AI Chat",
