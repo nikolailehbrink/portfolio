@@ -1,11 +1,11 @@
 "use client";
 
-import { POST_QUERY } from "@/sanity/lib/queries";
-import type { QueryResponseInitial } from "@sanity/react-loader";
-import { useQuery } from "@sanity/react-loader";
 import type { QueryParams } from "next-sanity";
-
 import type { SanityPost } from "@/types/sanity/sanityPost";
+import type { QueryResponseInitial } from "@sanity/react-loader";
+
+import { POST_QUERY } from "@/sanity/lib/queries";
+import { useQuery } from "@sanity/react-loader";
 import Post from "./Post";
 
 export default function PostPreview({

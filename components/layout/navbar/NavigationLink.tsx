@@ -1,4 +1,5 @@
 "use client";
+
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,6 +9,7 @@ type Props = {
   icon: JSX.Element;
   title: string;
 };
+
 export default function NavigationLink({ link, icon, title }: Props) {
   const pathname = usePathname();
   return (

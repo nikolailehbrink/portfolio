@@ -1,5 +1,4 @@
 import Diary from "@/assets/icons/unicons/diary.svg";
-
 import ExpertiseGrid from "./ExpertiseGrid";
 import { Suspense } from "react";
 import WorkPlaces from "./WorkPlaces";

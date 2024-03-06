@@ -1,7 +1,6 @@
 import type { PortableTextComponentProps } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 import { toPlainText } from "@portabletext/react";
-
 import slugify from "slugify";
 import AnchorLink from "./AnchorLink";
 
