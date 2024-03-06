@@ -1,5 +1,9 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
+import typography from "@tailwindcss/typography";
+import containerQueries from "@tailwindcss/container-queries";
+import scrollbar from "tailwind-scrollbar";
+import animate from "tailwindcss-animate";
 
 const config = {
   darkMode: ["class"],
@@ -104,12 +108,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/container-queries"),
-    require("tailwind-scrollbar"),
-    require("tailwindcss-animate"),
-  ],
+  plugins: [typography, containerQueries, scrollbar, animate],
 } satisfies Config;
 
 export default config;
