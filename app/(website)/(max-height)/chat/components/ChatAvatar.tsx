@@ -2,7 +2,7 @@ import type { SanityChat } from "@/types/sanity/sanityChat";
 import UserCircle from "@/assets/icons/unicons/user-circle.svg";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-import AvatarImage from "@/components/AvatarImage";
+import ProfileImage from "@/components/ProfileImage";
 
 export default function ChatAvatar({
   role,
@@ -27,7 +27,7 @@ export default function ChatAvatar({
     );
   } else {
     return (
-      <AvatarImage className="size-10 rounded-full border-2 border-orange" />
+      <ProfileImage className="size-10 rounded-full border-2 border-orange" />
     );
   }
 }

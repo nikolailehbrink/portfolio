@@ -2,7 +2,7 @@ import EnvelopeHeart from "@/assets/icons/unicons/envelope-heart.svg";
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import MobileAndroid from "@/assets/icons/unicons/mobile-android.svg";
 import WhatsApp from "@/assets/icons/unicons/whatsapp.svg";
-import AvatarImage from "@/components/AvatarImage";
+import ProfileImage from "@/components/ProfileImage";
 import ContactForm from "@/components/ContactForm";
 
 export default function ContactSection() {
@@ -19,7 +19,7 @@ export default function ContactSection() {
           </div>
           <h2 className="text-5xl font-bold">Your Move!</h2>
           <div>
-            <AvatarImage className="float-left mr-4 size-16 rounded-full border-2 border-orange [shape-outside:circle(50%)] lg:size-28" />
+            <ProfileImage className="float-left mr-4 size-16 rounded-full border-2 border-orange [shape-outside:circle(50%)] lg:size-28" />
             <p className="max-w-[30rem] italic">
               &ldquo;Well... Not everybody makes it to the bottom of the page,
               but you are one of them! So why don&apos;t say hello and have a
