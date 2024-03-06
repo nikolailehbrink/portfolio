@@ -21,3 +21,31 @@ export function getDateDifferenceInHours(date: Date) {
 
   return Math.floor(hours);
 }
+
+export async function copyToClipboard(
+  text: string,
+  {
+    success,
+    error,
+    finish,
+  }: {
+    success?: () => void;
+    error?: (e?: unknown) => void;
+    finish?: () => void;
+  } = {},
+) {
+  try {
+    await navigator.clipboard.writeText(text);
+    if (success) {
+      success();
+    }
+  } catch (e) {
+    if (error) {
+      error(e);
+    }
+  } finally {
+    if (finish) {
+      finish();
+    }
+  }
+}

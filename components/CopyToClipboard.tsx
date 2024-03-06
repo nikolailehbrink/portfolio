@@ -11,6 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import { copyToClipboard } from "@/lib/utils";
 
 type Props = {
   text: string;
@@ -22,21 +23,24 @@ export default function CopyToClipboard({ text }: Props) {
   const [icon, setIcon] = useState(initialIcon);
   const [loading, setLoading] = useState(false);
 
-  const copyToClipboard = async () => {
-    try {
-      setLoading(true);
-      await navigator.clipboard.writeText(text);
-      setIcon(<FileCheck />);
-      toast.success("Copied to clipboard!");
-    } catch (error) {
-      setIcon(<FileTimes />);
-      toast.error("Failed to copy to clipboard!");
-    } finally {
-      setTimeout(() => {
-        setIcon(initialIcon);
-        setLoading(false);
-      }, 2000);
-    }
+  const handleButtonClick = async () => {
+    setLoading(true);
+    await copyToClipboard(text, {
+      success: () => {
+        setIcon(<FileCheck />);
+        toast.success("Copied code to clipboard!");
+      },
+      error: () => {
+        setIcon(<FileTimes />);
+        toast.error("Failed to copy code to clipboard!");
+      },
+      finish: () => {
+        setTimeout(() => {
+          setIcon(initialIcon);
+          setLoading(false);
+        }, 2000);
+      },
+    });
   };
 
   return (
@@ -47,7 +51,7 @@ export default function CopyToClipboard({ text }: Props) {
             aria-label="Copy to clipboard"
             disabled={loading}
             className="flex"
-            onClick={copyToClipboard}
+            onClick={handleButtonClick}
           >
             <i className="size-6">{icon}</i>
           </button>
