@@ -1,9 +1,12 @@
-export const metadata = {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "Privacy policy",
   description:
     "Privacy policy of Nikolai Lehbrink - Conception, Design and Development",
   keywords: ["Privacy policy", "Data protection", "Privacy statement"],
 };
+
 export default function Page() {
   return (
     <>
