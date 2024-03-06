@@ -4,6 +4,10 @@ import type { ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { twConfig } from "@/lib/utils";
 import "@/app/globals.css";
+import InfoCircle from "@/assets/icons/unicons/info-circle.svg";
+import CheckCircle from "@/assets/icons/unicons/check-circle.svg";
+import ExclamationTriangle from "@/assets/icons/unicons/exclamation-triangle.svg";
+import ExclamationOctagon from "@/assets/icons/unicons/exclamation-octagon.svg";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],
@@ -42,7 +46,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${blinker.variable} flex min-h-dvh flex-col font-sans dark:bg-neutral-900 dark:text-neutral-50`}
       >
         {children}
-        <Toaster />
+        <Toaster
+          icons={{
+            success: <CheckCircle width={24} />,
+            error: <ExclamationOctagon width={24} />,
+            info: <InfoCircle width={24} />,
+            warning: <ExclamationTriangle width={24} />,
+          }}
+        />
       </body>
     </html>
   );
