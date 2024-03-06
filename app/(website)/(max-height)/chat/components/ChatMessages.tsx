@@ -1,5 +1,4 @@
 import type { UseChatHelpers } from "ai/react";
-import Refresh from "@/assets/icons/unicons/refresh.svg";
 import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
@@ -61,9 +60,14 @@ export default function ChatMessages({
         <ChatMessage key={m.id} {...m} name={name} logo={logo} />
       ))}
       {isPending && !isTokenLimitReached && (
-        <div className="mt-4 flex items-center justify-center">
-          <Refresh className="size-7 animate-spin direction-reverse" />
-        </div>
+        <ChatMessage role="assistant" content="">
+          <div className="flex h-6 items-center gap-1">
+            <span className="sr-only">Loading...</span>
+            <div className="size-[7px] animate-pulse rounded-full bg-neutral-300 delay-300 [animation-delay:-0.3s]"></div>
+            <div className="size-[7px] animate-pulse rounded-full bg-neutral-300 [animation-delay:-0.15s]"></div>
+            <div className="size-[7px] animate-pulse rounded-full bg-neutral-300"></div>
+          </div>
+        </ChatMessage>
       )}
       {isChatTokenLimitReached && !isPersistentTokenLimitReached && (
         <div className="flex flex-col gap-4">
