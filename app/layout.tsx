@@ -8,6 +8,7 @@ import InfoCircle from "@/assets/icons/unicons/info-circle.svg";
 import CheckCircle from "@/assets/icons/unicons/check-circle.svg";
 import ExclamationTriangle from "@/assets/icons/unicons/exclamation-triangle.svg";
 import ExclamationOctagon from "@/assets/icons/unicons/exclamation-octagon.svg";
+import { tailwindConfig } from "@/tailwind.config";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],
@@ -36,6 +37,7 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const width = tailwindConfig.theme.spacing[6];
   return (
     <html
       lang="en"
@@ -48,10 +50,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
         <Toaster
           icons={{
-            success: <CheckCircle width={24} />,
-            error: <ExclamationOctagon width={24} />,
-            info: <InfoCircle width={24} />,
-            warning: <ExclamationTriangle width={24} />,
+            success: <CheckCircle width={width} />,
+            error: <ExclamationOctagon width={width} />,
+            info: <InfoCircle width={width} />,
+            warning: <ExclamationTriangle width={width} />,
           }}
         />
       </body>
