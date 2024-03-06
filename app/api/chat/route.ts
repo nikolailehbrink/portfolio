@@ -11,6 +11,7 @@ import { createChatEngine } from "./engine";
 import { LlamaIndexStream } from "./llamaindex-stream";
 import type { SanityChat } from "@/types/sanity/sanityChat";
 
+export const maxDuration = 20; // This function can run for a maximum of 20 seconds
 export const dynamic = "force-dynamic";
 
 let tokens = 0;
