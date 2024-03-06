@@ -1,3 +1,7 @@
 {
-  "tailwindCSS.rootFontSize": 17
+  "tailwindCSS.rootFontSize": 17,
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)"],
+    ":\\s*?[\"'`]([^\"'`]*).*?,"
+  ]
 }
