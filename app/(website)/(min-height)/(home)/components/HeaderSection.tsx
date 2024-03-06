@@ -4,7 +4,7 @@ import bubbleRope from "@/assets/header-illustration/bubble-rope.svg?url";
 import bubblePiano from "@/assets/header-illustration/bubble-piano.svg?url";
 
 import Newspaper from "@/assets/icons/unicons/newspaper.svg";
-import Archive from "@/assets/icons/unicons/archive.svg";
+import Robot from "@/assets/icons/unicons/robot.svg";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -33,9 +33,9 @@ export default function HeaderSection() {
           </p>
           <div className="flex gap-4 delay-500">
             <Button size={"shadow"} asChild>
-              <Link href="#projects">
-                <Archive className="size-7" />
-                Projects
+              <Link href="/chat">
+                <Robot className="size-7" />
+                AI Chat
               </Link>
             </Button>
             <Button asChild size={"shadow"} variant={"secondary"}>
