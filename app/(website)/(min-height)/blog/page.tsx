@@ -1,8 +1,8 @@
 import GoBackButton from "@/components/GoBackButton";
 import Link from "next/link";
 import { Suspense } from "react";
-import BlogLoading from "./components/BlogLoading";
 import SanityPosts from "./components/SanityPosts";
+import PostTeaserSkeleton from "./components/PostTeaserSkeleton";
 
 export const metadata = {
   title: "Blog",
@@ -23,7 +23,7 @@ export default function Page() {
           <Link href="/#contact">reach out to me.</Link>
         </p>
       </header>
-      <Suspense fallback={<BlogLoading />}>
+      <Suspense fallback={<PostTeaserSkeleton />}>
         <SanityPosts />
       </Suspense>
     </main>
