@@ -7,9 +7,9 @@ import { toast } from "sonner";
 import ChatExamples from "./ChatExamples";
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { chatToken } from "@/lib/atoms";
 import { isDev } from "@/lib/utils";
 import type { SanityChat } from "@/types/sanity/sanityChat";
+import { persistentToken } from "@/lib/atoms";
 
 const CHAT_TOKEN_LIMIT = isDev ? 512 : 1024;
 const PERSISTENT_TOKEN_LIMIT = isDev ? 2048 : 4096;
@@ -20,18 +20,19 @@ export default function Chat({
 }: {
   customChat: SanityChat | null;
 }) {
-  const [persistentToken, setPersistentToken] = useAtom(chatToken);
+  const [persistentTokenCount, setPersistentTokenCount] =
+    useAtom(persistentToken);
 
   const [chatTokenCount, setChatTokenCount] = useState(0);
 
   const isChatTokenLimitReached = chatTokenCount > CHAT_TOKEN_LIMIT;
   const isPersistentTokenLimitReached =
-    persistentToken.count > PERSISTENT_TOKEN_LIMIT;
+    persistentTokenCount.count > PERSISTENT_TOKEN_LIMIT;
 
   const isTokenLimitReached =
     isChatTokenLimitReached || isPersistentTokenLimitReached;
 
-  const dateToChatAgain = new Date(persistentToken.date + TIME_TO_WAIT);
+  const dateToChatAgain = new Date(persistentTokenCount.date + TIME_TO_WAIT);
 
   const {
     messages,
@@ -52,11 +53,14 @@ export default function Chat({
       try {
         const response = await fetch("/api/chat");
         const token = (await response.json()) as number;
-        setPersistentToken({
-          count: persistentToken.count + token,
-          date: Date.now(),
-        });
-        setChatTokenCount(token);
+
+        if (token) {
+          setPersistentTokenCount({
+            count: persistentTokenCount.count + token,
+            date: Date.now(),
+          });
+          setChatTokenCount((prev) => prev + token);
+        }
       } catch (e) {
         console.log(e);
         toast.error("An error occurred");
@@ -72,11 +76,15 @@ export default function Chat({
   useEffect(() => {
     if (
       isPersistentTokenLimitReached &&
-      persistentToken.date < Date.now() - TIME_TO_WAIT
+      persistentTokenCount.date < Date.now() - TIME_TO_WAIT
     ) {
-      setPersistentToken({ count: 0, date: Date.now() });
+      setPersistentTokenCount({ count: 0, date: Date.now() });
     }
-  }, [isPersistentTokenLimitReached, persistentToken.date, setPersistentToken]);
+  }, [
+    isPersistentTokenLimitReached,
+    persistentTokenCount.date,
+    setPersistentTokenCount,
+  ]);
 
   const lastMessage = messages[messages.length - 1];
 
