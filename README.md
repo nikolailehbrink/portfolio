@@ -3,7 +3,7 @@
 This repository contains the source code for my personal portfolio website. The site showcases my projects and gives an insight into my background, my passion for web development and design, and the technologies I work with.
 
 <a href="https://nikolailehbr.ink">
-  <img alt="Personal portfolio website of Nikolai Lehbrink" src="https://github.com/nikolailehbrink/website/assets/38915700/c7dd07d8-ca7d-4a19-8af3-f684e483bb60">
+  <img alt="Personal portfolio website of Nikolai Lehbrink" src="https://github.com/nikolailehbrink/portfolio/assets/38915700/c7dd07d8-ca7d-4a19-8af3-f684e483bb60">
 </a>
 
 ## Features 🚀
@@ -17,4 +17,4 @@ This repository contains the source code for my personal portfolio website. The 
 
 ## Room for improvement 🤗
 
-If you noticed a bug or something that could be improved, I welcome you to [file an issue](https://github.com/nikolailehbrink/website/issues/new) or [open a pull request](https://github.com/nikolailehbrink/website/compare) to contribute to the project.
+If you noticed a bug or something that could be improved, I welcome you to [file an issue](https://github.com/nikolailehbrink/portfolio/issues/new) or [open a pull request](https://github.com/nikolailehbrink/portfolio/compare) to contribute to the project.
