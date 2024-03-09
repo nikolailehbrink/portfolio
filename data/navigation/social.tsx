@@ -7,7 +7,7 @@ const size = twConfig.theme.spacing[6];
 
 export const socialNavigation = [
   {
-    link: "https://github.com/nikolailehbrink/website",
+    link: "https://github.com/nikolailehbrink/portfolio",
     label: "Source Code",
     icon: <CodeBranch width={size} />,
   },
