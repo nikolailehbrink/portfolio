@@ -21,7 +21,7 @@ export default function HeaderSection() {
             Lehbrink
           </h1>
           <p className="delay-150">
-            Welcome to my website! I&apos;m a 26-year-old tech enthusiast from
+            Welcome to my website! I&apos;m a 27-year-old tech enthusiast from
             Bremen, Germany, where I discovered my passion for web development.
             On this site, I&apos;m thrilled to share my experience, insights and
             favorite projects with you.

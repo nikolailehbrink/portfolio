@@ -1,6 +1,6 @@
 # Nikolai Lehbrink
 
-My name is Nikolai Lehbrink. I am 26 years old and live in Bremen, Germany. I am a web developer and designer by profession.
+My name is Nikolai Lehbrink. I am 27 years old and live in Bremen, Germany. I am a web developer and designer by profession.
 
 ## Hobbies
 
