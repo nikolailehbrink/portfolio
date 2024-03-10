@@ -20,9 +20,15 @@ export default async function Page({
   const name = searchParams.name;
 
   if (name && typeof name === "string") {
-    chatData = await client.fetch<SanityChat>(CHAT_QUERY, {
-      slug: name.toLowerCase(),
-    });
+    chatData = await client.fetch<SanityChat>(
+      CHAT_QUERY,
+      {
+        slug: name.toLowerCase(),
+      },
+      {
+        cache: "no-cache",
+      },
+    );
   }
 
   return (
