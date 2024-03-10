@@ -1,12 +1,14 @@
 import ToolGrid from "./ToolGrid";
 import {
-  Html,
-  Css,
-  Javascript,
-  TailwindCss,
+  HTML,
+  CSS,
+  JavaScript,
+  TypeScript,
+  TailwindCSS,
   React,
   Nextjs,
   Vite,
+  Remix,
 } from "@/assets/icons/tools/frontend";
 import { Php, Nodejs, SqLite, Supabase } from "@/assets/icons/tools/backend";
 import {
@@ -28,13 +30,15 @@ export default function ExpertiseGrid() {
   return (
     <div id="expertise-grid" className="flex flex-wrap gap-2">
       <ToolGrid sector="Front-End Development">
-        <Html />
-        <Css />
-        <Javascript />
-        <TailwindCss />
+        <HTML />
+        <CSS />
+        <JavaScript />
+        <TypeScript />
+        <TailwindCSS />
         <React />
-        <Nextjs />
         <Vite />
+        <Remix />
+        <Nextjs />
       </ToolGrid>
 
       <ToolGrid sector="Back-End Development">
