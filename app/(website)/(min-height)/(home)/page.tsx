@@ -7,14 +7,12 @@ import ServiceSection from "./components/ServiceSection";
 
 export default function Page() {
   return (
-    <>
-      <HomeAnimation>
-        <HeaderSection />
-        <ServiceSection />
-        <ProjectSection />
-        <ExperienceSection />
-        <ContactSection />
-      </HomeAnimation>
-    </>
+    <HomeAnimation>
+      <HeaderSection />
+      <ServiceSection />
+      <ProjectSection />
+      <ExperienceSection />
+      <ContactSection />
+    </HomeAnimation>
   );
 }

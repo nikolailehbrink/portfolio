@@ -152,5 +152,5 @@ export default function HomeAnimation({ children }: { children: ReactNode }) {
     });
   });
 
-  return <>{children}</>;
+  return children;
 }
