@@ -4,6 +4,7 @@ import { toPlainText } from "next-sanity";
 import { useNextSanityImage } from "next-sanity-image";
 
 import TableOfContents from "@/app/(personal)/blog/[slug]/components/TableOfContents";
+import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
 import GoBackButton from "@/components/GoBackButton";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import { useReadingTime } from "@/hooks/useReadingTime";
@@ -43,7 +44,7 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
   return (
     <article className="container my-8 space-y-8">
       <GoBackButton className="xl:sticky xl:top-[6.5rem]" />
-      <div className="flex flex-col justify-center gap-4 sm:items-center sm:text-center">
+      <div className="flex flex-col justify-center gap-4 lg:items-center lg:text-center">
         {title && (
           <h1 className="max-w-3xl  text-3xl font-bold lg:text-5xl">{title}</h1>
         )}
@@ -104,9 +105,9 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
             <CustomPortableText value={body} />
           </section>
           {outline && outline.length > 0 && (
-            <nav className="sticky h-full space-y-2 text-pretty rounded-xl border-2 border-border bg-neutral-950 p-4 px-6 lg:p-6 lg:px-8 xl:top-36 xl:w-[300px]">
+            <nav className="xl:sticky h-full space-y-2 text-pretty rounded-xl border-2 border-border bg-neutral-950 p-4 px-6 lg:p-6 lg:px-8 xl:top-20 xl:w-[300px]">
               <header className="flex items-center gap-2">
-                {/* <ListOlAlt className="w-5" /> */}
+                <ListOlAlt className="w-5" />
 
                 <h2 className="text-xl font-bold">Table of Contents</h2>
               </header>
