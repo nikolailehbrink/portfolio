@@ -22,7 +22,7 @@ const config = {
     extend: {
       screens: { "2xl": "1440px" },
       fontFamily: {
-        sans: ["var(--font-blinker)", ...defaultTheme.fontFamily.sans],
+        blinker: ["var(--font-blinker)", ...defaultTheme.fontFamily.sans],
       },
       grayscale: {
         50: "50%",
