@@ -1,17 +1,76 @@
-import dynamic from "next/dynamic";
-import { draftMode } from "next/headers";
+"use client";
 
-import { loadSettings } from "@/sanity/loader/loadQuery";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import NavbarLayout from "./NavbarLayout";
-const NavbarPreview = dynamic(() => import("./NavbarPreview"));
+import Logo from "@/app/icon.svg";
+import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
+import { cn } from "@/lib/utils";
 
-export async function Navbar() {
-  const initial = await loadSettings();
+import MenuButton from "./MenuButton";
+import NavigationLink from "./NavigationLink";
 
-  if (draftMode().isEnabled) {
-    return <NavbarPreview initial={initial} />;
-  }
+const navigationItems = [
+  {
+    link: "/chat",
+    title: "AI Chat",
+    //   icon: <Robot />,
+  },
+  {
+    link: "/blog",
+    title: "Blog",
+    //   icon: <Newspaper />,
+  },
+  {
+    link: "/#contact",
+    title: "Contact",
+    //   icon: <Diary />,
+  },
+];
 
-  return <NavbarLayout data={initial.data} />;
+export function Navbar() {
+  const { menuRef, menuButtonRef, showMenu, setShowMenu } =
+    useMenuClickOutside();
+
+  const pathname = usePathname();
+
+  const isHome = pathname === "/";
+
+  return (
+    <header className="container sticky top-4 z-50 flex max-lg:justify-start lg:duration-1000 lg:animate-in lg:fade-in lg:slide-in-from-top-28">
+      <MenuButton
+        ref={menuButtonRef}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+      />
+      <nav
+        ref={menuRef}
+        className={cn(
+          `flex rounded-lg border-2 border-neutral-700 bg-neutral-900 p-2 font-bold max-lg:fixed max-lg:right-0 max-lg:top-20 max-lg:mr-4 max-lg:flex-col max-lg:items-center max-lg:gap-6 max-lg:p-8 max-lg:transition-transform lg:w-full lg:rounded-full`,
+          !showMenu && "max-lg:translate-x-[calc(100%_+_1rem)]"
+        )}
+      >
+        <div className="relative flex flex-1">
+          <Link
+            href={isHome ? "#top" : "/"}
+            aria-label={isHome ? "Scroll to top" : "Go to home page"}
+          >
+            <Logo className="size-12 rounded-full" />
+          </Link>
+        </div>
+        <menu
+          id="navigation"
+          role="menu"
+          aria-labelledby="menubutton"
+          className="flex justify-center gap-4 tracking-wide max-lg:flex-col lg:items-center"
+        >
+          {navigationItems.map(({ link, title }) => (
+            <li role="none" key={link}>
+              <NavigationLink link={link} title={title} />
+            </li>
+          ))}
+        </menu>
+      </nav>
+    </header>
+  );
 }

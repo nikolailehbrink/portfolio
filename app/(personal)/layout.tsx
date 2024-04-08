@@ -51,9 +51,7 @@ export default async function IndexRoute({
   return (
     <>
       <GlobalLayout>
-        <Suspense>
-          <Navbar />
-        </Suspense>
+        <Navbar />
         <div className="content mt-4 grow">
           <Suspense>{children}</Suspense>
         </div>
