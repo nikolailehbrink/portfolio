@@ -10,7 +10,7 @@ export default function GlobalLayout({ children }: Props) {
   const path = usePathname();
   return (
     <div
-      className={`flex ${path.startsWith("/chat") ? "h-dvh" : "min-h-dvh"}  flex-col bg-white text-black`}
+      className={`flex flex-col ${path.startsWith("/chat") ? "h-dvh" : "min-h-dvh"} dark:bg-neutral-900 dark:text-neutral-50`}
     >
       {children}
     </div>
