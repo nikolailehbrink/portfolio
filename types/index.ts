@@ -87,6 +87,7 @@ export type PostPayload = {
   coverImage?: Image & { alt?: string };
   tags?: string[];
   body?: PortableTextBlock[];
+  headings?: PortableTextBlock[];
   _rev: string;
   _updatedAt: string;
 };
