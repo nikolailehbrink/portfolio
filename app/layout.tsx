@@ -12,6 +12,10 @@ const blinker = Blinker({
   variable: "--font-blinker",
 });
 
+export const viewport: Viewport = {
+  themeColor: tailwindConfig.theme.colors.blue.DEFAULT,
+};
+
 export default async function RootLayout({
   children,
 }: {
