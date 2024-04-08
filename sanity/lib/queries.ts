@@ -49,22 +49,29 @@ export const projectBySlugQuery = groq`
 
 export const postBySlugQuery = groq`
   *[_type == "post" && slug.current == $slug][0] {
-    _id,
-    _updatedAt,
+    ...,
     coverImage{
       ...,
       'lqip': asset->metadata.lqip,
     },
-    description,
-    duration,
-    overview,
-    site,
+    author->{
+      name,
+      "slug": slug.current,
+      image{
+        ...,
+        'lqip': asset->metadata.lqip,
+      },
+      bio
+    },
     "slug": slug.current,
-    tags,
-    title,
-    body,
-    publishedAt,
-    author,
+    body[]{
+      ...,
+      _type == 'image' => {
+        ...,
+        'lqip': asset->metadata.lqip,
+      },
+    },
+    "headings": body[length(style) == 2 && string::startsWith(style, "h")],
   }
 `;
 
