@@ -1,69 +1,76 @@
+"use client";
 /**
- * This configuration is used to for the Sanity Studio that’s mounted on the `\app\studio\[[...index]]\page.tsx` route
+ * This config is used to set up Sanity Studio that's mounted on the `app/studio/[[...index]]/Studio.tsx` route
  */
-import { locate } from "@/sanity/presentation/locate";
-
-import { presentationTool } from "sanity/presentation";
-
+import { codeInput } from "@sanity/code-input";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
+import { presentationTool } from "sanity/presentation";
 import { structureTool } from "sanity/structure";
-import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
+import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 
-import { codeInput } from "@sanity/code-input";
+import { apiVersion, dataset, projectId, studioUrl } from "@/sanity/lib/api";
+import { locate } from "@/sanity/plugins/locate";
+import { pageStructure, singletonPlugin } from "@/sanity/plugins/settings";
+import author from "@/sanity/schemas/documents/author";
+import page from "@/sanity/schemas/documents/page";
+import post from "@/sanity/schemas/documents/post";
+import project from "@/sanity/schemas/documents/project";
+import duration from "@/sanity/schemas/objects/duration";
+import milestone from "@/sanity/schemas/objects/milestone";
+import timeline from "@/sanity/schemas/objects/timeline";
+import home from "@/sanity/schemas/singletons/home";
+import settings from "@/sanity/schemas/singletons/settings";
 
-// Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
-import { apiVersion, dataset, projectId } from "./sanity/env";
-import { schema } from "./sanity/schema";
+import blockContent from "./sanity/schemas/objects/blockContent";
+import blog from "./sanity/schemas/singletons/blog";
 
-import Desktop from "@/assets/icons/unicons/desktop.svg";
-import Archive from "@/assets/icons/unicons/archive.svg";
+const title =
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
+  "Next.js Personal Website with Sanity.io";
 
 export default defineConfig({
-  basePath: "/studio",
-  projectId,
-  dataset,
-  // Add and edit the content schema in the './sanity/schema' folder
-  schema,
+  basePath: studioUrl,
+  projectId: projectId || "",
+  dataset: dataset || "",
+  title,
+  schema: {
+    // If you want more content types, you can add them to this array
+    types: [
+      // Singletons
+      home,
+      blog,
+      settings,
+      // Documents
+      duration,
+      post,
+      author,
+      page,
+      project,
+      // Objects
+      blockContent,
+      milestone,
+      timeline,
+    ],
+  },
   plugins: [
     codeInput(),
+    structureTool({
+      structure: pageStructure([home, settings, blog]),
+    }),
     presentationTool({
       locate,
       previewUrl: {
-        draftMode: {
+        previewMode: {
           enable: "/api/draft",
         },
       },
     }),
-    structureTool({
-      structure: (S, context) => {
-        return S.list()
-          .title("Content")
-          .items([
-            orderableDocumentListDeskItem({
-              icon: Desktop,
-              type: "service",
-              S,
-              context,
-              title: "Service",
-            }),
-            orderableDocumentListDeskItem({
-              icon: Archive,
-              type: "project",
-              S,
-              context,
-              title: "Project",
-            }),
-            S.divider(),
-
-            ...S.documentTypeListItems().filter(
-              (item) =>
-                item.getId() !== "project" && item.getId() !== "service",
-            ),
-          ]);
-      },
-    }),
-    // Vision is a tool that lets you query your content with GROQ in the studio
+    // Configures the global "new document" button, and document actions, to suit the Settings document singleton
+    singletonPlugin([home.name, blog.name, settings.name]),
+    // Add an image asset source for Unsplash
+    unsplashImageAsset(),
+    // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
   ],

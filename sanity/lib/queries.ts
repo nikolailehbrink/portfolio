@@ -1,92 +1,108 @@
 import { groq } from "next-sanity";
 
-export const POSTS_QUERY = groq`*[_type == "post" && defined(slug)]{
-  ...,
-  mainImage{
-    asset->{
-      _id,
-      metadata{
-          lqip
-      }
-    }
-  }, 
-  author->{
-    name,
-    slug,
-    image{
-      asset->{
-        _id,
-        metadata{
-          lqip
-        }
-      },
-      alt
-    },
-    bio
-  },
-  categories[]->{
+export const homePageQuery = groq`
+  *[_type == "home"][0]{
     _id,
-    title,
-    description,
-  },
-} | order(_createdAt desc)`;
-
-export const POST_QUERY = groq`*[_type == "post" && slug.current == $slug][0]{
-    ...,
-    mainImage{
-      asset->{
-        _id,
-        metadata{
-            lqip
-        }
-      }
-    }, 
-    body[]{
-      ...,
-      _type == 'image' => {
+    overview,
+    showcaseProjects[]->{
+      _type,
+      coverImage{
         ...,
-        asset->{
-          _id,
-          metadata {
-            lqip
-          }
-        }
-      }
+        'lqip': asset->metadata.lqip,
+      },
+      overview,
+      "slug": slug.current,
+      tags,
+      title,
+    },
+    title,
+  }
+`;
+
+export const pagesBySlugQuery = groq`
+  *[_type == "page" && slug.current == $slug][0] {
+    _id,
+    body,
+    overview,
+    title,
+    "slug": slug.current,
+  }
+`;
+
+export const projectBySlugQuery = groq`
+  *[_type == "project" && slug.current == $slug][0] {
+    _id,
+    client,
+    coverImage{
+      ...,
+      'lqip': asset->metadata.lqip,
+    },
+    description,
+    duration,
+    overview,
+    site,
+    "slug": slug.current,
+    tags,
+    title,
+  }
+`;
+
+export const postBySlugQuery = groq`
+  *[_type == "post" && slug.current == $slug][0] {
+    _id,
+    _updatedAt,
+    coverImage{
+      ...,
+      'lqip': asset->metadata.lqip,
+    },
+    description,
+    duration,
+    overview,
+    site,
+    "slug": slug.current,
+    tags,
+    title,
+    body,
+    publishedAt,
+    author,
+  }
+`;
+
+export const postsQuery = groq`
+{
+  "blog": *[_type == "blog"][0]{
+    _id,
+    overview,
+    title,
+  },
+  "posts": *[_type == "post" && defined(slug)]{
+    ...,
+    "slug": slug.current,
+    coverImage{
+      ...,
+      'lqip': asset->metadata.lqip,
     },
     author->{
       name,
-      slug,
+      "slug": slug.current,
       image{
-        asset->{
-          _id,
-          url
-        },
-        alt
+        ...,
+        'lqip': asset->metadata.lqip,
       },
       bio
     },
-    categories[]->{
-      _id,
-      title,
-      description,
+    tags,
+  } | order(_createdAt desc)
+}`;
+
+export const settingsQuery = groq`
+  *[_type == "settings"][0]{
+    footer,
+    menuItems[]->{
+      _type,
+      "slug": slug.current,
+      title
     },
-    "headings": body[length(style) == 2 && string::startsWith(style, "h")]
-  }`;
-
-export const SERVICES_QUERY = groq`*[_type == "service" && defined(slug)]|order(orderRank)`;
-
-export const PROJECTS_QUERY = groq`*[_type == "project" && defined(slug)]|order(orderRank)`;
-
-export const EXPERIENCES_QUERY = groq`*[_type == "experience"]`;
-
-export const CHAT_QUERY = groq`*[_type == "chat" && slug.current == $slug][0]{
-  ...,
-  logo{
-    asset->{
-      _id,
-      metadata{
-          lqip
-        }
-      }
-    }
-  }`;
+    ogImage,
+  }
+`;

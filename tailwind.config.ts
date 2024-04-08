@@ -1,12 +1,10 @@
+import containerQueries from "@tailwindcss/container-queries";
+import typography from "@tailwindcss/typography";
+import scrollbar from "tailwind-scrollbar";
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
-import typography from "@tailwindcss/typography";
-import containerQueries from "@tailwindcss/container-queries";
-
-import scrollbar from "tailwind-scrollbar";
-import animate from "tailwindcss-animate";
-
 import resolveConfig from "tailwindcss/resolveConfig";
+import animate from "tailwindcss-animate";
 
 const config = {
   darkMode: ["class"],

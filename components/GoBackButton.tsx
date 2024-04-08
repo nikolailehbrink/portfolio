@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import ArrowCircleLeft from "@/assets/icons/unicons/arrow-circle-left.svg";
+
+// import ArrowCircleLeft from "@/assets/icons/unicons/arrow-circle-left.svg";
 import { cn } from "@/lib/utils";
 
 export default function GoBackButton({
@@ -20,7 +21,7 @@ export default function GoBackButton({
         className,
       )}
     >
-      <ArrowCircleLeft className="size-6" />
+      {/* <ArrowCircleLeft className="size-6" /> */}
       <span className="group-hover/back:underline group-hover/back:underline-offset-4">
         {text}
       </span>
