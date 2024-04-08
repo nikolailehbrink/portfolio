@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useNextSanityImage } from "next-sanity-image";
+
 import { client } from "@/sanity/lib/client";
 
 type PostImageProps = {

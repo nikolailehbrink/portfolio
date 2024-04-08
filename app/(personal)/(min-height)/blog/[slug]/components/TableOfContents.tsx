@@ -1,7 +1,6 @@
 "use client";
 
 import { toPlainText } from "@portabletext/react";
-import type { PortableTextBlock } from "next-sanity";
 import { useEffect, useState } from "react";
 import slugify from "slugify";
 

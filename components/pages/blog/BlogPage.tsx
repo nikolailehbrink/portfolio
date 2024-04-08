@@ -21,7 +21,7 @@ export function BlogPage({ data, encodeDataAttribute }: BlogPageProps) {
   const firstPost = posts[0];
   const remainingPosts = posts.slice(1);
   return (
-    <main className="container mx-auto my-8 space-y-8 grow">
+    <main className="container mx-auto my-8 space-y-8">
       <GoBackButton />
       <header className="prose mx-auto dark:prose-invert md:text-center">
         <h1 className="my-3 text-5xl">{title}</h1>
