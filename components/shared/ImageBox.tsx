@@ -1,48 +1,36 @@
 import Image from "next/image";
+import { useNextSanityImage } from "next-sanity-image";
 
+import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/utils";
+import type { Image as ImageType } from "@/types";
 
-interface ImageBoxProps {
-  image?: { asset?: any };
-  alt?: string;
-  width?: number;
-  height?: number;
-  size?: string;
-  classesWrapper?: string;
-  lqip?: string;
-  "data-sanity"?: string;
+interface Props {
+  image?: ImageType & { alt?: string };
 }
 
-export default function ImageBox({
-  image,
-  alt = "Cover image",
-  width = 3500,
-  height = 2000,
-  size = "100vw",
-  classesWrapper,
-  lqip,
-  ...props
-}: ImageBoxProps) {
-  const imageUrl =
-    image && urlForImage(image)?.height(height).width(width).fit("crop").url();
+export default function ImageBox({ image = {} }: Props) {
+  const imageProps = useNextSanityImage(client, image, {
+    imageBuilder: (image) => image.fit("max").quality(100),
+  });
+  // const imageUrl =
+  //   image && urlForImage(image)?.height(height).width(width).fit("crop").url();
 
   return (
-    <div
-      className={`w-full overflow-hidden rounded-[3px] bg-gray-50 ${classesWrapper}`}
-      data-sanity={props["data-sanity"]}
-    >
-      {imageUrl && (
-        <Image
-          className="absolute h-full w-full"
-          alt={alt}
-          width={width}
-          height={height}
-          sizes={size}
-          src={imageUrl}
-          blurDataURL={lqip}
-          placeholder={lqip ? "blur" : "empty"}
-        />
-      )}
-    </div>
+    imageProps.src && (
+      <Image
+        width={imageProps.width}
+        height={imageProps.height}
+        src={imageProps.src}
+        className="w-full rounded-lg"
+        placeholder="blur"
+        blurDataURL={image.lqip}
+        alt={image.alt ?? "Post image"}
+        sizes="
+          (max-width: 768px) 95vw,
+          (max-width: 1200px) 60vw,
+          40vw"
+      />
+    )
   );
 }

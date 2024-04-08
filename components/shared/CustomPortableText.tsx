@@ -1,47 +1,33 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import {
   PortableText,
   type PortableTextBlock,
   type PortableTextComponents,
 } from "next-sanity";
-import { useRef } from "react";
 import type { Image } from "sanity";
 
+import LinkableHeader from "@/app/(personal)/blog/[slug]/components/LinkableHeader";
 import ImageBox from "@/components/shared/ImageBox";
 import { TimelineSection } from "@/components/shared/TimelineSection";
 
-export function CustomPortableText({
-  paragraphClasses,
-  value,
-}: {
-  paragraphClasses?: string;
-  value: PortableTextBlock[];
-}) {
-  const blockRef = useRef(null);
+import CodeBlock from "./CodeBlock";
 
-  useGSAP(() => {
-    gsap.from(blockRef.current, {
-      y: 100,
-      autoAlpha: 0,
-      duration: 1,
-      ease: "power3.out",
-    });
-  });
-
+export function CustomPortableText({ value }: { value: PortableTextBlock[] }) {
   const components: PortableTextComponents = {
     block: {
-      normal: ({ children }) => {
-        return (
-          <p ref={blockRef} className={`${paragraphClasses}`}>
-            {children}
-          </p>
-        );
-      },
+      h2: LinkableHeader,
+      h3: LinkableHeader,
+      h4: LinkableHeader,
+      h5: LinkableHeader,
+      h6: LinkableHeader,
     },
     marks: {
+      code: ({ children }) => (
+        <code className="not-prose rounded-md border border-neutral-700 bg-neutral-800 px-[3px] py-[2px] text-sm">
+          {children}
+        </code>
+      ),
       link: ({ children, value }) => {
         return (
           <a
@@ -55,25 +41,9 @@ export function CustomPortableText({
       },
     },
     types: {
-      image: ({
-        value,
-      }: {
-        value: Image & { alt?: string; caption?: string };
-      }) => {
-        return (
-          <div className="my-6 space-y-2">
-            <ImageBox
-              image={value}
-              alt={value.alt}
-              classesWrapper="relative aspect-[16/9]"
-            />
-            {value?.caption && (
-              <div className="font-sans text-sm text-gray-600">
-                {value.caption}
-              </div>
-            )}
-          </div>
-        );
+      code: ({ value }) => <CodeBlock {...value} />,
+      image: ({ value }: { value: Image & { alt?: string } }) => {
+        return <ImageBox image={value} />;
       },
       timeline: ({ value }) => {
         const { items } = value || {};

@@ -1,8 +1,8 @@
 "use client";
 
+import { UimArrowCircleLeft } from "@iconscout/react-unicons-monochrome";
 import { useRouter } from "next/navigation";
 
-// import ArrowCircleLeft from "@/assets/icons/unicons/arrow-circle-left.svg";
 import { cn } from "@/lib/utils";
 
 export default function GoBackButton({
@@ -18,10 +18,10 @@ export default function GoBackButton({
       onClick={() => router.back()}
       className={cn(
         "group/back inline-flex justify-start gap-2 justify-self-start",
-        className,
+        className
       )}
     >
-      {/* <ArrowCircleLeft className="size-6" /> */}
+      <UimArrowCircleLeft className="size-6 text-orange" />
       <span className="group-hover/back:underline group-hover/back:underline-offset-4">
         {text}
       </span>
