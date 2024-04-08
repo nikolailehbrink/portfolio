@@ -1,3 +1,4 @@
+import { supportedLanguages } from "@/lib/helpers";
 import { defineArrayMember, defineType } from "sanity";
 
 /**
@@ -78,19 +79,7 @@ export default defineType({
       options: {
         theme: "dracula",
         language: "javascript",
-        languageAlternatives: [
-          { title: "TypeScript", value: "typescript" },
-          { title: "JavaScript", value: "javascript" },
-          { title: "TSX", value: "tsx" },
-          { title: "JSON", value: "json" },
-          { title: "CSS", value: "css" },
-          { title: "HTML", value: "html" },
-          { title: "Markdown", value: "markdown" },
-          { title: "Terminal", value: "ansi" },
-          { title: "Text", value: "text" },
-          { title: "PostCSS", value: "postcss" },
-          { title: "CSS", value: "css" },
-        ],
+        languageAlternatives: supportedLanguages,
         withFilename: true,
       },
     }),

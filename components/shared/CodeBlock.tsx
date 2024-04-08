@@ -51,10 +51,10 @@ export default async function CodeBlock({
   });
 
   return (
-    <div className="not-prose overflow-hidden rounded-lg bg-gradient-to-r from-blue-200 to-blue-400 p-4 !pr-0 md:p-8 lg:p-12 [&>pre]:rounded-none">
+    <div className="not-prose overflow-hidden rounded-lg bg-gradient-to-r from-blue-200 to-blue-400 p-4 !pr-0 md:p-8 lg:p-8 [&>pre]:rounded-none">
       <div className="overflow-hidden rounded-s-lg">
-        <div className="flex items-center justify-between bg-gradient-to-r from-neutral-900 to-neutral-800 py-2 pl-2 pr-4 text-sm">
-          <span className="-mb-[calc(0.5rem+2px)] rounded-t-lg border-2 border-white/5 border-b-border bg-neutral-800 px-4 py-2 ">
+        <div className="flex items-center justify-between bg-gradient-to-r from-neutral-900 to-neutral-800 py-2 pl-2 pr-4">
+          <span className="-mb-[calc(0.5rem+2px)] rounded-t-lg border-2 border-white/5 border-b-border bg-neutral-800 text-neutral-400 px-3 py-1 text-sm">
             {filename}
           </span>
           <CopyToClipboard text={code} />

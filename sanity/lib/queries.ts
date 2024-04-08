@@ -47,6 +47,15 @@ export const projectBySlugQuery = groq`
   }
 `;
 
+export const chatBySlugQuery = groq`*[_type == "chat" && slug.current == $slug][0]{
+  ...,
+  "slug": slug.current,
+  logo{
+    ...,
+    'lqip': asset->metadata.lqip,
+  }
+}`;
+
 export const postBySlugQuery = groq`
   *[_type == "post" && slug.current == $slug][0] {
     ...,

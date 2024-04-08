@@ -22,6 +22,7 @@ import timeline from "@/sanity/schemas/objects/timeline";
 import home from "@/sanity/schemas/singletons/home";
 import settings from "@/sanity/schemas/singletons/settings";
 
+import chat from "./sanity/schemas/documents/chat";
 import blockContent from "./sanity/schemas/objects/blockContent";
 import blog from "./sanity/schemas/singletons/blog";
 
@@ -47,6 +48,7 @@ export default defineConfig({
       author,
       page,
       project,
+      chat,
       // Objects
       blockContent,
       milestone,

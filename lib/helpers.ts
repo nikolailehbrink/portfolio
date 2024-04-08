@@ -1,4 +1,5 @@
 import { PortableTextBlock } from "next-sanity";
+import { getHighlighter } from "shiki";
 
 import { HeadingBlock } from "@/types";
 
@@ -40,3 +41,27 @@ export const parseOutline = (headings: PortableTextBlock[]) => {
 
   return outline.subheadings;
 };
+
+export function getDateDifferenceInHours(date: Date) {
+  const now = new Date();
+  const diff = date.getTime() - now.getTime();
+  const hours = Math.abs(diff / (1000 * 60 * 60));
+  if (hours < 1) {
+    return hours.toFixed(1);
+  }
+
+  return Math.floor(hours);
+}
+
+export const supportedLanguages = [
+  { title: "TypeScript", value: "typescript" },
+  { title: "JavaScript", value: "javascript" },
+  { title: "TSX", value: "tsx" },
+  { title: "JSON", value: "json" },
+  { title: "CSS", value: "css" },
+  { title: "HTML", value: "html" },
+  { title: "Markdown", value: "markdown" },
+  { title: "Terminal", value: "ansi" },
+  { title: "Text", value: "text" },
+  { title: "PostCSS", value: "postcss" },
+];

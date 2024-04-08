@@ -2,6 +2,7 @@
 const config = {
   images: {
     remotePatterns: [
+      { hostname: "avatars.githubusercontent.com" },
       { hostname: "cdn.sanity.io" },
       { hostname: "source.unsplash.com" },
     ],
@@ -20,6 +21,10 @@ const config = {
     },
   },
   experimental: {
+    // Use for llamaindex vector store folder
+    outputFileTracingIncludes: {
+      "/*": ["./cache/**/*"],
+    },
     taint: true,
   },
   webpack(config) {

@@ -1,15 +1,17 @@
 "use client";
 
-import ChatInput from "./ChatInput";
 import { useChat } from "ai/react";
-import ChatMessages from "./ChatMessages";
-import { toast } from "sonner";
-import ChatExamples from "./ChatExamples";
-import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { isDev } from "@/lib/utils";
-import type { SanityChat } from "@/types/sanity/sanityChat";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+
 import { persistentToken } from "@/lib/atoms";
+import { isDev } from "@/lib/utils";
+import { ChatPayload } from "@/types";
+
+import ChatExamples from "./ChatExamples";
+import ChatInput from "./ChatInput";
+import ChatMessages from "./ChatMessages";
 
 const CHAT_TOKEN_LIMIT = isDev ? 512 : 1024;
 const PERSISTENT_TOKEN_LIMIT = isDev ? 2048 : 4096;
@@ -18,7 +20,7 @@ const TIME_TO_WAIT = 1000 * 60 * 60 * 24 * 3;
 export default function Chat({
   customChat,
 }: {
-  customChat: SanityChat | null;
+  customChat: ChatPayload | null;
 }) {
   const [persistentTokenCount, setPersistentTokenCount] =
     useAtom(persistentToken);
@@ -69,7 +71,7 @@ export default function Chat({
     body: {
       name: customChat?.name,
       type: customChat?.type,
-      additionalInformation: customChat?.additionalInformation,
+      additionalData: customChat?.addtionalData,
     },
   });
 
@@ -109,7 +111,10 @@ export default function Chat({
         dateToChatAgain={dateToChatAgain}
       />
       {messages.length < 3 && !isTokenLimitReached && (
-        <ChatExamples setInput={setInput} examples={customChat?.examples} />
+        <ChatExamples
+          setInput={setInput}
+          examples={customChat?.messageTemplates}
+        />
       )}
       {!isTokenLimitReached && (
         <ChatInput

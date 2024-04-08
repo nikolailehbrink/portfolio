@@ -1,6 +1,8 @@
 import type { UseChatHelpers } from "ai/react";
-import ChatActions from "./ChatActions";
+
 import { Input } from "@/components/ui/input";
+
+import ChatActions from "./ChatActions";
 
 export default function ChatInput({
   handleSubmit,

@@ -1,13 +1,14 @@
-import { twConfig } from "@/lib/utils";
+import type { UseChatHelpers } from "ai/react";
 
-import Dumbbell from "@/assets/icons/unicons/dumbbell.svg";
 import Backpack from "@/assets/icons/unicons/backpack.svg";
 import Book from "@/assets/icons/unicons/book.svg";
 import Cell from "@/assets/icons/unicons/cell.svg";
-import type { UseChatHelpers } from "ai/react";
+import Dumbbell from "@/assets/icons/unicons/dumbbell.svg";
+import { tailwindConfig } from "@/tailwind.config";
+
 import ExampleMessage from "./ExampleMessage";
 
-const size = twConfig.theme.spacing[6];
+const size = tailwindConfig.theme.spacing[6];
 export default function ChatExamples({
   setInput,
   examples,

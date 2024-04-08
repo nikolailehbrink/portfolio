@@ -5,6 +5,7 @@ import { draftMode } from "next/headers";
 
 import { client } from "@/sanity/lib/client";
 import {
+  chatBySlugQuery,
   homePageQuery,
   pagesBySlugQuery,
   postBySlugQuery,
@@ -15,6 +16,7 @@ import {
 import { token } from "@/sanity/lib/token";
 import {
   BlogPagePayload,
+  ChatPayload,
   HomePagePayload,
   PagePayload,
   PostPayload,
@@ -70,7 +72,7 @@ export function loadSettings() {
   return loadQuery<SettingsPayload>(
     settingsQuery,
     {},
-    { next: { tags: ["settings", "home", "page", "project"] } },
+    { next: { tags: ["settings", "home", "page", "project"] } }
   );
 }
 
@@ -78,14 +80,14 @@ export function loadHomePage() {
   return loadQuery<HomePagePayload | null>(
     homePageQuery,
     {},
-    { next: { tags: ["home", "project"] } },
+    { next: { tags: ["home", "project"] } }
   );
 }
 export function loadBlogPage() {
   return loadQuery<BlogPagePayload | null>(
     postsQuery,
     {},
-    { next: { tags: ["post"] } },
+    { next: { tags: ["post"] } }
   );
 }
 
@@ -93,7 +95,7 @@ export function loadProject(slug: string) {
   return loadQuery<ProjectPayload | null>(
     projectBySlugQuery,
     { slug },
-    { next: { tags: [`project:${slug}`] } },
+    { next: { tags: [`project:${slug}`] } }
   );
 }
 
@@ -101,7 +103,7 @@ export function loadPage(slug: string) {
   return loadQuery<PagePayload | null>(
     pagesBySlugQuery,
     { slug },
-    { next: { tags: [`page:${slug}`] } },
+    { next: { tags: [`page:${slug}`] } }
   );
 }
 
@@ -109,6 +111,14 @@ export function loadPost(slug: string) {
   return loadQuery<PostPayload | null>(
     postBySlugQuery,
     { slug },
-    { next: { tags: [`post:${slug}`] } },
+    { next: { tags: [`post:${slug}`] } }
+  );
+}
+
+export function loadChat(slug: string) {
+  return loadQuery<ChatPayload | null>(
+    chatBySlugQuery,
+    { slug },
+    { next: { tags: [`chat:${slug}`] } }
   );
 }

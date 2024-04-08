@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import { useRef } from "react";
 
-import { gsap, useGSAP } from "@/lib/gsap";
-import ChatMessage from "./ChatMessage";
 import { useReadingTime } from "@/hooks/useReadingTime";
+import { gsap, useGSAP } from "@/lib/gsap";
+
+import ChatMessage from "./ChatMessage";
 
 export default function CustomChatMessage({
   text,
@@ -28,7 +29,7 @@ export default function CustomChatMessage({
         display: "none",
       });
     },
-    { scope: initialMessageRef },
+    { scope: initialMessageRef }
   );
   return (
     <ChatMessage ref={initialMessageRef} content="Hi!" role="assistant">

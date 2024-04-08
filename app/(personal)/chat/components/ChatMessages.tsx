@@ -1,16 +1,17 @@
 import type { UseChatHelpers } from "ai/react";
+import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useRef } from "react";
-import ChatMessage from "./ChatMessage";
+
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import Robot from "@/assets/icons/unicons/robot.svg";
-
-import Link from "next/link";
-import CustomChatMessage from "./CustomChatMessage";
-import { getDateDifferenceInHours } from "@/lib/utils";
-import type { SanityChat } from "@/types/sanity/sanityChat";
 import { Button } from "@/components/ui/button";
+import { getDateDifferenceInHours } from "@/lib/helpers";
+import { ChatPayload } from "@/types";
+
+import ChatMessage from "./ChatMessage";
+import CustomChatMessage from "./CustomChatMessage";
 
 export default function ChatMessages({
   messages,
@@ -24,7 +25,7 @@ export default function ChatMessages({
   logo,
   name,
 }: Pick<UseChatHelpers, "messages" | "setMessages"> &
-  Partial<Pick<SanityChat, "logo" | "name">> & {
+  Partial<Pick<ChatPayload, "logo" | "name">> & {
     setChatTokenCount: Dispatch<SetStateAction<number>>;
     isPending: boolean;
     isChatTokenLimitReached: boolean;
@@ -56,6 +57,90 @@ export default function ChatMessages({
       {(messages.length !== 0 || !isTokenLimitReached) && (
         <CustomChatMessage text="Hi! This is the digital Nikolai with a little note: Sometimes I can produce incorrect output so if something doesn't add up, I can only advise to contact the „real me“. Now that that is out of the way: Feel free to ask me any questions!" />
       )}
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
+      <ChatMessage
+        content=" Lorem Ipsumadsadiahsd asuhdi as das gsadudigsad asdgasudgas dasd"
+        role="assistant"
+      />
       {messages.map((m) => (
         <ChatMessage key={m.id} {...m} name={name} logo={logo} />
       ))}
