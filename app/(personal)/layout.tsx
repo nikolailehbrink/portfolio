@@ -1,4 +1,4 @@
-import "@/styles/index.css";
+import "@/app/globals.css";
 
 import type { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
@@ -7,13 +7,13 @@ import { toPlainText } from "next-sanity";
 import { Suspense } from "react";
 
 import { Footer } from "@/components/global/Footer";
+import GlobalLayout from "@/components/global/Layout/GlobalLayout";
 import { Navbar } from "@/components/global/Navbar";
 import { urlForOpenGraphImage } from "@/sanity/lib/utils";
 import { loadHomePage, loadSettings } from "@/sanity/loader/loadQuery";
-import GlobalLayout from "@/components/global/Layout/GlobalLayout";
 
 const LiveVisualEditing = dynamic(
-  () => import("@/sanity/loader/LiveVisualEditing"),
+  () => import("@/sanity/loader/LiveVisualEditing")
 );
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -54,7 +54,7 @@ export default async function IndexRoute({
         <Suspense>
           <Navbar />
         </Suspense>
-        <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">
+        <div className="content mt-4 grow">
           <Suspense>{children}</Suspense>
         </div>
         <Suspense>
