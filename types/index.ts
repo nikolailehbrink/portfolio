@@ -96,4 +96,5 @@ export type Author = {
   slug?: string;
   image?: Image & { alt?: string };
   bio?: string;
+  url?: string;
 };

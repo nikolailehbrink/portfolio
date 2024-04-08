@@ -41,6 +41,11 @@ export default defineType({
       title: "Bio",
       type: "text",
     }),
+    defineField({
+      name: "url",
+      title: "Url",
+      type: "url",
+    }),
   ],
   preview: {
     select: {

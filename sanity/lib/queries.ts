@@ -61,7 +61,8 @@ export const postBySlugQuery = groq`
         ...,
         'lqip': asset->metadata.lqip,
       },
-      bio
+      bio, 
+      url,
     },
     "slug": slug.current,
     body[]{
