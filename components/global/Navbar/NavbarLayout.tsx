@@ -27,16 +27,17 @@ export default function Navbar(props: NavbarProps) {
         stagger: 0.1,
       });
     },
-    { scope: containerRef },
+    { scope: containerRef }
   );
 
   return (
     <div
       ref={containerRef}
-      className="sticky top-0 z-10 flex flex-wrap items-center gap-x-5 bg-white/80 px-4 py-4 backdrop-blur md:px-16 md:py-5 lg:px-32"
+      className="sticky top-0 z-10 flex flex-wrap items-center gap-x-5 px-4 py-4 backdrop-blur md:px-16 md:py-5 lg:px-32"
     >
       <Link href="/chat">Chat</Link>
       <Link href="/blog">Blog</Link>
+      <Link href="/studio">Studio</Link>
       {menuItems &&
         menuItems.map((menuItem, key) => {
           const href = resolveHref(menuItem?._type, menuItem?.slug);
@@ -46,10 +47,8 @@ export default function Navbar(props: NavbarProps) {
           return (
             <Link
               key={key}
-              className={`text-lg hover:text-black md:text-xl ${
-                menuItem?._type === "home"
-                  ? "font-extrabold text-black"
-                  : "text-gray-600"
+              className={` ${
+                menuItem?._type === "home" ? "font-extrabold " : "text-gray-600"
               }`}
               href={href}
             >

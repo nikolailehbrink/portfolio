@@ -97,6 +97,9 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
 
       {body && body.length > 0 && (
         <div className="flex gap-2 max-xl:flex-col">
+          <section className="prose text-pretty dark:prose-invert sm:prose-lg xl:mx-auto">
+            <CustomPortableText value={body} />
+          </section>
           {outline && outline.length > 0 && (
             <nav className="sticky h-full space-y-2 text-pretty rounded-xl border-2 border-border bg-neutral-950 p-4 px-6 lg:p-6 lg:px-8 xl:top-36 xl:w-[300px]">
               <header className="flex items-center gap-2">
@@ -107,9 +110,6 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
               <TableOfContents outline={outline} />
             </nav>
           )}
-          <section className="prose text-pretty dark:prose-invert sm:prose-lg xl:mx-auto">
-            <CustomPortableText value={body} />
-          </section>
         </div>
       )}
     </article>

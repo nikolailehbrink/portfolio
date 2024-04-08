@@ -27,8 +27,11 @@ export function BlogPage({ data, encodeDataAttribute }: BlogPageProps) {
       <GoBackButton />
       <header className="prose mx-auto dark:prose-invert md:text-center">
         <h1 className="my-3 text-5xl">{title}</h1>
+
         {overview && overview.length > 0 && (
-          <CustomPortableText value={overview} />
+          <div className="prose-lg">
+            <CustomPortableText value={overview} />
+          </div>
         )}
       </header>
 
@@ -38,7 +41,7 @@ export function BlogPage({ data, encodeDataAttribute }: BlogPageProps) {
         <div
           className={cn(
             "grid gap-8 lg:grid-cols-2 xl:grid-cols-3",
-            remainingPosts.length < 3 && "xl:grid-cols-2",
+            remainingPosts.length < 3 && "xl:grid-cols-2"
           )}
         >
           {remainingPosts.map((post) => (

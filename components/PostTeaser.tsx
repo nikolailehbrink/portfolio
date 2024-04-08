@@ -59,7 +59,7 @@ export default function PostTeaser({
             blurDataURL={coverImage?.lqip}
           />
           <div className="absolute inset-0 top-2/3 bg-gradient-to-t from-neutral-950 to-transparent"></div>
-          <div className="absolute bottom-4 right-4 flex gap-1">
+          <div className="absolute bottom-4 right-4 sm:flex gap-1 flex-wrap hidden">
             {tags?.map((tag, index) => (
               <div
                 key={index}
