@@ -39,8 +39,10 @@ export function Navbar() {
 
   const isHome = pathname === "/";
 
+  console.log("Again");
+
   return (
-    <header className="container sticky top-0 z-50 flex max-lg:justify-start">
+    <header className="container sticky top-0 z-50 flex max-lg:justify-start lg:duration-1000 lg:animate-in lg:fade-in lg:slide-in-from-top-28">
       <MenuButton
         ref={menuButtonRef}
         showMenu={showMenu}

@@ -52,9 +52,9 @@ export default async function IndexRoute({
     <>
       <GlobalLayout>
         <Navbar />
-        <div className="content mt-4 grow">
-          <Suspense>{children}</Suspense>
-        </div>
+        {/* <div className="content flex grow"> */}
+        <Suspense>{children}</Suspense>
+        {/* </div> */}
         <Footer />
       </GlobalLayout>
       {draftMode().isEnabled && <LiveVisualEditing />}

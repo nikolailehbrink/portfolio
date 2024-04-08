@@ -17,13 +17,11 @@ export interface BlogPageProps {
 
 export function BlogPage({ data, encodeDataAttribute }: BlogPageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  console.log(data?.posts?.[0]?.author);
-
   const { blog: { title = "", overview = [] } = {}, posts = [] } = data ?? {};
   const firstPost = posts[0];
   const remainingPosts = posts.slice(1);
   return (
-    <main className="container mx-auto my-8 space-y-8">
+    <main className="container mx-auto my-8 space-y-8 grow">
       <GoBackButton />
       <header className="prose mx-auto dark:prose-invert md:text-center">
         <h1 className="my-3 text-5xl">{title}</h1>

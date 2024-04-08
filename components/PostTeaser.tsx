@@ -89,7 +89,9 @@ export default function PostTeaser({
 
           <h2 className="text-2xl font-bold sm:text-3xl">{title}</h2>
           {overview && overview.length > 0 && (
-            <CustomPortableText value={overview} />
+            <div className="text-neutral-300">
+              <CustomPortableText value={overview} />
+            </div>
           )}
           {authorImageUrl && (
             <div className="mt-2 hidden items-center gap-2 @4xl:flex">
