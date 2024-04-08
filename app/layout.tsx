@@ -2,6 +2,7 @@ import "tailwindcss/tailwind.css";
 
 import { Viewport } from "next";
 import { Blinker } from "next/font/google";
+
 import { tailwindConfig } from "@/tailwind.config";
 
 const blinker = Blinker({
@@ -16,7 +17,7 @@ export const viewport: Viewport = {
   themeColor: tailwindConfig.theme.colors.blue.DEFAULT,
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
