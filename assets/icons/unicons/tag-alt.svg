@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path
+    class="uim-tertiary"
+    d="M12.828 22a2.982 2.982 0 0 1-2.121-.879l-8.414-8.414A1 1 0 0 1 2 12V3a1 1 0 0 1 1-1h9a1 1 0 0 1 .707.293l8.414 8.414a2.999 2.999 0 0 1 0 4.242l-6.172 6.172a2.978 2.978 0 0 1-2.12.879Z"
+  ></path>
+  <circle cx="7.5" cy="7.5" r="1.5" class="uim-primary"></circle>
+</svg>

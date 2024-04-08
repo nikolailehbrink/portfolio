@@ -1,0 +1,15 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  enable-background="new 0 0 24 24"
+  viewBox="0 0 24 24"
+>
+  <path
+    class="uim-primary"
+    d="m6.002 20.001.002 1a1 1 0 0 0 1 .998h.003a1 1 0 0 0 .997-1.003l-.002-.995h-2z"
+  ></path>
+  <path class="uim-primary" d="M14 2.001h2v18h-2z"></path>
+  <path
+    class="uim-tertiary"
+    d="M17 2.001h-1v18h-2v-18H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a3.003 3.003 0 0 0 3-3v-12a3.003 3.003 0 0 0-3-3z"
+  ></path>
+</svg>
