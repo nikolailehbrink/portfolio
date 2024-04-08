@@ -1,18 +1,15 @@
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader";
-import Link from "next/link";
-
-import { CustomPortableText } from "@/components/shared/CustomPortableText";
-import { Header } from "@/components/shared/Header";
-import ImageBox from "@/components/shared/ImageBox";
-import type { PostPayload } from "@/types";
-import { parseOutline } from "@/lib/helpers";
-import TableOfContents from "@/app/(personal)/blog/[slug]/components/TableOfContents";
-import { useNextSanityImage } from "next-sanity-image";
-import { client } from "@/sanity/lib/client";
-import GoBackButton from "@/components/GoBackButton";
-import { toPlainText } from "next-sanity";
-import { useReadingTime } from "@/hooks/useReadingTime";
 import Image from "next/image";
+import { toPlainText } from "next-sanity";
+import { useNextSanityImage } from "next-sanity-image";
+
+import TableOfContents from "@/app/(personal)/blog/[slug]/components/TableOfContents";
+import GoBackButton from "@/components/GoBackButton";
+import { CustomPortableText } from "@/components/shared/CustomPortableText";
+import { useReadingTime } from "@/hooks/useReadingTime";
+import { parseOutline } from "@/lib/helpers";
+import { client } from "@/sanity/lib/client";
+import type { PostPayload } from "@/types";
 
 export interface PostPageProps {
   data: PostPayload | null;
@@ -21,7 +18,6 @@ export interface PostPageProps {
 
 export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  console.log(data);
   const {
     coverImage = {},
     headings,
@@ -48,18 +44,20 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
     <article className="container my-8 space-y-8">
       <GoBackButton className="xl:sticky xl:top-[6.5rem]" />
       <div className="flex flex-col justify-center gap-4 sm:items-center sm:text-center">
+        {title && (
+          <h1 className="max-w-3xl  text-3xl font-bold lg:text-5xl">{title}</h1>
+        )}
         {tags && tags.length > 0 && (
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             {tags?.map((tag, index) => (
-              <div key={index} className="badge badge-orange">
-                {tag}
+              <div
+                key={index}
+                className="px-2 bg-blue-800 text-blue-400 font-bold rounded-lg text-sm py-1"
+              >
+                # {tag}
               </div>
             ))}
           </div>
-        )}
-
-        {title && (
-          <h1 className="max-w-3xl  text-3xl font-bold lg:text-5xl">{title}</h1>
         )}
         {overview && (
           <div className="prose prose-lg mx-auto dark:prose-invert">
@@ -67,15 +65,20 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
           </div>
         )}
         <div className="flex gap-2 text-sm text-neutral-400">
-          <time itemProp="datePublished" dateTime={publishedDate.toISOString()}>
-            {new Intl.DateTimeFormat("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            }).format(publishedDate)}
-          </time>
-          <span>|</span>
-          <p>{minutesToRead}m read</p>
+          <p>
+            <time
+              itemProp="datePublished"
+              dateTime={publishedDate.toISOString()}
+            >
+              {new Intl.DateTimeFormat("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              }).format(publishedDate)}
+            </time>
+            <span>, </span>
+            <span>{minutesToRead}m read</span>
+          </p>
         </div>
       </div>
       {coverImage && (
