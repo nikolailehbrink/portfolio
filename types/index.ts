@@ -5,6 +5,10 @@ export interface Image extends OriginalImage {
   lqip?: string;
 }
 
+export type HeadingBlock = PortableTextBlock & {
+  subheadings: HeadingBlock[];
+};
+
 export interface MenuItem {
   _type: string;
   slug?: string;
