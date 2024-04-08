@@ -4,10 +4,24 @@ import Link from "next/link";
 
 import BlogPage from "@/components/pages/blog/BlogPage";
 import { studioUrl } from "@/sanity/lib/api";
-import { loadBlogPage, loadHomePage } from "@/sanity/loader/loadQuery";
+import { loadBlogPage } from "@/sanity/loader/loadQuery";
+import { Metadata, ResolvingMetadata } from "next";
+import { toPlainText } from "next-sanity";
 const BlogPagePreview = dynamic(
-  () => import("@/components/pages/blog/BlogPagePreview"),
+  () => import("@/components/pages/blog/BlogPagePreview")
 );
+
+export async function generateMetadata(
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { data } = await loadBlogPage();
+  return {
+    title: data?.blog?.title,
+    description: data?.blog?.overview
+      ? toPlainText(data?.blog?.overview)
+      : (await parent).description,
+  };
+}
 
 export default async function IndexRoute() {
   const initial = await loadBlogPage();
