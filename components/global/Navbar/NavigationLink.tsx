@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   link: string;
-  icon?: JSX.Element;
+  icon: JSX.Element;
   title: string;
 };
 
@@ -15,7 +15,7 @@ export default function NavigationLink({ link, icon, title }: Props) {
   const pathname = usePathname();
   return (
     <Link role="menuitem" className="group flex items-center gap-2" href={link}>
-      {/* <i className="block size-7 flex-shrink-0">{icon}</i> */}
+      <i className="block size-7 flex-shrink-0">{icon}</i>
       <span
         className={cn(
           "border-y-2 border-y-transparent transition-colors ",

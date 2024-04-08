@@ -55,9 +55,7 @@ export default async function IndexRoute({
         <div className="content mt-4 grow">
           <Suspense>{children}</Suspense>
         </div>
-        <Suspense>
-          <Footer />
-        </Suspense>
+        <Footer />
       </GlobalLayout>
       {draftMode().isEnabled && <LiveVisualEditing />}
     </>

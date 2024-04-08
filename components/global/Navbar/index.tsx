@@ -4,6 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import Logo from "@/app/icon.svg";
+import Diary from "@/assets/icons/unicons/diary.svg";
+import Newspaper from "@/assets/icons/unicons/newspaper.svg";
+import Robot from "@/assets/icons/unicons/robot.svg";
 import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
 import { cn } from "@/lib/utils";
 
@@ -14,17 +17,17 @@ const navigationItems = [
   {
     link: "/chat",
     title: "AI Chat",
-    //   icon: <Robot />,
+    icon: <Robot />,
   },
   {
     link: "/blog",
     title: "Blog",
-    //   icon: <Newspaper />,
+    icon: <Newspaper />,
   },
   {
     link: "/#contact",
     title: "Contact",
-    //   icon: <Diary />,
+    icon: <Diary />,
   },
 ];
 
@@ -37,7 +40,7 @@ export function Navbar() {
   const isHome = pathname === "/";
 
   return (
-    <header className="container sticky top-4 z-50 flex max-lg:justify-start lg:duration-1000 lg:animate-in lg:fade-in lg:slide-in-from-top-28">
+    <header className="container sticky top-0 z-50 flex max-lg:justify-start">
       <MenuButton
         ref={menuButtonRef}
         showMenu={showMenu}
@@ -46,7 +49,7 @@ export function Navbar() {
       <nav
         ref={menuRef}
         className={cn(
-          `flex rounded-lg border-2 border-neutral-700 bg-neutral-900 p-2 font-bold max-lg:fixed max-lg:right-0 max-lg:top-20 max-lg:mr-4 max-lg:flex-col max-lg:items-center max-lg:gap-6 max-lg:p-8 max-lg:transition-transform lg:w-full lg:rounded-full`,
+          `flex max-lg:rounded-lg max-lg:border-2 border-neutral-700 max-lg:bg-neutral-950 bg-neutral-900 p-2 font-bold max-lg:fixed max-lg:right-0 max-lg:top-20 max-lg:mr-4 max-lg:flex-col max-lg:items-center max-lg:gap-6 max-lg:p-8 max-lg:transition-transform lg:w-full`,
           !showMenu && "max-lg:translate-x-[calc(100%_+_1rem)]"
         )}
       >
@@ -64,9 +67,9 @@ export function Navbar() {
           aria-labelledby="menubutton"
           className="flex justify-center gap-4 tracking-wide max-lg:flex-col lg:items-center"
         >
-          {navigationItems.map(({ link, title }) => (
+          {navigationItems.map(({ link, title, icon }) => (
             <li role="none" key={link}>
-              <NavigationLink link={link} title={title} />
+              <NavigationLink link={link} title={title} icon={icon} />
             </li>
           ))}
         </menu>
