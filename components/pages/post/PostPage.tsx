@@ -3,7 +3,6 @@ import Image from "next/image";
 import { toPlainText } from "next-sanity";
 import { useNextSanityImage } from "next-sanity-image";
 
-import TableOfContents from "@/app/(personal)/blog/[slug]/components/TableOfContents";
 import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
 import GoBackButton from "@/components/GoBackButton";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
@@ -11,6 +10,7 @@ import { useReadingTime } from "@/hooks/useReadingTime";
 import { parseOutline } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
 import type { PostPayload } from "@/types";
+import TableOfContents from "@/app/(personal)/(min-height)/blog/[slug]/components/TableOfContents";
 
 export interface PostPageProps {
   data: PostPayload | null;

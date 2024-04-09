@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from "next";
+import { type Metadata, ResolvingMetadata } from "next";
 import dynamic from "next/dynamic";
 import { draftMode } from "next/headers";
 import Link from "next/link";
@@ -12,15 +12,11 @@ const BlogPagePreview = dynamic(
   () => import("@/components/pages/blog/BlogPagePreview")
 );
 
-export async function generateMetadata(
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   const { data } = await loadBlogPage();
   return {
     title: data?.blog?.title,
-    description: data?.blog?.overview
-      ? toPlainText(data?.blog?.overview)
-      : (await parent).description,
+    description: data?.blog?.overview && toPlainText(data?.blog?.overview),
   };
 }
 

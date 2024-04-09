@@ -39,8 +39,6 @@ export function ProjectPage({ data, encodeDataAttribute }: ProjectPageProps) {
             data-sanity={encodeDataAttribute?.("coverImage")}
             image={coverImage}
             // @TODO add alt field in schema
-            alt=""
-            classesWrapper="relative aspect-[16/9]"
           />
 
           <div className="divide-inherit grid grid-cols-1 divide-y lg:grid-cols-4 lg:divide-x lg:divide-y-0">
@@ -99,12 +97,7 @@ export function ProjectPage({ data, encodeDataAttribute }: ProjectPageProps) {
         </div>
 
         {/* Description */}
-        {description && (
-          <CustomPortableText
-            paragraphClasses="font-serif max-w-3xl text-xl text-gray-600"
-            value={description}
-          />
-        )}
+        {description && <CustomPortableText value={description} />}
       </div>
       <div className="absolute left-0 w-screen border-t" />
     </div>

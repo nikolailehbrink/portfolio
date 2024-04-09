@@ -1,7 +1,7 @@
 import {
+  type AIStreamCallbacksAndOptions,
   createCallbacksTransformer,
   trimStartOfStreamHelper,
-  type AIStreamCallbacksAndOptions,
 } from "ai";
 import type { Response } from "llamaindex";
 
@@ -29,11 +29,11 @@ export function LlamaIndexStream(
   res: AsyncIterable<Response>,
   opts?: {
     callbacks?: AIStreamCallbacksAndOptions;
-  },
+  }
 ): { stream: ReadableStream } {
   return {
     stream: createParser(res).pipeThrough(
-      createCallbacksTransformer(opts?.callbacks),
+      createCallbacksTransformer(opts?.callbacks)
     ),
   };
 }
