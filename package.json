@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.0",
+    "@hookform/resolvers": "^3.3.4",
     "@iconscout/react-unicons-monochrome": "^1.0.2",
     "@next/env": "14.1.4",
     "@phosphor-icons/react": "^2.1.4",
@@ -22,6 +23,7 @@
     "@sanity/demo": "2.0.0",
     "@sanity/icons": "2.11.6",
     "@sanity/image-url": "1.0.2",
+    "@sanity/orderable-document-list": "^1.2.1",
     "@sanity/preview-url-secret": "1.6.5",
     "@sanity/react-loader": "1.9.6",
     "@sanity/ui": "2.0.14",
@@ -47,6 +49,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.51.2",
+    "resend": "^3.2.0",
     "rxjs": "7.8.1",
     "sanity": "3.36.4",
     "sanity-plugin-asset-source-unsplash": "2.0.1",
