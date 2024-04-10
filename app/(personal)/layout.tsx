@@ -10,6 +10,8 @@ import { Footer } from "@/components/global/Footer";
 import GlobalLayout from "@/components/global/Layout/GlobalLayout";
 import { Navbar } from "@/components/global/Navbar";
 import { urlForOpenGraphImage } from "@/sanity/lib/utils";
+import { Analytics } from "@vercel/analytics/react";
+
 import { loadHomePage, loadSettings } from "@/sanity/loader/loadQuery";
 
 const LiveVisualEditing = dynamic(
@@ -54,6 +56,7 @@ export default async function IndexRoute({
         <Navbar />
         <Suspense>{children}</Suspense>
         <Footer />
+        <Analytics />
       </GlobalLayout>
       {draftMode().isEnabled && <LiveVisualEditing />}
     </>

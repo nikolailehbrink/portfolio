@@ -30,6 +30,7 @@
     "@sanity/vision": "3.36.4",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "0.5.12",
+    "@vercel/analytics": "^1.2.2",
     "ai": "^3.0.19",
     "class-variance-authority": "^0.7.0",
     "classnames": "2.5.1",
