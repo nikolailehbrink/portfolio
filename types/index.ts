@@ -33,14 +33,20 @@ export interface ShowcaseProject {
   slug?: string;
   tags?: string[];
   title?: string;
+  site?: string;
 }
 
 // Page payloads
 
 export interface HomePagePayload {
-  overview?: PortableTextBlock[];
-  showcaseProjects?: ShowcaseProject[];
-  title?: string;
+  home?: {
+    overview?: PortableTextBlock[];
+    showcaseProjects?: ShowcaseProject[];
+    title?: string;
+  };
+  projects?: ShowcaseProject[];
+  services?: ServicePayload[];
+  experiences?: ExperiencePayload[];
 }
 
 export interface BlogPagePayload {
@@ -59,7 +65,33 @@ export interface PagePayload {
   slug?: string;
 }
 
+export interface ServicePayload {
+  _id: string;
+  _type: string;
+  title?: string;
+  slug?: string;
+  description?: string;
+  image?: Image;
+}
+
+export interface ExperiencePayload {
+  _id: string;
+  _type: string;
+  title?: string;
+  duration?: {
+    start?: string;
+    end?: string;
+  };
+  description?: string;
+  company?: {
+    name?: string;
+    url?: string;
+    logo?: Image;
+  };
+}
+
 export interface ProjectPayload {
+  _id: string;
   client?: string;
   coverImage?: Image;
   description?: PortableTextBlock[];

@@ -1,11 +1,11 @@
-import { BlockContentIcon } from "@sanity/icons";
+import { MasterDetailIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 export default defineType({
   name: "blog",
   title: "Blog",
   type: "document",
-  icon: BlockContentIcon,
+  icon: MasterDetailIcon,
   // Uncomment below to have edits publish automatically as you type
   // liveEdit: true,
   fields: [

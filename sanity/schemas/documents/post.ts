@@ -1,11 +1,11 @@
-import { DocumentIcon } from "@sanity/icons";
+import { BlockContentIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 export default defineType({
   name: "post",
   title: "Post",
   type: "document",
-  icon: DocumentIcon,
+  icon: BlockContentIcon,
   fields: [
     defineField({
       name: "title",

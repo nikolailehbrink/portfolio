@@ -6,6 +6,12 @@ import { Header } from "@/components/shared/Header";
 import { resolveHref } from "@/sanity/lib/utils";
 import type { HomePagePayload } from "@/types";
 
+import ContactSection from "./ContactSection";
+import ExperienceSection from "./ExperienceSection";
+import HeaderSection from "./HeaderSection";
+import ProjectSection from "./ProjectSection";
+import ServiceSection from "./ServiceSection";
+
 export interface HomePageProps {
   data: HomePagePayload | null;
   encodeDataAttribute?: EncodeDataAttributeCallback;
@@ -13,16 +19,20 @@ export interface HomePageProps {
 
 export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  const { overview = [], showcaseProjects = [], title = "" } = data ?? {};
+  const { home, projects = [], services = [], experiences = [] } = data ?? {};
 
   return (
-    <div className="space-y-20">
-      {/* Header */}
-      {title && <Header centered title={title} description={overview} />}
+    <>
+      <HeaderSection />
+      <ServiceSection services={services} />
+      <ProjectSection projects={projects} />
+      <ExperienceSection experiences={experiences} />
+      <ContactSection />
+
       {/* Showcase projects */}
-      {showcaseProjects && showcaseProjects.length > 0 && (
+      {/* {projects && projects.length > 0 && (
         <div className="mx-auto max-w-[100rem] rounded-md border">
-          {showcaseProjects.map((project, key) => {
+          {projects.map((project, key) => {
             const href = resolveHref(project?._type, project?.slug);
             if (!href) {
               return null;
@@ -42,8 +52,8 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
             );
           })}
         </div>
-      )}
-    </div>
+      )} */}
+    </>
   );
 }
 

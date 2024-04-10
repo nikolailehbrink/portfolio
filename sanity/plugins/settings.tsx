@@ -1,7 +1,8 @@
 /**
  * This plugin contains all the logic for setting up the singletons
  */
-
+import { CaseIcon, PackageIcon, ProjectsIcon } from "@sanity/icons";
+import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 import { type DocumentDefinition } from "sanity";
 import { type StructureResolver } from "sanity/structure";
 
@@ -14,7 +15,7 @@ export const singletonPlugin = (types: string[]) => {
       newDocumentOptions: (prev, { creationContext }) => {
         if (creationContext.type === "global") {
           return prev.filter(
-            (templateItem) => !types.includes(templateItem.templateId),
+            (templateItem) => !types.includes(templateItem.templateId)
           );
         }
 
@@ -35,9 +36,9 @@ export const singletonPlugin = (types: string[]) => {
 // The StructureResolver is how we're changing the DeskTool structure to linking to document (named Singleton)
 // like how "Home" is handled.
 export const pageStructure = (
-  typeDefArray: DocumentDefinition[],
+  typeDefArray: DocumentDefinition[]
 ): StructureResolver => {
-  return (S) => {
+  return (S, context) => {
     // Goes through all of the singletons that were provided and translates them into something the
     // Desktool can understand
     const singletonItems = typeDefArray.map((typeDef) => {
@@ -48,15 +49,42 @@ export const pageStructure = (
           S.editor()
             .id(typeDef.name)
             .schemaType(typeDef.name)
-            .documentId(typeDef.name),
+            .documentId(typeDef.name)
         );
     });
 
     // The default root list items (except custom ones)
-    const defaultListItems = S.documentTypeListItems().filter(
-      (listItem) =>
-        !typeDefArray.find((singleton) => singleton.name === listItem.getId()),
-    );
+    const defaultListItems = [
+      orderableDocumentListDeskItem({
+        type: "service",
+        S,
+        context,
+        title: "Service",
+        icon: PackageIcon,
+      }),
+      orderableDocumentListDeskItem({
+        type: "project",
+        S,
+        context,
+        title: "Project",
+        icon: ProjectsIcon,
+      }),
+      orderableDocumentListDeskItem({
+        type: "experience",
+        S,
+        context,
+        title: "Experience",
+        icon: CaseIcon,
+      }),
+      S.divider(),
+      ...S.documentTypeListItems().filter(
+        (item) =>
+          item.getId() !== "project" &&
+          item.getId() !== "service" &&
+          item.getId() !== "experience" &&
+          !typeDefArray.find((singleton) => singleton.name === item.getId())
+      ),
+    ];
 
     return S.list()
       .title("Content")

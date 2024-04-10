@@ -1,11 +1,10 @@
-import { DocumentIcon, ImageIcon } from "@sanity/icons";
+import { ImageIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 export default defineType({
   name: "project",
   title: "Project",
   type: "document",
-  icon: DocumentIcon,
   fields: [
     defineField({
       name: "title",
@@ -24,6 +23,12 @@ export default defineType({
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "orderRank",
+      title: "Order Rank",
+      type: "string",
+      hidden: true,
     }),
     defineField({
       name: "overview",

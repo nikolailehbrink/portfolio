@@ -1,9 +1,11 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { RobotIcon } from "@sanity/icons";
 
 export default defineType({
   name: "chat",
   title: "Chat",
   type: "document",
+  icon: RobotIcon,
   fields: [
     defineField({
       name: "name",

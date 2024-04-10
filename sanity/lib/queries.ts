@@ -1,7 +1,8 @@
 import { groq } from "next-sanity";
 
 export const homePageQuery = groq`
-  *[_type == "home"][0]{
+{
+  "home": *[_type == "home"][0]{
     _id,
     overview,
     showcaseProjects[]->{
@@ -13,10 +14,55 @@ export const homePageQuery = groq`
       overview,
       "slug": slug.current,
       tags,
+      site,
       title,
     },
     title,
-  }
+  },
+  "projects": *[_type == "project" && defined(slug)]{
+    _type,
+    _id,
+    overview,
+    tags,
+    site,
+    title,
+    orderRank,
+    "slug": slug.current,
+    coverImage{
+      ...,
+      'lqip': asset->metadata.lqip,
+    },
+    tags,
+  }|order(orderRank),
+  "services": *[_type == "service" && defined(slug)]{
+    _id,
+    _type,
+    title,
+    "slug": slug.current,
+    description,
+    orderRank,
+    image{
+      ...,
+      'lqip': asset->metadata.lqip,
+    },
+  }|order(orderRank),
+  "experiences": *[_type == "experience"]{
+    _id,
+    _type,
+    title,
+    duration,
+    description,
+    orderRank,
+    company{
+      name,
+      url,
+      logo{
+        ...,
+        'lqip': asset->metadata.lqip,
+      }
+    }
+  }|order(orderRank)
+}
 `;
 
 export const pagesBySlugQuery = groq`

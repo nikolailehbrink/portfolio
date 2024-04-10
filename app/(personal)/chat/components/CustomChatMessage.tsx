@@ -15,19 +15,23 @@ export default function CustomChatMessage({
 }) {
   const { secondsToRead } = useReadingTime(text);
   const initialMessageRef = useRef<HTMLDivElement>(null);
-
+  const q = gsap.utils.selector(initialMessageRef);
   useGSAP(
     () => {
+      const buttons = q(".button, a");
       const tl = gsap.timeline();
-      tl.to("p", {
+      tl.to(q("p"), {
         text,
         duration: secondsToRead / 2,
       });
-      tl.from("button, a", {
-        autoAlpha: 0,
-        stagger: 0.2,
-        display: "none",
-      });
+
+      if (buttons.length > 0) {
+        tl.from("button, a", {
+          autoAlpha: 0,
+          stagger: 0.2,
+          display: "none",
+        });
+      }
     },
     { scope: initialMessageRef }
   );
