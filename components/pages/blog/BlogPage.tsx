@@ -1,9 +1,9 @@
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader";
 import Link from "next/link";
 
-import GoBackButton from "@/components/GoBackButton";
+import GoBackButton from "@/components/shared/GoBackButton";
 import { ProjectListItem } from "@/components/pages/home/ProjectListItem";
-import PostTeaser from "@/components/PostTeaser";
+import PostTeaser from "@/components/pages/blog/PostTeaser";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import { Header } from "@/components/shared/Header";
 import { cn } from "@/lib/utils";

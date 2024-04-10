@@ -5,7 +5,7 @@ import { useNextSanityImage } from "next-sanity-image";
 
 import TableOfContents from "@/components/pages/blog/TableOfContents";
 import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
-import GoBackButton from "@/components/GoBackButton";
+import GoBackButton from "@/components/shared/GoBackButton";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { parseOutline } from "@/lib/helpers";

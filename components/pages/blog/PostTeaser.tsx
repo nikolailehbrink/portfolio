@@ -8,7 +8,7 @@ import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/utils";
 import { PostPayload } from "@/types/sanity";
 
-import { CustomPortableText } from "./shared/CustomPortableText";
+import { CustomPortableText } from "../../shared/CustomPortableText";
 
 export default function PostTeaser({
   post,

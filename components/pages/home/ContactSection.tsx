@@ -5,7 +5,7 @@ import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import EnvelopeHeart from "@/assets/icons/unicons/envelope-heart.svg";
 import MobileAndroid from "@/assets/icons/unicons/mobile-android.svg";
 import WhatsApp from "@/assets/icons/unicons/whatsapp.svg";
-import ContactForm from "@/components/ContactForm";
+import ContactForm from "@/components/pages/home/ContactForm";
 import ProfileImage from "@/components/shared/ProfileImage";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { tailwindConfig } from "@/tailwind.config";
@@ -45,7 +45,7 @@ export default function ContactSection() {
         },
       });
     },
-    { scope: otherRef },
+    { scope: otherRef }
   );
 
   return (

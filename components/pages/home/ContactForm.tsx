@@ -13,7 +13,7 @@ import MobileAndroid from "@/assets/icons/unicons/mobile-android.svg";
 import Notebooks from "@/assets/icons/unicons/notebooks.svg";
 import SpinnerAlt from "@/assets/icons/unicons/spinner-alt.svg";
 
-import { Button } from "./ui/button";
+import { Button } from "../../ui/button";
 import {
   Form,
   FormControl,
@@ -21,12 +21,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
+} from "../../ui/form";
+import { Input } from "../../ui/input";
+import { Textarea } from "../../ui/textarea";
 
 const phoneRegex = new RegExp(
-  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
+  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
 );
 
 const formSchema = z.object({
