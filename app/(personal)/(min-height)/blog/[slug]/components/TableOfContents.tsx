@@ -35,7 +35,7 @@ export default function TableOfContents({
   }, []);
 
   return (
-    <ol className="my-1 flex flex-col gap-1 last-of-type:mb-1 [&_ol>li]:ml-5">
+    <ol className="my-1 flex flex-col relative gap-1 last-of-type:mb-1 [&_ol>li]:ml-5">
       {outline.map((heading) => {
         const headingText = toPlainText(heading);
         const headingSlug = slugify(headingText);

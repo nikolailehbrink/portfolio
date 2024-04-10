@@ -3,5 +3,5 @@ export default function IndexRoute({
 }: {
   children: React.ReactNode;
 }) {
-  return <main className="flex grow">{children}</main>;
+  return <main className="grow content">{children}</main>;
 }
