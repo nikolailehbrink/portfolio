@@ -24,14 +24,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const ogImage = urlForOpenGraphImage(settings?.ogImage);
   return {
-    title: homePage?.title
+    title: homePage?.home?.title
       ? {
           template: `%s | Nikolai Lehbrink`,
-          default: homePage.title || "Personal website",
+          default: homePage.home.title || "Personal website",
         }
       : undefined,
-    description: homePage?.overview
-      ? toPlainText(homePage.overview)
+    description: homePage?.home?.overview
+      ? toPlainText(homePage.home.overview)
       : undefined,
     openGraph: {
       images: ogImage ? [ogImage] : [],
