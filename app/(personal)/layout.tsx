@@ -52,12 +52,10 @@ export default async function IndexRoute({
 }) {
   return (
     <>
-      <GlobalLayout>
-        <Navbar />
-        <Suspense>{children}</Suspense>
-        <Footer />
-        <Analytics />
-      </GlobalLayout>
+      <Navbar />
+      <Suspense>{children}</Suspense>
+      <Footer />
+      <Analytics />
       {draftMode().isEnabled && <LiveVisualEditing />}
     </>
   );

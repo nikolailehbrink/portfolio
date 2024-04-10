@@ -4,6 +4,7 @@ import { Viewport } from "next";
 import { Blinker } from "next/font/google";
 
 import { tailwindConfig } from "@/tailwind.config";
+import GlobalLayout from "@/components/global/Layout/GlobalLayout";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],
@@ -27,7 +28,9 @@ export default function RootLayout({
       lang="en"
       className={`${blinker.variable} dark font-blinker scroll-smooth text-balance text-[17px] scrollbar-thin scrollbar-track-neutral-900 scrollbar-thumb-neutral-600 hover:scrollbar-thumb-neutral-500 active:scrollbar-thumb-blue`}
     >
-      <body>{children}</body>
+      <body>
+        <GlobalLayout>{children}</GlobalLayout>
+      </body>
     </html>
   );
 }
