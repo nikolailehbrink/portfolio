@@ -1,50 +1,38 @@
 import "@/app/globals.css";
 
 import { Analytics } from "@vercel/analytics/react";
-import type { Metadata, Viewport } from "next";
+import { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
 import { draftMode } from "next/headers";
-import { toPlainText } from "next-sanity";
 import { Suspense } from "react";
 
 import { Footer } from "@/components/global/Footer";
-import GlobalLayout from "@/components/global/Layout/GlobalLayout";
 import { Navbar } from "@/components/global/Navbar";
-import { urlForOpenGraphImage } from "@/sanity/lib/utils";
-import { loadHomePage, loadSettings } from "@/sanity/loader/loadQuery";
+import { tailwindConfig } from "@/tailwind.config";
 
 const LiveVisualEditing = dynamic(
-  () => import("@/sanity/loader/LiveVisualEditing"),
+  () => import("@/sanity/loader/LiveVisualEditing")
 );
 
-export async function generateMetadata(): Promise<Metadata> {
-  const [{ data: settings }, { data: homePage }] = await Promise.all([
-    loadSettings(),
-    loadHomePage(),
-  ]);
-
-  const ogImage = urlForOpenGraphImage(settings?.ogImage);
-  return {
-    title: homePage?.home?.title
-      ? {
-          template: `%s | Nikolai Lehbrink`,
-          default: homePage.home.title || "Personal website",
-        }
-      : undefined,
-    description: homePage?.home?.overview
-      ? toPlainText(homePage.home.overview)
-      : undefined,
-    openGraph: {
-      images: ogImage ? [ogImage] : [],
-    },
-  };
-}
-
-export const viewport: Viewport = {
-  themeColor: "#000",
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.nikolailehbr.ink/"),
+  title: {
+    template: "%s - Nikolai Lehbrink",
+    default: "Nikolai Lehbrink - Web Developer & Designer",
+  },
+  description:
+    "Web enthusiast from Germany. Specializing in the React Ecosystem, dedicated to creating performant, accessible web applications.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+  },
 };
 
-export default async function IndexRoute({
+export const viewport: Viewport = {
+  themeColor: tailwindConfig.theme.colors.blue.DEFAULT,
+};
+
+export default function IndexRoute({
   children,
 }: {
   children: React.ReactNode;

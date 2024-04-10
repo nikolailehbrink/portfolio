@@ -1,10 +1,8 @@
 import "tailwindcss/tailwind.css";
 
-import { Viewport } from "next";
 import { Blinker } from "next/font/google";
 
 import GlobalLayout from "@/components/global/Layout/GlobalLayout";
-import { tailwindConfig } from "@/tailwind.config";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],
@@ -13,10 +11,6 @@ const blinker = Blinker({
   display: "swap",
   variable: "--font-blinker",
 });
-
-export const viewport: Viewport = {
-  themeColor: tailwindConfig.theme.colors.blue.DEFAULT,
-};
 
 export default function RootLayout({
   children,
