@@ -1,0 +1,3 @@
+- Sanity client reusable machen mit dem orderable document list, Icons vom Dokument ziehen.
+- Tailwind CSS integration checken
+- Sentry integrieren

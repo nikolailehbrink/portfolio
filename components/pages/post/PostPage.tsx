@@ -3,6 +3,7 @@ import Image from "next/image";
 import { toPlainText } from "next-sanity";
 import { useNextSanityImage } from "next-sanity-image";
 
+import TableOfContents from "@/app/(personal)/(min-height)/blog/[slug]/components/TableOfContents";
 import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
 import GoBackButton from "@/components/GoBackButton";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
@@ -10,7 +11,6 @@ import { useReadingTime } from "@/hooks/useReadingTime";
 import { parseOutline } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
 import type { PostPayload } from "@/types";
-import TableOfContents from "@/app/(personal)/(min-height)/blog/[slug]/components/TableOfContents";
 
 export interface PostPageProps {
   data: PostPayload | null;
@@ -42,7 +42,7 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
   });
 
   return (
-    <article className="container my-8 space-y-8">
+    <article className="container my-8 space-y-4 xl:space-y-8">
       <GoBackButton className="xl:sticky xl:top-[6.5rem]" />
       <div className="flex flex-col justify-center gap-4 lg:items-center lg:text-center">
         {title && (
@@ -100,19 +100,23 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
       )}
 
       {body && body.length > 0 && (
-        <div className="flex gap-2 max-xl:flex-col">
-          <section className="prose text-pretty dark:prose-invert sm:prose-lg xl:mx-auto">
+        <div className="flex gap-8 max-xl:flex-col">
+          <section className="prose prose-neutral text-pretty dark:prose-invert sm:prose-lg xl:mx-auto">
             <CustomPortableText value={body} />
           </section>
           {outline && outline.length > 0 && (
-            <nav className="xl:sticky h-full space-y-2 text-pretty rounded-xl border-2 border-border bg-neutral-950 p-4 px-6 lg:p-6 lg:px-8 xl:top-20 xl:w-[300px]">
-              <header className="flex items-center gap-2">
-                <ListOlAlt className="w-5" />
+            <>
+              <div className="grow hidden xl:flex xl:-order-1"></div>
+              <nav className="xl:sticky relative h-full max-xl:-order-1 space-y-2 text-pretty overflow-hidden rounded-xl border-2 border-blue/30 p-4 px-6 lg:p-6 lg:px-8 xl:top-20 xl:w-[300px]">
+                <div className="inset-0 bg-gradient-to-br from-blue-500 to-blue-900 absolute opacity-15"></div>
+                <header className="flex items-center gap-2 relative">
+                  <ListOlAlt className="w-5" />
 
-                <h2 className="text-xl font-bold">Table of Contents</h2>
-              </header>
-              <TableOfContents outline={outline} />
-            </nav>
+                  <h2 className="text-xl font-bold">Table of Contents</h2>
+                </header>
+                <TableOfContents outline={outline} />
+              </nav>
+            </>
           )}
         </div>
       )}
