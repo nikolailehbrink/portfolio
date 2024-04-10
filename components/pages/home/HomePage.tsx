@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ProjectListItem } from "@/components/pages/home/ProjectListItem";
 import { Header } from "@/components/shared/Header";
 import { resolveHref } from "@/sanity/lib/utils";
-import type { HomePagePayload } from "@/types";
+import type { HomePagePayload } from "@/types/sanity";
 
 import ContactSection from "./ContactSection";
 import ExperienceSection from "./ExperienceSection";

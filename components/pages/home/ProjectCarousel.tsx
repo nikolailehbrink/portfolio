@@ -4,7 +4,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { ProjectPayload, ShowcaseProject } from "@/types";
+import { ProjectPayload, ShowcaseProject } from "@/types/sanity";
 
 import ProjectCarouselItem from "./ProjectCarouselItem";
 

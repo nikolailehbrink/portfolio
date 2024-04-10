@@ -2,7 +2,7 @@ import type { PortableTextBlock } from "next-sanity";
 
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import ImageBox from "@/components/shared/ImageBox";
-import type { ShowcaseProject } from "@/types";
+import type { ShowcaseProject } from "@/types/sanity";
 
 interface ProjectProps {
   project: ShowcaseProject;

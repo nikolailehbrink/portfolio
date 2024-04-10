@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { urlForImage } from "@/sanity/lib/utils";
-import { ServicePayload } from "@/types";
+import { ServicePayload } from "@/types/sanity";
 
 export default function ServiceGrid({
   services,

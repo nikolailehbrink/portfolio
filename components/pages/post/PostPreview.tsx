@@ -4,7 +4,7 @@ import { type QueryResponseInitial } from "@sanity/react-loader";
 
 import { postBySlugQuery } from "@/sanity/lib/queries";
 import { useQuery } from "@/sanity/loader/useQuery";
-import { PostPayload } from "@/types";
+import { PostPayload } from "@/types/sanity";
 
 import PostPage from "./PostPage";
 
@@ -18,7 +18,7 @@ export default function ProjectPreview(props: Props) {
   const { data, encodeDataAttribute } = useQuery<PostPayload | null>(
     postBySlugQuery,
     params,
-    { initial },
+    { initial }
   );
 
   return <PostPage data={data!} encodeDataAttribute={encodeDataAttribute} />;

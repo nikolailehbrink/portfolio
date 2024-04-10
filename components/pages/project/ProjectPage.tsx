@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import { Header } from "@/components/shared/Header";
 import ImageBox from "@/components/shared/ImageBox";
-import type { ProjectPayload } from "@/types";
+import type { ProjectPayload } from "@/types/sanity";
 
 export interface ProjectPageProps {
   data: ProjectPayload | null;

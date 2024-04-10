@@ -8,7 +8,7 @@ import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import { Header } from "@/components/shared/Header";
 import { cn } from "@/lib/utils";
 import { resolveHref } from "@/sanity/lib/utils";
-import type { BlogPagePayload, HomePagePayload } from "@/types";
+import type { BlogPagePayload, HomePagePayload } from "@/types/sanity";
 
 export interface BlogPageProps {
   data: BlogPagePayload | null;
@@ -39,7 +39,7 @@ export function BlogPage({ data, encodeDataAttribute }: BlogPageProps) {
         <div
           className={cn(
             "grid gap-8 lg:grid-cols-2 xl:grid-cols-3",
-            remainingPosts.length < 3 && "xl:grid-cols-2",
+            remainingPosts.length < 3 && "xl:grid-cols-2"
           )}
         >
           {remainingPosts.map((post) => (

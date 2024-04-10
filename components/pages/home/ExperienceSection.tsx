@@ -6,7 +6,7 @@ import { useRef } from "react";
 import Diary from "@/assets/icons/unicons/diary.svg";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { tailwindConfig } from "@/tailwind.config";
-import { ExperiencePayload } from "@/types";
+import { ExperiencePayload } from "@/types/sanity";
 
 import Experiences from "./Experiences";
 import ExpertiseGrid from "./ExpertiseGrid";
@@ -47,7 +47,7 @@ export default function ExperienceSection({
         },
       });
     },
-    { scope: ref },
+    { scope: ref }
   );
 
   return (

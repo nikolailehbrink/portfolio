@@ -5,7 +5,7 @@ import { useRef } from "react";
 import Archive from "@/assets/icons/unicons/archive.svg";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { tailwindConfig } from "@/tailwind.config";
-import { ProjectPayload, ShowcaseProject } from "@/types";
+import { ProjectPayload, ShowcaseProject } from "@/types/sanity";
 
 import ProjectCarousel from "./ProjectCarousel";
 
@@ -47,7 +47,7 @@ export default function ProjectSection({
         },
       });
     },
-    { scope: ref },
+    { scope: ref }
   );
 
   return (

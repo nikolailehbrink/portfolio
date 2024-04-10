@@ -5,7 +5,7 @@ import { useRef } from "react";
 import Desktop from "@/assets/icons/unicons/desktop.svg";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { tailwindConfig } from "@/tailwind.config";
-import { ServicePayload } from "@/types";
+import { ServicePayload } from "@/types/sanity";
 
 import ServiceGrid from "./ServiceGrid";
 
@@ -46,7 +46,7 @@ export default function ServiceSection({
         },
       });
     },
-    { scope: ref },
+    { scope: ref }
   );
   return (
     <section

@@ -1,6 +1,6 @@
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import { Header } from "@/components/shared/Header";
-import type { PagePayload } from "@/types";
+import type { PagePayload } from "@/types/sanity";
 
 export interface PageProps {
   data: PagePayload | null;

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 
+import Chat from "@/components/pages/chat/Chat";
 import { loadChat } from "@/sanity/loader/loadQuery";
-
-import Chat from "./components/Chat";
 
 type SearchParams = { [key: string]: string | string[] | undefined };
 

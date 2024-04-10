@@ -6,7 +6,7 @@ import { useNextSanityImage } from "next-sanity-image";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/utils";
-import { PostPayload } from "@/types";
+import { PostPayload } from "@/types/sanity";
 
 import { CustomPortableText } from "./shared/CustomPortableText";
 

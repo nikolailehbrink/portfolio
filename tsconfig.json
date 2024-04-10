@@ -25,7 +25,7 @@
     }
   },
   "include": [
-    "types/svg.d.ts",
+    "types/svgr.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",

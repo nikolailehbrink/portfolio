@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import slugify from "slugify";
 
 import { cn } from "@/lib/utils";
-import { HeadingBlock } from "@/types";
+import { HeadingBlock } from "@/types/sanity";
 
 export default function TableOfContents({
   outline,
@@ -23,7 +23,7 @@ export default function TableOfContents({
           }
         });
       },
-      { rootMargin: "5% 0px -90% 0px" },
+      { rootMargin: "5% 0px -90% 0px" }
     );
 
     const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
@@ -46,7 +46,7 @@ export default function TableOfContents({
             <a
               className={cn(
                 "inline-flex",
-                isActive ? "text-blue-400" : "hover:text-orange",
+                isActive ? "text-blue-400" : "hover:text-orange"
               )}
               href={`#${headingSlug}`}
             >

@@ -7,7 +7,7 @@ import {
 } from "next-sanity";
 import type { Image } from "sanity";
 
-import LinkableHeader from "@/app/(personal)/(min-height)/blog/[slug]/components/LinkableHeader";
+import LinkableHeader from "@/components/pages/blog/LinkableHeader";
 import ImageBox from "@/components/shared/ImageBox";
 import { TimelineSection } from "@/components/shared/TimelineSection";
 
