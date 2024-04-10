@@ -13,14 +13,9 @@ import { apiVersion, dataset, projectId, studioUrl } from "@/sanity/lib/api";
 import { locate } from "@/sanity/plugins/locate";
 import { pageStructure, singletonPlugin } from "@/sanity/plugins/settings";
 import author from "@/sanity/schemas/documents/author";
-import page from "@/sanity/schemas/documents/page";
 import post from "@/sanity/schemas/documents/post";
 import project from "@/sanity/schemas/documents/project";
 import duration from "@/sanity/schemas/objects/duration";
-import milestone from "@/sanity/schemas/objects/milestone";
-import timeline from "@/sanity/schemas/objects/timeline";
-import home from "@/sanity/schemas/singletons/home";
-import settings from "@/sanity/schemas/singletons/settings";
 
 import chat from "./sanity/schemas/documents/chat";
 import experience from "./sanity/schemas/documents/experience";
@@ -41,28 +36,23 @@ export default defineConfig({
     // If you want more content types, you can add them to this array
     types: [
       // Singletons
-      home,
       blog,
-      settings,
       // Documents
       duration,
       experience,
       service,
       post,
       author,
-      page,
       project,
       chat,
       // Objects
       blockContent,
-      milestone,
-      timeline,
     ],
   },
   plugins: [
     codeInput(),
     structureTool({
-      structure: pageStructure([home, settings, blog]),
+      structure: pageStructure([blog]),
     }),
     presentationTool({
       locate,
@@ -73,7 +63,7 @@ export default defineConfig({
       },
     }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
-    singletonPlugin([home.name, blog.name, settings.name]),
+    singletonPlugin([blog.name]),
     // Add an image asset source for Unsplash
     unsplashImageAsset(),
     // Vision lets you query your content with GROQ in the studio

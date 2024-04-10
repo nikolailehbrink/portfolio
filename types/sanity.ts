@@ -9,23 +9,6 @@ export type HeadingBlock = PortableTextBlock & {
   subheadings: HeadingBlock[];
 };
 
-export interface MenuItem {
-  _type: string;
-  slug?: string;
-  title?: string;
-}
-
-export interface MilestoneItem {
-  description?: string;
-  duration?: {
-    start?: string;
-    end?: string;
-  };
-  image?: OriginalImage;
-  tags?: string[];
-  title?: string;
-}
-
 export interface ShowcaseProject {
   _type: string;
   coverImage?: Image;
@@ -104,12 +87,6 @@ export interface ProjectPayload {
   slug: string;
   tags?: string[];
   title?: string;
-}
-
-export interface SettingsPayload {
-  footer?: PortableTextBlock[];
-  menuItems?: MenuItem[];
-  ogImage?: Image;
 }
 
 export type ChatPayload = {

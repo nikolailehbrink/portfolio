@@ -119,11 +119,6 @@ export default defineType({
           },
           styles: [],
         }),
-        // Custom blocks
-        defineArrayMember({
-          name: "timeline",
-          type: "timeline",
-        }),
         defineField({
           type: "image",
           icon: ImageIcon,

@@ -11,7 +11,6 @@ import {
   postBySlugQuery,
   postsQuery,
   projectBySlugQuery,
-  settingsQuery,
 } from "@/sanity/lib/queries";
 import { token } from "@/sanity/lib/token";
 import {
@@ -21,7 +20,6 @@ import {
   PagePayload,
   PostPayload,
   ProjectPayload,
-  SettingsPayload,
 } from "@/types/sanity";
 
 const serverClient = client.withConfig({
@@ -68,19 +66,11 @@ export const loadQuery = ((query, params = {}, options = {}) => {
  * Loaders that are used in more than one place are declared here, otherwise they're colocated with the component
  */
 
-export function loadSettings() {
-  return loadQuery<SettingsPayload>(
-    settingsQuery,
-    {},
-    { next: { tags: ["settings", "home", "page", "project"] } }
-  );
-}
-
 export function loadHomePage() {
   return loadQuery<HomePagePayload | null>(
     homePageQuery,
     {},
-    { next: { tags: ["home", "project"] } }
+    { next: { tags: ["home", "project", "service", "experience"] } }
   );
 }
 export function loadBlogPage() {
@@ -96,14 +86,6 @@ export function loadProject(slug: string) {
     projectBySlugQuery,
     { slug },
     { next: { tags: [`project:${slug}`] } }
-  );
-}
-
-export function loadPage(slug: string) {
-  return loadQuery<PagePayload | null>(
-    pagesBySlugQuery,
-    { slug },
-    { next: { tags: [`page:${slug}`] } }
   );
 }
 

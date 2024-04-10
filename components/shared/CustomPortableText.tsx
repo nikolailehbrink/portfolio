@@ -9,7 +9,6 @@ import type { Image } from "sanity";
 
 import LinkableHeader from "@/components/pages/blog/LinkableHeader";
 import ImageBox from "@/components/shared/ImageBox";
-import { TimelineSection } from "@/components/shared/TimelineSection";
 
 import CodeBlock from "./CodeBlock";
 
@@ -44,10 +43,6 @@ export function CustomPortableText({ value }: { value: PortableTextBlock[] }) {
       code: ({ value }) => <CodeBlock {...value} />,
       image: ({ value }: { value: Image & { alt?: string } }) => {
         return <ImageBox image={value} />;
-      },
-      timeline: ({ value }) => {
-        const { items } = value || {};
-        return <TimelineSection timelines={items} />;
       },
     },
   };

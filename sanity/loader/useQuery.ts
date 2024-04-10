@@ -5,10 +5,6 @@ import {
 } from "@sanity/react-loader";
 import * as queryStore from "@sanity/react-loader";
 
-import { SettingsPayload } from "@/types/sanity";
-
-import { settingsQuery } from "../lib/queries";
-
 /**
  * Exports to be used in client-only or components that render both server and client
  */
@@ -33,10 +29,3 @@ export const useQuery = <
 
   return snapshot;
 };
-
-/**
- * Loaders that are used in more than one place are declared here, otherwise they're colocated with the component
- */
-export function useSettings(initial: QueryResponseInitial<SettingsPayload>) {
-  return useQuery<SettingsPayload>(settingsQuery, {}, { initial });
-}
