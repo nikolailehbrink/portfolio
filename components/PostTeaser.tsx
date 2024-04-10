@@ -63,7 +63,7 @@ export default function PostTeaser({
             {tags?.map((tag, index) => (
               <div
                 key={index}
-                className="rounded-full bg-blue-100 px-2 py-1 text-xs font-bold text-blue-950"
+                className="rounded-full bg-blue-900 px-2 py-1 text-xs font-bold text-blue-400"
               >
                 <p>{tag}</p>
               </div>
@@ -71,7 +71,7 @@ export default function PostTeaser({
           </div>
         </div>
         <div className="flex flex-col items-start justify-center gap-2">
-          <section className="-mb-1 flex gap-2 text-sm text-neutral-400">
+          <p className="-mb-1 text-sm text-neutral-400">
             <time dateTime={publishedDate.toISOString()}>
               {new Intl.DateTimeFormat("en-US", {
                 year: "numeric",
@@ -79,13 +79,8 @@ export default function PostTeaser({
                 day: "numeric",
               }).format(publishedDate)}
             </time>
-            {minutesToRead > 0 && (
-              <>
-                <span>|</span>
-                <p>{minutesToRead}m read</p>
-              </>
-            )}
-          </section>
+            {minutesToRead > 0 && <>, {minutesToRead}m read</>}
+          </p>
 
           <h2 className="text-2xl font-bold sm:text-3xl">{title}</h2>
           {overview && overview.length > 0 && (

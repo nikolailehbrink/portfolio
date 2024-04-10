@@ -53,7 +53,7 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
             {tags?.map((tag, index) => (
               <div
                 key={index}
-                className="px-2 bg-blue-800 text-blue-400 font-bold rounded-lg text-sm py-1"
+                className="px-2 bg-blue-900 text-blue-400 font-bold rounded-lg text-sm py-1"
               >
                 # {tag}
               </div>
