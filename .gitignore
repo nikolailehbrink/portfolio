@@ -45,3 +45,6 @@ studio/.env.development
 
 # todo files
 todos.txt
+
+# Sentry Config File
+.sentryclirc
