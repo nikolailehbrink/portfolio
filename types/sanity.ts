@@ -9,15 +9,10 @@ export type HeadingBlock = PortableTextBlock & {
   subheadings: HeadingBlock[];
 };
 
-export interface ShowcaseProject {
-  _type: string;
-  coverImage?: Image;
-  overview?: PortableTextBlock[];
-  slug?: string;
-  tags?: string[];
-  title?: string;
-  site?: string;
-}
+export type ShowcaseProject = Pick<
+  ProjectPayload,
+  "coverImage" | "overview" | "slug" | "tags" | "title" | "site" | "_type"
+>;
 
 // Page payloads
 
@@ -74,6 +69,7 @@ export interface ExperiencePayload {
 }
 
 export interface ProjectPayload {
+  _type: string;
   _id: string;
   client?: string;
   coverImage?: Image;
