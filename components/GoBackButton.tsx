@@ -18,7 +18,7 @@ export default function GoBackButton({
       onClick={() => router.back()}
       className={cn(
         "group/back inline-flex justify-start gap-2 justify-self-start",
-        className
+        className,
       )}
     >
       <UimArrowCircleLeft className="size-6 text-orange" />

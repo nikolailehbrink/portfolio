@@ -49,7 +49,7 @@ export function Navbar() {
           ref={menuRef}
           className={cn(
             `flex max-lg:rounded-lg max-lg:border-2 border-neutral-700 max-lg:bg-neutral-950 font-bold max-lg:fixed max-lg:right-0 max-lg:top-20 max-lg:mr-4 max-lg:flex-col max-lg:items-center max-lg:gap-6 max-lg:p-8 max-lg:transition-transform lg:w-full`,
-            !showMenu && "max-lg:translate-x-[calc(100%_+_1rem)]"
+            !showMenu && "max-lg:translate-x-[calc(100%_+_1rem)]",
           )}
         >
           <div className="relative flex flex-1">

@@ -16,14 +16,14 @@ export default forwardRef(function ChatMessage(
     name,
   }: Pick<Message, "content" | "role"> &
     Partial<Pick<ChatPayload, "logo" | "name">> & { children?: ReactNode },
-  ref: ForwardedRef<HTMLDivElement>
+  ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
     <div
       ref={ref}
       className={cn(
         "flex items-start gap-2 text-pretty sm:gap-4",
-        role === "user" && "flex-row-reverse"
+        role === "user" && "flex-row-reverse",
       )}
     >
       <ChatAvatar role={role} logo={logo} name={name} />
@@ -32,7 +32,7 @@ export default forwardRef(function ChatMessage(
           "max-w-prose rounded-lg px-4 py-2",
           role === "assistant"
             ? "bg-neutral-950 sm:bg-neutral-900 lg:mr-32"
-            : "bg-blue lg:ml-32"
+            : "bg-blue lg:ml-32",
         )}
       >
         <p>{content}</p>

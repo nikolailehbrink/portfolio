@@ -47,7 +47,7 @@ export default function ProjectSection({
         },
       });
     },
-    { scope: ref }
+    { scope: ref },
   );
 
   return (

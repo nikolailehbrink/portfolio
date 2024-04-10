@@ -46,7 +46,7 @@ export default function ServiceSection({
         },
       });
     },
-    { scope: ref }
+    { scope: ref },
   );
   return (
     <section

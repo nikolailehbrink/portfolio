@@ -10,7 +10,7 @@ type Props = {
 
 const MenuButton = forwardRef<HTMLButtonElement, Props>(function MenuButton(
   { showMenu, setShowMenu, ...props },
-  ref
+  ref,
 ) {
   return (
     <Button
@@ -29,19 +29,19 @@ const MenuButton = forwardRef<HTMLButtonElement, Props>(function MenuButton(
       <span
         className={cn(
           "my-[3px] h-[3px] w-1/2 rounded bg-neutral-100 transition-all",
-          showMenu && "w-full origin-top-left translate-x-[5px] rotate-45"
+          showMenu && "w-full origin-top-left translate-x-[5px] rotate-45",
         )}
       ></span>
       <span
         className={cn(
           "my-[3px] h-[3px] w-full rounded bg-neutral-100 transition-all",
-          showMenu && "translate-y-[1px] -rotate-45"
+          showMenu && "translate-y-[1px] -rotate-45",
         )}
       ></span>
       <span
         className={cn(
           "my-[3px] h-[3px] w-3/4 rounded bg-neutral-100 transition-all",
-          showMenu && "w-0 -rotate-45 opacity-0"
+          showMenu && "w-0 -rotate-45 opacity-0",
         )}
       ></span>
     </Button>

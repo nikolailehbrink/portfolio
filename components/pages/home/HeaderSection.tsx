@@ -25,7 +25,7 @@ export default function HeaderSection() {
         },
       });
     },
-    { scope: sectionRef }
+    { scope: sectionRef },
   );
 
   return (

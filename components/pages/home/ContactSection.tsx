@@ -45,7 +45,7 @@ export default function ContactSection() {
         },
       });
     },
-    { scope: otherRef }
+    { scope: otherRef },
   );
 
   return (

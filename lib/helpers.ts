@@ -32,7 +32,7 @@ export const parseOutline = (headings: PortableTextBlock[]) => {
 
     const currentOutlinePosition = get(
       outline,
-      getObjectPath(path).map(String)
+      getObjectPath(path).map(String),
     );
     currentOutlinePosition.subheadings.push(nestedHeading);
     path.push(currentOutlinePosition.subheadings.length - 1);

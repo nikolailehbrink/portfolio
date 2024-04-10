@@ -39,7 +39,7 @@ export function BlogPage({ data, encodeDataAttribute }: BlogPageProps) {
         <div
           className={cn(
             "grid gap-8 lg:grid-cols-2 xl:grid-cols-3",
-            remainingPosts.length < 3 && "xl:grid-cols-2"
+            remainingPosts.length < 3 && "xl:grid-cols-2",
           )}
         >
           {remainingPosts.map((post) => (

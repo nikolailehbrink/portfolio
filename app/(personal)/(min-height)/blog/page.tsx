@@ -9,7 +9,7 @@ import { studioUrl } from "@/sanity/lib/api";
 import { loadBlogPage } from "@/sanity/loader/loadQuery";
 
 const BlogPagePreview = dynamic(
-  () => import("@/components/pages/blog/BlogPagePreview")
+  () => import("@/components/pages/blog/BlogPagePreview"),
 );
 
 export async function generateMetadata(): Promise<Metadata> {

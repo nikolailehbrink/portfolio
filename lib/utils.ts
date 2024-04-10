@@ -17,7 +17,7 @@ export async function copyToClipboard(
     success?: () => void;
     error?: (e?: unknown) => void;
     finish?: () => void;
-  } = {}
+  } = {},
 ) {
   try {
     await navigator.clipboard.writeText(text);

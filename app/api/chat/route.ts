@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
   const fallbackModel = "gpt-3.5-turbo";
   const model = process.env.OPENAI_MODEL
     ? Object.keys(ALL_AVAILABLE_OPENAI_MODELS).includes(
-        process.env.OPENAI_MODEL
+        process.env.OPENAI_MODEL,
       )
       ? (process.env.OPENAI_MODEL as keyof typeof ALL_AVAILABLE_OPENAI_MODELS)
       : fallbackModel
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
           error:
             "messages are required in the request body and the last message must be from the user",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

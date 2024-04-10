@@ -54,7 +54,7 @@ export default function Experiences({
         },
       });
     },
-    { scope: ref }
+    { scope: ref },
   );
 
   return (

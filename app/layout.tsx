@@ -3,8 +3,8 @@ import "tailwindcss/tailwind.css";
 import { Viewport } from "next";
 import { Blinker } from "next/font/google";
 
-import { tailwindConfig } from "@/tailwind.config";
 import GlobalLayout from "@/components/global/Layout/GlobalLayout";
+import { tailwindConfig } from "@/tailwind.config";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],

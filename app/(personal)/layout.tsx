@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
 import { draftMode } from "next/headers";
@@ -10,12 +11,10 @@ import { Footer } from "@/components/global/Footer";
 import GlobalLayout from "@/components/global/Layout/GlobalLayout";
 import { Navbar } from "@/components/global/Navbar";
 import { urlForOpenGraphImage } from "@/sanity/lib/utils";
-import { Analytics } from "@vercel/analytics/react";
-
 import { loadHomePage, loadSettings } from "@/sanity/loader/loadQuery";
 
 const LiveVisualEditing = dynamic(
-  () => import("@/sanity/loader/LiveVisualEditing")
+  () => import("@/sanity/loader/LiveVisualEditing"),
 );
 
 export async function generateMetadata(): Promise<Metadata> {

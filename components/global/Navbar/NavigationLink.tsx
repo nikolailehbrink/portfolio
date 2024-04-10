@@ -21,7 +21,7 @@ export default function NavigationLink({ link, icon, title }: Props) {
           "border-y-2 border-y-transparent transition-colors ",
           pathname.includes(link)
             ? "border-b-blue-300"
-            : "group-hover:border-b-white"
+            : "group-hover:border-b-white",
         )}
       >
         {title}

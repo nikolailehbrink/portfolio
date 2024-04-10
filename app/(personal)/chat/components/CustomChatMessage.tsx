@@ -33,7 +33,7 @@ export default function CustomChatMessage({
         });
       }
     },
-    { scope: initialMessageRef }
+    { scope: initialMessageRef },
   );
   return (
     <ChatMessage ref={initialMessageRef} content="Hi!" role="assistant">
