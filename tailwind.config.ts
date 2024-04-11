@@ -4,6 +4,7 @@ import scrollbar from "tailwind-scrollbar";
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 import resolveConfig from "tailwindcss/resolveConfig";
+import { PluginAPI } from "tailwindcss/types/config";
 import animate from "tailwindcss-animate";
 
 const config = {
@@ -20,6 +21,50 @@ const config = {
       },
     },
     extend: {
+      typography: (theme: PluginAPI["theme"]) => ({
+        DEFAULT: {
+          css: {
+            a: {
+              color: theme("colors.neutral.50"),
+              borderBottom: "2px solid",
+              borderColor: theme("colors.neutral.700"),
+              textDecoration: "none",
+              lineHeight: "1.2",
+              "&:hover": {
+                borderColor: theme("colors.neutral.50"),
+              },
+            },
+            h2: {
+              margin: ".75em 0 .5em",
+            },
+            h3: {
+              margin: ".75em 0 .5em",
+            },
+            p: {
+              margin: "0.75em 0",
+            },
+            img: {
+              margin: 0,
+            },
+          },
+        },
+        lg: {
+          css: {
+            h2: {
+              margin: ".75em 0 .5em",
+            },
+            h3: {
+              margin: ".75em 0 .5em",
+            },
+            p: {
+              margin: "0.75em 0",
+            },
+            img: {
+              margin: 0,
+            },
+          },
+        },
+      }),
       screens: { "2xl": "1440px" },
       fontFamily: {
         blinker: ["var(--font-blinker)", ...defaultTheme.fontFamily.sans],
