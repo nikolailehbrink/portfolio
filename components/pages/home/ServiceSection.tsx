@@ -67,17 +67,8 @@ export default function ServiceSection({
           <p>
             About 6 years ago, I created my first website as an assignment for
             the media informatics module of a degree program by the same name.
-            It was the very first time I got to see{" "}
-            <Link
-              target="_blank"
-              className="underline underline-offset-2"
-              href={
-                "https://chat.openai.com/share/f6f9e999-1a89-4434-a939-554ca74c2bf3"
-              }
-            >
-              HTML and CSS
-            </Link>{" "}
-            and understood how to create a very simple website.
+            It was the very first time I got to see HTML and CSS and understood
+            how to create a very simple website.
           </p>
           <p>
             The page only consisted of a single image, a heading, two paragraphs
