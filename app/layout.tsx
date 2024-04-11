@@ -1,5 +1,3 @@
-import "tailwindcss/tailwind.css";
-
 import { Blinker } from "next/font/google";
 
 import GlobalLayout from "@/components/global/Layout/GlobalLayout";
