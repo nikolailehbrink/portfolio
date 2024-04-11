@@ -31,16 +31,19 @@ export default function WorkExperience({
 
   return (
     <li className="-ml-6 flex gap-4 lg:gap-8 prose dark:prose-invert prose-neutral">
-      <div className="sticky top-4 flex h-12 w-12 shrink-0 justify-center rounded-full border-2 border-transparent bg-blue-500 p-3 shadow-[0_0_0_8px] shadow-neutral-950 lg:top-24">
-        {src && (
-          <Image
-            className="w-12 object-contain -hue-rotate-[50deg]"
-            src={src}
-            alt={`Logo of ${company?.name}`}
-            height={height}
-            width={width}
-          />
-        )}
+      <div className="sticky top-4 h-12 w-12 lg:top-24">
+        <div className="absolute -inset-2 bg-neutral-950 rounded-full background-fill"></div>
+        <div className="flex relative h-12 w-12 shrink-0 justify-center rounded-full border-2 border-transparent bg-neutral-800 p-3 company-logo">
+          {src && (
+            <Image
+              className="w-12 object-contain -hue-rotate-[50deg]"
+              src={src}
+              alt={`Logo of ${company?.name}`}
+              height={height}
+              width={width}
+            />
+          )}
+        </div>
       </div>
       <div className="mt-[5.5px] flex flex-col items-start gap-3 content">
         <span className="rounded-lg bg-neutral-900 text-neutral-400  px-2 py-1 text-sm font-normal">
@@ -49,12 +52,8 @@ export default function WorkExperience({
 
         <hgroup>
           <h2 className="text-2xl font-bold my-0">{title}</h2>
-          <a
             // className="text-muted-foreground border-b border-muted-foreground hover:border-primary"
-            href={company?.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={company?.url} target="_blank" rel="noopener noreferrer">
             {company?.name}
           </a>
         </hgroup>

@@ -21,7 +21,7 @@ export default function Experiences({
         const logo = box.querySelector(".sticky")!;
         const topValue = getComputedStyle(logo).getPropertyValue("top") ?? 0;
 
-        gsap.to(logo, {
+        gsap.to(logo.querySelector(".company-logo"), {
           borderColor: tailwindConfig.theme.colors.white,
           duration: 0.2,
           backgroundColor: tailwindConfig.theme.colors.orange[500],
@@ -33,10 +33,18 @@ export default function Experiences({
           },
         });
 
-        gsap.from(box, {
+        gsap.from(q(".content, .company-logo"), {
           autoAlpha: 0,
-          x: tailwindConfig.theme.spacing[8],
-          y: tailwindConfig.theme.spacing[8],
+          y: tailwindConfig.theme.spacing[24],
+          scrollTrigger: {
+            trigger: box,
+            scrub: 1,
+            end: "bottom 75%",
+            toggleActions: "play none none reverse",
+          },
+        });
+        gsap.from(q(".background-fill"), {
+          y: tailwindConfig.theme.spacing[24],
           scrollTrigger: {
             trigger: box,
             scrub: 1,
@@ -49,9 +57,10 @@ export default function Experiences({
         height: "100%",
         scrollTrigger: {
           trigger: ref.current,
-          start: "top 75%",
-          end: "bottom 25%",
-          scrub: 2,
+          start: "top 90%",
+          end: "bottom 10%",
+          scrub: 1.5,
+          markers: true,
         },
       });
     },
