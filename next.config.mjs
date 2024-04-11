@@ -24,7 +24,7 @@ const config = {
   experimental: {
     // Use for llamaindex vector store folder
     outputFileTracingIncludes: {
-      "/*": ["./app/api/chat/cache"],
+      "/*": ["./app/api/chat/cache/**/*"],
     },
     taint: true,
   },
