@@ -17,7 +17,7 @@ export default function ChatAvatar({
         <Image
           width={42.5}
           height={42.5}
-          className="size-10 rounded-full border-2 border-sky"
+          className="size-10 rounded-full border-2 border-sky-500"
           src={src}
           alt={`Logo ${name}`}
           placeholder={logo.lqip ? "blur" : "empty"}
@@ -33,7 +33,7 @@ export default function ChatAvatar({
     );
   } else {
     return (
-      <ProfileImage className="size-10 rounded-full border-2 border-orange" />
+      <ProfileImage className="size-10 rounded-full border-2 border-orange-500" />
     );
   }
 }
