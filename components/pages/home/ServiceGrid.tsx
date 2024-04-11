@@ -23,7 +23,7 @@ function Service({ service }: { service: ServicePayload }) {
   const image = service.image;
   const imageUrl = image && urlForImage(image)?.size(60, 60).fit("crop").url();
   return (
-    <div className="service-box row-span-4 rounded-lg border-2 bg-neutral-900 p-4 @xl:lg:first:col-start-2">
+    <div className="service-box row-span-4 rounded-lg border-2 border-border bg-neutral-900 p-4 @xl:lg:first:col-start-2">
       <div className="mb-2 inline-flex rounded-lg bg-neutral-800 p-1">
         {imageUrl && (
           <Image
