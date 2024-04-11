@@ -62,27 +62,31 @@ export default function PostTeaser({
           <div className="absolute inset-0 top-2/3 bg-gradient-to-t from-neutral-950 to-transparent"></div>
           <div className="absolute bottom-4 right-4 sm:flex gap-1 flex-wrap hidden">
             {tags?.map((tag, index) => (
-              <Tag key={index} title={tag} className="text-xs" />
+              <Tag key={index} className="text-xs font-bold">
+                # {tag}
+              </Tag>
             ))}
           </div>
         </div>
         <div className="flex flex-col items-start justify-center gap-2">
-          <p className="-mb-1 text-sm text-neutral-400">
-            <time dateTime={publishedDate.toISOString()}>
-              {new Intl.DateTimeFormat("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              }).format(publishedDate)}
-            </time>
-            {minutesToRead > 0 && <>, {minutesToRead}m read</>}
+          <p className="flex gap-1 text-sm">
+            <Tag className="bg-orange-900 text-orange-400">
+              <time dateTime={publishedDate.toISOString()}>
+                {new Intl.DateTimeFormat("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                }).format(publishedDate)}
+              </time>
+            </Tag>
+            <span className="sr-only">, </span>
+            <Tag className="bg-neutral-800 text-neutral-400">
+              {minutesToRead}m read
+            </Tag>
           </p>
-
           <h2 className="text-2xl font-bold sm:text-3xl">{title}</h2>
           {overview && overview.length > 0 && (
-            <div className="text-neutral-300">
-              <CustomPortableText value={overview} />
-            </div>
+            <p className="text-muted-foreground">{toPlainText(overview)}</p>
           )}
           {authorImageUrl && (
             <div className="mt-2 hidden items-center gap-2 @4xl:flex">
@@ -97,10 +101,8 @@ export default function PostTeaser({
               />
 
               <div className="flex flex-col justify-center leading-4">
-                <span className="font-bold text-neutral-100">
-                  {author.name}
-                </span>
-                <span className="text-sm text-neutral-400">
+                <span className="font-bold">{author.name}</span>
+                <span className="text-sm text-muted-foreground">
                   {author.bio ?? "Doesnt want a bio.."}
                 </span>
               </div>

@@ -1,15 +1,15 @@
 import { cn } from "@/lib/utils";
 
-type Props = { title: string; className?: string };
-export default function Tag({ className, title }: Props) {
+type Props = { children: React.ReactNode; className?: string };
+export default function Tag({ className, children }: Props) {
   return (
-    <div
+    <span
       className={cn(
-        "px-2 bg-blue-900 text-blue-400 font-bold rounded-lg text-sm py-1",
+        "px-2 bg-blue-900 text-blue-400 rounded-lg text-sm py-1",
         className
       )}
     >
-      # {title}
-    </div>
+      {children}
+    </span>
   );
 }
