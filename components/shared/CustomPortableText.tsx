@@ -10,6 +10,7 @@ import type { Image } from "sanity";
 import AnchorHeading from "@/components/pages/blog/AnchorHeading";
 import ImageBox from "@/components/shared/ImageBox";
 
+import IconLink from "../pages/blog/IconLink";
 import CodeBlock from "./CodeBlock";
 
 export function CustomPortableText({ value }: { value: PortableTextBlock[] }) {
@@ -27,17 +28,7 @@ export function CustomPortableText({ value }: { value: PortableTextBlock[] }) {
           {children}
         </code>
       ),
-      link: ({ children, value }) => {
-        return (
-          <a
-            className="underline transition hover:opacity-50"
-            href={value?.href}
-            rel="noreferrer noopener"
-          >
-            {children}
-          </a>
-        );
-      },
+      link: IconLink,
     },
     types: {
       code: ({ value }) => <CodeBlock {...value} />,
