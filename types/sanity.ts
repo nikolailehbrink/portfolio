@@ -17,11 +17,6 @@ export type ShowcaseProject = Pick<
 // Page payloads
 
 export interface HomePagePayload {
-  home?: {
-    overview?: PortableTextBlock[];
-    showcaseProjects?: ShowcaseProject[];
-    title?: string;
-  };
   projects?: ShowcaseProject[];
   services?: ServicePayload[];
   experiences?: ExperiencePayload[];
