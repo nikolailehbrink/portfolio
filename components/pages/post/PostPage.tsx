@@ -11,6 +11,7 @@ import { useReadingTime } from "@/hooks/useReadingTime";
 import { parseOutline } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
 import type { PostPayload } from "@/types/sanity";
+import Tag from "@/components/shared/Tag";
 
 export interface PostPageProps {
   data: PostPayload | null;
@@ -49,14 +50,7 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
         )}
         {tags && tags.length > 0 && (
           <div className="flex gap-2 flex-wrap">
-            {tags?.map((tag, index) => (
-              <div
-                key={index}
-                className="px-2 bg-blue-900 text-blue-400 font-bold rounded-lg text-sm py-1"
-              >
-                # {tag}
-              </div>
-            ))}
+            {tags?.map((tag, index) => <Tag key={index} title={tag} />)}
           </div>
         )}
         {overview && (
