@@ -9,7 +9,7 @@ import { urlForOpenGraphImage } from "@/sanity/lib/utils";
 import { generateStaticSlugs } from "@/sanity/loader/generateStaticSlugs";
 import { loadPost } from "@/sanity/loader/loadQuery";
 const PostPreview = dynamic(
-  () => import("@/components/pages/post/PostPreview"),
+  () => import("@/components/pages/post/PostPreview")
 );
 
 type Props = {
@@ -18,7 +18,7 @@ type Props = {
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { data: post } = await loadPost(params.slug);
   const ogImage = urlForOpenGraphImage(post?.coverImage);
@@ -30,7 +30,7 @@ export async function generateMetadata(
       : (await parent).description,
     openGraph: ogImage
       ? {
-          images: [ogImage, ...((await parent).openGraph?.images || [])],
+          images: [ogImage],
         }
       : {},
     authors: [{ name: post?.author?.name, url: post?.author?.url }],
