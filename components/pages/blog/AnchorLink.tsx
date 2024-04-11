@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { toast } from "sonner";
 
-// import LinkAlt from "@/assets/icons/unicons/link-alt.svg";
+import LinkAlt from "@/assets/icons/unicons/link-alt.svg";
 import { copyToClipboard } from "@/lib/utils";
 
 export default function AnchorLink({ slug }: { slug: string }) {
@@ -20,7 +20,7 @@ export default function AnchorLink({ slug }: { slug: string }) {
         })
       }
     >
-      {/* <LinkAlt className="w-5" /> */}
+      <LinkAlt className="w-5" />
     </Link>
   );
 }

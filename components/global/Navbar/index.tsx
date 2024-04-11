@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import Logo from "@/app/icon.svg";
-import Diary from "@/assets/icons/unicons/diary.svg";
+import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import Robot from "@/assets/icons/unicons/robot.svg";
 import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
@@ -27,7 +27,7 @@ const navigationItems = [
   {
     link: "/#contact",
     title: "Contact",
-    icon: <Diary />,
+    icon: <CommentCheck />,
   },
 ];
 
