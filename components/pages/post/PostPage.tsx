@@ -50,28 +50,36 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
         )}
         {tags && tags.length > 0 && (
           <div className="flex gap-2 flex-wrap">
-            {tags?.map((tag, index) => <Tag key={index} title={tag} />)}
+            {tags?.map((tag, index) => (
+              <Tag className="font-bold" key={index}>
+                # {tag}
+              </Tag>
+            ))}
           </div>
         )}
         {overview && (
-          <div className="prose prose-lg mx-auto dark:prose-invert">
+          <div className="prose prose-lg mx-auto dark:prose-invert prose-neutral">
             <CustomPortableText value={overview} />
           </div>
         )}
         <div className="flex gap-2 text-sm text-neutral-400">
-          <p>
-            <time
-              itemProp="datePublished"
-              dateTime={publishedDate.toISOString()}
-            >
-              {new Intl.DateTimeFormat("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              }).format(publishedDate)}
-            </time>
-            <span>, </span>
-            <span>{minutesToRead}m read</span>
+          <p className="flex-wrap flex gap-1">
+            <Tag className="bg-orange-900 text-orange-400">
+              <time
+                itemProp="datePublished"
+                dateTime={publishedDate.toISOString()}
+              >
+                {new Intl.DateTimeFormat("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                }).format(publishedDate)}
+              </time>
+            </Tag>
+            <span className="sr-only">, </span>
+            <Tag className="bg-neutral-800 text-neutral-400">
+              {minutesToRead}m read
+            </Tag>
           </p>
         </div>
       </div>

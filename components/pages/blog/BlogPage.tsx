@@ -2,7 +2,6 @@ import type { EncodeDataAttributeCallback } from "@sanity/react-loader";
 import Link from "next/link";
 
 import GoBackButton from "@/components/shared/GoBackButton";
-import { ProjectListItem } from "@/components/pages/home/ProjectListItem";
 import PostTeaser from "@/components/pages/blog/PostTeaser";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import { Header } from "@/components/shared/Header";
@@ -23,7 +22,7 @@ export function BlogPage({ data, encodeDataAttribute }: BlogPageProps) {
   return (
     <main className="container mx-auto my-4 space-y-4">
       <GoBackButton />
-      <header className="prose mx-auto dark:prose-invert md:text-center">
+      <header className="prose prose-neutral mx-auto dark:prose-invert md:text-center">
         <h1 className="my-3 text-5xl">{title}</h1>
 
         {overview && overview.length > 0 && (

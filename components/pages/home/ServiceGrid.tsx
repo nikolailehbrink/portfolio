@@ -36,7 +36,9 @@ function Service({ service }: { service: ServicePayload }) {
         )}
       </div>
       <h2 className="mb-2 text-xl font-bold leading-tight">{service.title}</h2>
-      <p className="line-clamp-[7] text-neutral-300">{service.description}</p>
+      <p className="line-clamp-[7] text-muted-foreground">
+        {service.description}
+      </p>
     </div>
   );
 }

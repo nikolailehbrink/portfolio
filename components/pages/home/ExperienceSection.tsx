@@ -66,7 +66,7 @@ export default function ExperienceSection({
             Experience
           </div>
           <h2 className="text-5xl font-bold">Resume</h2>
-          <p>
+          <p className="text-muted-foreground">
             Here you can find an overview of my work history and the software
             and tools I use on a regular basis or have used in the past.
           </p>

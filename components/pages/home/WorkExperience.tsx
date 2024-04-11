@@ -30,7 +30,7 @@ export default function WorkExperience({
   const { src, height, width } = image || {};
 
   return (
-    <li className="-ml-6 flex gap-4 lg:gap-8">
+    <li className="-ml-6 flex gap-4 lg:gap-8 prose dark:prose-invert prose-neutral">
       <div className="sticky top-4 flex h-12 w-12 shrink-0 justify-center rounded-full border-2 border-transparent bg-blue-500 p-3 shadow-[0_0_0_8px] shadow-neutral-950 lg:top-24">
         {src && (
           <Image
@@ -48,9 +48,9 @@ export default function WorkExperience({
         </span>
 
         <hgroup>
-          <h2 className="text-2xl font-bold">{title}</h2>
+          <h2 className="text-2xl font-bold my-0">{title}</h2>
           <a
-            className="text-muted-foreground border-b border-muted-foreground hover:border-primary"
+            // className="text-muted-foreground border-b border-muted-foreground hover:border-primary"
             href={company?.url}
             target="_blank"
             rel="noopener noreferrer"
@@ -58,7 +58,7 @@ export default function WorkExperience({
             {company?.name}
           </a>
         </hgroup>
-        <p className="text-muted-foreground">{description}</p>
+        <p className="my-0">{description}</p>
       </div>
     </li>
   );

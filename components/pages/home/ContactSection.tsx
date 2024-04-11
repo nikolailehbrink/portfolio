@@ -50,16 +50,16 @@ export default function ContactSection() {
       <div className="container grid gap-6 rounded-lg lg:grid-cols-2 lg:gap-12">
         <div
           id="contact-content"
-          className="flex flex-col items-start gap-4 self-start"
+          className="flex flex-col items-start gap-4 self-start prose dark:prose-invert prose-neutral"
         >
           <div className="badge badge-orange">
             <CommentCheck />
             Contact
           </div>
-          <h2 className="text-5xl font-bold">Your Move!</h2>
+          <h2 className="text-5xl font-bold my-0">Your Move!</h2>
           <div>
             <ProfileImage className="float-left mr-4 size-16 rounded-full border-2 border-orange [shape-outside:circle(50%)] lg:size-28" />
-            <p className="max-w-[30rem] italic">
+            <p className="max-w-[30rem] italic my-0 leading-normal">
               &ldquo;Well... Not everybody makes it to the bottom of the page,
               but you are one of them! So why don&apos;t say hello and have a
               chat about anything you are interested in? I would also greatly

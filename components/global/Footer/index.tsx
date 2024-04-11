@@ -72,7 +72,7 @@ export function Footer() {
               {navigationItems.map((item, index) => (
                 <li key={item.link}>
                   <Link
-                    className="hover:underline hover:underline-offset-2"
+                    className="border-b-2 border-transparent hover:border-white"
                     href={item.link}
                   >
                     {item.name}

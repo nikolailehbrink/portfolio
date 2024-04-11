@@ -57,13 +57,13 @@ export default function ServiceSection({
       <div className="container grid items-start gap-6 lg:grid-cols-2 lg:gap-12">
         <div
           id="service-content"
-          className="flex flex-col items-start gap-3 max-xl:relative lg:sticky lg:top-24 lg:order-1 prose dark:prose-invert prose-p:m-0 prose-headings:m-0"
+          className="flex flex-col items-start gap-3 max-xl:relative lg:sticky lg:top-24 lg:order-1 prose prose-neutral dark:prose-invert prose-p:m-0 prose-headings:m-0"
         >
           <div className="badge badge-orange">
             <Desktop className="w-5" />
             Passion
           </div>
-          <h2 className="text-5xl font-bold">Why the Web?</h2>
+          <h2 className="text-5xl">Why the Web?</h2>
           <p>
             About 6 years ago, I created my first website as an assignment for
             the media informatics module of a degree program by the same name.

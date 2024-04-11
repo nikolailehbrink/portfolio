@@ -34,6 +34,10 @@ const config = {
                 borderColor: theme("colors.neutral.50"),
               },
             },
+            h1: {
+              margin: ".75rem 0",
+              fontSize: "3rem",
+            },
             h2: {
               margin: ".75em 0 .5em",
             },
@@ -50,6 +54,9 @@ const config = {
         },
         lg: {
           css: {
+            h1: {
+              margin: ".75em 0",
+            },
             h2: {
               margin: ".75em 0 .5em",
             },

@@ -33,7 +33,7 @@ export default function ProjectCarouselItem({
           {project.site ? (
             <a
               href={project.site}
-              className="inline-flex items-center gap-1 hover:underline"
+              className="inline-flex items-center gap-1 border-b-2 border-transparent hover:border-neutral-50"
               target="_blank"
               rel="noopener noreferrer"
             >

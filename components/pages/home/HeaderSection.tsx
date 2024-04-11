@@ -25,7 +25,7 @@ export default function HeaderSection() {
         },
       });
     },
-    { scope: sectionRef },
+    { scope: sectionRef }
   );
 
   return (
@@ -35,8 +35,8 @@ export default function HeaderSection() {
       className="flex items-center overflow-x-clip"
     >
       <div className="container grid items-center gap-12 lg:grid-cols-2">
-        <div className="space-y-4 *:duration-1000 z-10 *:animate-in *:fade-in *:fill-mode-both">
-          <h1 className="text-6xl font-bold">
+        <div className="space-y-4 *:duration-1000 z-10 *:animate-in *:fade-in *:fill-mode-both prose dark:prose-invert prose-neutral">
+          <h1 className="text-6xl font-bold my-3">
             Nikolai
             <br />
             Lehbrink
