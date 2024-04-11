@@ -52,7 +52,7 @@ export default function HeaderSection() {
             help you out. If you&apos;re interested in working together or just
             want to chat, feel free to contact me.
           </p>
-          <div className="flex gap-4 delay-500">
+          <div className="flex gap-4 delay-500 not-prose">
             <Button size={"shadow"} asChild>
               <Link href="/chat">
                 <Robot className="size-7" />
