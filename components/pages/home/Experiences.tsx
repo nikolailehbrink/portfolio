@@ -64,7 +64,7 @@ export default function Experiences({
       className="flex flex-col gap-8 relative  max-lg:mx-4 "
     >
       <div className="-left-[2px] w-[3px] top-14 h-0 bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent absolute line"></div>
-      {/* <div className="-left-[2px] w-[3px] h-0 bg-sky-500 absolute line"></div> */}
+      <div className="-left-[3px] w-[6px] top-14 h-0 bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent absolute line blur-[4px] opacity-40"></div>
       {experiences.length > 0 &&
         experiences.map((experience) => (
           <WorkExperience key={experience._id} experience={experience} />
