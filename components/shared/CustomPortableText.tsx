@@ -7,7 +7,7 @@ import {
 } from "next-sanity";
 import type { Image } from "sanity";
 
-import LinkableHeader from "@/components/pages/blog/LinkableHeader";
+import AnchorHeading from "@/components/pages/blog/AnchorHeading";
 import ImageBox from "@/components/shared/ImageBox";
 
 import CodeBlock from "./CodeBlock";
@@ -15,11 +15,11 @@ import CodeBlock from "./CodeBlock";
 export function CustomPortableText({ value }: { value: PortableTextBlock[] }) {
   const components: PortableTextComponents = {
     block: {
-      h2: LinkableHeader,
-      h3: LinkableHeader,
-      h4: LinkableHeader,
-      h5: LinkableHeader,
-      h6: LinkableHeader,
+      h2: AnchorHeading,
+      h3: AnchorHeading,
+      h4: AnchorHeading,
+      h5: AnchorHeading,
+      h6: AnchorHeading,
     },
     marks: {
       code: ({ children }) => (

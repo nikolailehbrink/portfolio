@@ -5,10 +5,10 @@ import slugify from "slugify";
 
 import AnchorLink from "./AnchorLink";
 
-const LinkableHeader = ({
+export default function AnchorHeading({
   children,
   value,
-}: PortableTextComponentProps<PortableTextBlock>) => {
+}: PortableTextComponentProps<PortableTextBlock>) {
   const HeadingTag = value.style as keyof JSX.IntrinsicElements;
   const slug = slugify(toPlainText(value));
 
@@ -21,5 +21,4 @@ const LinkableHeader = ({
       {children}
     </HeadingTag>
   );
-};
-export default LinkableHeader;
+}
