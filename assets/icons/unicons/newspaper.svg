@@ -4,11 +4,11 @@
   viewBox="0 0 24 24"
 >
   <path
-    class="uim-quaternary"
+    class="uim-tertiary"
     d="M8.444 3.111a2 2 0 0 0-2 2v13.556a2.222 2.222 0 0 1-2.222 2.222h14.445A3.333 3.333 0 0 0 22 17.556V5.11a2 2 0 0 0-2-2H8.444z"
   ></path>
   <path
-    class="uim-tertiary"
+    class="uim-quaternary"
     d="M6.444 18.667V7.556H4a2 2 0 0 0-2 2v9.333a2 2 0 0 0 2 2h.222a2.222 2.222 0 0 0 2.222-2.222z"
   ></path>
   <path
