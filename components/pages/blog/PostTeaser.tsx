@@ -70,7 +70,7 @@ export default function PostTeaser({
         </div>
         <div className="flex flex-col items-start justify-center gap-2">
           <p className="flex gap-1 text-sm">
-            <Tag className="bg-orange-900 text-orange-400">
+            <Tag className="bg-orange-950 text-orange-400">
               <time dateTime={publishedDate.toISOString()}>
                 {new Intl.DateTimeFormat("en-US", {
                   year: "numeric",
@@ -95,7 +95,7 @@ export default function PostTeaser({
                 alt={author.image?.alt ?? `Profile picture`}
                 width={48}
                 height={48}
-                className="size-10 rounded-full border-2 border-orange object-cover"
+                className="size-10 rounded-full border-2 border-orange-500 object-cover"
                 placeholder={author.image?.lqip ? "blur" : "empty"}
                 blurDataURL={author.image?.lqip}
               />

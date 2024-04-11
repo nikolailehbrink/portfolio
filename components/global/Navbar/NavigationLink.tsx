@@ -20,8 +20,8 @@ export default function NavigationLink({ link, icon, title }: Props) {
         className={cn(
           "border-y-2 border-y-transparent transition-colors ",
           pathname.includes(link)
-            ? "border-b-blue-300"
-            : "group-hover:border-b-white",
+            ? "border-b-sky-300"
+            : "group-hover:border-b-white"
         )}
       >
         {title}

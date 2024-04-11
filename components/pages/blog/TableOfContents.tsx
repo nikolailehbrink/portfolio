@@ -46,7 +46,7 @@ export default function TableOfContents({
             <a
               className={cn(
                 "inline-flex",
-                isActive ? "text-blue-400" : "hover:text-orange"
+                isActive ? "text-sky-400" : "hover:text-orange-500"
               )}
               href={`#${headingSlug}`}
             >

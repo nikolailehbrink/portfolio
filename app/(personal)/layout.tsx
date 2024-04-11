@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: tailwindConfig.theme.colors.blue.DEFAULT,
+  themeColor: tailwindConfig.theme.colors.sky["500"],
 };
 
 export default function IndexRoute({

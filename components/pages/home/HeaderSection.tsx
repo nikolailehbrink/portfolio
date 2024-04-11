@@ -70,7 +70,7 @@ export default function HeaderSection() {
         <div className="relative mt-[10%]">
           <div
             id="gradient-blur"
-            className="absolute -inset-16 -top-32 aspect-square rounded-full bg-gradient-to-tl from-blue via-blue-200 via-35% to-orange opacity-50 blur-3xl"
+            className="absolute -inset-16 -top-32 aspect-square rounded-full bg-gradient-to-tl from-sky-500 via-sky-200 via-35% to-orange-500 opacity-50 blur-3xl"
           ></div>
           <div className="relative w-full">
             <Image

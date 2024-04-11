@@ -43,7 +43,7 @@ export default function WorkExperience({
         )}
       </div>
       <div className="mt-[5.5px] flex flex-col items-start gap-3 content">
-        <span className="rounded-full bg-blue px-3 py-2 text-sm">
+        <span className="rounded-lg bg-neutral-900 text-neutral-400  px-2 py-1 text-sm font-normal">
           {formattedPeriod}
         </span>
 

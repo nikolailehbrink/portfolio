@@ -5,7 +5,7 @@ export default function Tag({ className, children }: Props) {
   return (
     <span
       className={cn(
-        "px-2 bg-blue-900 text-blue-400 rounded-lg text-sm py-1",
+        "px-2 bg-sky-950 text-sky-400 rounded-lg text-sm py-1",
         className
       )}
     >

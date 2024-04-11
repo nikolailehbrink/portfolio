@@ -17,7 +17,7 @@ export default function ChatAvatar({
         <Image
           width={42.5}
           height={42.5}
-          className="size-10 rounded-full border-2 border-blue"
+          className="size-10 rounded-full border-2 border-sky"
           src={src}
           alt={`Logo ${name}`}
           placeholder={logo.lqip ? "blur" : "empty"}
@@ -27,7 +27,7 @@ export default function ChatAvatar({
     );
   } else if (role === "user") {
     return (
-      <div className="flex size-10 shrink-0 select-none items-center justify-center rounded-full border-2 border-blue ">
+      <div className="flex size-10 shrink-0 select-none items-center justify-center rounded-full border-2 border-sky-500 ">
         <UserCircle className="size-8" />
       </div>
     );

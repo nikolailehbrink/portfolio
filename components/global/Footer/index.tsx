@@ -39,7 +39,7 @@ const socials = [
 export function Footer() {
   return (
     <footer className="bg-neutral-950 py-2" role="contentinfo">
-      <div className="container flex justify-between gap-2 max-md:flex-col md:items-center">
+      <div className="container flex justify-between gap-2 max-md:flex-col md:items-center text-muted-foreground">
         <span>&copy; {new Date().getFullYear()} | Nikolai Lehbrink</span>
         <div className="flex flex-wrap items-center gap-2 max-sm:justify-between sm:gap-4">
           <nav>
@@ -78,7 +78,7 @@ export function Footer() {
                     {item.name}
                   </Link>
                   {index < navigationItems.length - 1 && (
-                    <span className="ml-2">|</span>
+                    <span className="ml-2 text-neutral-500">|</span>
                   )}
                 </li>
               ))}

@@ -15,7 +15,7 @@ export default function AnchorHeading({
   return (
     <HeadingTag
       id={slug}
-      className="relative flex scroll-mt-4 items-center gap-2 lg:scroll-mt-24"
+      className="relative flex scroll-mt-4 items-center gap-2 lg:scroll-mt-20"
     >
       <AnchorLink slug={slug} />
       {children}

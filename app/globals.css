@@ -67,32 +67,32 @@
 }
 
 .uim-primary {
-  @apply fill-blue;
+  @apply fill-sky-500;
 }
 .uim-secondary {
-  @apply fill-blue-400;
+  @apply fill-sky-400;
 }
 .uim-tertiary {
-  @apply fill-blue-300;
+  @apply fill-sky-300;
 }
 .uim-quaternary {
-  @apply fill-blue-200;
+  @apply fill-sky-200;
 }
-.bg-blue {
+.bg-sky-500 {
   .uim-primary {
-    @apply fill-blue-50;
+    @apply fill-sky-950;
   }
   .uim-secondary {
-    @apply fill-blue-100;
+    @apply fill-sky-900;
   }
   .uim-tertiary {
-    @apply fill-blue-200;
+    @apply fill-sky-800;
   }
   .uim-quaternary {
-    @apply fill-blue-300;
+    @apply fill-sky-700;
   }
 }
-.bg-orange {
+.bg-orange-500 {
   .uim-primary {
     @apply fill-orange-950;
   }
@@ -114,11 +114,11 @@
 @layer components {
   .badge {
     @apply inline-flex items-center justify-center gap-1 rounded-full px-3 py-2 text-sm font-bold tracking-wide;
-    &.badge-blue {
-      @apply bg-blue;
+    &.badge-sky {
+      @apply bg-sky-500 text-sky-950;
     }
     &.badge-orange {
-      @apply bg-orange text-orange-950;
+      @apply bg-orange-500 text-orange-950;
     }
     svg {
       @apply size-6;
@@ -133,10 +133,10 @@ main.content section[id] {
   svg {
     @apply size-14 rounded border-2 border-border bg-gradient-to-tr from-neutral-950 to-neutral-900 fill-white p-2;
     &:nth-child(3n + 1) {
-      @apply fill-blue;
+      @apply fill-sky-500;
     }
     &:nth-child(3n + 2) {
-      @apply fill-orange;
+      @apply fill-orange-500;
     }
   }
 }
@@ -165,15 +165,15 @@ code {
         }
       }
       &.add {
-        @apply border-blue bg-blue/25 before:text-blue;
+        @apply border-sky-500 bg-sky-500/25 before:text-sky-500;
         span:first-child::before {
-          @apply text-blue content-["+"];
+          @apply text-sky-500 content-["+"];
         }
       }
       &.remove {
-        @apply border-orange bg-orange/30 opacity-70 *:!text-neutral-400 before:text-orange;
+        @apply border-orange-500 bg-orange-500/30 opacity-70 *:!text-neutral-400 before:text-orange-500;
         span:first-child::before {
-          @apply text-orange content-["-"];
+          @apply text-orange-500 content-["-"];
         }
       }
     }

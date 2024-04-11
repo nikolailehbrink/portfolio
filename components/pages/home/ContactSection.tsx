@@ -52,7 +52,7 @@ export default function ContactSection() {
           id="contact-content"
           className="flex flex-col items-start gap-4 self-start prose dark:prose-invert prose-neutral"
         >
-          <div className="badge badge-orange">
+          <div className="badge badge-sky">
             <CommentCheck />
             Contact
           </div>

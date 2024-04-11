@@ -60,7 +60,7 @@ export default function ProjectSection({
         id="project-content"
         className="container flex flex-col items-start gap-4 lg:items-center"
       >
-        <div className="badge badge-blue">
+        <div className="badge badge-sky">
           <Archive />
           Projects
         </div>

@@ -33,7 +33,7 @@ export default forwardRef(function ChatMessage(
           "max-w-prose rounded-lg px-4 py-2",
           isAssistant
             ? "bg-neutral-950 sm:bg-neutral-900 lg:mr-32"
-            : "bg-blue lg:ml-32"
+            : "bg-sky-500 lg:ml-32"
         )}
       >
         <p className={cn(isAssistant && "text-muted-foreground")}>{content}</p>

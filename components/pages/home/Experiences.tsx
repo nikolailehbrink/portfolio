@@ -17,13 +17,14 @@ export default function Experiences({
     () => {
       const boxes = gsap.utils.toArray("#work-places li") as HTMLOListElement[];
       boxes.forEach((box) => {
+        const q = gsap.utils.selector(box);
         const logo = box.querySelector(".sticky")!;
         const topValue = getComputedStyle(logo).getPropertyValue("top") ?? 0;
 
         gsap.to(logo, {
           borderColor: tailwindConfig.theme.colors.white,
           duration: 0.2,
-          backgroundColor: tailwindConfig.theme.colors.orange.DEFAULT,
+          backgroundColor: tailwindConfig.theme.colors.orange[500],
           scrollTrigger: {
             start: "top " + topValue,
             end: "bottom " + topValue,
