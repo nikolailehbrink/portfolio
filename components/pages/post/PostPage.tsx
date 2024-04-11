@@ -62,26 +62,24 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
             <CustomPortableText value={overview} />
           </div>
         )}
-        <div className="flex gap-2 text-sm text-neutral-400">
-          <p className="flex-wrap flex gap-1">
-            <Tag className="bg-orange-900 text-orange-400">
-              <time
-                itemProp="datePublished"
-                dateTime={publishedDate.toISOString()}
-              >
-                {new Intl.DateTimeFormat("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                }).format(publishedDate)}
-              </time>
-            </Tag>
-            <span className="sr-only">, </span>
-            <Tag className="bg-neutral-800 text-neutral-400">
-              {minutesToRead}m read
-            </Tag>
-          </p>
-        </div>
+        <p className="flex-wrap flex gap-1">
+          <Tag className="bg-orange-950 text-orange-400">
+            <time
+              itemProp="datePublished"
+              dateTime={publishedDate.toISOString()}
+            >
+              {new Intl.DateTimeFormat("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              }).format(publishedDate)}
+            </time>
+          </Tag>
+          <span className="sr-only">, </span>
+          <Tag className="bg-neutral-800 text-neutral-400">
+            {minutesToRead}m read
+          </Tag>
+        </p>
       </div>
       {coverImage && (
         <Image

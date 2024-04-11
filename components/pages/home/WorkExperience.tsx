@@ -52,7 +52,6 @@ export default function WorkExperience({
 
         <hgroup>
           <h2 className="text-2xl font-bold my-0">{title}</h2>
-            // className="text-muted-foreground border-b border-muted-foreground hover:border-primary"
           <a href={company?.url} target="_blank" rel="noopener noreferrer">
             {company?.name}
           </a>
