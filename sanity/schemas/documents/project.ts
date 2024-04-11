@@ -1,10 +1,11 @@
-import { ImageIcon } from "@sanity/icons";
+import { ImageIcon, ProjectsIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 export default defineType({
   name: "project",
   title: "Project",
   type: "document",
+  icon: ProjectsIcon,
   fields: [
     defineField({
       name: "title",

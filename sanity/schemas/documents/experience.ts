@@ -1,9 +1,11 @@
+import { CaseIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "experience",
   title: "Work Experience",
   type: "document",
+  icon: CaseIcon,
   fields: [
     defineField({
       name: "title",

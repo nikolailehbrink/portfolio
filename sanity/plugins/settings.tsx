@@ -1,8 +1,8 @@
 /**
  * This plugin contains all the logic for setting up the singletons
  */
-import { CaseIcon, PackageIcon, ProjectsIcon } from "@sanity/icons";
 import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
+import { ComponentType } from "react";
 import { type DocumentDefinition } from "sanity";
 import { type StructureResolver } from "sanity/structure";
 
@@ -15,7 +15,7 @@ export const singletonPlugin = (types: string[]) => {
       newDocumentOptions: (prev, { creationContext }) => {
         if (creationContext.type === "global") {
           return prev.filter(
-            (templateItem) => !types.includes(templateItem.templateId),
+            (templateItem) => !types.includes(templateItem.templateId)
           );
         }
 
@@ -37,6 +37,7 @@ export const singletonPlugin = (types: string[]) => {
 // like how "Home" is handled.
 export const pageStructure = (
   typeDefArray: DocumentDefinition[],
+  orderableDocuments: DocumentDefinition[]
 ): StructureResolver => {
   return (S, context) => {
     // Goes through all of the singletons that were provided and translates them into something the
@@ -49,45 +50,39 @@ export const pageStructure = (
           S.editor()
             .id(typeDef.name)
             .schemaType(typeDef.name)
-            .documentId(typeDef.name),
+            .documentId(typeDef.name)
         );
     });
 
+    const orderableItems = [
+      ...orderableDocuments.map((typeDef) => {
+        return orderableDocumentListDeskItem({
+          type: typeDef.name,
+          title: typeDef.title,
+          icon: (typeDef.icon as ComponentType) || undefined,
+          S,
+          context,
+        });
+      }),
+    ];
+
     // The default root list items (except custom ones)
-    const defaultListItems = [
-      orderableDocumentListDeskItem({
-        type: "service",
-        S,
-        context,
-        title: "Service",
-        icon: PackageIcon,
-      }),
-      orderableDocumentListDeskItem({
-        type: "project",
-        S,
-        context,
-        title: "Project",
-        icon: ProjectsIcon,
-      }),
-      orderableDocumentListDeskItem({
-        type: "experience",
-        S,
-        context,
-        title: "Experience",
-        icon: CaseIcon,
-      }),
-      S.divider(),
+    const defaultItems = [
       ...S.documentTypeListItems().filter(
         (item) =>
-          item.getId() !== "project" &&
-          item.getId() !== "service" &&
-          item.getId() !== "experience" &&
-          !typeDefArray.find((singleton) => singleton.name === item.getId()),
+          !orderableDocuments.find((doc) => doc.name === item.getId()) &&
+          !typeDefArray.find((singleton) => singleton.name === item.getId())
       ),
     ];
 
     return S.list()
       .title("Content")
-      .items([...singletonItems, S.divider(), ...defaultListItems]);
+      .items([
+        ...singletonItems,
+        S.divider(),
+        ...orderableItems,
+        S.divider(),
+        ...defaultItems,
+      ]);
   };
 };

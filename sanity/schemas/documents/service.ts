@@ -1,9 +1,12 @@
+import { PackageIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "service",
   title: "Service",
   type: "document",
+  icon: PackageIcon,
+
   fields: [
     defineField({
       type: "string",

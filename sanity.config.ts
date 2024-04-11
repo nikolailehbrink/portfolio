@@ -52,7 +52,7 @@ export default defineConfig({
   plugins: [
     codeInput(),
     structureTool({
-      structure: pageStructure([blog]),
+      structure: pageStructure([blog], [experience, service, project]),
     }),
     presentationTool({
       locate,
