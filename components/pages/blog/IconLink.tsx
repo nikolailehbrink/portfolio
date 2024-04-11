@@ -1,8 +1,5 @@
 import type { PortableTextComponentProps } from "@portabletext/react";
-import type {
-  PortableTextLink,
-  PortableTextMarkDefinition,
-} from "@portabletext/types";
+import type { PortableTextLink } from "@portabletext/types";
 import Link from "next/link";
 
 import Dribbble from "@/assets/icons/unicons/dribbble.svg";
@@ -79,7 +76,7 @@ export default function IconLink({
       className="inline-flex items-center gap-[2px]"
     >
       {children}
-      {supportedSite ? (
+      {Icon ? (
         <Icon className="size-4" />
       ) : (
         isExternal && <ExternalLink className="size-4" />
