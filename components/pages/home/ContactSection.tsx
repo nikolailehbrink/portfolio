@@ -26,12 +26,10 @@ export default function ContactSection() {
           scrub: 1,
           trigger: otherRef.current,
           toggleActions: "restart none restart none",
-          // markers: true,
         },
       });
       gsap.from(q("#contact-form"), {
         autoAlpha: 0.4,
-        // backgroundColor: twConfig.theme.colors.neutral[800],
         y: `-${tailwindConfig.theme.spacing[16]}`,
         scale: 0.2,
         transformOrigin: "top",
@@ -41,7 +39,6 @@ export default function ContactSection() {
           trigger: otherRef.current,
           toggleActions: "play reverse restart reverse",
           scrub: 1,
-          // markers: true,
         },
       });
     },

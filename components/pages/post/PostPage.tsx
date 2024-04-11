@@ -3,10 +3,10 @@ import Image from "next/image";
 import { toPlainText } from "next-sanity";
 import { useNextSanityImage } from "next-sanity-image";
 
-import TableOfContents from "@/components/pages/blog/TableOfContents";
 import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
-import GoBackButton from "@/components/shared/GoBackButton";
+import TableOfContents from "@/components/pages/blog/TableOfContents";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
+import GoBackButton from "@/components/shared/GoBackButton";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { parseOutline } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
@@ -25,7 +25,6 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
     body = [],
     overview,
     publishedAt = "",
-    // site,
     tags,
     title,
   } = data ?? {};
@@ -42,8 +41,8 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
   });
 
   return (
-    <article className="container my-8 space-y-4 xl:space-y-8">
-      <GoBackButton className="xl:sticky xl:top-[6.5rem]" />
+    <article className="container my-4 space-y-4 xl:space-y-8">
+      <GoBackButton className="xl:sticky xl:top-[5.5rem]" />
       <div className="flex flex-col justify-center gap-4 lg:items-center lg:text-center">
         {title && (
           <h1 className="max-w-3xl  text-3xl font-bold lg:text-5xl">{title}</h1>

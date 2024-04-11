@@ -18,11 +18,11 @@ export default function GoBackButton({
       onClick={() => router.back()}
       className={cn(
         "group/back inline-flex justify-start gap-2 justify-self-start",
-        className,
+        className
       )}
     >
       <UimArrowCircleLeft className="size-6 text-orange" />
-      <span className="group-hover/back:underline group-hover/back:underline-offset-4">
+      <span className="border-b-2 group-hover/back:border-white border-transparent">
         {text}
       </span>
     </button>

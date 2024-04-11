@@ -23,10 +23,7 @@ export default function ChatInput({
   | "reload"
 > & { showReload: boolean; isGenerating: boolean }) {
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-gradien mx-auto w-full pr-4 pt-4"
-    >
+    <form onSubmit={handleSubmit} className="mx-auto w-full pt-2 pr-4 sm:pt-4">
       <div className="flex w-full items-start justify-between gap-2">
         <Input
           name="message"

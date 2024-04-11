@@ -13,8 +13,6 @@ export default function ImageBox({ image = {} }: Props) {
   const imageProps = useNextSanityImage(client, image, {
     imageBuilder: (image) => image.fit("max").quality(100),
   });
-  // const imageUrl =
-  //   image && urlForImage(image)?.height(height).width(width).fit("crop").url();
 
   return (
     imageProps.src && (
