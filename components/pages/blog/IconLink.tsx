@@ -76,7 +76,7 @@ export default function IconLink({
       href={href}
       target={target}
       rel={rel}
-      className="inline-flex items-center gap-[1px]"
+      className="inline-flex items-center gap-[2px]"
     >
       {children}
       {supportedSite ? (

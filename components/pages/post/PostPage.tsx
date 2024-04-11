@@ -42,7 +42,7 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
 
   return (
     <article className="container my-4 space-y-4 xl:space-y-8">
-      <GoBackButton className="xl:sticky xl:top-[5.5rem]" />
+      <GoBackButton className="2xl:sticky 2xl:top-[5.5rem]" />
       <div className="flex flex-col justify-center gap-4 lg:items-center lg:text-center">
         {title && (
           <h1 className="max-w-3xl  text-3xl font-bold lg:text-5xl">{title}</h1>
@@ -99,14 +99,14 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
       )}
 
       {body && body.length > 0 && (
-        <div className="flex gap-8 max-xl:flex-col">
-          <section className="prose prose-neutral text-pretty dark:prose-invert sm:prose-lg xl:mx-auto">
+        <div className="flex gap-4 xl:gap-8 max-xl:flex-col">
+          <section className="prose prose-neutral text-pretty dark:prose-invert sm:prose-lg xl:ml-auto 2xl:mx-auto">
             <CustomPortableText value={body} />
           </section>
           {outline && outline.length > 0 && (
             <>
-              <div className="grow hidden xl:flex xl:-order-1"></div>
-              <nav className="xl:sticky relative h-full max-xl:-order-1 space-y-2 text-pretty overflow-hidden rounded-xl border-2 border-blue/30 p-4 px-6 lg:p-6 lg:px-8 xl:top-20 xl:w-[300px]">
+              <div className="grow hidden 2xl:flex 2xl:-order-1"></div>
+              <nav className="xl:sticky relative h-full max-xl:-order-1 space-y-2 text-pretty overflow-hidden rounded-lg border-2 border-blue/30 p-4 px-6 lg:p-6 lg:px-8 xl:top-20 xl:w-[300px]">
                 <div className="inset-0 bg-gradient-to-br from-blue-500 to-blue-900 absolute opacity-15"></div>
                 <header className="flex items-center gap-2 relative">
                   <ListOlAlt className="w-5" />
