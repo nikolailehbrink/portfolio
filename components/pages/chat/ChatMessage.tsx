@@ -18,6 +18,7 @@ export default forwardRef(function ChatMessage(
     Partial<Pick<ChatPayload, "logo" | "name">> & { children?: ReactNode },
   ref: ForwardedRef<HTMLDivElement>
 ) {
+  const isAssistant = role === "assistant";
   return (
     <div
       ref={ref}
@@ -30,12 +31,12 @@ export default forwardRef(function ChatMessage(
       <div
         className={cn(
           "max-w-prose rounded-lg px-4 py-2",
-          role === "assistant"
+          isAssistant
             ? "bg-neutral-950 sm:bg-neutral-900 lg:mr-32"
             : "bg-blue lg:ml-32"
         )}
       >
-        <p>{content}</p>
+        <p className={cn(isAssistant && "text-muted-foreground")}>{content}</p>
         {children}
       </div>
     </div>

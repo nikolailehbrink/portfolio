@@ -100,9 +100,9 @@ export default function PostTeaser({
                 blurDataURL={author.image?.lqip}
               />
 
-              <div className="flex flex-col justify-center leading-4">
+              <div className="flex flex-col justify-center  leading-4">
                 <span className="font-bold">{author.name}</span>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm leading-tight text-muted-foreground">
                   {author.bio ?? "Doesnt want a bio.."}
                 </span>
               </div>
