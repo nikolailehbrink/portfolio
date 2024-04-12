@@ -3,13 +3,11 @@ import Link from "next/link";
 import { toPlainText } from "next-sanity";
 import { useNextSanityImage } from "next-sanity-image";
 
+import Tag from "@/components/shared/Tag";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/utils";
 import { PostPayload } from "@/types/sanity";
-
-import { CustomPortableText } from "../../shared/CustomPortableText";
-import Tag from "@/components/shared/Tag";
 
 export default function PostTeaser({
   post,
@@ -24,16 +22,18 @@ export default function PostTeaser({
     coverImage = {},
     body = [],
     tags,
-    title,
+    title = "",
     slug,
     overview,
   } = post;
 
   const publishedDate = new Date(publishedAt);
 
-  const { height, src, width } = useNextSanityImage(client, coverImage, {
+  const image = useNextSanityImage(client, coverImage, {
     imageBuilder: (image) => image.fit("max").width(1920).height(1080),
   });
+
+  const { src, height, width } = image || {};
 
   const postText = toPlainText(body);
   const { minutesToRead } = useReadingTime(postText);
@@ -45,20 +45,22 @@ export default function PostTeaser({
     <div className="group/teaser @container">
       <div className="relative grid grid-cols-1 items-center gap-4 @4xl:grid-cols-2 @4xl:gap-8">
         <div className="relative overflow-hidden rounded-lg">
-          <Image
-            priority={priority}
-            src={src}
-            height={height}
-            width={width}
-            alt={coverImage.alt ?? "Post image"}
-            className="object-cover transition-transform duration-500 group-hover/teaser:scale-105"
-            sizes=" 
-          (max-width: 768px) 95vw,
-          (max-width: 1000px) 80vw,
-          40vw"
-            placeholder={coverImage?.lqip ? "blur" : "empty"}
-            blurDataURL={coverImage?.lqip}
-          />
+          {src && (
+            <Image
+              priority={priority}
+              src={src}
+              height={height}
+              width={width}
+              alt={coverImage.alt ?? "Post image"}
+              className="object-cover transition-transform duration-500 group-hover/teaser:scale-105"
+              sizes=" 
+            (max-width: 768px) 95vw,
+            (max-width: 1000px) 80vw,
+            40vw"
+              placeholder={coverImage?.lqip ? "blur" : "empty"}
+              blurDataURL={coverImage?.lqip}
+            />
+          )}
           <div className="absolute inset-0 top-2/3 bg-gradient-to-t from-neutral-950 to-transparent"></div>
           <div className="absolute bottom-4 right-4 sm:flex gap-1 flex-wrap hidden">
             {tags?.map((tag, index) => (

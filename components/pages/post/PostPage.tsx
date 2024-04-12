@@ -7,11 +7,11 @@ import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
 import TableOfContents from "@/components/pages/blog/TableOfContents";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import GoBackButton from "@/components/shared/GoBackButton";
+import Tag from "@/components/shared/Tag";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { parseOutline } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
 import type { PostPayload } from "@/types/sanity";
-import Tag from "@/components/shared/Tag";
 
 export interface PostPageProps {
   data: PostPayload | null;
@@ -37,9 +37,11 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
   const postText = toPlainText(body);
   const { minutesToRead } = useReadingTime(postText);
 
-  const { height, src, width } = useNextSanityImage(client, coverImage, {
+  const image = useNextSanityImage(client, coverImage, {
     imageBuilder: (image) => image.fit("max").width(1920).height(1080),
   });
+
+  const { src, height, width } = image || {};
 
   return (
     <article className="container my-4 space-y-4 xl:space-y-8">
@@ -81,7 +83,7 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
           </Tag>
         </p>
       </div>
-      {coverImage && (
+      {src && (
         <Image
           className="relative z-10 aspect-video w-full rounded-lg object-cover"
           src={src}
