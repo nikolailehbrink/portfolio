@@ -59,8 +59,8 @@ export default function ContactSection() {
           <h2 className="text-5xl font-bold my-0">Your Move!</h2>
           <div>
             <div className="relative float-left mr-4 size-16 lg:size-28 [shape-outside:circle(50%)]">
-              <div className="absolute -inset-0 bg-gradient-to-br from-orange-400 via-orange-700 to-transparent blur-lg opacity-60 rounded-full"></div>
-              <div className="absolute -inset-[2px] bg-gradient-to-br from-orange-400 via-orange-700 to-transparent rounded-full"></div>
+              <div className="absolute -inset-0 bg-gradient-to-br from-orange-500  blur-lg opacity-60 rounded-full"></div>
+              <div className="absolute -inset-[2px] bg-gradient-to-br from-orange-500  rounded-full"></div>
               <ProfileImage className="rounded-full relative" />
             </div>
             <p className="max-w-[30rem] italic my-0 leading-normal relative">
