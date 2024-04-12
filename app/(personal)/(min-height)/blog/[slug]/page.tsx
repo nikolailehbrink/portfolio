@@ -22,6 +22,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { data: post } = await loadPost(params.slug);
   const ogImage = urlForOpenGraphImage(post?.coverImage);
+  console.log("Generating metadata for post");
 
   return {
     title: post?.title,
@@ -38,6 +39,8 @@ export async function generateMetadata(
 }
 
 export function generateStaticParams() {
+  console.log("Generating static params for post");
+
   return generateStaticSlugs("post");
 }
 
