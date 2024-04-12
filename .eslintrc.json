@@ -1,9 +1,13 @@
 {
-  "extends": ["next/core-web-vitals"],
-  "plugins": ["simple-import-sort"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "root": true,
   "rules": {
-    "simple-import-sort/imports": "warn",
-    "simple-import-sort/exports": "warn",
-    "react-hooks/exhaustive-deps": "error"
+    "@typescript-eslint/consistent-type-imports": "error"
   }
 }
