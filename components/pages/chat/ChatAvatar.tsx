@@ -3,7 +3,7 @@ import Image from "next/image";
 import UserCircle from "@/assets/icons/unicons/user-circle.svg";
 import ProfileImage from "@/components/shared/ProfileImage";
 import { urlForImage } from "@/sanity/lib/utils";
-import { ChatPayload } from "@/types/sanity";
+import type { ChatPayload } from "@/types/sanity";
 
 export default function ChatAvatar({
   role,

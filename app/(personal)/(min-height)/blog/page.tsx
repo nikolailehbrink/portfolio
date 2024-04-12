@@ -1,12 +1,11 @@
-import { type Metadata, ResolvingMetadata } from "next";
-import dynamic from "next/dynamic";
-import { draftMode } from "next/headers";
-import Link from "next/link";
-import { toPlainText } from "next-sanity";
-
 import BlogPage from "@/components/pages/blog/BlogPage";
 import { studioUrl } from "@/sanity/lib/api";
 import { loadBlogPage } from "@/sanity/loader/loadQuery";
+import { type Metadata } from "next";
+import { toPlainText } from "next-sanity";
+import dynamic from "next/dynamic";
+import { draftMode } from "next/headers";
+import Link from "next/link";
 
 const BlogPagePreview = dynamic(
   () => import("@/components/pages/blog/BlogPagePreview"),

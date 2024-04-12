@@ -1,7 +1,5 @@
-import { PortableTextBlock } from "next-sanity";
-import { getHighlighter } from "shiki";
-
-import { HeadingBlock } from "@/types/sanity";
+import type { HeadingBlock } from "@/types/sanity";
+import type { PortableTextBlock } from "next-sanity";
 
 const get = (object: any, path: string[]) =>
   path.reduce((prev, curr) => prev[curr], object);
@@ -32,7 +30,7 @@ export const parseOutline = (headings: PortableTextBlock[]) => {
 
     const currentOutlinePosition = get(
       outline,
-      getObjectPath(path).map(String)
+      getObjectPath(path).map(String),
     );
     currentOutlinePosition.subheadings.push(nestedHeading);
     path.push(currentOutlinePosition.subheadings.length - 1);

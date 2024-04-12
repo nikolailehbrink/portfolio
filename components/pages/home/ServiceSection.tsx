@@ -1,12 +1,10 @@
 "use client";
-import Link from "next/link";
-import { useRef } from "react";
 
 import Desktop from "@/assets/icons/unicons/desktop.svg";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { tailwindConfig } from "@/tailwind.config";
-import { ServicePayload } from "@/types/sanity";
-
+import type { ServicePayload } from "@/types/sanity";
+import { useRef } from "react";
 import ServiceGrid from "./ServiceGrid";
 
 export default function ServiceSection({
@@ -46,7 +44,7 @@ export default function ServiceSection({
         },
       });
     },
-    { scope: ref }
+    { scope: ref },
   );
   return (
     <section
@@ -57,7 +55,7 @@ export default function ServiceSection({
       <div className="container grid items-start gap-6 lg:grid-cols-2 lg:gap-12">
         <div
           id="service-content"
-          className="flex flex-col items-start gap-3 max-xl:relative lg:sticky lg:top-24 lg:order-1 prose prose-neutral dark:prose-invert prose-p:m-0 prose-headings:m-0"
+          className="prose prose-neutral flex flex-col items-start gap-3 dark:prose-invert prose-headings:m-0 prose-p:m-0 max-xl:relative lg:sticky lg:top-24 lg:order-1"
         >
           <div className="badge badge-orange">
             <Desktop className="w-5" />

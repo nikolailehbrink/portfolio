@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 import { gsap, useGSAP } from "@/lib/gsap";
 import { tailwindConfig } from "@/tailwind.config";
-import { ExperiencePayload } from "@/types/sanity";
+import type { ExperiencePayload } from "@/types/sanity";
 
 import WorkExperience from "./WorkExperience";
 

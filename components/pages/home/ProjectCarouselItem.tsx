@@ -4,7 +4,7 @@ import ExternalLink from "@/assets/icons/unicons/external-link.svg";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import { CarouselItem } from "@/components/ui/carousel";
 import { urlForImage } from "@/sanity/lib/utils";
-import { ShowcaseProject } from "@/types/sanity";
+import type { ShowcaseProject } from "@/types/sanity";
 
 export default function ProjectCarouselItem({
   project,

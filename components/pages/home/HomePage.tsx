@@ -1,7 +1,4 @@
-import type { EncodeDataAttributeCallback } from "@sanity/react-loader";
-
 import type { HomePagePayload } from "@/types/sanity";
-
 import ContactSection from "./ContactSection";
 import ExperienceSection from "./ExperienceSection";
 import HeaderSection from "./HeaderSection";
@@ -10,10 +7,9 @@ import ServiceSection from "./ServiceSection";
 
 export interface HomePageProps {
   data: HomePagePayload | null;
-  encodeDataAttribute?: EncodeDataAttributeCallback;
 }
 
-export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
+export function HomePage({ data }: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
   const { projects = [], services = [], experiences = [] } = data ?? {};
 

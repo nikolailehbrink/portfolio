@@ -1,8 +1,3 @@
-import type { EncodeDataAttributeCallback } from "@sanity/react-loader";
-import Image from "next/image";
-import { toPlainText } from "next-sanity";
-import { useNextSanityImage } from "next-sanity-image";
-
 import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
 import TableOfContents from "@/components/pages/blog/TableOfContents";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
@@ -12,13 +7,15 @@ import { useReadingTime } from "@/hooks/useReadingTime";
 import { parseOutline } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
 import type { PostPayload } from "@/types/sanity";
+import { toPlainText } from "next-sanity";
+import { useNextSanityImage } from "next-sanity-image";
+import Image from "next/image";
 
 export interface PostPageProps {
   data: PostPayload | null;
-  encodeDataAttribute?: EncodeDataAttributeCallback;
 }
 
-export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
+export function PostPage({ data }: PostPageProps) {
   // Default to an empty object to allow previews on non-existent documents
   const {
     coverImage = {},
@@ -51,7 +48,7 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
           <h1 className="max-w-3xl  text-3xl font-bold lg:text-5xl">{title}</h1>
         )}
         {tags && tags.length > 0 && (
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex flex-wrap gap-2">
             {tags?.map((tag, index) => (
               <Tag className="font-bold" key={index}>
                 # {tag}
@@ -60,11 +57,11 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
           </div>
         )}
         {overview && (
-          <div className="prose prose-lg mx-auto dark:prose-invert prose-neutral">
+          <div className="prose prose-lg prose-neutral mx-auto dark:prose-invert">
             <CustomPortableText value={overview} />
           </div>
         )}
-        <p className="flex-wrap flex gap-1">
+        <p className="flex flex-wrap gap-1">
           <Tag className="bg-orange-950 text-orange-400">
             <time
               itemProp="datePublished"
@@ -101,16 +98,16 @@ export function PostPage({ data, encodeDataAttribute }: PostPageProps) {
       )}
 
       {body && body.length > 0 && (
-        <div className="flex gap-4 xl:gap-8 max-xl:flex-col">
+        <div className="flex gap-4 max-xl:flex-col xl:gap-8">
           <section className="prose prose-neutral text-pretty dark:prose-invert sm:prose-lg xl:ml-auto 2xl:mx-auto">
             <CustomPortableText value={body} />
           </section>
           {outline && outline.length > 0 && (
             <>
-              <div className="grow hidden 2xl:flex 2xl:-order-1"></div>
-              <nav className="xl:sticky relative h-full max-xl:-order-1 space-y-2 text-pretty overflow-hidden rounded-lg border-2 border-border p-4 px-6 lg:p-6 lg:px-8 xl:top-20 xl:w-[300px]">
-                <div className="inset-0 bg-neutral-800 absolute opacity-40"></div>
-                <header className="flex items-center gap-2 relative">
+              <div className="hidden grow 2xl:-order-1 2xl:flex"></div>
+              <nav className="relative h-full space-y-2 overflow-hidden text-pretty rounded-lg border-2 border-border p-4 px-6 max-xl:-order-1 lg:p-6 lg:px-8 xl:sticky xl:top-20 xl:w-[300px]">
+                <div className="absolute inset-0 bg-neutral-800 opacity-40"></div>
+                <header className="relative flex items-center gap-2">
                   <ListOlAlt className="w-5" />
 
                   <h2 className="text-xl font-bold">Table of Contents</h2>

@@ -3,7 +3,7 @@ import type { ForwardedRef, ReactNode } from "react";
 import { forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
-import { ChatPayload } from "@/types/sanity";
+import type { ChatPayload } from "@/types/sanity";
 
 import ChatAvatar from "./ChatAvatar";
 

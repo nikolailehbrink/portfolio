@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import slugify from "slugify";
 
 import { cn } from "@/lib/utils";
-import { HeadingBlock } from "@/types/sanity";
+import type { HeadingBlock } from "@/types/sanity";
 
 export default function TableOfContents({
   outline,

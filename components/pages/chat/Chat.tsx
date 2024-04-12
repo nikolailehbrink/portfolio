@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 import { persistentToken } from "@/lib/atoms";
 import { isDev } from "@/lib/utils";
-import { ChatPayload } from "@/types/sanity";
+import type { ChatPayload } from "@/types/sanity";
 
 import ChatExamples from "./ChatExamples";
 import ChatInput from "./ChatInput";

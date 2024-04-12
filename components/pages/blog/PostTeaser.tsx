@@ -7,7 +7,7 @@ import Tag from "@/components/shared/Tag";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/utils";
-import { PostPayload } from "@/types/sanity";
+import type { PostPayload } from "@/types/sanity";
 
 export default function PostTeaser({
   post,

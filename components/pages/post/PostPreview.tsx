@@ -4,7 +4,7 @@ import { type QueryResponseInitial } from "@sanity/react-loader";
 
 import { postBySlugQuery } from "@/sanity/lib/queries";
 import { useQuery } from "@/sanity/loader/useQuery";
-import { PostPayload } from "@/types/sanity";
+import type { PostPayload } from "@/types/sanity";
 
 import PostPage from "./PostPage";
 

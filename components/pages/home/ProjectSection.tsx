@@ -1,12 +1,10 @@
 "use client";
 
-import { useRef } from "react";
-
 import Archive from "@/assets/icons/unicons/archive.svg";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { tailwindConfig } from "@/tailwind.config";
-import { ProjectPayload, ShowcaseProject } from "@/types/sanity";
-
+import type { ShowcaseProject } from "@/types/sanity";
+import { useRef } from "react";
 import ProjectCarousel from "./ProjectCarousel";
 
 export default function ProjectSection({
@@ -47,7 +45,7 @@ export default function ProjectSection({
         },
       });
     },
-    { scope: ref }
+    { scope: ref },
   );
 
   return (
@@ -65,13 +63,13 @@ export default function ProjectSection({
           Projects
         </div>
         <h2 className="text-5xl font-bold">Behind the Screen</h2>
-        <p className="max-w-prose lg:text-center text-muted-foreground">
+        <p className="max-w-prose text-muted-foreground lg:text-center">
           After my studies and some experience from working as a student in an
           advertising agency, I wanted to be able to take on jobs independently.
           So I filled out all the paperwork and became self-employed relatively
           quickly towards the end of 2021.
         </p>
-        <p className="max-w-prose lg:text-center text-muted-foreground">
+        <p className="max-w-prose text-muted-foreground lg:text-center">
           Since then, I&apos;ve worked alongside some interesting people and
           companies, for whom I&apos;ve created the following projects.
         </p>

@@ -8,7 +8,7 @@ import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import Robot from "@/assets/icons/unicons/robot.svg";
 import { Button } from "@/components/ui/button";
 import { getDateDifferenceInHours } from "@/lib/helpers";
-import { ChatPayload } from "@/types/sanity";
+import type { ChatPayload } from "@/types/sanity";
 
 import ChatMessage from "./ChatMessage";
 import CustomChatMessage from "./CustomChatMessage";

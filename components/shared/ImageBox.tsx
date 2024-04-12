@@ -1,9 +1,7 @@
-import Image from "next/image";
-import { useNextSanityImage } from "next-sanity-image";
-
 import { client } from "@/sanity/lib/client";
-import { urlForImage } from "@/sanity/lib/utils";
 import type { Image as ImageType } from "@/types/sanity";
+import { useNextSanityImage } from "next-sanity-image";
+import Image from "next/image";
 
 interface Props {
   image?: ImageType & { alt?: string };

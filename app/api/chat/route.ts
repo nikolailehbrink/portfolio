@@ -7,7 +7,7 @@ import { OpenAI } from "llamaindex";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { ChatPayload } from "@/types/sanity";
+import type { ChatPayload } from "@/types/sanity";
 
 import { createChatEngine } from "./engine";
 import { LlamaIndexStream } from "./llamaindex-stream";

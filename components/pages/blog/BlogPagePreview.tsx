@@ -1,11 +1,9 @@
 "use client";
 
-import { type QueryResponseInitial } from "@sanity/react-loader";
-
-import { homePageQuery, postsQuery } from "@/sanity/lib/queries";
+import { postsQuery } from "@/sanity/lib/queries";
 import { useQuery } from "@/sanity/loader/useQuery";
-import { BlogPagePayload, HomePagePayload, PostPayload } from "@/types/sanity";
-
+import type { BlogPagePayload } from "@/types/sanity";
+import { type QueryResponseInitial } from "@sanity/react-loader";
 import BlogPage from "./BlogPage";
 
 type Props = {
@@ -17,7 +15,7 @@ export default function BlogPagePreview(props: Props) {
   const { data, encodeDataAttribute } = useQuery<BlogPagePayload | null>(
     postsQuery,
     {},
-    { initial }
+    { initial },
   );
 
   if (!data) {

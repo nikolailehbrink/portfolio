@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useNextSanityImage } from "next-sanity-image";
 
 import { client } from "@/sanity/lib/client";
-import { ExperiencePayload } from "@/types/sanity";
+import type { ExperiencePayload } from "@/types/sanity";
 
 export default function WorkExperience({
   experience,
