@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       stream: true,
     });
 
-    const encoding = encodingForModel(model);
+    const encoding = encodingForModel("gpt-4-turbo-preview");
 
     const streamCallbacks: OpenAIStreamCallbacks = {
       onToken: (content) => {
