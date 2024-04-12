@@ -14,6 +14,7 @@
   "dependencies": {
     "@gsap/react": "^2.1.0",
     "@hookform/resolvers": "^3.3.4",
+    "@llamaindex/edge": "^0.2.8",
     "@next/env": "14.1.4",
     "@phosphor-icons/react": "^2.1.4",
     "@radix-ui/react-label": "^2.0.2",
@@ -41,7 +42,6 @@
     "gsap": "^3.12.5",
     "jotai": "^2.7.2",
     "js-tiktoken": "^1.0.10",
-    "llamaindex": "^0.2.3",
     "lucide-react": "^0.365.0",
     "next": "14.1.4",
     "next-sanity": "8.5.1",

@@ -1,9 +1,9 @@
+import type { ChatMessage } from "@llamaindex/edge";
+import { ALL_AVAILABLE_OPENAI_MODELS } from "@llamaindex/edge";
+import { OpenAI } from "@llamaindex/edge";
 import type { OpenAIStreamCallbacks } from "ai";
 import { StreamingTextResponse } from "ai";
 import { encodingForModel } from "js-tiktoken";
-import type { ChatMessage } from "llamaindex";
-import { ALL_AVAILABLE_OPENAI_MODELS } from "llamaindex";
-import { OpenAI } from "llamaindex";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
@@ -12,7 +12,8 @@ import { ChatPayload } from "@/types/sanity";
 import { createChatEngine } from "./engine";
 import { LlamaIndexStream } from "./llamaindex-stream";
 
-export const maxDuration = 20; // This function can run for a maximum of 20 seconds
+export const runtime = "edge";
+
 export const dynamic = "force-dynamic";
 
 let tokens = 0;

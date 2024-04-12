@@ -1,10 +1,11 @@
-import type { LLM, SimpleDocumentStore } from "llamaindex";
+import type { LLM } from "@llamaindex/edge";
 import {
   ContextChatEngine,
   serviceContextFromDefaults,
-  storageContextFromDefaults,
   VectorStoreIndex,
-} from "llamaindex";
+} from "@llamaindex/edge";
+import type { SimpleDocumentStore } from "@llamaindex/edge/storage/docStore/SimpleDocumentStore";
+import { storageContextFromDefaults } from "@llamaindex/edge/storage/StorageContext";
 
 import { CHUNK_OVERLAP, CHUNK_SIZE, STORAGE_CACHE_DIR } from "./constants.mjs";
 
@@ -19,11 +20,11 @@ async function getDataSource(llm: LLM) {
   });
 
   const numberOfDocs = Object.keys(
-    (storageContext.docStore as SimpleDocumentStore).toDict(),
+    (storageContext.docStore as SimpleDocumentStore).toDict()
   ).length;
   if (numberOfDocs === 0) {
     throw new Error(
-      `StorageContext is empty - call 'npm run generate' to generate the storage first`,
+      `StorageContext is empty - call 'npm run generate' to generate the storage first`
     );
   }
   return await VectorStoreIndex.init({
