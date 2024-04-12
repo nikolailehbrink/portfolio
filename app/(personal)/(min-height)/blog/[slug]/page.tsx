@@ -26,6 +26,7 @@ export async function generateMetadata(
 
   return {
     title: post?.title,
+    keywords: post?.tags,
     description: post?.overview
       ? toPlainText(post.overview)
       : (await parent).description,
