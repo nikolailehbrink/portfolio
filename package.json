@@ -1,15 +1,15 @@
 {
-  "name": "sanity-template-template-nextjs-personal-website",
+  "name": "portfolio-website",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "generate": "node app\\api\\chat\\engine\\generate.mjs",
+    "dev": "next dev",
     "build": "next build",
-    "dev": "next",
     "format": "pnpm dlx prettier --write . --ignore-path .gitignore",
-    "lint": "next lint -- --ignore-path .gitignore",
     "lint:fix": "pnpm format && pnpm lint -- --fix",
     "start": "next start",
+    "lint": "next lint",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -35,7 +35,7 @@
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "0.5.12",
     "@vercel/analytics": "^1.2.2",
-    "ai": "^3.0.19",
+    "ai": "^3.0.21",
     "class-variance-authority": "^0.7.0",
     "classnames": "2.5.1",
     "clsx": "^2.1.0",
