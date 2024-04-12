@@ -60,7 +60,7 @@ export default function Experiences({
           start: "top 90%",
           end: "bottom 10%",
           scrub: 1.5,
-          markers: true,
+          // markers: true,
         },
       });
     },
