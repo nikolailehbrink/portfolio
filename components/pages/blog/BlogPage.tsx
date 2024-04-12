@@ -1,20 +1,17 @@
 import type { EncodeDataAttributeCallback } from "@sanity/react-loader";
-import Link from "next/link";
 
-import GoBackButton from "@/components/shared/GoBackButton";
 import PostTeaser from "@/components/pages/blog/PostTeaser";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
-import { Header } from "@/components/shared/Header";
+import GoBackButton from "@/components/shared/GoBackButton";
 import { cn } from "@/lib/utils";
-import { resolveHref } from "@/sanity/lib/utils";
-import type { BlogPagePayload, HomePagePayload } from "@/types/sanity";
+import type { BlogPagePayload } from "@/types/sanity";
 
 export interface BlogPageProps {
   data: BlogPagePayload | null;
   encodeDataAttribute?: EncodeDataAttributeCallback;
 }
 
-export function BlogPage({ data, encodeDataAttribute }: BlogPageProps) {
+export function BlogPage({ data }: BlogPageProps) {
   // Default to an empty object to allow previews on non-existent documents
   const { blog: { title = "", overview = [] } = {}, posts = [] } = data ?? {};
   const firstPost = posts[0];
