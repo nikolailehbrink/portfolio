@@ -1,14 +1,11 @@
+import type { ChatPayload } from "@/types/sanity";
 import type { OpenAIStreamCallbacks } from "ai";
 import { StreamingTextResponse } from "ai";
 import { encodingForModel } from "js-tiktoken";
 import type { ChatMessage } from "llamaindex";
-import { ALL_AVAILABLE_OPENAI_MODELS } from "llamaindex";
-import { OpenAI } from "llamaindex";
+import { ALL_AVAILABLE_OPENAI_MODELS, OpenAI } from "llamaindex";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-
-import type { ChatPayload } from "@/types/sanity";
-
 import { createChatEngine } from "./engine";
 import { LlamaIndexStream } from "./llamaindex-stream";
 
@@ -18,10 +15,10 @@ export const dynamic = "force-dynamic";
 let tokens = 0;
 
 export async function POST(request: NextRequest) {
-  const fallbackModel = "gpt-3.5-turbo";
+  const fallbackModel = "gpt-3.5-turbo-0125";
   const model = process.env.OPENAI_MODEL
     ? Object.keys(ALL_AVAILABLE_OPENAI_MODELS).includes(
-        process.env.OPENAI_MODEL
+        process.env.OPENAI_MODEL,
       )
       ? (process.env.OPENAI_MODEL as keyof typeof ALL_AVAILABLE_OPENAI_MODELS)
       : fallbackModel
@@ -39,7 +36,7 @@ export async function POST(request: NextRequest) {
           error:
             "messages are required in the request body and the last message must be from the user",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -71,7 +68,7 @@ export async function POST(request: NextRequest) {
       stream: true,
     });
 
-    const encoding = encodingForModel("gpt-4-turbo-preview");
+    const encoding = encodingForModel(model);
 
     const streamCallbacks: OpenAIStreamCallbacks = {
       onToken: (content) => {
@@ -97,7 +94,7 @@ export async function POST(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

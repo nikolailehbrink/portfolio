@@ -73,7 +73,7 @@ dependencies:
     version: 1.2.2(next@14.1.4)(react@18.2.0)
   ai:
     specifier: ^3.0.19
-    version: 3.0.19(react@18.2.0)(solid-js@1.8.16)(svelte@4.2.13)(vue@3.4.21)(zod@3.22.4)
+    version: 3.0.19(react@18.2.0)(solid-js@1.8.16)(svelte@4.2.14)(vue@3.4.21)(zod@3.22.4)
   aws4:
     specifier: ^1.12.0
     version: 1.12.0
@@ -102,8 +102,8 @@ dependencies:
     specifier: ^2.7.2
     version: 2.8.0(@types/react@18.2.74)(react@18.2.0)
   js-tiktoken:
-    specifier: ^1.0.10
-    version: 1.0.10
+    specifier: ^1.0.11
+    version: 1.0.11
   llamaindex:
     specifier: ^0.2.3
     version: 0.2.8(readable-stream@4.5.2)(typescript@5.4.2)
@@ -115,7 +115,7 @@ dependencies:
     version: 14.1.4(@babel/core@7.24.4)(react-dom@18.2.0)(react@18.2.0)
   next-sanity:
     specifier: 8.5.1
-    version: 8.5.1(@sanity/client@6.15.13)(@sanity/icons@2.11.6)(@sanity/types@3.37.2)(@sanity/ui@2.0.14)(next@14.1.4)(react@18.2.0)(sanity@3.36.4)(styled-components@6.1.8)(svelte@4.2.13)
+    version: 8.5.1(@sanity/client@6.15.13)(@sanity/icons@2.11.6)(@sanity/types@3.37.2)(@sanity/ui@2.0.14)(next@14.1.4)(react@18.2.0)(sanity@3.36.4)(styled-components@6.1.8)(svelte@4.2.14)
   next-sanity-image:
     specifier: ^6.1.1
     version: 6.1.1(@sanity/client@6.15.13)(next@14.1.4)(react@18.2.0)
@@ -3775,7 +3775,7 @@ packages:
       - react-is
     dev: false
 
-  /@sanity/visual-editing@1.8.4(@sanity/client@6.15.13)(next@14.1.4)(svelte@4.2.13):
+  /@sanity/visual-editing@1.8.4(@sanity/client@6.15.13)(next@14.1.4)(svelte@4.2.14):
     resolution: {integrity: sha512-wqvm26KDFB/Ww0J9XT8caPDWTHhemOWySlF9w3TtDTg5iWVoT6iYjKxi0yVoA7xAEtB0SmDUek6wSZhRhXG1LA==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -3804,7 +3804,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       react-is: 18.2.0
       scroll-into-view-if-needed: 3.1.0
-      svelte: 4.2.13
+      svelte: 4.2.14
       valibot: 0.30.0
     dev: false
 
@@ -4901,7 +4901,7 @@ packages:
       humanize-ms: 1.2.1
     dev: false
 
-  /ai@3.0.19(react@18.2.0)(solid-js@1.8.16)(svelte@4.2.13)(vue@3.4.21)(zod@3.22.4):
+  /ai@3.0.19(react@18.2.0)(solid-js@1.8.16)(svelte@4.2.14)(vue@3.4.21)(zod@3.22.4):
     resolution: {integrity: sha512-HV0MixfqMrxq2N/gVsEXoNfO9e0mWkgv7zdUH6UvdtI53Qd0UjoxjH0bwe/TsxoCqnK4gnWaGYiGKZrpy/Ldtw==}
     engines: {node: '>=14.6'}
     peerDependencies:
@@ -4931,8 +4931,8 @@ packages:
       secure-json-parse: 2.7.0
       solid-js: 1.8.16
       solid-swr-store: 0.10.7(solid-js@1.8.16)(swr-store@0.10.6)
-      sswr: 2.0.0(svelte@4.2.13)
-      svelte: 4.2.13
+      sswr: 2.0.0(svelte@4.2.14)
+      svelte: 4.2.14
       swr: 2.2.0(react@18.2.0)
       swr-store: 0.10.6
       swrv: 1.0.4(vue@3.4.21)
@@ -8121,8 +8121,8 @@ packages:
     engines: {node: '>=14'}
     dev: false
 
-  /js-tiktoken@1.0.10:
-    resolution: {integrity: sha512-ZoSxbGjvGyMT13x6ACo9ebhDha/0FHdKA+OsQcMOWcm1Zs7r90Rhk5lhERLzji+3rA7EKpXCgwXcM5fF3DMpdA==}
+  /js-tiktoken@1.0.11:
+    resolution: {integrity: sha512-PajXFLq2vx7/8jllQZ43vzNpAai/0MOVdJjW/UrNyJorNQRTjHrqdGJG/mjHVy7h9M6dW6CaG43eNLMYFkTh6w==}
     dependencies:
       base64-js: 1.5.1
     dev: false
@@ -8369,7 +8369,7 @@ packages:
       assemblyai: 4.3.4
       chromadb: 1.7.3(cohere-ai@7.9.3)(openai@4.33.0)
       cohere-ai: 7.9.3
-      js-tiktoken: 1.0.10
+      js-tiktoken: 1.0.11
       lodash: 4.17.21
       magic-bytes.js: 1.10.0
       mammoth: 1.7.1
@@ -8866,7 +8866,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /next-sanity@8.5.1(@sanity/client@6.15.13)(@sanity/icons@2.11.6)(@sanity/types@3.37.2)(@sanity/ui@2.0.14)(next@14.1.4)(react@18.2.0)(sanity@3.36.4)(styled-components@6.1.8)(svelte@4.2.13):
+  /next-sanity@8.5.1(@sanity/client@6.15.13)(@sanity/icons@2.11.6)(@sanity/types@3.37.2)(@sanity/ui@2.0.14)(next@14.1.4)(react@18.2.0)(sanity@3.36.4)(styled-components@6.1.8)(svelte@4.2.14):
     resolution: {integrity: sha512-jG89odHf0EM5WFFuvreTINbue8gQ5yNocXvVM1UpHaniAdrFug/K+XzrZMN9MyzhZ285PTcpk/NimpgvPFraaA==}
     engines: {node: '>=18.17'}
     peerDependencies:
@@ -8885,7 +8885,7 @@ packages:
       '@sanity/preview-kit': 5.0.36(@sanity/client@6.15.13)(react@18.2.0)
       '@sanity/types': 3.37.2
       '@sanity/ui': 2.0.14(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(styled-components@6.1.8)
-      '@sanity/visual-editing': 1.8.4(@sanity/client@6.15.13)(next@14.1.4)(svelte@4.2.13)
+      '@sanity/visual-editing': 1.8.4(@sanity/client@6.15.13)(next@14.1.4)(svelte@4.2.14)
       '@sanity/webhook': 4.0.2-bc
       groq: 3.37.2
       history: 5.3.0
@@ -11029,12 +11029,12 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /sswr@2.0.0(svelte@4.2.13):
+  /sswr@2.0.0(svelte@4.2.14):
     resolution: {integrity: sha512-mV0kkeBHcjcb0M5NqKtKVg/uTIYNlIIniyDfSGrSfxpEdM9C365jK0z55pl9K0xAkNTJi2OAOVFQpgMPUk+V0w==}
     peerDependencies:
       svelte: ^4.0.0
     dependencies:
-      svelte: 4.2.13
+      svelte: 4.2.14
       swrev: 4.0.0
     dev: false
 
@@ -11302,8 +11302,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /svelte@4.2.13:
-    resolution: {integrity: sha512-jtVt2KXLbQnsWN93Zd7EVboNh8Tqexes4rZfXNP7nYRjd9+JjubTD8BXloUmU1OUYpc6pdd1aKBhCV+b2ZKoMg==}
+  /svelte@4.2.14:
+    resolution: {integrity: sha512-ry3+YlWqZpHxLy45MW4MZIxNdvB+Wl7p2nnstWKbOAewaJyNJuOtivSbRChcfIej6wFBjWqyKmf/NgK1uW2JAA==}
     engines: {node: '>=16'}
     dependencies:
       '@ampproject/remapping': 2.3.0
