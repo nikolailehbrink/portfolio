@@ -9,11 +9,11 @@ export default function Experiences({
 }: {
   experiences: ExperiencePayload[];
 }) {
-  const ref = useRef<HTMLOListElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      const boxes = gsap.utils.toArray("#work-places li") as HTMLOListElement[];
+      const boxes = gsap.utils.toArray("#work-places li") as HTMLDivElement[];
       boxes.forEach((box) => {
         const q = gsap.utils.selector(box);
         const logo = box.querySelector(".sticky")!;
@@ -66,17 +66,15 @@ export default function Experiences({
   );
 
   return (
-    <ol
-      ref={ref}
-      id="work-places"
-      className="relative flex flex-col gap-8  max-lg:mx-4 "
-    >
+    <div ref={ref} id="work-places" className="relative">
       <div className="line absolute -left-[2px] top-14 h-0 w-[3px] bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent"></div>
-      <div className="line absolute -left-[3px] top-14 h-0 w-[6px] bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent opacity-40 blur-[4px]"></div>
-      {experiences.length > 0 &&
-        experiences.map((experience) => (
-          <WorkExperience key={experience._id} experience={experience} />
-        ))}
-    </ol>
+      <div className="line absolute -left-[3px] top-14 h-0 w-[6px] bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent opacity-50 blur-[6px]"></div>
+      <ol className="relative flex flex-col gap-8  max-lg:mx-4 ">
+        {experiences.length > 0 &&
+          experiences.map((experience) => (
+            <WorkExperience key={experience._id} experience={experience} />
+          ))}
+      </ol>
+    </div>
   );
 }
