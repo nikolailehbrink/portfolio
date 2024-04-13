@@ -15,6 +15,7 @@
   "dependencies": {
     "@gsap/react": "^2.1.0",
     "@hookform/resolvers": "^3.3.4",
+    "@next/bundle-analyzer": "^14.2.1",
     "@next/env": "14.1.4",
     "@phosphor-icons/react": "^2.1.4",
     "@portabletext/react": "^3.0.18",
