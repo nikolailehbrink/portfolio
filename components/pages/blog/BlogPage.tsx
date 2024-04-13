@@ -1,5 +1,3 @@
-import type { EncodeDataAttributeCallback } from "@sanity/react-loader";
-
 import PostTeaser from "@/components/pages/blog/PostTeaser";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import GoBackButton from "@/components/shared/GoBackButton";
@@ -8,7 +6,6 @@ import type { BlogPagePayload } from "@/types/sanity";
 
 export interface BlogPageProps {
   data: BlogPagePayload | null;
-  encodeDataAttribute?: EncodeDataAttributeCallback;
 }
 
 export function BlogPage({ data }: BlogPageProps) {
@@ -35,7 +32,7 @@ export function BlogPage({ data }: BlogPageProps) {
         <div
           className={cn(
             "grid gap-8 lg:grid-cols-2 xl:grid-cols-3",
-            remainingPosts.length < 3 && "xl:grid-cols-2"
+            remainingPosts.length < 3 && "xl:grid-cols-2",
           )}
         >
           {remainingPosts.map((post) => (

@@ -12,7 +12,7 @@ type Props = {
 
 export default function BlogPagePreview(props: Props) {
   const { initial } = props;
-  const { data, encodeDataAttribute } = useQuery<BlogPagePayload | null>(
+  const { data } = useQuery<BlogPagePayload | null>(
     postsQuery,
     {},
     { initial },
@@ -26,5 +26,5 @@ export default function BlogPagePreview(props: Props) {
     );
   }
 
-  return <BlogPage data={data} encodeDataAttribute={encodeDataAttribute} />;
+  return <BlogPage data={data} />;
 }
