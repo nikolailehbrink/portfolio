@@ -20,9 +20,6 @@
 # misc
 .DS_Store
 *.pem
-.vscode
-.idea/
-*.iml
 
 # debug
 npm-debug.log*
@@ -43,8 +40,6 @@ yarn-error.log*
 .env
 studio/.env.development
 
-# todo files
-todos.txt
-
 # Sentry Config File
 .sentryclirc
+next-env.d.ts

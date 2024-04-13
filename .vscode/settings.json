@@ -1,0 +1,4 @@
+{
+  "npm.packageManager": "pnpm",
+  "tailwindCSS.rootFontSize": 17
+}
