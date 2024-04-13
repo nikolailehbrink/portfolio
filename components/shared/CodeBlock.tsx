@@ -1,9 +1,5 @@
-import {
-  transformerNotationDiff,
-  transformerNotationHighlight,
-} from "@shikijs/transformers";
-import type { BundledLanguage } from "shiki";
-import { codeToHtml } from "shiki";
+import { highlightCode, transformCode } from "@/lib/shiki";
+import type { BundledLanguage } from "shiki/bundle/web";
 import CopyToClipboard from "./CopyToClipboard";
 
 type Props = {
@@ -23,31 +19,13 @@ export default async function CodeBlock({
   removedLines,
   addedLines,
 }: Props) {
-  const transformedCode = code
-    .split("\n")
-    .map((line, index) => {
-      const lineNumber = index + 1;
-
-      if (highlightedLines?.includes(lineNumber)) {
-        return line + "// [!code highlight]";
-      }
-
-      if (removedLines?.includes(lineNumber)) {
-        return line + "// [!code --]";
-      }
-
-      if (addedLines?.includes(lineNumber)) {
-        return line + "// [!code ++]";
-      }
-      return line;
-    })
-    .join("\n");
-
-  const html = await codeToHtml(transformedCode, {
-    lang: language,
-    theme: "ayu-dark",
-    transformers: [transformerNotationHighlight(), transformerNotationDiff()],
+  const transformedCode = transformCode(code, {
+    highlightedLines,
+    removedLines,
+    addedLines,
   });
+
+  const html = await highlightCode(transformedCode, language);
 
   return (
     <div className="not-prose overflow-hidden rounded-lg bg-gradient-to-br from-sky-300 to-sky-500 p-4 !pr-0 md:p-8 lg:p-8 [&>pre]:rounded-none">
