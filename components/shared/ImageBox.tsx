@@ -11,13 +11,14 @@ export default function ImageBox({ image = {} }: Props) {
   const imageProps = useNextSanityImage(client, image, {
     imageBuilder: (image) => image.fit("max").quality(100),
   });
+  const { src, height, width } = imageProps || {};
 
   return (
-    imageProps.src && (
+    src && (
       <Image
-        width={imageProps.width}
-        height={imageProps.height}
-        src={imageProps.src}
+        width={width}
+        height={height}
+        src={src}
         className="w-full rounded-lg"
         placeholder="blur"
         blurDataURL={image.lqip}
