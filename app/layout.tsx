@@ -19,7 +19,8 @@ export default function RootLayout({
       lang="en"
       className={`${blinker.variable} dark scroll-smooth text-balance font-blinker text-[17px] scrollbar-thin scrollbar-track-neutral-900 scrollbar-thumb-neutral-600 hover:scrollbar-thumb-neutral-500 active:scrollbar-thumb-sky-500`}
     >
-      <body>
+      {/* Empty style tag from gsap */}
+      <body suppressHydrationWarning>
         <GlobalLayout>{children}</GlobalLayout>
       </body>
     </html>
