@@ -129,7 +129,7 @@ main.content section[id] {
   @apply max-lg:py-8 max-lg:first:pt-0 lg:min-h-[calc(100vh_-_200px)];
 }
 
-#expertise-grid {
+.tool-grid {
   svg {
     @apply size-14 rounded border-2 border-border bg-gradient-to-tr from-neutral-950 to-neutral-900 fill-white p-2;
     &:nth-child(3n + 1) {

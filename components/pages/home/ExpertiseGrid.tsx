@@ -24,11 +24,31 @@ import {
   TypeScript,
   Vite,
 } from "@/assets/icons/tools/frontend";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { useRef } from "react";
 import ToolGrid from "./ToolGrid";
 
 export default function ExpertiseGrid() {
+  const ref = useRef(null);
+  const q = gsap.utils.selector(ref);
+  useGSAP(() => {
+    gsap.from(q("svg"), {
+      fill: "#FFF",
+      fillOpacity: 0.3,
+      backgroundImage: "none",
+      stagger: 0.5,
+      duration: 0.5,
+      scrollTrigger: {
+        scrub: 1,
+        trigger: ref.current,
+        end: "bottom 15%",
+        start: "top 85%",
+        toggleActions: "restart none restart none",
+      },
+    });
+  });
   return (
-    <div id="expertise-grid" className="flex flex-wrap gap-2">
+    <div ref={ref} className="tool-grid flex flex-wrap gap-2">
       <ToolGrid sector="Front-End Development">
         <HTML />
         <CSS />

@@ -14,10 +14,10 @@ export default function ExperienceSection({
   experiences: ExperiencePayload[];
 }) {
   const ref = useRef(null);
-
+  const q = gsap.utils.selector(ref);
   useGSAP(
     () => {
-      gsap.from("#experience-content > *", {
+      gsap.from(q("#experience-content > *"), {
         stagger: 0.2,
         autoAlpha: 0,
         y: tailwindConfig.theme.spacing[8],
@@ -27,20 +27,6 @@ export default function ExperienceSection({
           trigger: ref.current,
           toggleActions: "play none none reverse",
           // markers: true,
-        },
-      });
-      gsap.from("#expertise-grid svg", {
-        fill: "#FFF",
-        fillOpacity: 0.3,
-        backgroundImage: "none",
-        stagger: 0.5,
-        duration: 0.5,
-        scrollTrigger: {
-          scrub: true,
-          trigger: "#expertise-grid",
-          end: "bottom 15%",
-          start: "top 85%",
-          toggleActions: "restart none restart none",
         },
       });
     },
