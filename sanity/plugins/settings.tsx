@@ -15,7 +15,7 @@ export const singletonPlugin = (types: string[]) => {
       newDocumentOptions: (prev, { creationContext }) => {
         if (creationContext.type === "global") {
           return prev.filter(
-            (templateItem) => !types.includes(templateItem.templateId)
+            (templateItem) => !types.includes(templateItem.templateId),
           );
         }
 
@@ -37,7 +37,7 @@ export const singletonPlugin = (types: string[]) => {
 // like how "Home" is handled.
 export const pageStructure = (
   typeDefArray: DocumentDefinition[],
-  orderableDocuments: DocumentDefinition[]
+  orderableDocuments: DocumentDefinition[],
 ): StructureResolver => {
   return (S, context) => {
     // Goes through all of the singletons that were provided and translates them into something the
@@ -50,7 +50,7 @@ export const pageStructure = (
           S.editor()
             .id(typeDef.name)
             .schemaType(typeDef.name)
-            .documentId(typeDef.name)
+            .documentId(typeDef.name),
         );
     });
 
@@ -71,7 +71,7 @@ export const pageStructure = (
       ...S.documentTypeListItems().filter(
         (item) =>
           !orderableDocuments.find((doc) => doc.name === item.getId()) &&
-          !typeDefArray.find((singleton) => singleton.name === item.getId())
+          !typeDefArray.find((singleton) => singleton.name === item.getId()),
       ),
     ];
 

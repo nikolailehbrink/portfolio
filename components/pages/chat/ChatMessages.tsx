@@ -1,15 +1,13 @@
-import type { UseChatHelpers } from "ai/react";
-import Link from "next/link";
-import type { Dispatch, SetStateAction } from "react";
-import { useEffect, useRef } from "react";
-
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import Robot from "@/assets/icons/unicons/robot.svg";
 import { Button } from "@/components/ui/button";
 import { getDateDifferenceInHours } from "@/lib/helpers";
 import type { ChatPayload } from "@/types/sanity";
-
+import type { UseChatHelpers } from "ai/react";
+import Link from "next/link";
+import type { Dispatch, SetStateAction } from "react";
+import { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
 import CustomChatMessage from "./CustomChatMessage";
 

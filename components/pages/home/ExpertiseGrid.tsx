@@ -24,7 +24,6 @@ import {
   TypeScript,
   Vite,
 } from "@/assets/icons/tools/frontend";
-
 import ToolGrid from "./ToolGrid";
 
 export default function ExpertiseGrid() {

@@ -1,11 +1,9 @@
-import type { UseChatHelpers } from "ai/react";
-
 import Backpack from "@/assets/icons/unicons/backpack.svg";
 import Book from "@/assets/icons/unicons/book.svg";
 import Cell from "@/assets/icons/unicons/cell.svg";
 import Dumbbell from "@/assets/icons/unicons/dumbbell.svg";
 import { tailwindConfig } from "@/tailwind.config";
-
+import type { UseChatHelpers } from "ai/react";
 import ExampleMessage from "./ExampleMessage";
 
 const size = tailwindConfig.theme.spacing[6];

@@ -1,10 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
-
 import ChatBubbleUser from "@/assets/icons/unicons/chat-bubble-user.svg";
 import CommentAltLines from "@/assets/icons/unicons/comment-alt-lines.svg";
 import EnvelopeHeart from "@/assets/icons/unicons/envelope-heart.svg";
@@ -12,7 +7,10 @@ import Message from "@/assets/icons/unicons/message.svg";
 import MobileAndroid from "@/assets/icons/unicons/mobile-android.svg";
 import Notebooks from "@/assets/icons/unicons/notebooks.svg";
 import SpinnerAlt from "@/assets/icons/unicons/spinner-alt.svg";
-
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 import { Button } from "../../ui/button";
 import {
   Form,
@@ -26,7 +24,7 @@ import { Input } from "../../ui/input";
 import { Textarea } from "../../ui/textarea";
 
 const phoneRegex = new RegExp(
-  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
+  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
 );
 
 const formSchema = z.object({

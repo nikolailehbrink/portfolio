@@ -5,7 +5,6 @@ import {
   storageContextFromDefaults,
   VectorStoreIndex,
 } from "llamaindex";
-
 import {
   CHUNK_OVERLAP,
   CHUNK_SIZE,

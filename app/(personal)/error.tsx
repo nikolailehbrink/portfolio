@@ -1,14 +1,13 @@
 "use client";
 
-import * as Sentry from "@sentry/nextjs";
-import Link from "next/link";
-import { useEffect } from "react";
-
 import ExclamationTriangle from "@/assets/icons/unicons/exclamation-triangle.svg";
 import HomeAlt from "@/assets/icons/unicons/home-alt.svg";
 import SyncExclamation from "@/assets/icons/unicons/sync-exclamation.svg";
 import { Button } from "@/components/ui/button";
 import { facts } from "@/lib/helpers";
+import * as Sentry from "@sentry/nextjs";
+import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Error({
   error,

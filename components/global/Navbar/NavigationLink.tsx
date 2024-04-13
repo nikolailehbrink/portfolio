@@ -1,9 +1,8 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-import { cn } from "@/lib/utils";
 
 type Props = {
   link: string;
@@ -21,7 +20,7 @@ export default function NavigationLink({ link, icon, title }: Props) {
           "border-y-2 border-y-transparent transition-colors ",
           pathname.includes(link)
             ? "border-b-sky-300"
-            : "group-hover:border-b-white"
+            : "group-hover:border-b-white",
         )}
       >
         {title}

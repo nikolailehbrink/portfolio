@@ -5,8 +5,8 @@ export default function Tag({ className, children }: Props) {
   return (
     <span
       className={cn(
-        "px-2 bg-sky-950 text-sky-400 rounded-lg text-sm py-1",
-        className
+        "rounded-lg bg-sky-950 px-2 py-1 text-sm text-sky-400",
+        className,
       )}
     >
       {children}

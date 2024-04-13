@@ -1,10 +1,9 @@
-import Link from "next/link";
-
 import HomeAlt from "@/assets/icons/unicons/home-alt.svg";
 import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import SearchAlt from "@/assets/icons/unicons/search-alt.svg";
 import { Button } from "@/components/ui/button";
 import { facts } from "@/lib/helpers";
+import Link from "next/link";
 
 export default function NotFound() {
   return (

@@ -5,7 +5,6 @@ import {
   storageContextFromDefaults,
   VectorStoreIndex,
 } from "llamaindex";
-
 import { CHUNK_OVERLAP, CHUNK_SIZE, STORAGE_CACHE_DIR } from "./constants.mjs";
 
 async function getDataSource(llm: LLM) {

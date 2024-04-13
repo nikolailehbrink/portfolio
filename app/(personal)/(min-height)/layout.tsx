@@ -3,5 +3,5 @@ export default function IndexRoute({
 }: {
   children: React.ReactNode;
 }) {
-  return <main className="grow content max-sm:mt-4">{children}</main>;
+  return <main className="content grow max-sm:mt-4">{children}</main>;
 }

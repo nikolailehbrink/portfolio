@@ -1,9 +1,7 @@
-import type { ReactNode } from "react";
-import { useRef } from "react";
-
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { gsap, useGSAP } from "@/lib/gsap";
-
+import type { ReactNode } from "react";
+import { useRef } from "react";
 import ChatMessage from "./ChatMessage";
 
 export default function CustomChatMessage({

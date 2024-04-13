@@ -1,15 +1,13 @@
 "use client";
 
+import AnchorHeading from "@/components/pages/blog/AnchorHeading";
+import ImageBox from "@/components/shared/ImageBox";
 import {
   PortableText,
   type PortableTextBlock,
   type PortableTextComponents,
 } from "next-sanity";
 import type { Image } from "sanity";
-
-import AnchorHeading from "@/components/pages/blog/AnchorHeading";
-import ImageBox from "@/components/shared/ImageBox";
-
 import IconLink from "../pages/blog/IconLink";
 import CodeBlock from "./CodeBlock";
 

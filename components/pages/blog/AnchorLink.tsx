@@ -1,16 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import { toast } from "sonner";
-
 import LinkAlt from "@/assets/icons/unicons/link-alt.svg";
 import { copyToClipboard } from "@/lib/utils";
+import Link from "next/link";
+import { toast } from "sonner";
 
 export default function AnchorLink({ slug }: { slug: string }) {
   return (
     <Link
       href={`#${slug}`}
-      className=" lg:absolute lg:-left-7 not-prose"
+      className=" not-prose lg:absolute lg:-left-7"
       aria-hidden="true"
       tabIndex={-1}
       onClick={async () =>

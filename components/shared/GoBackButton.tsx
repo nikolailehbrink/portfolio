@@ -1,9 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 import ArrowCircleLeft from "@/assets/icons/unicons/arrow-circle-left.svg";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export default function GoBackButton({
   className,
@@ -18,11 +17,11 @@ export default function GoBackButton({
       onClick={() => router.back()}
       className={cn(
         "group/back inline-flex justify-start gap-2 justify-self-start",
-        className
+        className,
       )}
     >
       <ArrowCircleLeft className="size-6" />
-      <span className="border-b-2 group-hover/back:border-white border-transparent">
+      <span className="border-b-2 border-transparent group-hover/back:border-white">
         {text}
       </span>
     </button>

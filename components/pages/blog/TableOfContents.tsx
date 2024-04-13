@@ -1,11 +1,10 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+import type { HeadingBlock } from "@/types/sanity";
 import { toPlainText } from "@portabletext/react";
 import { useEffect, useState } from "react";
 import slugify from "slugify";
-
-import { cn } from "@/lib/utils";
-import type { HeadingBlock } from "@/types/sanity";
 
 export default function TableOfContents({
   outline,
@@ -23,7 +22,7 @@ export default function TableOfContents({
           }
         });
       },
-      { rootMargin: "5% 0px -90% 0px" }
+      { rootMargin: "5% 0px -90% 0px" },
     );
 
     const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
@@ -35,7 +34,7 @@ export default function TableOfContents({
   }, []);
 
   return (
-    <ol className="my-1 flex flex-col relative gap-1 last-of-type:mb-1 [&_ol>li]:ml-5">
+    <ol className="relative my-1 flex flex-col gap-1 last-of-type:mb-1 [&_ol>li]:ml-5">
       {outline.map((heading) => {
         const headingText = toPlainText(heading);
         const headingSlug = slugify(headingText);
@@ -46,7 +45,7 @@ export default function TableOfContents({
             <a
               className={cn(
                 "inline-flex",
-                isActive ? "text-sky-400" : "hover:text-orange-500"
+                isActive ? "text-sky-400" : "hover:text-orange-500",
               )}
               href={`#${headingSlug}`}
             >

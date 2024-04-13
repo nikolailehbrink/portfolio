@@ -1,5 +1,4 @@
 "use client";
-import { useRef } from "react";
 
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import EnvelopeHeart from "@/assets/icons/unicons/envelope-heart.svg";
@@ -9,6 +8,7 @@ import ContactForm from "@/components/pages/home/ContactForm";
 import ProfileImage from "@/components/shared/ProfileImage";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { tailwindConfig } from "@/tailwind.config";
+import { useRef } from "react";
 
 export default function ContactSection() {
   const otherRef = useRef(null);
@@ -42,7 +42,7 @@ export default function ContactSection() {
         },
       });
     },
-    { scope: otherRef }
+    { scope: otherRef },
   );
 
   return (
@@ -50,20 +50,20 @@ export default function ContactSection() {
       <div className="container grid gap-6 rounded-lg lg:grid-cols-2 lg:gap-12">
         <div
           id="contact-content"
-          className="flex flex-col items-start gap-4 self-start prose dark:prose-invert prose-neutral"
+          className="prose prose-neutral flex flex-col items-start gap-4 self-start dark:prose-invert"
         >
           <div className="badge badge-sky">
             <CommentCheck />
             Contact
           </div>
-          <h2 className="text-5xl font-bold my-0">Your Move!</h2>
+          <h2 className="my-0 text-5xl font-bold">Your Move!</h2>
           <div>
-            <div className="relative float-left mr-4 size-16 lg:size-28 [shape-outside:circle(50%)]">
-              <div className="absolute -inset-0 bg-gradient-to-br from-orange-500  blur-lg opacity-60 rounded-full"></div>
-              <div className="absolute -inset-[2px] bg-gradient-to-br from-orange-500  rounded-full"></div>
-              <ProfileImage className="rounded-full relative" />
+            <div className="relative float-left mr-4 size-16 [shape-outside:circle(50%)] lg:size-28">
+              <div className="absolute -inset-0 rounded-full bg-gradient-to-br  from-orange-500 opacity-60 blur-lg"></div>
+              <div className="absolute -inset-[2px] rounded-full bg-gradient-to-br  from-orange-500"></div>
+              <ProfileImage className="relative rounded-full" />
             </div>
-            <p className="max-w-[30rem] italic my-0 leading-normal relative">
+            <p className="relative my-0 max-w-[30rem] italic leading-normal">
               &ldquo;Well... Not everybody makes it to the bottom of the page,
               but you are one of them! So why don&apos;t say hello and have a
               chat about anything you are interested in? I would also greatly

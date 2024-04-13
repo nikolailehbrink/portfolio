@@ -1,15 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-
 import Logo from "@/app/icon.svg";
 import CommentCheck from "@/assets/icons/unicons/comment-check.svg";
 import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import Robot from "@/assets/icons/unicons/robot.svg";
 import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
 import { cn } from "@/lib/utils";
-
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import MenuButton from "./MenuButton";
 import NavigationLink from "./NavigationLink";
 
@@ -38,7 +36,7 @@ export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   return (
-    <div className="sticky top-0 z-50 lg:bg-neutral-900/80 lg:backdrop-blur-2xl lg:py-3">
+    <div className="sticky top-0 z-50 lg:bg-neutral-900/80 lg:py-3 lg:backdrop-blur-2xl">
       <header className="container flex max-lg:justify-start">
         <MenuButton
           ref={menuButtonRef}
@@ -48,8 +46,8 @@ export function Navbar() {
         <nav
           ref={menuRef}
           className={cn(
-            `flex max-lg:rounded-lg max-lg:border-2 border-neutral-700 max-lg:bg-neutral-950 font-bold max-lg:fixed max-lg:right-0 max-lg:top-20 max-lg:mr-4 max-lg:flex-col max-lg:items-center max-lg:gap-6 max-lg:p-8 max-lg:transition-transform lg:w-full`,
-            !showMenu && "max-lg:translate-x-[calc(100%_+_1rem)]"
+            `flex border-neutral-700 font-bold max-lg:fixed max-lg:right-0 max-lg:top-20 max-lg:mr-4 max-lg:flex-col max-lg:items-center max-lg:gap-6 max-lg:rounded-lg max-lg:border-2 max-lg:bg-neutral-950 max-lg:p-8 max-lg:transition-transform lg:w-full`,
+            !showMenu && "max-lg:translate-x-[calc(100%_+_1rem)]",
           )}
         >
           <div className="relative flex flex-1">
@@ -58,7 +56,7 @@ export function Navbar() {
               aria-label={isHome ? "Scroll to top" : "Go to home page"}
             >
               <Logo
-                className={`size-12 rounded-full ${!isHome && "hover:scale-110 transition-transform"}`}
+                className={`size-12 rounded-full ${!isHome && "transition-transform hover:scale-110"}`}
               />
             </Link>
           </div>

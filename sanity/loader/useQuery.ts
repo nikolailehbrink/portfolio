@@ -14,12 +14,12 @@ export const useQuery = <
 >(
   query: string,
   params?: QueryParams,
-  options?: UseQueryOptionsDefinedInitial<QueryResponseResult>
+  options?: UseQueryOptionsDefinedInitial<QueryResponseResult>,
 ) => {
   const snapshot = queryStore.useQuery<QueryResponseResult, QueryResponseError>(
     query,
     params,
-    options
+    options,
   );
 
   // Always throw errors if there are any

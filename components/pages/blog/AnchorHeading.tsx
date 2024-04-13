@@ -2,7 +2,6 @@ import type { PortableTextComponentProps } from "@portabletext/react";
 import { toPlainText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 import slugify from "slugify";
-
 import AnchorLink from "./AnchorLink";
 
 export default function AnchorHeading({

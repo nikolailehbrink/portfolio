@@ -1,7 +1,3 @@
-import type { PortableTextComponentProps } from "@portabletext/react";
-import type { PortableTextLink } from "@portabletext/types";
-import Link from "next/link";
-
 import Dribbble from "@/assets/icons/unicons/dribbble.svg";
 import ExternalLink from "@/assets/icons/unicons/external-link.svg";
 import GitHub from "@/assets/icons/unicons/github.svg";
@@ -13,6 +9,9 @@ import RedditAlienAlt from "@/assets/icons/unicons/reddit-alien-alt.svg";
 import Twitter from "@/assets/icons/unicons/twitter.svg";
 import WordPress from "@/assets/icons/unicons/wordpress.svg";
 import YouTube from "@/assets/icons/unicons/youtube.svg";
+import type { PortableTextComponentProps } from "@portabletext/react";
+import type { PortableTextLink } from "@portabletext/types";
+import Link from "next/link";
 
 const sites = [
   {

@@ -1,8 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { toast } from "sonner";
-
 import Copy from "@/assets/icons/unicons/copy.svg";
 import FileCheck from "@/assets/icons/unicons/file-check.svg";
 import FileTimes from "@/assets/icons/unicons/file-times.svg";
@@ -13,6 +10,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { copyToClipboard } from "@/lib/utils";
+import { useState } from "react";
+import { toast } from "sonner";
 
 type Props = {
   text: string;

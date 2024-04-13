@@ -1,9 +1,8 @@
-import Image from "next/image";
-
 import UserCircle from "@/assets/icons/unicons/user-circle.svg";
 import ProfileImage from "@/components/shared/ProfileImage";
 import { urlForImage } from "@/sanity/lib/utils";
 import type { ChatPayload } from "@/types/sanity";
+import Image from "next/image";
 
 export default function ChatAvatar({
   role,

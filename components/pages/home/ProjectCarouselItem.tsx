@@ -1,10 +1,9 @@
-import Image from "next/image";
-
 import ExternalLink from "@/assets/icons/unicons/external-link.svg";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import { CarouselItem } from "@/components/ui/carousel";
 import { urlForImage } from "@/sanity/lib/utils";
 import type { ShowcaseProject } from "@/types/sanity";
+import Image from "next/image";
 
 export default function ProjectCarouselItem({
   project,

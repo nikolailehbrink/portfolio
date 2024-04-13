@@ -1,14 +1,12 @@
 "use client";
 
+import { persistentToken } from "@/lib/atoms";
+import { isDev } from "@/lib/utils";
+import type { ChatPayload } from "@/types/sanity";
 import { useChat } from "ai/react";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-
-import { persistentToken } from "@/lib/atoms";
-import { isDev } from "@/lib/utils";
-import type { ChatPayload } from "@/types/sanity";
-
 import ChatExamples from "./ChatExamples";
 import ChatInput from "./ChatInput";
 import ChatMessages from "./ChatMessages";

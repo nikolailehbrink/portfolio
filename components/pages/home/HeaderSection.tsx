@@ -1,7 +1,4 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import { useRef } from "react";
 
 import bubbleGym from "@/assets/header-illustration/bubble-gym.svg?url";
 import bubblePiano from "@/assets/header-illustration/bubble-piano.svg?url";
@@ -11,6 +8,9 @@ import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import Robot from "@/assets/icons/unicons/robot.svg";
 import { Button } from "@/components/ui/button";
 import { gsap, useGSAP } from "@/lib/gsap";
+import Image from "next/image";
+import Link from "next/link";
+import { useRef } from "react";
 
 export default function HeaderSection() {
   const sectionRef = useRef(null);
@@ -25,7 +25,7 @@ export default function HeaderSection() {
         },
       });
     },
-    { scope: sectionRef }
+    { scope: sectionRef },
   );
 
   return (
@@ -35,8 +35,8 @@ export default function HeaderSection() {
       className="flex items-center overflow-x-clip"
     >
       <div className="container grid items-center gap-12 lg:grid-cols-2">
-        <div className="space-y-4 *:duration-1000 z-10 *:animate-in *:fade-in *:fill-mode-both prose dark:prose-invert prose-neutral">
-          <h1 className="text-6xl font-bold my-3">
+        <div className="prose prose-neutral z-10 space-y-4 dark:prose-invert *:duration-1000 *:animate-in *:fade-in *:fill-mode-both">
+          <h1 className="my-3 text-6xl font-bold">
             Nikolai
             <br />
             Lehbrink
@@ -52,7 +52,7 @@ export default function HeaderSection() {
             help you out. If you&apos;re interested in working together or just
             want to chat, feel free to contact me.
           </p>
-          <div className="flex gap-4 delay-500 not-prose">
+          <div className="not-prose flex gap-4 delay-500">
             <Button size={"shadow"} asChild>
               <Link href="/chat">
                 <Robot className="size-7" />

@@ -1,9 +1,7 @@
-import { useRef } from "react";
-
 import { gsap, useGSAP } from "@/lib/gsap";
 import { tailwindConfig } from "@/tailwind.config";
 import type { ExperiencePayload } from "@/types/sanity";
-
+import { useRef } from "react";
 import WorkExperience from "./WorkExperience";
 
 export default function Experiences({
@@ -64,17 +62,17 @@ export default function Experiences({
         },
       });
     },
-    { scope: ref }
+    { scope: ref },
   );
 
   return (
     <ol
       ref={ref}
       id="work-places"
-      className="flex flex-col gap-8 relative  max-lg:mx-4 "
+      className="relative flex flex-col gap-8  max-lg:mx-4 "
     >
-      <div className="-left-[2px] w-[3px] top-14 h-0 bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent absolute line"></div>
-      <div className="-left-[3px] w-[6px] top-14 h-0 bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent absolute line blur-[4px] opacity-40"></div>
+      <div className="line absolute -left-[2px] top-14 h-0 w-[3px] bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent"></div>
+      <div className="line absolute -left-[3px] top-14 h-0 w-[6px] bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent opacity-40 blur-[4px]"></div>
       {experiences.length > 0 &&
         experiences.map((experience) => (
           <WorkExperience key={experience._id} experience={experience} />

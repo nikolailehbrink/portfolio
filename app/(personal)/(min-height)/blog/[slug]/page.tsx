@@ -1,15 +1,15 @@
-import type { Metadata, ResolvingMetadata } from "next";
-import dynamic from "next/dynamic";
-import { draftMode } from "next/headers";
-import { notFound } from "next/navigation";
-import { toPlainText } from "next-sanity";
-
 import { PostPage } from "@/components/pages/post/PostPage";
 import { urlForOpenGraphImage } from "@/sanity/lib/utils";
 import { generateStaticSlugs } from "@/sanity/loader/generateStaticSlugs";
 import { loadPost } from "@/sanity/loader/loadQuery";
+import type { Metadata, ResolvingMetadata } from "next";
+import { toPlainText } from "next-sanity";
+import dynamic from "next/dynamic";
+import { draftMode } from "next/headers";
+import { notFound } from "next/navigation";
+
 const PostPreview = dynamic(
-  () => import("@/components/pages/post/PostPreview")
+  () => import("@/components/pages/post/PostPreview"),
 );
 
 type Props = {
@@ -18,7 +18,7 @@ type Props = {
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { data: post } = await loadPost(params.slug);
   const ogImage = urlForOpenGraphImage(post?.coverImage);

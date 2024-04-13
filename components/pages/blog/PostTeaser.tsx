@@ -1,13 +1,12 @@
-import Image from "next/image";
-import Link from "next/link";
-import { toPlainText } from "next-sanity";
-import { useNextSanityImage } from "next-sanity-image";
-
 import Tag from "@/components/shared/Tag";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/utils";
 import type { PostPayload } from "@/types/sanity";
+import { toPlainText } from "next-sanity";
+import { useNextSanityImage } from "next-sanity-image";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function PostTeaser({
   post,
@@ -62,7 +61,7 @@ export default function PostTeaser({
             />
           )}
           <div className="absolute inset-0 top-2/3 bg-gradient-to-t from-neutral-950 to-transparent"></div>
-          <div className="absolute bottom-4 right-4 sm:flex gap-1 flex-wrap hidden">
+          <div className="absolute bottom-4 right-4 hidden flex-wrap gap-1 sm:flex">
             {tags?.map((tag, index) => (
               <Tag key={index} className="text-xs font-bold">
                 # {tag}

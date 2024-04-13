@@ -1,22 +1,20 @@
 import "@/app/globals.css";
-
+import CheckCircle from "@/assets/icons/unicons/check-circle.svg";
+import ExclamationOctagon from "@/assets/icons/unicons/exclamation-octagon.svg";
+import ExclamationTriangle from "@/assets/icons/unicons/exclamation-triangle.svg";
+import InfoCircle from "@/assets/icons/unicons/info-circle.svg";
+import { Footer } from "@/components/global/Footer";
+import { Navbar } from "@/components/global/Navbar";
+import { Toaster } from "@/components/ui/sonner";
+import { tailwindConfig } from "@/tailwind.config";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
 import { draftMode } from "next/headers";
 import { Suspense } from "react";
 
-import { Footer } from "@/components/global/Footer";
-import { Navbar } from "@/components/global/Navbar";
-import { tailwindConfig } from "@/tailwind.config";
-import InfoCircle from "@/assets/icons/unicons/info-circle.svg";
-import CheckCircle from "@/assets/icons/unicons/check-circle.svg";
-import ExclamationTriangle from "@/assets/icons/unicons/exclamation-triangle.svg";
-import ExclamationOctagon from "@/assets/icons/unicons/exclamation-octagon.svg";
-import { Toaster } from "@/components/ui/sonner";
-
 const LiveVisualEditing = dynamic(
-  () => import("@/sanity/loader/LiveVisualEditing")
+  () => import("@/sanity/loader/LiveVisualEditing"),
 );
 
 export const metadata: Metadata = {

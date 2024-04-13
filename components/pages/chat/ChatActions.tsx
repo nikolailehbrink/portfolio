@@ -1,9 +1,8 @@
-import type { UseChatHelpers } from "ai/react";
-
 import CommentRedo from "@/assets/icons/unicons/comment-redo.svg";
 import Message from "@/assets/icons/unicons/message.svg";
 import PauseCircle from "@/assets/icons/unicons/pause-circle.svg";
 import { Button } from "@/components/ui/button";
+import type { UseChatHelpers } from "ai/react";
 
 export default function ChatActions({
   stop,

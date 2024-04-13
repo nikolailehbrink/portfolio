@@ -1,9 +1,7 @@
 import "server-only";
-
-import { groq } from "next-sanity";
-
 import { client } from "@/sanity/lib/client";
 import { token } from "@/sanity/lib/token";
+import { groq } from "next-sanity";
 
 // Used in `generateStaticParams`
 export function generateStaticSlugs(type: string) {
