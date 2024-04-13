@@ -1,26 +1,22 @@
 import "server-only";
-
-import * as queryStore from "@sanity/react-loader";
-import { draftMode } from "next/headers";
-
 import { client } from "@/sanity/lib/client";
 import {
   chatBySlugQuery,
   homePageQuery,
-  pagesBySlugQuery,
   postBySlugQuery,
   postsQuery,
   projectBySlugQuery,
 } from "@/sanity/lib/queries";
 import { token } from "@/sanity/lib/token";
-import {
+import type {
   BlogPagePayload,
   ChatPayload,
   HomePagePayload,
-  PagePayload,
   PostPayload,
   ProjectPayload,
 } from "@/types/sanity";
+import * as queryStore from "@sanity/react-loader";
+import { draftMode } from "next/headers";
 
 const serverClient = client.withConfig({
   token,
@@ -42,6 +38,7 @@ export const loadQuery = ((query, params = {}, options = {}) => {
   const {
     perspective = draftMode().isEnabled ? "previewDrafts" : "published",
   } = options;
+  console.log(options);
   // Don't cache by default
   let revalidate: NextFetchRequestConfig["revalidate"] = 0;
   // If `next.tags` is set, and we're not using the CDN, then it's safe to cache
@@ -70,14 +67,14 @@ export function loadHomePage() {
   return loadQuery<HomePagePayload | null>(
     homePageQuery,
     {},
-    { next: { tags: ["home", "project", "service", "experience"] } }
+    { next: { tags: ["home", "project", "service", "experience"] } },
   );
 }
 export function loadBlogPage() {
   return loadQuery<BlogPagePayload | null>(
     postsQuery,
     {},
-    { next: { tags: ["post"] } }
+    { next: { tags: ["post"] } },
   );
 }
 
@@ -85,7 +82,7 @@ export function loadProject(slug: string) {
   return loadQuery<ProjectPayload | null>(
     projectBySlugQuery,
     { slug },
-    { next: { tags: [`project:${slug}`] } }
+    { next: { tags: [`project:${slug}`] } },
   );
 }
 
@@ -93,14 +90,10 @@ export function loadPost(slug: string) {
   return loadQuery<PostPayload | null>(
     postBySlugQuery,
     { slug },
-    { next: { tags: [`post:${slug}`] } }
+    { next: { tags: [`post:${slug}`] } },
   );
 }
 
 export function loadChat(slug: string) {
-  return loadQuery<ChatPayload | null>(
-    chatBySlugQuery,
-    { slug },
-    { next: { tags: [`chat:${slug}`] } }
-  );
+  return loadQuery<ChatPayload | null>(chatBySlugQuery, { slug });
 }
