@@ -105,8 +105,7 @@ export function PostPage({ data }: PostPageProps) {
           {outline && outline.length > 0 && (
             <>
               <div className="hidden grow 2xl:-order-1 2xl:flex"></div>
-              <nav className="relative h-full space-y-2 overflow-hidden text-pretty rounded-lg border-2 border-border p-4 px-6 max-xl:-order-1 lg:p-6 lg:px-8 xl:sticky xl:top-20 xl:w-[300px]">
-                <div className="absolute inset-0 bg-neutral-800 opacity-40"></div>
+              <nav className="relative h-full max-h-[calc(100vh-6.5rem)] space-y-2 overflow-auto text-pretty rounded-lg border-2 border-border bg-neutral-800/40 p-4 px-6 max-xl:-order-1 lg:p-6 lg:px-8 xl:sticky xl:top-[5.5rem] xl:w-[300px]">
                 <header className="relative flex items-center gap-2">
                   <ListOlAlt className="w-5" />
 
