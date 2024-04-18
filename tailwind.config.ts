@@ -43,6 +43,9 @@ const config = {
             h3: {
               margin: ".75em 0 .5em",
             },
+            h4: {
+              margin: ".75em 0 .5em",
+            },
             p: {
               margin: "0.75em 0",
             },
@@ -60,6 +63,9 @@ const config = {
               margin: ".75em 0 .5em",
             },
             h3: {
+              margin: ".75em 0 .5em",
+            },
+            h4: {
               margin: ".75em 0 .5em",
             },
             p: {
