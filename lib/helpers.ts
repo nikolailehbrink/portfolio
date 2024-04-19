@@ -62,6 +62,7 @@ export const supportedLanguages = [
   { title: "Terminal", value: "ansi" },
   { title: "Text", value: "text" },
   { title: "PostCSS", value: "postcss" },
+  { title: "SCSS", value: "scss" },
 ];
 
 export const facts = [
