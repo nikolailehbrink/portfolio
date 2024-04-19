@@ -64,11 +64,11 @@ export default function ContactSection() {
               <ProfileImage className="relative rounded-full" />
             </div>
             <p className="relative my-0 max-w-[30rem] italic leading-normal">
-              &ldquo;Well... Not everybody makes it to the bottom of the page,
-              but you are one of them! So why don&apos;t say hello and have a
-              chat about anything you are interested in? I would also greatly
-              aprreciate feedback on the site or just a friendly conversation.
-              Looking forward!&rdquo; - Nikolai
+              „Not everyone makes it to the bottom of the page, but you are one
+              of them! So why don&apos;t you drop me a line and chat about
+              whatever interests you? I would also greatly appreciate any
+              feedback on the site or just a friendly conversation. Looking
+              forward to it!“
             </p>
           </div>
           <div className="space-y-2">
