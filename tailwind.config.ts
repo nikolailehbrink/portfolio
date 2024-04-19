@@ -48,6 +48,7 @@ const config = {
             },
             p: {
               margin: "0.75em 0",
+              lineHeight: "1.5",
             },
             img: {
               margin: 0,
@@ -70,6 +71,7 @@ const config = {
             },
             p: {
               margin: "0.75em 0",
+              lineHeight: "1.5",
             },
             img: {
               margin: 0,

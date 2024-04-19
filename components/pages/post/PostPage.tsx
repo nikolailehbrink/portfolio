@@ -45,7 +45,9 @@ export function PostPage({ data }: PostPageProps) {
       <GoBackButton className="2xl:sticky 2xl:top-[5.5rem]" />
       <div className="flex flex-col justify-center gap-4 lg:items-center lg:text-center">
         {title && (
-          <h1 className="max-w-3xl text-3xl font-bold lg:text-5xl">{title}</h1>
+          <h1 className="max-w-3xl text-balance text-3xl font-bold lg:text-5xl">
+            {title}
+          </h1>
         )}
         {tags && tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
@@ -57,7 +59,7 @@ export function PostPage({ data }: PostPageProps) {
           </div>
         )}
         {overview && (
-          <div className="prose prose-lg prose-neutral mx-auto dark:prose-invert">
+          <div className="prose prose-lg prose-neutral mx-auto text-pretty dark:prose-invert prose-p:leading-snug lg:text-balance">
             <CustomPortableText value={overview} />
           </div>
         )}
@@ -99,7 +101,7 @@ export function PostPage({ data }: PostPageProps) {
 
       {body && body.length > 0 && (
         <div className="flex gap-4 max-xl:flex-col xl:gap-8">
-          <section className="prose prose-neutral text-pretty sm:prose-lg dark:prose-invert xl:ml-auto 2xl:mx-auto">
+          <section className="prose prose-neutral text-pretty sm:prose-lg dark:prose-invert prose-headings:text-balance prose-headings:leading-tight xl:ml-auto 2xl:mx-auto">
             <CustomPortableText value={body} />
           </section>
           {outline && outline.length > 0 && (

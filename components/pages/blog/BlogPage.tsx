@@ -17,7 +17,7 @@ export function BlogPage({ data }: BlogPageProps) {
     <main className="container mx-auto my-4 space-y-4">
       <GoBackButton />
       <header className="prose prose-neutral mx-auto dark:prose-invert md:text-center">
-        <h1 className="my-3 text-5xl">{title}</h1>
+        <h1 className="my-3 text-balance text-5xl">{title}</h1>
 
         {overview && overview.length > 0 && (
           <div className="prose-lg">
