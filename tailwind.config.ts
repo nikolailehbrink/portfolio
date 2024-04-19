@@ -8,6 +8,7 @@ import resolveConfig from "tailwindcss/resolveConfig";
 import type { PluginAPI } from "tailwindcss/types/config";
 
 const config = {
+  darkMode: 'selector',
   content: ["./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
