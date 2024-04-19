@@ -7,6 +7,7 @@ import { toPlainText } from "next-sanity";
 import dynamic from "next/dynamic";
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
+import type { NewsArticle, WithContext } from "schema-dts";
 
 const PostPreview = dynamic(
   () => import("@/components/pages/post/PostPreview"),
@@ -56,5 +57,30 @@ export default async function postSlugRoute({ params }: Props) {
     notFound();
   }
 
-  return <PostPage data={initial.data} />;
+  const jsonLd: WithContext<NewsArticle> = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: initial.data?.title,
+    image: urlForOpenGraphImage(initial.data?.coverImage),
+    description: toPlainText(initial.data?.overview ?? []),
+    author: [
+      {
+        "@type": "Person",
+        name: initial.data?.author?.name,
+        url: initial.data?.author?.url,
+      },
+    ],
+    datePublished: initial.data?.publishedAt,
+    dateModified: initial.data?._updatedAt,
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PostPage data={initial.data} />;
+    </>
+  );
 }

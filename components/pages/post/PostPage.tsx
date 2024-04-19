@@ -65,10 +65,7 @@ export function PostPage({ data }: PostPageProps) {
         )}
         <p className="flex flex-wrap gap-1">
           <Tag className="bg-orange-950 text-orange-400">
-            <time
-              itemProp="datePublished"
-              dateTime={publishedDate.toISOString()}
-            >
+            <time dateTime={publishedDate.toISOString()}>
               {new Intl.DateTimeFormat("en-US", {
                 year: "numeric",
                 month: "short",
