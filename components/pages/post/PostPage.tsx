@@ -4,7 +4,6 @@ import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import GoBackButton from "@/components/shared/GoBackButton";
 import Tag from "@/components/shared/Tag";
 import { useReadingTime } from "@/hooks/useReadingTime";
-import { parseOutline } from "@/lib/helpers";
 import { getFormattedDateTime, parseOutline } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
 import type { PostPayload } from "@/types/sanity";
@@ -23,7 +22,7 @@ export function PostPage({ data }: PostPageProps) {
     headings,
     body = [],
     overview,
-    publishedAt = "",
+    publishedAt,
     tags,
     title,
     _updatedAt,
@@ -31,7 +30,7 @@ export function PostPage({ data }: PostPageProps) {
 
   const outline = parseOutline(headings ?? []);
 
-  const publishedDate = new Date(publishedAt);
+  const publishedDate = publishedAt ? new Date(publishedAt) : null;
   const updatedDate = _updatedAt ? new Date(_updatedAt) : null;
 
   const postText = toPlainText(body);
@@ -47,11 +46,6 @@ export function PostPage({ data }: PostPageProps) {
     <article className="container my-4 space-y-4 xl:space-y-8">
       <GoBackButton className="2xl:sticky 2xl:top-[5.5rem]" />
       <div className="flex flex-col justify-center gap-4 lg:items-center lg:text-center">
-        {title && (
-          <h1 className="max-w-3xl text-balance text-3xl font-bold lg:text-5xl">
-            {title}
-          </h1>
-        )}
         {tags && tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {tags?.map((tag, index) => (
@@ -61,21 +55,24 @@ export function PostPage({ data }: PostPageProps) {
             ))}
           </div>
         )}
+        {title && (
+          <h1 className="max-w-3xl text-balance text-3xl font-bold lg:text-5xl">
+            {title}
+          </h1>
+        )}
         {overview && (
           <div className="prose prose-lg prose-neutral mx-auto text-pretty dark:prose-invert prose-p:leading-snug lg:text-balance">
             <CustomPortableText value={overview} />
           </div>
         )}
         <p className="flex flex-wrap gap-1">
-          <Tag className="bg-orange-950 text-orange-400">
-            <time dateTime={publishedDate.toISOString()}>
-              {new Intl.DateTimeFormat("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              }).format(publishedDate)}
-            </time>
-          </Tag>
+          {publishedDate && (
+            <Tag className="bg-orange-950 text-orange-400">
+              <time dateTime={publishedDate.toISOString()}>
+                {getFormattedDateTime(publishedDate)}
+              </time>
+            </Tag>
+          )}
           <span className="sr-only">, </span>
           <Tag className="bg-neutral-800 text-neutral-400">
             {minutesToRead}m read
