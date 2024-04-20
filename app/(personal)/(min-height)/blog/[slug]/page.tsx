@@ -80,7 +80,7 @@ export default async function postSlugRoute({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <PostPage data={initial.data} />;
+      <PostPage data={initial.data} />
     </>
   );
 }
