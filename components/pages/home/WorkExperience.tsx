@@ -1,3 +1,4 @@
+import Tag from "@/components/shared/Tag";
 import { client } from "@/sanity/lib/client";
 import type { ExperiencePayload } from "@/types/sanity";
 import { useNextSanityImage } from "next-sanity-image";
@@ -45,10 +46,7 @@ export default function WorkExperience({
         </div>
       </div>
       <div className="content mt-[5.5px] flex flex-col items-start gap-3">
-        <span className="rounded-lg bg-neutral-900 px-2  py-1 text-sm font-normal text-neutral-400">
-          {formattedPeriod}
-        </span>
-
+        <Tag className="bg-neutral-900 text-neutral-400">{formattedPeriod}</Tag>
         <hgroup>
           <h2 className="my-0 text-2xl font-bold">{title}</h2>
           <a href={company?.url} target="_blank" rel="noopener noreferrer">
