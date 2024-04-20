@@ -5,6 +5,7 @@ import GoBackButton from "@/components/shared/GoBackButton";
 import Tag from "@/components/shared/Tag";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { parseOutline } from "@/lib/helpers";
+import { getFormattedDateTime, parseOutline } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
 import type { PostPayload } from "@/types/sanity";
 import { toPlainText } from "next-sanity";
@@ -25,11 +26,13 @@ export function PostPage({ data }: PostPageProps) {
     publishedAt = "",
     tags,
     title,
+    _updatedAt,
   } = data ?? {};
 
   const outline = parseOutline(headings ?? []);
 
   const publishedDate = new Date(publishedAt);
+  const updatedDate = _updatedAt ? new Date(_updatedAt) : null;
 
   const postText = toPlainText(body);
   const { minutesToRead } = useReadingTime(postText);
@@ -99,6 +102,15 @@ export function PostPage({ data }: PostPageProps) {
       {body && body.length > 0 && (
         <div className="flex gap-4 max-xl:flex-col xl:gap-8">
           <section className="prose prose-neutral text-pretty sm:prose-lg dark:prose-invert prose-headings:text-balance prose-headings:leading-tight xl:ml-auto 2xl:mx-auto">
+            {updatedDate && (
+              <Tag>
+                Last updated on{" "}
+                <time dateTime={updatedDate.toISOString()}>
+                  {getFormattedDateTime(updatedDate)}
+                </time>
+                .
+              </Tag>
+            )}
             <CustomPortableText value={body} />
           </section>
           {outline && outline.length > 0 && (
