@@ -51,6 +51,14 @@ export function getDateDifferenceInHours(date: Date) {
   return Math.floor(hours);
 }
 
+export function getFormattedDateTime(date: Date) {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(date);
+}
+
 export const supportedLanguages = [
   { title: "TypeScript", value: "typescript" },
   { title: "JavaScript", value: "javascript" },
