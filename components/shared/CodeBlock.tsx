@@ -1,5 +1,6 @@
 import { highlightCode, transformCode } from "@/lib/shiki";
 import { cn } from "@/lib/utils";
+import { FolderSimple } from "@phosphor-icons/react";
 import type { BundledLanguage } from "shiki/bundle/web";
 import CopyToClipboard from "./CopyToClipboard";
 
@@ -26,6 +27,8 @@ export default async function CodeBlock({
     addedLines,
   });
 
+  const filenames = filename?.split("/");
+
   const html = await highlightCode(transformedCode, language);
 
   return (
@@ -37,10 +40,23 @@ export default async function CodeBlock({
             filename ? "justify-between" : "justify-end",
           )}
         >
-          {filename && (
-            <span className="-mb-[calc(0.5rem+2px)] rounded-t-lg border-2 border-white/5 border-b-border bg-neutral-800 px-3 py-1 text-sm text-neutral-400">
-              {filename}
-            </span>
+          {filenames && filenames.length > 0 && (
+            <div className="divide -mb-[calc(0.5rem+1px)] inline-flex items-center gap-[2px] rounded-t-lg border-2 border-white/5 border-b-border bg-neutral-800 px-3 py-2 text-sm leading-none text-neutral-400">
+              {filenames.map((name, index) => {
+                const isLastElement = filenames.length - 1 === index;
+                return isLastElement ? (
+                  <span className="inline-flex items-center">{name}</span>
+                ) : (
+                  <>
+                    <span className="inline-flex items-center gap-[2px] ">
+                      <FolderSimple weight="duotone" />
+                      {name}
+                    </span>
+                    <span>/</span>
+                  </>
+                );
+              })}
+            </div>
           )}
           <CopyToClipboard text={code} />
         </div>
