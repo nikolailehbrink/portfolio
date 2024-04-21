@@ -3,13 +3,20 @@ import TableOfContents from "@/components/pages/blog/TableOfContents";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import GoBackButton from "@/components/shared/GoBackButton";
 import Tag from "@/components/shared/Tag";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { getFormattedDateTime, parseOutline } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
 import type { PostPayload } from "@/types/sanity";
 import { toPlainText } from "next-sanity";
 import { useNextSanityImage } from "next-sanity-image";
+import dynamic from "next/dynamic";
 import Image from "next/image";
+
+const SharePost = dynamic(() => import("../blog/SharePost"), {
+  ssr: false,
+  loading: () => <Skeleton className="h-7 w-64 xl:h-64 xl:w-12" />,
+});
 
 export interface PostPageProps {
   data: PostPayload | null;
@@ -24,7 +31,7 @@ export function PostPage({ data }: PostPageProps) {
     overview,
     publishedAt,
     tags,
-    title,
+    title = "",
     _updatedAt,
   } = data ?? {};
 
@@ -95,11 +102,13 @@ export function PostPage({ data }: PostPageProps) {
           blurDataURL={coverImage?.lqip}
         />
       )}
-
       {body && body.length > 0 && (
         <div className="flex gap-4 max-xl:flex-col xl:gap-8">
-          <section className="prose prose-neutral text-pretty sm:prose-lg dark:prose-invert prose-headings:text-balance prose-headings:leading-tight xl:ml-auto 2xl:mx-auto">
-            {updatedDate && (
+          <div className="-order-2 flex h-full grow justify-start lg:justify-center xl:sticky xl:top-[5.5rem] xl:justify-end xl:pr-4">
+            <SharePost heading={title} />
+          </div>
+          <section className="prose prose-neutral text-pretty sm:prose-lg dark:prose-invert prose-headings:text-balance prose-headings:leading-tight lg:max-xl:mx-auto xl:ml-auto 2xl:mx-auto">
+            {updatedDate && updatedDate !== publishedDate && (
               <Tag>
                 Last updated on{" "}
                 <time dateTime={updatedDate.toISOString()}>
@@ -111,17 +120,14 @@ export function PostPage({ data }: PostPageProps) {
             <CustomPortableText value={body} />
           </section>
           {outline && outline.length > 0 && (
-            <>
-              <div className="hidden grow 2xl:-order-1 2xl:flex"></div>
-              <nav className="relative h-full max-h-[calc(100vh-6.5rem)] space-y-2 overflow-auto text-pretty rounded-lg border-2 border-border bg-neutral-800/40 p-4 px-6 max-xl:-order-1 lg:p-6 lg:px-8 xl:sticky xl:top-[5.5rem] xl:w-[300px]">
-                <header className="relative flex items-center gap-2">
-                  <ListOlAlt className="w-5" />
+            <nav className="relative h-full max-h-[calc(100vh-6.5rem)] space-y-2 overflow-auto text-pretty rounded-lg border-2 border-border bg-neutral-800/40 p-4 px-6 max-xl:-order-1 lg:visible lg:p-6 lg:px-8 xl:sticky xl:top-[5.5rem] xl:w-[300px]">
+              <header className="relative flex items-center gap-2">
+                <ListOlAlt className="w-5" />
 
-                  <h2 className="text-xl font-bold">Table of Contents</h2>
-                </header>
-                <TableOfContents outline={outline} />
-              </nav>
-            </>
+                <h2 className="text-xl font-bold">Table of Contents</h2>
+              </header>
+              <TableOfContents outline={outline} />
+            </nav>
           )}
         </div>
       )}

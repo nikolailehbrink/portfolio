@@ -9,7 +9,7 @@ export default function AnchorLink({ slug }: { slug: string }) {
   return (
     <Link
       href={`#${slug}`}
-      className=" not-prose lg:absolute lg:-left-7"
+      className="not-prose lg:absolute lg:-left-8"
       aria-hidden="true"
       tabIndex={-1}
       onClick={async () =>
