@@ -1,62 +1,16 @@
-"use client";
+import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
+import type { HeadingBlock } from "@/types/sanity.js";
+import Outline from "./Outline.tsx";
 
-import { cn } from "@/lib/utils";
-import type { HeadingBlock } from "@/types/sanity";
-import { toPlainText } from "@portabletext/react";
-import { useEffect, useState } from "react";
-import slugify from "slugify";
-
-export default function TableOfContents({
-  outline,
-}: {
-  outline: HeadingBlock[];
-}) {
-  const [activeHeading, setActiveHeading] = useState<string | null>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveHeading(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "5% 0px -90% 0px" },
-    );
-
-    const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-    headings.forEach((heading) => observer.observe(heading));
-
-    return () => {
-      headings.forEach((heading) => observer.unobserve(heading));
-    };
-  }, []);
-
+type Props = { headings: HeadingBlock[]; afterLinkClick?: () => void };
+export default function TableOfContents({ headings, afterLinkClick }: Props) {
   return (
-    <ol className="relative my-1 flex flex-col gap-1 last-of-type:mb-1 [&_ol>li]:ml-5">
-      {outline.map((heading) => {
-        const headingText = toPlainText(heading);
-        const headingSlug = slugify(headingText);
-        const isActive = headingSlug === activeHeading;
-
-        return (
-          <li key={heading._key}>
-            <a
-              className={cn(
-                "inline-flex",
-                isActive ? "text-sky-400" : "hover:text-orange-500",
-              )}
-              href={`#${headingSlug}`}
-            >
-              {headingText}
-            </a>
-            {heading.subheadings.length > 0 && (
-              <TableOfContents outline={heading.subheadings} />
-            )}
-          </li>
-        );
-      })}
-    </ol>
+    <>
+      <header className="relative flex items-center gap-2">
+        <ListOlAlt className="w-5" />
+        <h2 className="text-xl font-bold">Table of Contents</h2>
+      </header>
+      <Outline headings={headings} afterLinkClick={afterLinkClick} />
+    </>
   );
 }

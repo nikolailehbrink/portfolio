@@ -20,6 +20,7 @@
     "@phosphor-icons/react": "^2.1.4",
     "@portabletext/react": "^3.0.18",
     "@portabletext/types": "^2.0.13",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.7",

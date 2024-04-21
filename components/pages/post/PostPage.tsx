@@ -1,5 +1,3 @@
-import ListOlAlt from "@/assets/icons/unicons/list-ol-alt.svg";
-import TableOfContents from "@/components/pages/blog/TableOfContents";
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import GoBackButton from "@/components/shared/GoBackButton";
 import Tag from "@/components/shared/Tag";
@@ -12,6 +10,8 @@ import { toPlainText } from "next-sanity";
 import { useNextSanityImage } from "next-sanity-image";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import TableOfContents from "../blog/TableOfContents";
+import ToCSheet from "../blog/ToCSheet";
 
 const SharePost = dynamic(() => import("../blog/SharePost"), {
   ssr: false,
@@ -35,7 +35,7 @@ export function PostPage({ data }: PostPageProps) {
     _updatedAt,
   } = data ?? {};
 
-  const outline = parseOutline(headings ?? []);
+  const parsedHeadings = parseOutline(headings ?? []);
 
   const publishedDate = publishedAt ? new Date(publishedAt) : null;
   const updatedDate = _updatedAt ? new Date(_updatedAt) : null;
@@ -119,15 +119,19 @@ export function PostPage({ data }: PostPageProps) {
             )}
             <CustomPortableText value={body} />
           </section>
-          {outline && outline.length > 0 && (
-            <nav className="relative h-full max-h-[calc(100vh-6.5rem)] space-y-2 overflow-auto text-pretty rounded-lg border-2 border-border bg-neutral-800/40 p-4 px-6 max-xl:-order-1 lg:visible lg:p-6 lg:px-8 xl:sticky xl:top-[5.5rem] xl:w-[300px]">
-              <header className="relative flex items-center gap-2">
-                <ListOlAlt className="w-5" />
 
-                <h2 className="text-xl font-bold">Table of Contents</h2>
-              </header>
-              <TableOfContents outline={outline} />
-            </nav>
+          {/* If there is no ToC than still need the div to grow in order for the text to look right */}
+          {parsedHeadings && parsedHeadings.length > 0 ? (
+            <>
+              <ToCSheet headings={parsedHeadings} />
+              <div className="max-xl:-order-1 max-xl:hidden">
+                <nav className="relative space-y-2 overflow-auto text-pretty rounded-lg border-2 border-border bg-neutral-800/40 lg:visible lg:p-6 lg:px-8 xl:sticky xl:top-[5.5rem] xl:max-h-[calc(100vh-6.5rem)] xl:w-[300px]">
+                  <TableOfContents headings={parsedHeadings} />
+                </nav>
+              </div>
+            </>
+          ) : (
+            <div className="grow"></div>
           )}
         </div>
       )}
