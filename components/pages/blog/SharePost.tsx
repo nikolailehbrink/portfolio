@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 
 export default function SharePost({ heading }: { heading: string }) {
-  const url = new URL(location.href);
+  const url = location.href;
 
   const links = [
     {
