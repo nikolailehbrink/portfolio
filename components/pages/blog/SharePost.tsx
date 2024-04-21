@@ -17,12 +17,11 @@ export default function SharePost({ heading }: { heading: string }) {
     {
       site: "X",
       url: `https://x.com/share?text=${heading}&url=${url}`,
-      // url: `https://twitter.com/intent/tweet?original_referer=${url.origin}&text=I found a pretty interesting article from Nikolai Lehbrink&url=${url}`,
       icon: XLogo,
     },
     {
       site: "Reddit",
-      url: `https://www.reddit.com/submit?url=${url}&title=${heading}`,
+      url: `https://www.reddit.com/submit?title=${heading}&url=${url}`,
       icon: RedditLogo,
     },
     {
@@ -32,12 +31,12 @@ export default function SharePost({ heading }: { heading: string }) {
     },
     {
       site: "Facebook",
-      url: `https://www.facebook.com/sharer/sharer.php?u=${url}&t=${heading}`,
+      url: `https://www.facebook.com/sharer/sharer.php?t=${heading}&u=${url}`,
       icon: FacebookLogo,
     },
     {
       site: "WhatsApp",
-      url: `whatsapp://send?text=${url}%0A${heading}`,
+      url: `whatsapp://send?text=${heading}%0A${url}`,
       icon: WhatsappLogo,
     },
     {
