@@ -9,9 +9,11 @@ import {
   XLogo,
 } from "@phosphor-icons/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function SharePost({ heading }: { heading: string }) {
-  const url = location.href;
+  const pathname = usePathname();
+  const url = location.origin + pathname;
 
   const links = [
     {
