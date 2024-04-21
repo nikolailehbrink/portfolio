@@ -56,7 +56,10 @@ export default function Outline({
               {headingText}
             </Link>
             {heading.subheadings.length > 0 && (
-              <Outline headings={heading.subheadings} />
+              <Outline
+                headings={heading.subheadings}
+                afterLinkClick={afterLinkClick}
+              />
             )}
           </li>
         );
