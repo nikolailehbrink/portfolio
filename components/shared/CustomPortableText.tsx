@@ -7,6 +7,7 @@ import {
   type PortableTextBlock,
   type PortableTextComponents,
 } from "next-sanity";
+import { Suspense } from "react";
 import type { Image } from "sanity";
 import IconLink from "../pages/blog/IconLink";
 import CodeBlock from "./CodeBlock";
@@ -29,7 +30,13 @@ export function CustomPortableText({ value }: { value: PortableTextBlock[] }) {
       link: IconLink,
     },
     types: {
-      code: ({ value }) => <CodeBlock {...value} />,
+      code: ({ value }) => {
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <CodeBlock {...value} />
+          </Suspense>
+        );
+      },
       image: ({ value }: { value: Image & { alt?: string } }) => {
         return <ImageBox image={value} />;
       },
