@@ -10,6 +10,7 @@ import {
 import { Suspense } from "react";
 import type { Image } from "sanity";
 import IconLink from "../pages/blog/IconLink";
+import { Skeleton } from "../ui/skeleton";
 import CodeBlock from "./CodeBlock";
 
 export function CustomPortableText({ value }: { value: PortableTextBlock[] }) {
@@ -32,7 +33,7 @@ export function CustomPortableText({ value }: { value: PortableTextBlock[] }) {
     types: {
       code: ({ value }) => {
         return (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Skeleton className="h-32 w-full" />}>
             <CodeBlock {...value} />
           </Suspense>
         );
