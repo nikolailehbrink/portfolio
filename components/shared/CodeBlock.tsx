@@ -1,6 +1,7 @@
 import { highlightCode, transformCode } from "@/lib/shiki";
 import { cn } from "@/lib/utils";
 import { FolderSimple } from "@phosphor-icons/react";
+import { Fragment } from "react";
 import type { BundledLanguage } from "shiki/bundle/web";
 import CopyToClipboard from "./CopyToClipboard";
 
@@ -45,15 +46,17 @@ export default async function CodeBlock({
               {filenames.map((name, index) => {
                 const isLastElement = filenames.length - 1 === index;
                 return isLastElement ? (
-                  <span className="inline-flex items-center">{name}</span>
+                  <span key={index} className="inline-flex items-center">
+                    {name}
+                  </span>
                 ) : (
-                  <>
+                  <Fragment key={index}>
                     <span className="inline-flex items-center gap-[2px] ">
                       <FolderSimple weight="duotone" />
                       {name}
                     </span>
                     <span>/</span>
-                  </>
+                  </Fragment>
                 );
               })}
             </div>
