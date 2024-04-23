@@ -52,7 +52,10 @@ export function PostPage({ data }: PostPageProps) {
   return (
     <article className="container my-4 space-y-4 xl:space-y-8">
       <GoBackButton className="2xl:sticky 2xl:top-[5.5rem]" />
-      <div className="flex flex-col justify-center gap-4 lg:items-center lg:text-center">
+      <div
+        className="flex flex-col justify-center gap-4 lg:items-center
+          lg:text-center"
+      >
         {tags && tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {tags?.map((tag, index) => (
@@ -68,7 +71,10 @@ export function PostPage({ data }: PostPageProps) {
           </h1>
         )}
         {overview && (
-          <div className="prose prose-lg prose-neutral mx-auto text-pretty dark:prose-invert prose-p:leading-snug lg:text-balance">
+          <div
+            className="prose prose-lg prose-neutral mx-auto text-pretty
+              dark:prose-invert prose-p:leading-snug lg:text-balance"
+          >
             <CustomPortableText value={overview} />
           </div>
         )}
@@ -104,10 +110,18 @@ export function PostPage({ data }: PostPageProps) {
       )}
       {body && body.length > 0 && (
         <div className="flex gap-4 max-xl:flex-col xl:gap-8">
-          <div className="-order-2 flex h-full grow justify-start lg:justify-center xl:sticky xl:top-[5.5rem] xl:justify-end xl:pr-4">
+          <div
+            className="-order-2 flex h-full grow justify-start lg:justify-center
+              xl:sticky xl:top-[5.5rem] xl:justify-end xl:pr-4"
+          >
             <SharePost heading={title} />
           </div>
-          <section className="prose prose-neutral text-pretty sm:prose-lg dark:prose-invert prose-headings:text-balance prose-headings:leading-tight lg:max-xl:mx-auto xl:ml-auto 2xl:mx-auto">
+          <section
+            className="prose prose-neutral text-pretty sm:prose-lg
+              dark:prose-invert prose-headings:text-balance
+              prose-headings:leading-tight lg:max-xl:mx-auto xl:ml-auto
+              2xl:mx-auto"
+          >
             {updatedDate && updatedDate !== publishedDate && (
               <Tag>
                 Last updated on{" "}
@@ -125,7 +139,12 @@ export function PostPage({ data }: PostPageProps) {
             <>
               <ToCSheet headings={parsedHeadings} />
               <div className="max-xl:-order-1 max-xl:hidden">
-                <nav className="relative space-y-2 overflow-auto text-pretty rounded-lg border-2 border-border bg-neutral-800/40 lg:visible lg:p-6 lg:px-8 xl:sticky xl:top-[5.5rem] xl:max-h-[calc(100vh-6.5rem)] xl:w-[300px]">
+                <nav
+                  className="relative space-y-2 overflow-auto text-pretty
+                    rounded-lg border-2 border-border bg-neutral-800/40
+                    lg:visible lg:p-6 lg:px-8 xl:sticky xl:top-[5.5rem]
+                    xl:max-h-[calc(100vh-6.5rem)] xl:w-[300px]"
+                >
                   <TableOfContents headings={parsedHeadings} />
                 </nav>
               </div>

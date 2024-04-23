@@ -7,7 +7,10 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="container flex flex-grow flex-col items-center justify-center space-y-4 text-pretty text-center">
+    <div
+      className="container flex flex-grow flex-col items-center justify-center
+        space-y-4 text-pretty text-center"
+    >
       <header className="flex flex-col items-center">
         <SearchAlt className="size-12" />
         <h1 className="text-4xl font-bold lg:text-5xl">

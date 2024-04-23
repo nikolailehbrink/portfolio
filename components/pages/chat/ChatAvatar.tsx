@@ -26,7 +26,10 @@ export default function ChatAvatar({
     );
   } else if (role === "user") {
     return (
-      <div className="flex size-10 shrink-0 select-none items-center justify-center rounded-full border-2 border-sky-500 ">
+      <div
+        className="flex size-10 shrink-0 select-none items-center justify-center
+          rounded-full border-2 border-sky-500"
+      >
         <UserCircle className="size-8" />
       </div>
     );

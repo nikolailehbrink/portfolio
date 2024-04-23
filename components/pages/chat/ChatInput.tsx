@@ -26,7 +26,9 @@ export default function ChatInput({
         <Input
           name="message"
           placeholder="Type a message"
-          className="flex-1 focus-visible:border-white focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 sm:bg-neutral-900"
+          className="flex-1 focus-visible:border-white focus-visible:ring-0
+            focus-visible:ring-transparent focus-visible:ring-offset-0
+            sm:bg-neutral-900"
           value={input}
           onChange={handleInputChange}
         />

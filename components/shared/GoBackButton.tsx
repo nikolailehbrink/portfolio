@@ -21,7 +21,9 @@ export default function GoBackButton({
       )}
     >
       <ArrowCircleLeft className="size-6" />
-      <span className="border-b-2 border-transparent group-hover/back:border-white">
+      <span
+        className="border-b-2 border-transparent group-hover/back:border-white"
+      >
         {text}
       </span>
     </button>

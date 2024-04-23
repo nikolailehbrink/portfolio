@@ -4,18 +4,27 @@ import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 const buttonVariants = cva(
-  "inline-flex items-center font-bold justify-center whitespace-nowrap rounded-full border-2 gap-2 ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  `inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full
+  border-2 font-bold ring-offset-background transition-colors
+  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50`,
   {
     variants: {
       variant: {
-        default:
-          "bg-sky-500 text-blue-950 hover:bg-sky-400 shadow-sky-300 border-sky-400",
-        secondary:
-          "bg-orange-500 text-orange-950 shadow-orange-300 hover:bg-orange-400 border-orange-400",
+        default: [
+          `border-sky-400 bg-sky-500 text-blue-950 shadow-sky-300
+          hover:bg-sky-400`,
+        ],
+        secondary: [
+          `border-orange-400 bg-orange-500 text-orange-950 shadow-orange-300
+          hover:bg-orange-400`,
+        ],
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        outline: [
+          `border-input bg-background hover:bg-accent
+          hover:text-accent-foreground`,
+        ],
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },

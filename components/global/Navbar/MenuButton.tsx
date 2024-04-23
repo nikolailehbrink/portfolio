@@ -21,7 +21,8 @@ const MenuButton = forwardRef<HTMLButtonElement, Props>(function MenuButton(
       aria-label="Open Menu"
       variant={"outline"}
       size={"icon"}
-      className="fixed right-4 top-4 flex size-12 cursor-pointer flex-col items-start gap-0 rounded border-2 p-2 lg:hidden"
+      className="fixed right-4 top-4 flex size-12 cursor-pointer flex-col
+        items-start gap-0 rounded border-2 p-2 lg:hidden"
       onClick={() => setShowMenu(!showMenu)}
       {...props}
     >

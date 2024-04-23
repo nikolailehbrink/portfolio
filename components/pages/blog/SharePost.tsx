@@ -50,7 +50,10 @@ export default function SharePost({ heading }: { heading: string }) {
 
   return (
     url && (
-      <div className="inline-flex flex-wrap gap-3 xl:flex-col xl:rounded-lg xl:border-2 xl:border-border xl:bg-neutral-800/40 xl:p-2">
+      <div
+        className="inline-flex flex-wrap gap-3 xl:flex-col xl:rounded-lg
+          xl:border-2 xl:border-border xl:bg-neutral-800/40 xl:p-2"
+      >
         {links.map((link) => (
           <Link
             key={link.site}

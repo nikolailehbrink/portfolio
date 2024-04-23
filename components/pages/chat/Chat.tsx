@@ -96,7 +96,10 @@ export default function Chat({
   const showReload = !isLoading && isLastMessageFromAssistant;
 
   return (
-    <div className="mx-auto flex w-full max-w-screen-lg flex-1 flex-col overflow-hidden sm:rounded-lg sm:bg-neutral-950 sm:p-4 sm:pr-0">
+    <div
+      className="mx-auto flex w-full max-w-screen-lg flex-1 flex-col
+        overflow-hidden sm:rounded-lg sm:bg-neutral-950 sm:p-4 sm:pr-0"
+    >
       <ChatMessages
         logo={customChat?.logo}
         messages={messages}

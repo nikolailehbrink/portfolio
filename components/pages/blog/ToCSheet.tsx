@@ -20,7 +20,9 @@ export default function ToCSheet({ headings }: { headings: HeadingBlock[] }) {
           <ListOlAlt className="w-5" />
         </SheetTrigger>
       </Button>
-      <SheetContent className="flex max-h-screen flex-col gap-2 overflow-auto p-8">
+      <SheetContent
+        className="flex max-h-screen flex-col gap-2 overflow-auto p-8"
+      >
         <TableOfContents
           headings={headings}
           afterLinkClick={() => setOpen(false)}

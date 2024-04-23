@@ -15,11 +15,15 @@ export default function ProjectCarouselItem({
     image && urlForImage(image)?.size(1000, 1000).quality(80).url();
 
   return (
-    <CarouselItem className="project-carousel-item flex basis-full flex-col gap-2 sm:basis-1/2 xl:basis-1/4">
+    <CarouselItem
+      className="project-carousel-item flex basis-full flex-col gap-2
+        sm:basis-1/2 xl:basis-1/4"
+    >
       <div className="relative overflow-hidden rounded-lg">
         {imageUrl && (
           <Image
-            className="transition-all duration-500 hover:rotate-3 hover:scale-110"
+            className="transition-all duration-500 hover:rotate-3
+              hover:scale-110"
             src={imageUrl}
             alt={`Project image for ${project.title}`}
             width={1000}
@@ -32,7 +36,8 @@ export default function ProjectCarouselItem({
           {project.site ? (
             <a
               href={project.site}
-              className="inline-flex items-center gap-1 border-b-2 border-transparent hover:border-neutral-50"
+              className="inline-flex items-center gap-1 border-b-2
+                border-transparent hover:border-neutral-50"
               target="_blank"
               rel="noopener noreferrer"
             >

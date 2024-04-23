@@ -19,7 +19,9 @@ export default function ExampleMessage({
       {...props}
       onClick={() => setInput(message)}
       className={cn(
-        "inline-flex items-center gap-2 rounded-lg border-2 border-border bg-neutral-950 px-2 py-1 text-sm sm:bg-neutral-900 sm:hover:bg-neutral-950",
+        `inline-flex items-center gap-2 rounded-lg border-2 border-border
+        bg-neutral-950 px-2 py-1 text-sm sm:bg-neutral-900
+        sm:hover:bg-neutral-950`,
         className,
       )}
     >

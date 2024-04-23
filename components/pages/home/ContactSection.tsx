@@ -50,7 +50,8 @@ export default function ContactSection() {
       <div className="container grid gap-6 rounded-lg lg:grid-cols-2 lg:gap-12">
         <div
           id="contact-content"
-          className="prose prose-neutral flex flex-col items-start gap-4 self-start dark:prose-invert"
+          className="prose prose-neutral flex flex-col items-start gap-4
+            self-start dark:prose-invert"
         >
           <div className="badge badge-sky">
             <CommentCheck />
@@ -58,9 +59,18 @@ export default function ContactSection() {
           </div>
           <h2 className="my-0 text-5xl font-bold">Your Move!</h2>
           <div>
-            <div className="relative float-left mr-4 size-16 [shape-outside:circle(50%)] lg:size-28">
-              <div className="absolute -inset-0 rounded-full bg-gradient-to-br  from-orange-500 opacity-60 blur-lg"></div>
-              <div className="absolute -inset-[2px] rounded-full bg-gradient-to-br  from-orange-500"></div>
+            <div
+              className="relative float-left mr-4 size-16
+                [shape-outside:circle(50%)] lg:size-28"
+            >
+              <div
+                className="absolute -inset-0 rounded-full bg-gradient-to-br
+                  from-orange-500 opacity-60 blur-lg"
+              ></div>
+              <div
+                className="absolute -inset-[2px] rounded-full bg-gradient-to-br
+                  from-orange-500"
+              ></div>
               <ProfileImage className="relative rounded-full" />
             </div>
             <p className="relative my-0 max-w-[30rem] italic leading-normal">

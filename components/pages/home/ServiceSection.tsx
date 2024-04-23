@@ -49,13 +49,16 @@ export default function ServiceSection({
   return (
     <section
       id="passion"
-      className="flex items-center bg-gradient-to-b from-transparent to-neutral-950 lg:py-24 xl:scroll-mt-16"
+      className="flex items-center bg-gradient-to-b from-transparent
+        to-neutral-950 lg:py-24 xl:scroll-mt-16"
       ref={ref}
     >
       <div className="container grid items-start gap-6 lg:grid-cols-2 lg:gap-12">
         <div
           id="service-content"
-          className="prose prose-neutral flex flex-col items-start gap-3 dark:prose-invert prose-headings:m-0 prose-p:m-0 max-xl:relative lg:sticky lg:top-24 lg:order-1"
+          className="prose prose-neutral flex flex-col items-start gap-3
+            dark:prose-invert prose-headings:m-0 prose-p:m-0 max-xl:relative
+            lg:sticky lg:top-24 lg:order-1"
         >
           <div className="badge badge-orange">
             <Desktop className="w-5" />

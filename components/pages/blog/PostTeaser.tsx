@@ -42,7 +42,10 @@ export default function PostTeaser({
 
   return (
     <div className="group/teaser @container">
-      <div className="relative grid grid-cols-1 items-center gap-4 @4xl:grid-cols-2 @4xl:gap-8">
+      <div
+        className="relative grid grid-cols-1 items-center gap-4 @4xl:grid-cols-2
+          @4xl:gap-8"
+      >
         <div className="relative overflow-hidden rounded-lg">
           {src && (
             <Image
@@ -51,7 +54,8 @@ export default function PostTeaser({
               height={height}
               width={width}
               alt={coverImage.alt ?? "Post image"}
-              className="object-cover transition-transform duration-500 group-hover/teaser:scale-105"
+              className="object-cover transition-transform duration-500
+                group-hover/teaser:scale-105"
               sizes=" 
             (max-width: 768px) 95vw,
             (max-width: 1000px) 80vw,
@@ -60,8 +64,13 @@ export default function PostTeaser({
               blurDataURL={coverImage?.lqip}
             />
           )}
-          <div className="absolute inset-0 top-2/3 bg-gradient-to-t from-neutral-950 to-transparent"></div>
-          <div className="absolute bottom-4 right-4 hidden flex-wrap gap-1 sm:flex">
+          <div
+            className="absolute inset-0 top-2/3 bg-gradient-to-t
+              from-neutral-950 to-transparent"
+          ></div>
+          <div
+            className="absolute bottom-4 right-4 hidden flex-wrap gap-1 sm:flex"
+          >
             {tags?.map((tag, index) => (
               <Tag key={index} className="text-xs font-bold">
                 # {tag}
@@ -96,12 +105,13 @@ export default function PostTeaser({
                 alt={author.image?.alt ?? `Profile picture`}
                 width={48}
                 height={48}
-                className="size-10 rounded-full border-2 border-orange-500 object-cover"
+                className="size-10 rounded-full border-2 border-orange-500
+                  object-cover"
                 placeholder={author.image?.lqip ? "blur" : "empty"}
                 blurDataURL={author.image?.lqip}
               />
 
-              <div className="flex flex-col justify-center  leading-4">
+              <div className="flex flex-col justify-center leading-4">
                 <span className="font-bold">{author.name}</span>
                 <span className="text-sm leading-tight text-muted-foreground">
                   {author.bio ?? "Doesnt want a bio.."}
@@ -111,10 +121,15 @@ export default function PostTeaser({
           )}
         </div>
         <Link
-          className="absolute inset-0 focus-visible:rounded-lg focus-visible:outline-0 focus-visible:ring-2 focus-visible:ring-neutral-300 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
+          className="absolute inset-0 focus-visible:rounded-lg
+            focus-visible:outline-0 focus-visible:ring-2
+            focus-visible:ring-neutral-300 focus-visible:ring-offset-2
+            focus-visible:ring-offset-neutral-900"
           href={`/blog/${slug}`}
           aria-label="Read more about this post"
-        ></Link>
+        >
+          Read more https://www.nikolailehbr.ink/blog/tailwindcss-tips
+        </Link>
       </div>
     </div>
   );

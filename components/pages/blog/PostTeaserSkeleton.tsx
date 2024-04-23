@@ -8,10 +8,16 @@ export default function PostTeaserSkeleton({
 }) {
   return (
     <div className={cn("@container", className)}>
-      <div className="relative grid grid-cols-1 items-center gap-4 @4xl:grid-cols-2 @4xl:gap-8">
+      <div
+        className="relative grid grid-cols-1 items-center gap-4 @4xl:grid-cols-2
+          @4xl:gap-8"
+      >
         <div className="relative overflow-hidden rounded-lg">
           <Skeleton className="aspect-video w-full" />
-          <div className="absolute inset-0 top-1/2 bg-gradient-to-t from-neutral-950 to-transparent"></div>
+          <div
+            className="absolute inset-0 top-1/2 bg-gradient-to-t
+              from-neutral-950 to-transparent"
+          ></div>
           <div className="absolute bottom-4 right-4 flex gap-2">
             <Skeleton className="h-6 w-16 rounded-full"></Skeleton>
           </div>

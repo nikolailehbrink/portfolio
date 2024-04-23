@@ -42,7 +42,8 @@ export default function ExperienceSection({
       <div className="container grid gap-6 lg:grid-cols-2 lg:gap-12 lg:py-24">
         <div
           id="experience-content"
-          className="flex flex-col items-start gap-4 self-start lg:sticky lg:top-24"
+          className="flex flex-col items-start gap-4 self-start lg:sticky
+            lg:top-24"
         >
           <div className="badge badge-orange">
             <Diary />

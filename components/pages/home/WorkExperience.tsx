@@ -30,10 +30,19 @@ export default function WorkExperience({
   const { src, height, width } = image || {};
 
   return (
-    <li className="prose prose-neutral -ml-6 flex gap-4 dark:prose-invert lg:gap-8">
+    <li
+      className="prose prose-neutral -ml-6 flex gap-4 dark:prose-invert lg:gap-8"
+    >
       <div className="sticky top-4 h-12 w-12 lg:top-24">
-        <div className="background-fill absolute -inset-2 rounded-full bg-neutral-950"></div>
-        <div className="company-logo relative flex h-12 w-12 shrink-0 justify-center rounded-full border-2 border-transparent bg-neutral-800 p-3">
+        <div
+          className="background-fill absolute -inset-2 rounded-full
+            bg-neutral-950"
+        ></div>
+        <div
+          className="company-logo relative flex h-12 w-12 shrink-0
+            justify-center rounded-full border-2 border-transparent
+            bg-neutral-800 p-3"
+        >
           {src && (
             <Image
               className="w-12 object-contain -hue-rotate-[50deg]"

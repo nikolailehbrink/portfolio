@@ -119,7 +119,8 @@ export default function ContactForm() {
       <form
         id="contact-form"
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-2 gap-4 rounded-lg border-2 border-border bg-neutral-950 p-4 @container *:col-span-2 *:@sm:col-span-1 lg:p-8"
+        className="grid grid-cols-2 gap-4 rounded-lg border-2 border-border
+          bg-neutral-950 p-4 @container *:col-span-2 *:@sm:col-span-1 lg:p-8"
       >
         <FormField
           control={control}

@@ -68,8 +68,15 @@ export default function Experiences({
 
   return (
     <div ref={ref} id="work-places" className="relative max-lg:ml-6">
-      <div className="line absolute top-14 h-0 w-[3px] bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent sm:-left-[2px]"></div>
-      <div className="line absolute top-14 h-0 w-[6px] bg-gradient-to-b from-orange-500 via-orange-900 via-70% to-transparent opacity-50 blur-[6px] sm:-left-[3px]"></div>
+      <div
+        className="line absolute top-14 h-0 w-[3px] bg-gradient-to-b
+          from-orange-500 via-orange-900 via-70% to-transparent sm:-left-[2px]"
+      ></div>
+      <div
+        className="line absolute top-14 h-0 w-[6px] bg-gradient-to-b
+          from-orange-500 via-orange-900 via-70% to-transparent opacity-50
+          blur-[6px] sm:-left-[3px]"
+      ></div>
       <ol className="relative flex flex-col gap-8">
         {experiences.length > 0 &&
           experiences.map((experience) => (

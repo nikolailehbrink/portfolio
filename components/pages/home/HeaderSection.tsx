@@ -35,7 +35,10 @@ export default function HeaderSection() {
       className="flex items-center overflow-x-clip"
     >
       <div className="container grid items-center gap-12 lg:grid-cols-2">
-        <div className="prose prose-neutral z-10 space-y-4 dark:prose-invert *:duration-1000 *:animate-in *:fade-in *:fill-mode-both">
+        <div
+          className="prose prose-neutral z-10 space-y-4 dark:prose-invert
+            *:duration-1000 *:animate-in *:fade-in *:fill-mode-both"
+        >
           <h1 className="my-3 text-6xl font-bold">
             Nikolai
             <br />
@@ -70,7 +73,9 @@ export default function HeaderSection() {
         <div className="relative mt-[10%]">
           <div
             id="gradient-blur"
-            className="absolute -inset-16 -top-32 aspect-square rounded-full bg-gradient-to-tl from-sky-500 via-sky-200 via-35% to-orange-500 opacity-50 blur-3xl"
+            className="absolute -inset-16 -top-32 aspect-square rounded-full
+              bg-gradient-to-tl from-sky-500 via-sky-200 via-35% to-orange-500
+              opacity-50 blur-3xl"
           ></div>
           <div className="relative w-full">
             <Image
@@ -83,17 +88,22 @@ export default function HeaderSection() {
           <Image
             src={bubbleGym}
             alt="Hallo"
-            className="absolute -top-[18%] right-[25%] w-1/5 origin-bottom duration-700 animate-in zoom-in spin-in-45"
+            className="absolute -top-[18%] right-[25%] w-1/5 origin-bottom
+              duration-700 animate-in zoom-in spin-in-45"
           />
           <Image
             src={bubbleRope}
             alt="Hallo"
-            className="absolute -top-[4%] right-2 w-1/5 origin-bottom-left delay-150 duration-500 animate-in zoom-in spin-in-90 fill-mode-both"
+            className="absolute -top-[4%] right-2 w-1/5 origin-bottom-left
+              delay-150 duration-500 animate-in zoom-in spin-in-90
+              fill-mode-both"
           />
           <Image
             src={bubblePiano}
             alt="Hallo"
-            className="absolute -top-[16%] left-[18%] w-1/5 origin-bottom-right delay-300 duration-500 animate-in zoom-in spin-in-45 fill-mode-both"
+            className="absolute -top-[16%] left-[18%] w-1/5 origin-bottom-right
+              delay-300 duration-500 animate-in zoom-in spin-in-45
+              fill-mode-both"
           />
         </div>
       </div>

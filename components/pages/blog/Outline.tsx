@@ -16,7 +16,10 @@ export default function Outline({
   activeHeading: string | null;
 }) {
   return (
-    <ol className="relative my-1 flex flex-col gap-1 last-of-type:mb-1 [&_ol>li]:ml-5">
+    <ol
+      className="relative my-1 flex flex-col gap-1 last-of-type:mb-1
+        [&_ol>li]:ml-5"
+    >
       {headings.map((heading) => {
         const headingText = toPlainText(heading);
         const slug = slugify(headingText);

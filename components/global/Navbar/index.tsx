@@ -36,7 +36,10 @@ export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   return (
-    <div className="sticky top-0 z-50 lg:bg-neutral-900/80 lg:py-3 lg:backdrop-blur-2xl">
+    <div
+      className="sticky top-0 z-50 lg:bg-neutral-900/80 lg:py-3
+        lg:backdrop-blur-2xl"
+    >
       <header className="container flex max-lg:justify-start">
         <MenuButton
           ref={menuButtonRef}
@@ -46,7 +49,10 @@ export function Navbar() {
         <nav
           ref={menuRef}
           className={cn(
-            `flex border-neutral-700 font-bold max-lg:fixed max-lg:right-0 max-lg:top-20 max-lg:mr-4 max-lg:flex-col max-lg:items-center max-lg:gap-6 max-lg:rounded-lg max-lg:border-2 max-lg:bg-neutral-950 max-lg:p-8 max-lg:transition-transform lg:w-full`,
+            `flex border-neutral-700 font-bold max-lg:fixed max-lg:right-0
+            max-lg:top-20 max-lg:mr-4 max-lg:flex-col max-lg:items-center
+            max-lg:gap-6 max-lg:rounded-lg max-lg:border-2 max-lg:bg-neutral-950
+            max-lg:p-8 max-lg:transition-transform lg:w-full`,
             !showMenu && "max-lg:translate-x-[calc(100%_+_1rem)]",
           )}
         >
@@ -56,7 +62,10 @@ export function Navbar() {
               aria-label={isHome ? "Scroll to top" : "Go to home page"}
             >
               <Logo
-                className={`size-12 rounded-full ${!isHome && "transition-transform hover:scale-110"}`}
+                className={`size-12 rounded-full ${
+                  !isHome &&
+                  "ΒΘΓΞΙΗΘΑΝΜΕΜΕΘΞΟhover:scale-110 transition-transform"
+                }`}
               />
             </Link>
           </div>
@@ -64,7 +73,8 @@ export function Navbar() {
             id="navigation"
             role="menu"
             aria-labelledby="menubutton"
-            className="flex justify-center gap-4 tracking-wide max-lg:flex-col lg:items-center"
+            className="flex justify-center gap-4 tracking-wide max-lg:flex-col
+              lg:items-center"
           >
             {navigationItems.map(({ link, title, icon }) => (
               <li role="none" key={link}>
