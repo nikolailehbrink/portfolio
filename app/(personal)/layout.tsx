@@ -17,8 +17,10 @@ const LiveVisualEditing = dynamic(
   () => import("@/sanity/loader/LiveVisualEditing"),
 );
 
+const siteDomain = "https://www.nikolailehbr.ink";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.nikolailehbr.ink/"),
+  metadataBase: new URL(siteDomain),
   title: {
     template: "%s - Nikolai Lehbrink",
     default: "Nikolai Lehbrink - Web Developer & Designer",
@@ -29,6 +31,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
   },
+  alternates: { canonical: siteDomain },
 };
 
 export const viewport: Viewport = {
