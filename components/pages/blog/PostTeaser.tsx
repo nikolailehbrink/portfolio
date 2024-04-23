@@ -127,9 +127,7 @@ export default function PostTeaser({
             focus-visible:ring-offset-neutral-900"
           href={`/blog/${slug}`}
           aria-label="Read more about this post"
-        >
-          Read more https://www.nikolailehbr.ink/blog/tailwindcss-tips
-        </Link>
+        ></Link>
       </div>
     </div>
   );
