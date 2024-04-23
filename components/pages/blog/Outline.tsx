@@ -4,38 +4,17 @@ import { cn } from "@/lib/utils";
 import type { HeadingBlock } from "@/types/sanity";
 import { toPlainText } from "@portabletext/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import slugify from "slugify";
 
 export default function Outline({
   headings,
   afterLinkClick,
+  activeHeading,
 }: {
   headings: HeadingBlock[];
   afterLinkClick?: () => void;
+  activeHeading: string | null;
 }) {
-  const [activeHeading, setActiveHeading] = useState<string | null>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveHeading(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "5% 0px -90% 0px" },
-    );
-
-    const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-    headings.forEach((heading) => observer.observe(heading));
-
-    return () => {
-      headings.forEach((heading) => observer.unobserve(heading));
-    };
-  }, []);
-
   return (
     <ol className="relative my-1 flex flex-col gap-1 last-of-type:mb-1 [&_ol>li]:ml-5">
       {headings.map((heading) => {
@@ -59,6 +38,7 @@ export default function Outline({
               <Outline
                 headings={heading.subheadings}
                 afterLinkClick={afterLinkClick}
+                activeHeading={activeHeading}
               />
             )}
           </li>
