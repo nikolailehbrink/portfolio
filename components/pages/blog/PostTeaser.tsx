@@ -1,5 +1,6 @@
 import Tag from "@/components/shared/Tag";
 import { useReadingTime } from "@/hooks/useReadingTime";
+import { getFormattedDateTime } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/utils";
 import type { PostPayload } from "@/types/sanity";
@@ -16,7 +17,7 @@ export default function PostTeaser({
   priority?: boolean;
 }) {
   const {
-    publishedAt = "",
+    publishedAt = null,
     author,
     coverImage = {},
     body = [],
@@ -26,7 +27,7 @@ export default function PostTeaser({
     overview,
   } = post;
 
-  const publishedDate = new Date(publishedAt);
+  const publishedDate = publishedAt ? new Date(publishedAt) : null;
 
   const image = useNextSanityImage(client, coverImage, {
     imageBuilder: (image) => image.fit("max").width(1920).height(1080),
@@ -80,15 +81,13 @@ export default function PostTeaser({
         </div>
         <div className="flex flex-col items-start justify-center gap-2">
           <p className="flex gap-1 text-sm">
-            <Tag className="bg-orange-950 text-orange-400">
-              <time dateTime={publishedDate.toISOString()}>
-                {new Intl.DateTimeFormat("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                }).format(publishedDate)}
-              </time>
-            </Tag>
+            {publishedDate && (
+              <Tag className="bg-orange-950 text-orange-400">
+                <time dateTime={publishedDate.toISOString()}>
+                  {getFormattedDateTime(publishedDate)}
+                </time>
+              </Tag>
+            )}
             <span className="sr-only">, </span>
             <Tag className="bg-neutral-800 text-neutral-400">
               {minutesToRead}m read

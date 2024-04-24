@@ -1,4 +1,5 @@
 import { supportedLanguages } from "@/lib/helpers";
+import { toPlainText } from "next-sanity";
 import { defineArrayMember, defineType } from "sanity";
 
 /**
@@ -84,6 +85,53 @@ export default defineType({
         language: "javascript",
         languageAlternatives: supportedLanguages,
         withFilename: true,
+      },
+    }),
+    defineArrayMember({
+      title: "Alert",
+      name: "alert",
+      type: "object",
+      fields: [
+        {
+          title: "Heading",
+          name: "heading",
+          type: "string",
+        },
+        {
+          title: "Message",
+          name: "message",
+          type: "array",
+          of: [{ type: "block" }],
+          validation: (Rule) => Rule.required(),
+        },
+        {
+          title: "Type",
+          name: "type",
+          type: "string",
+          initialValue: "info",
+          options: {
+            list: [
+              { title: "Info", value: "info" },
+              { title: "Warning", value: "warning" },
+              { title: "Error", value: "error" },
+              { title: "Success", value: "success" },
+              { title: "Tip", value: "tip" },
+              { title: "Question", value: "question" },
+            ],
+          },
+        },
+      ],
+      preview: {
+        select: {
+          message: "message",
+          type: "type",
+        },
+        prepare({ message, type }) {
+          return {
+            title: `${type.charAt(0).toUpperCase()}${type.slice(1)}`,
+            subtitle: toPlainText(message),
+          };
+        },
       },
     }),
   ],

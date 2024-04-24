@@ -84,6 +84,9 @@ const config = {
       fontFamily: {
         blinker: ["var(--font-blinker)", ...defaultTheme.fontFamily.sans],
       },
+      backgroundImage: {
+        "gradient-160": "linear-gradient(160deg, var(--tw-gradient-stops))",
+      },
       grayscale: {
         50: "50%",
       },

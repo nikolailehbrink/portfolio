@@ -24,12 +24,13 @@ export interface PostPageProps {
 
 export function PostPage({ data }: PostPageProps) {
   // Default to an empty object to allow previews on non-existent documents
+
   const {
     coverImage = {},
     headings,
     body = [],
     overview,
-    publishedAt,
+    publishedAt = null,
     tags,
     title = "",
     _updatedAt,
