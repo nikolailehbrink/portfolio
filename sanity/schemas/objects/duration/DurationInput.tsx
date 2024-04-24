@@ -1,12 +1,12 @@
 import { ArrowRightIcon } from "@sanity/icons";
 import { Box, Flex, Text } from "@sanity/ui";
 import { useCallback, useMemo } from "react";
-import {
+import type {
   FieldMember,
-  MemberField,
   ObjectInputProps,
   RenderFieldCallback,
 } from "sanity";
+import { MemberField } from "sanity";
 
 export function DurationInput(props: ObjectInputProps) {
   const { members, renderInput, renderItem, renderPreview } = props;
