@@ -1,3 +1,4 @@
+import Code from "@/components/shared/Code";
 import { cn } from "@/lib/utils";
 import type { Icon } from "@phosphor-icons/react";
 import {
@@ -11,6 +12,7 @@ import {
 import { cva } from "class-variance-authority";
 import { PortableText } from "next-sanity";
 import type { PortableTextBlock } from "sanity";
+import IconLink from "./IconLink";
 
 const icons = {
   success: CheckCircle,
@@ -22,7 +24,7 @@ const icons = {
 };
 
 const alert = cva(
-  `bg-gradient-160 my-4 flex items-start gap-2 rounded-lg to-40% p-4 pl-3 pr-4
+  `my-4 flex items-start gap-2 rounded-lg bg-gradient-160 to-40% p-4 pl-3 pr-4
   ring-2 ring-inset ring-black/10 dark:ring-white/10`,
   {
     variants: {
@@ -39,7 +41,8 @@ const alert = cva(
           `from-yellow-200 text-yellow-950 dark:from-yellow-800
           dark:text-yellow-50`,
         ],
-        question: "from-neutral-200 dark:from-neutral-950",
+        question:
+          "from-neutral-200 dark:from-neutral-800 dark:text-neutral-100",
       },
     },
     defaultVariants: {
@@ -70,11 +73,21 @@ export default function Alert({
       </div>
 
       <div className="space-y-1">
-        <header className="sm:not-prose not-prose text-lg/tight font-bold">
+        <header className="not-prose font-bold leading-snug sm:text-lg/tight">
           {heading || sentenceType}
         </header>
-        <div className="text-base/tight leading-tight">
-          {message && message.length > 0 && <PortableText value={message} />}
+        <div className="text-base/snug [&_a]:underline [&_a]:underline-offset-2">
+          {message && message.length > 0 && (
+            <PortableText
+              value={message}
+              components={{
+                marks: {
+                  code: ({ children }) => <Code>{children}</Code>,
+                  link: IconLink,
+                },
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

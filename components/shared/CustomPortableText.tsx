@@ -12,6 +12,7 @@ import type { Image } from "sanity";
 import Alert from "../pages/blog/Alert";
 import IconLink from "../pages/blog/IconLink";
 import { Skeleton } from "../ui/skeleton";
+import Code from "./Code";
 import CodeBlock from "./CodeBlock";
 
 export function CustomPortableText({ value }: { value: PortableTextBlock[] }) {
@@ -24,14 +25,7 @@ export function CustomPortableText({ value }: { value: PortableTextBlock[] }) {
       h6: AnchorHeading,
     },
     marks: {
-      code: ({ children }) => (
-        <code
-          className="not-prose rounded-md border border-neutral-700
-            bg-neutral-800 px-[3px] py-[2px] text-sm"
-        >
-          {children}
-        </code>
-      ),
+      code: ({ children }) => <Code>{children}</Code>,
       link: IconLink,
     },
     types: {
