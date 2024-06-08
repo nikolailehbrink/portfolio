@@ -59,7 +59,7 @@ export default async function CodeBlock({
                   </span>
                 ) : (
                   <Fragment key={index}>
-                    <span className="inline-flex items-center gap-[2px] ">
+                    <span className="inline-flex items-center gap-[2px]">
                       <FolderSimple weight="duotone" />
                       {name}
                     </span>
