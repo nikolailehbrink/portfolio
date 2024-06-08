@@ -62,10 +62,7 @@ export function Navbar() {
               aria-label={isHome ? "Scroll to top" : "Go to home page"}
             >
               <Logo
-                className={`size-12 rounded-full ${
-                  !isHome &&
-                  "ΒΘΓΞΙΗΘΑΝΜΕΜΕΘΞΟhover:scale-110 transition-transform"
-                }`}
+                className={`size-12 rounded-full ${!isHome && "transition-transform hover:scale-110"}`}
               />
             </Link>
           </div>
