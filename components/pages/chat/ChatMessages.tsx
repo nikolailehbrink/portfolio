@@ -49,7 +49,7 @@ export default function ChatMessages({
 
   return (
     <div
-      className="flex-1 space-y-4 overflow-auto pr-4 scrollbar-thin "
+      className="flex-1 space-y-4 overflow-auto pr-4 scrollbar-thin"
       ref={scrollableContainerRef}
     >
       {(messages.length !== 0 || !isTokenLimitReached) && (

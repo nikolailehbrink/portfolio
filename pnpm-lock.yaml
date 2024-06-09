@@ -218,8 +218,8 @@ devDependencies:
     specifier: 3.2.5
     version: 3.2.5
   prettier-plugin-classnames:
-    specifier: ^0.6.5
-    version: 0.6.5(prettier@3.2.5)
+    specifier: ^0.7.0
+    version: 0.7.0(prettier@3.2.5)
   prettier-plugin-tailwindcss:
     specifier: 0.5.13
     version: 0.5.13(@ianvs/prettier-plugin-sort-imports@4.2.1)(prettier@3.2.5)
@@ -9549,6 +9549,8 @@ packages:
     resolution: {integrity: sha512-Un1yLbSlk/zfwrltgguskExIioXZlFSFwsyXU0cnBorLywbTbcdzmJJEebh+U2cFCtR7y8nDs5lPHAe7ldxjZg==}
     engines: {node: '>=18.12.1', npm: '>=8.19.2'}
     hasBin: true
+    dependencies:
+      '@xmldom/xmldom': 0.8.10
     dev: false
     bundledDependencies:
       - '@xmldom/xmldom'
@@ -9896,14 +9898,17 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-classnames@0.6.5(prettier@3.2.5):
-    resolution: {integrity: sha512-33RQaTSxz4KzITJSJCOTTrVwbmuGjz4wIpJbDFalHQ8EBK4p0/4rgkvHd4M1MSTG/5gsfZUBksQRHBLYkuLv0Q==}
+  /prettier-plugin-classnames@0.7.0(prettier@3.2.5):
+    resolution: {integrity: sha512-gxnMyTUPs5rPY/JzjLBsiBFA0Dj9/oukk02fGofAQ+FFzGYNZEHWL8Q9TWXmglgJgBzy2Cx0Az9n+Uk4DtianA==}
     engines: {node: '>=14'}
     peerDependencies:
       prettier: ^2 || ^3
       prettier-plugin-astro: '*'
+      prettier-plugin-svelte: '*'
     peerDependenciesMeta:
       prettier-plugin-astro:
+        optional: true
+      prettier-plugin-svelte:
         optional: true
     dependencies:
       prettier: 3.2.5
