@@ -3,18 +3,16 @@ import {
   transformerNotationHighlight,
 } from "@shikijs/transformers";
 import type { BundledLanguage, Highlighter } from "shiki/bundle/web";
-import { createHighlighter } from "shiki/bundle/web";
+import { getSingletonHighlighter } from "shiki/bundle/web";
 import { supportedLanguages } from "./helpers";
 
 let highlighter: Highlighter;
 
 export async function highlightCode(code: string, lang: BundledLanguage) {
-  if (!highlighter) {
-    highlighter = await createHighlighter({
-      langs: supportedLanguages.map((lang) => lang.value),
-      themes: ["ayu-dark"],
-    });
-  }
+  highlighter = await getSingletonHighlighter({
+    langs: supportedLanguages.map((lang) => lang.value),
+    themes: ["ayu-dark"],
+  });
 
   return highlighter.codeToHtml(code, {
     lang,
