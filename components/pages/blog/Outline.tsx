@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import type { HeadingBlock } from "@/types/sanity";
 import { toPlainText } from "@portabletext/react";
+import clsx from "clsx";
 import Link from "next/link";
 import slugify from "slugify";
 
@@ -29,7 +29,7 @@ export default function Outline({
           <li key={heading._key}>
             <Link
               onClick={afterLinkClick}
-              className={cn(
+              className={clsx(
                 "inline-flex",
                 isActive ? "text-sky-400" : "hover:text-orange-500",
               )}

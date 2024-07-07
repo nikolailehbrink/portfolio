@@ -6,6 +6,7 @@ import Newspaper from "@/assets/icons/unicons/newspaper.svg";
 import Robot from "@/assets/icons/unicons/robot.svg";
 import { useMenuClickOutside } from "@/hooks/useMenuClickOutside";
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MenuButton from "./MenuButton";
@@ -62,8 +63,10 @@ export function Navbar() {
               aria-label={isHome ? "Scroll to top" : "Go to home page"}
             >
               <Logo
-                className={`size-12 rounded-full ${ !isHome &&
-                  "transition-transform hover:scale-110" }`}
+                className={clsx(
+                  "size-12 rounded-full",
+                  !isHome && "transition-transform hover:scale-110",
+                )}
               />
             </Link>
           </div>

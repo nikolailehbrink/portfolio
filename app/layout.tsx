@@ -1,4 +1,5 @@
 import GlobalLayout from "@/components/global/Layout/GlobalLayout";
+import clsx from "clsx";
 import { Blinker } from "next/font/google";
 
 const blinker = Blinker({
@@ -17,10 +18,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${blinker.variable} dark scroll-smooth text-pretty
-        font-blinker text-[17px] scrollbar-thin scrollbar-track-neutral-900
-        scrollbar-thumb-neutral-600 hover:scrollbar-thumb-neutral-500
-        active:scrollbar-thumb-sky-500`}
+      className={clsx(
+        blinker.variable,
+        `dark scroll-smooth text-pretty font-blinker text-[17px] scrollbar-thin
+        scrollbar-track-neutral-900 scrollbar-thumb-neutral-600
+        hover:scrollbar-thumb-neutral-500 active:scrollbar-thumb-sky-500`,
+      )}
     >
       {/* Empty style tag from gsap */}
       <body
