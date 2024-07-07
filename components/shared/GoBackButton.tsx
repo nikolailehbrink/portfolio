@@ -16,7 +16,7 @@ export default function GoBackButton({
     <button
       onClick={() => router.back()}
       className={cn(
-        "group/back inline-flex justify-start gap-2 justify-self-start",
+        "group/back z-10 inline-flex justify-start gap-2 justify-self-start",
         className,
       )}
     >
