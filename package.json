@@ -33,7 +33,7 @@
     "@sanity/react-loader": "1.9.6",
     "@sanity/ui": "2.0.14",
     "@sanity/vision": "3.36.4",
-    "@sentry/nextjs": "^7.110.0",
+    "@sentry/nextjs": "^8.15.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "0.5.12",
     "@vercel/analytics": "^1.2.2",

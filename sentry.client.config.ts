@@ -3,17 +3,10 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs";
-import { isDev } from "./lib/utils";
+import { sentrySharedOptions } from "./instrumentation";
 
 Sentry.init({
-  dsn: "https://536617f0e4f3e44d7b01bb7b640406bb@o4506721770733568.ingest.us.sentry.io/4506721773223936",
-
-  // Adjust this value in production, or use tracesSampler for greater control
-  tracesSampleRate: 1,
-
-  // Setting this option to true will print useful information to the console while you're setting up Sentry.
-  debug: false,
-
+  ...sentrySharedOptions,
   replaysOnErrorSampleRate: 1.0,
 
   // This sets the sample rate to be 10%. You may want this to be 100% while
@@ -28,5 +21,4 @@ Sentry.init({
       blockAllMedia: true,
     }),
   ],
-  enabled: !isDev,
 });
