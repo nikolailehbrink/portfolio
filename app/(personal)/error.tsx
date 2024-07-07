@@ -26,7 +26,7 @@ export default function Error({
         space-y-4 text-pretty text-center"
     >
       <header className="flex flex-col items-center">
-        <ExclamationTriangle className="size-12 " />
+        <ExclamationTriangle className="size-12" />
         <h1 className="text-4xl font-bold lg:text-5xl">
           Something went wrong! <br /> I&apos;m on it!
         </h1>
