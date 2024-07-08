@@ -224,7 +224,7 @@ devDependencies:
     specifier: 0.5.13
     version: 0.5.13(@ianvs/prettier-plugin-sort-imports@4.2.1)(prettier@3.2.5)
   shiki:
-    specifier: ^1.10.2
+    specifier: ^1.10.3
     version: 1.10.3
   tailwindcss:
     specifier: 3.4.3

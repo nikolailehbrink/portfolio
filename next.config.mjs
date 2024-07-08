@@ -32,6 +32,8 @@ const config = {
       "/*": ["./app/api/chat/cache/**/*"],
     },
     taint: true,
+    // https://github.com/vercel/next.js/issues/64434
+    optimizePackageImports: ["shiki"],
   },
   webpack(config) {
     // Configures webpack to handle SVG files with SVGR. SVGR optimizes and transforms SVG files
