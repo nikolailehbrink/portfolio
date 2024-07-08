@@ -1,5 +1,3 @@
-"use client";
-
 import AnchorHeading from "@/components/pages/blog/AnchorHeading";
 import ImageBox from "@/components/shared/ImageBox";
 import {

@@ -1,6 +1,6 @@
 import { highlightCode, transformCode } from "@/lib/shiki";
 import { cn } from "@/lib/utils";
-import { FolderSimple } from "@phosphor-icons/react";
+import { FolderSimple } from "@phosphor-icons/react/dist/ssr";
 import { Fragment } from "react";
 import type { BundledLanguage } from "shiki/bundle/web";
 import CopyToClipboard from "./CopyToClipboard";
