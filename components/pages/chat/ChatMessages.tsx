@@ -60,17 +60,17 @@ export default function ChatMessages({
       ))}
       {isPending && !isTokenLimitReached && (
         <ChatMessage role="assistant" content="">
-          <div className="flex h-6 items-center gap-1">
+          <div className="flex h-6 items-center gap-[3px]">
             <span className="sr-only">Loading...</span>
             <div
-              className="size-[7px] animate-pulse rounded-full bg-neutral-300
+              className="size-[6px] animate-pulse rounded-full bg-neutral-300
                 delay-300 [animation-delay:-0.3s]"
             ></div>
             <div
-              className="size-[7px] animate-pulse rounded-full bg-neutral-300
+              className="size-[6px] animate-pulse rounded-full bg-neutral-300
                 [animation-delay:-0.15s]"
             ></div>
-            <div className="size-[7px] animate-pulse rounded-full bg-neutral-300"></div>
+            <div className="size-[6px] animate-pulse rounded-full bg-neutral-300"></div>
           </div>
         </ChatMessage>
       )}
