@@ -38,7 +38,6 @@ export const loadQuery = ((query, params = {}, options = {}) => {
   const {
     perspective = draftMode().isEnabled ? "previewDrafts" : "published",
   } = options;
-  console.log(options);
   // Don't cache by default
   let revalidate: NextFetchRequestConfig["revalidate"] = 0;
   // If `next.tags` is set, and we're not using the CDN, then it's safe to cache
