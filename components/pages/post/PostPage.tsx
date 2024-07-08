@@ -1,11 +1,13 @@
 import { CustomPortableText } from "@/components/shared/CustomPortableText";
 import GoBackButton from "@/components/shared/GoBackButton";
+import ProfileImage from "@/components/shared/ProfileImage";
 import Tag from "@/components/shared/Tag";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useReadingTime } from "@/hooks/useReadingTime";
 import { getFormattedDateTime, parseOutline } from "@/lib/helpers";
 import { client } from "@/sanity/lib/client";
 import type { PostPayload } from "@/types/sanity";
+import { LinkedinLogo, XLogo } from "@phosphor-icons/react/dist/ssr";
 import { toPlainText } from "next-sanity";
 import { useNextSanityImage } from "next-sanity-image";
 import dynamic from "next/dynamic";
@@ -34,6 +36,7 @@ export function PostPage({ data }: PostPageProps) {
     tags,
     title = "",
     _updatedAt,
+    author,
   } = data ?? {};
 
   const parsedHeadings = parseOutline(headings ?? []);
@@ -71,14 +74,6 @@ export function PostPage({ data }: PostPageProps) {
             {title}
           </h1>
         )}
-        {overview && (
-          <div
-            className="prose prose-lg prose-neutral mx-auto text-pretty
-              dark:prose-invert prose-p:leading-snug lg:text-balance"
-          >
-            <CustomPortableText value={overview} />
-          </div>
-        )}
         <p className="flex flex-wrap gap-1">
           {publishedDate && (
             <Tag className="bg-orange-950 text-orange-400">
@@ -92,7 +87,50 @@ export function PostPage({ data }: PostPageProps) {
             {minutesToRead}m read
           </Tag>
         </p>
+        {overview && (
+          <div
+            className="prose prose-lg prose-neutral mx-auto text-pretty
+              dark:prose-invert prose-p:leading-snug lg:text-balance"
+          >
+            <CustomPortableText value={overview} />
+          </div>
+        )}
+        {author && (
+          <div
+            className="flex flex-col gap-2 rounded-lg leading-none
+              lg:items-center"
+          >
+            <ProfileImage className="size-12 rounded-full" />
+            <p className="text-lg/none font-bold">By {author.name}</p>
+            <p className="text-muted-foreground">{author.bio}</p>
+            <div className="mt-1 flex gap-2">
+              <Tag className="bg-neutral-950 text-neutral-300">
+                <a
+                  target="_blank"
+                  className="flex items-center gap-1"
+                  href="https://twitter.com/nikolailehbrink"
+                >
+                  Follow me on
+                  <XLogo aria-hidden size={20} weight="duotone" />
+                  <span className="sr-only">X</span>
+                </a>
+              </Tag>
+              <Tag className="bg-[#0a66c2] text-neutral-300">
+                <a
+                  target="_blank"
+                  className="flex items-center gap-1"
+                  href="https://www.linkedin.com/in/nikolailehbrink/"
+                >
+                  Follow me on
+                  <LinkedinLogo aria-hidden weight="duotone" size={20} />
+                  <span className="sr-only">LinkedIn</span>
+                </a>
+              </Tag>
+            </div>
+          </div>
+        )}
       </div>
+
       {src && (
         <Image
           className="relative z-10 aspect-video w-full rounded-lg object-cover"
