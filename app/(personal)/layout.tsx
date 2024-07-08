@@ -1,4 +1,3 @@
-import "@/app/globals.css";
 import CheckCircle from "@/assets/icons/unicons/check-circle.svg";
 import ExclamationOctagon from "@/assets/icons/unicons/exclamation-octagon.svg";
 import ExclamationTriangle from "@/assets/icons/unicons/exclamation-triangle.svg";

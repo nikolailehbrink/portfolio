@@ -1,6 +1,7 @@
 import GlobalLayout from "@/components/global/Layout/GlobalLayout";
 import clsx from "clsx";
 import { Blinker } from "next/font/google";
+import "./globals.css";
 
 const blinker = Blinker({
   weight: ["200", "400", "700"],
