@@ -82,9 +82,10 @@ export default withBundleAnalyzer(
       // https://github.com/getsentry/sentry-webpack-plugin#options
 
       // Suppresses source map uploading logs during build
-      silent: true,
+      silent: false,
       org: "nikolailehbrink",
-      project: "website",
+      project: "portfolio-website",
+      authToken: process.env.SENTRY_AUTH_TOKEN,
     },
     {
       // For all available options, see:
