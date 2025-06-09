@@ -1,0 +1,14 @@
+{
+  "images": {
+    "sizes": [
+      16, 32, 64, 128, 192, 256, 384, 512, 640, 750, 828, 960, 1024, 1080, 1280,
+      1668, 1920, 2048, 2560, 3200, 3840
+    ],
+    "remotePatterns": [],
+    "minimumCacheTTL": 60,
+    "formats": ["image/webp"],
+    "dangerouslyAllowSVG": false,
+    "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
+    "contentDispositionType": "inline"
+  }
+}

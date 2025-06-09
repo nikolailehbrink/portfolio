@@ -1,21 +1,76 @@
-# Personal portfolio website
-
-Source code for my personal portfolio website. The site showcases my projects and gives an insight into my background, my passion for web development and design, and the technologies I work with.
-
-<a href="https://nikolailehbr.ink">
-  <img alt="Personal portfolio website of Nikolai Lehbrink" src="https://github.com/nikolailehbrink/portfolio/assets/38915700/c7dd07d8-ca7d-4a19-8af3-f684e483bb60">
+<a href="https://retail.nikolailehbr.ink/">
+  <img alt="ReTail website screenshot" src="./public/assets/screenshot.png">
+  <h1 align="center">ReTail</h1>
 </a>
 
-## ✨ Features
+<p align="center">
+A refined React Router starter template with improved defaults for building full-stack web applications.
+</p>
 
-- **Modern Technologies**: Built with [Next.js 14](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/), and [Tailwind CSS](https://tailwindcss.com/).
-- **Homepage**: A homepage with a brief introduction, [why I am passionate about web development](https://www.nikolailehbr.ink/#passion), a list of projects, my skills, work experience, and contact information.
-- **Custom AI Chatbot**: A [personal AI chatbot](https://www.nikolailehbr.ink/chat) capable of responding to queries about domain-specific information related to me, developed using [LLamaIndex.TS](https://ts.llamaindex.ai/) and the [Vercel AI SDK](https://sdk.vercel.ai/docs), and powered by the [OpenAI API](https://openai.com/blog/openai-api).
-- **Personal blog**: A [blog section](https://www.nikolailehbr.ink/blog) to share my thoughts and experiences. Built with [Sanity](https://www.sanity.io/) to handle content management.
-- **SEO**: Optimized for search engines and social sharing
-- **Animation**: [GSAP](https://gsap.com/) animations for a visual appealing user experience.
-- **Accessibility**: Build on top of [Radix UI](https://radix-ui.com/) and [shadcn/ui](https://ui.shadcn.com/docs) for accessible, modern and inclusive design.
+<p align="center">
+  <a href="#why"><strong>Why</strong></a> ·
+  <a href="#features"><strong>Features</strong></a> ·
+  <a href="#development"><strong>Development</strong></a> ·
+  <a href="#deployment"><strong>Deployment</strong></a>
+</p>
+<br/>
 
-## 🤗 Room for improvement
+## Why
 
-If you noticed a bug or something that could be improved, I welcome you to [file an issue](https://github.com/nikolailehbrink/portfolio/issues/new) or [open a pull request](https://github.com/nikolailehbrink/portfolio/compare) to contribute to the project.
+When I first started using `Remix`, the predecessor to `React Router 7`, I worked with the [official `Remix` template with `Vite`](https://github.com/remix-run/remix/tree/main/templates/remix). However, it lacked built-in support for `Tailwind CSS`, requiring me to manually install and configure it for every new project. To simplify this setup, I created my own starter template: **ReTail** (`Remix`/`React Router` + `Tailwind CSS`).
+
+Since then, the official `Remix` template has added `Tailwind CSS` support, and `React Router 7` has been released. Despite these updates, I continue to maintain ReTail because I think it provides better defaults, includes `ESLint 9`, and integrates useful utilities that improve the development experience with `Tailwind CSS` and other tools.
+
+## Features
+
+- **React Router 7** – The latest version of React Router, paired with Vite for instant server start, fast HMR, and optimized full-stack builds.
+- **Tailwind CSS 4** – Build UIs faster with the utility-first CSS framework and its new CSS-first configuration.
+- **Vite 6** – A lightning-fast frontend build tool that delivers instant code serving and optimized bundling.
+- **Automatic class name wrapping** – Keeps long class names readable using [`prettier-plugin-classnames`](https://www.npmjs.com/package/prettier-plugin-classnames).
+- **Automatic class sorting** – Ensures consistent class order with [`prettier-plugin-tailwindcss`](https://tailwindcss.com/blog/automatic-class-sorting-with-prettier).
+- **Font optimization** – Preloads local fonts efficiently with [Fontsource](https://fontsource.org/).
+- **ESLint 9** – Maintains code quality with ESLint and the [ESLint Config Inspector](https://eslint.org/blog/2024/04/eslint-config-inspector/).
+
+## Helpful Scripts
+
+> [!TIP]
+> Use any package manager you prefer, such as `npm` or `yarn`, instead of `pnpm`.
+
+- **`pnpm format`**: Format all your files with Prettier.
+- **`pnpm lint`**: Lint your code with ESLint.
+- **`pnpm lint:inspect`**: Inspect your ESLint configuration with the ESLint Config Inspector.
+- **`pnpm start`**: Run the app locally in production mode.
+- **`pnpm typecheck`**: Generate TypeScript types for your app.
+- **`pnpm clean`**: Remove the `node_modules` directory.
+
+## Development
+
+> [!TIP]
+> Use any package manager you prefer, such as `npm` or `yarn`, instead of `pnpm`.
+
+Run the Vite dev server:
+
+```shellscript
+pnpm dev
+```
+
+This will automatically open the app in your default browser and expose the host IP to your network, enabling better testing on devices like smartphones.
+
+## Deployment
+
+> [!TIP]
+> Use any package manager you prefer, such as `npm` or `yarn`, instead of `pnpm`.
+
+First, build your app for production:
+
+```sh
+pnpm build
+```
+
+Then run the app in production mode:
+
+```sh
+pnpm start
+```
+
+Now you'll need to pick a host to deploy it to.

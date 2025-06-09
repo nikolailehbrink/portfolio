@@ -1,0 +1,116 @@
+import { getBlogCategories, getPosts } from "@/lib/posts";
+import type { Route } from "./+types";
+import PostTeaser from "@/components/PostTeaser";
+import { Badge } from "@/components/ui/badge";
+import { Form, useSearchParams } from "react-router";
+import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const { searchParams } = new URL(request.url);
+  const filterCategory = searchParams.get("category");
+  const posts = await getPosts({ category: filterCategory });
+  const categories = await getBlogCategories();
+  return { posts, categories, filterCategory };
+}
+
+export default function Blog({ loaderData }: Route.ComponentProps) {
+  const { posts, categories, filterCategory } = loaderData;
+  const [searchParams] = useSearchParams();
+  const hasCategoryFilter = filterCategory !== null;
+  return (
+    <div className="flex flex-col gap-4 sm:items-center">
+      <h1 className="text-3xl font-bold sm:text-center sm:text-4xl">Blog</h1>
+      <p className="max-w-prose text-muted-foreground sm:text-center">
+        A collection of my thoughts, ideas, and experiences. I write about
+        various topics, including web development, technology, and personal
+        topics.
+      </p>
+      <div
+        className="relative grid max-w-xl overflow-hidden rounded-lg border
+          border-border bg-neutral-900 offset-border"
+      >
+        <div
+          className="absolute inset-y-0 right-0 w-2 rounded-e-lg bg-linear-to-r
+            from-transparent to-neutral-900"
+        ></div>
+        <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto p-2">
+          <Form className="snap-end scroll-mr-2">
+            <Badge
+              asChild
+              className="cursor-pointer"
+              variant={hasCategoryFilter ? "secondary" : "default"}
+            >
+              <button type="submit">All</button>
+            </Badge>
+          </Form>
+          {categories.map((category) => {
+            const isActive = searchParams.get("category") === category;
+            return (
+              <Form key={category} className="snap-end scroll-mr-2">
+                <Badge asChild variant={isActive ? "default" : "secondary"}>
+                  <button
+                    {...(!isActive
+                      ? { name: "category", value: category }
+                      : {})}
+                    type="submit"
+                    className="cursor-pointer"
+                  >
+                    {category}
+                  </button>
+                </Badge>
+              </Form>
+            );
+          })}
+        </div>
+      </div>
+      <ul
+        className="mt-2 grid grid-cols-1 gap-4 rounded-md md:grid-cols-2
+          lg:max-w-5xl"
+      >
+        {posts.length > 0 ? (
+          posts.map(({ slug, metadata }) => (
+            <PostTeaser key={slug} slug={slug} metadata={metadata} />
+          ))
+        ) : (
+          <p
+            className="col-span-2 rounded-lg bg-neutral-900 p-4 py-3 text-center
+              text-muted-foreground"
+          >
+            No posts were found{" "}
+            {filterCategory ? `for ${filterCategory}.` : "."} <br />
+          </p>
+        )}
+      </ul>
+    </div>
+  );
+}
+
+export const meta: Route.MetaFunction = mergeRouteModuleMeta(() => {
+  const title = "Blog | Nikolai Lehbrink";
+  const description =
+    "A collection of my thoughts, ideas, and experiences in web development, technology, and personal topics.";
+  return [
+    { title: title },
+    {
+      name: "description",
+      content: description,
+    },
+    {
+      property: "og:title",
+      content: title,
+    },
+    { property: "og:description", content: description },
+    {
+      "script:ld+json": {
+        "@context": "https://schema.org/",
+        "@type": "Blog",
+        name: title,
+        description: description,
+        publisher: {
+          "@type": "Person",
+          name: "Nikolai Lehbrink",
+        },
+      },
+    },
+  ];
+});
