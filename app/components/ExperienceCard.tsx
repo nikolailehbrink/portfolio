@@ -45,6 +45,7 @@ export default function ExperienceCard({
           {...logo}
           alt={organization}
         />
+        <span className="sr-only">Link to {url}</span>
       </Link>
 
       <div className="flex grow flex-col gap-0.5">

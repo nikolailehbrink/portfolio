@@ -66,6 +66,7 @@ export default function ProjectTeaser({
               >
                 <Link to={github} target="_blank" rel="noopener noreferrer">
                   <GithubLogo weight="duotone" size={20} />
+                  <span className="sr-only">Link to GitHub repository</span>
                 </Link>
               </Button>
             ) : null}

@@ -24,12 +24,9 @@ export default function PostTeaser({
       className="group relative flex flex-col rounded-lg border bg-neutral-900
         offset-border transition-colors hover:bg-neutral-800"
     >
-      <Link
-        className="absolute inset-0 z-20"
-        to={slug}
-        prefetch="intent"
-        aria-label="Link to article"
-      ></Link>
+      <Link className="absolute inset-0 z-20" to={slug} prefetch="intent">
+        <span className="sr-only">Link to article</span>
+      </Link>
       <div
         className="z-10 flex flex-col gap-3 rounded-lg border-neutral-700 p-4
           hover:bg-neutral-800"

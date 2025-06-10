@@ -28,6 +28,7 @@ export default function Actions({
         value={input}
         onChange={handleInputChange}
         disabled={disabled}
+        aria-label="Type your message here"
       />
       {status === "error" && (
         <Button

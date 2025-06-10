@@ -31,9 +31,7 @@ export default function Navbar() {
             {({ isActive }) => (
               <>
                 <Icon className="size-6 sm:size-5" weight="duotone" />
-                <span
-                  className={!isActive ? "max-sm:sr-only max-sm:hidden" : ""}
-                >
+                <span className={!isActive ? "max-sm:sr-only" : ""}>
                   {name}
                 </span>
               </>
