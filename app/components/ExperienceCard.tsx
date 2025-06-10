@@ -38,11 +38,13 @@ export default function ExperienceCard({
         <img
           className="absolute inset-0 size-full rounded-full blur-2xl"
           {...logo}
+          loading="lazy"
           alt={organization}
         />
         <img
           className="relative size-10 rounded-full"
           {...logo}
+          loading="lazy"
           alt={organization}
         />
         <span className="sr-only">Link to {url}</span>
