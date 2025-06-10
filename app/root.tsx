@@ -11,7 +11,7 @@ import {
   type LinksFunction,
 } from "react-router";
 import { Analytics } from "@vercel/analytics/react";
-import ogImage from "./og-image.png";
+import ogImage from "./og-image.webp";
 
 import type { Route } from "./+types/root";
 import "./app.css";

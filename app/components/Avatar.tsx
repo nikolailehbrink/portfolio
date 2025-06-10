@@ -1,4 +1,4 @@
-import avatar from "@/assets/images/avatar.jpeg";
+import avatar from "@/assets/images/avatar.webp";
 import { cn } from "@/lib/utils";
 
 export default function Avatar({

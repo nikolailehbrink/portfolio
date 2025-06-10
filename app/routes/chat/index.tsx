@@ -7,7 +7,7 @@ import type { Route } from "./+types";
 import { typedMessageCountCookie } from "@/lib/cookies.server";
 import { useRevalidator } from "react-router";
 import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
-import ogImage from "./og-image.png?url";
+import ogImage from "./og-image.webp";
 
 export const MESSAGE_LIMIT = import.meta.env.PROD ? 10 : 2;
 
