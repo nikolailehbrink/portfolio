@@ -202,7 +202,7 @@ export default function Home({
                           from-neutral-900 to-transparent"
                       ></div>
                     </div>
-                    {skillSet.map(({ name, icon: Icon, url }) => (
+                    {skillSet.map(({ name, logo: Logo, url }) => (
                       <li key={name} className="snap-start scroll-mx-4">
                         <Link
                           className="flex flex-col items-center gap-2 text-xs
@@ -213,8 +213,8 @@ export default function Home({
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <Icon className="size-8 rounded" />
                           <span className="">{name}</span>
+                          <Logo className="size-8 rounded" />
                         </Link>
                       </li>
                     ))}

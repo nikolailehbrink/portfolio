@@ -6,6 +6,12 @@ import {
   type Icon,
 } from "@phosphor-icons/react";
 
+type NavigationLink = {
+  name: string;
+  path: TypedRoute;
+  icon: Icon;
+};
+
 export const NAVIGATION_LINKS = [
   {
     name: "Home",
@@ -22,8 +28,4 @@ export const NAVIGATION_LINKS = [
     path: "/chat",
     icon: ChatsCircle,
   },
-] as const satisfies {
-  name: string;
-  path: TypedRoute;
-  icon: Icon;
-}[];
+] as const satisfies NavigationLink[];

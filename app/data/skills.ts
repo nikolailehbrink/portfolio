@@ -20,133 +20,133 @@ import Payload from "@/assets/svg/payload.svg?react";
 import Sanity from "@/assets/svg/sanity.svg?react";
 import Wordpress from "@/assets/svg/wordpress.svg?react";
 
+type Skill = {
+  name: string;
+  logo: React.FunctionComponent<
+    React.ComponentProps<"svg"> & {
+      title?: string;
+      titleId?: string;
+      desc?: string;
+      descId?: string;
+    }
+  >;
+  url: string;
+};
+
 export const SKILLS = {
   Frontend: [
     {
       name: "HTML",
-      icon: HTML,
+      logo: HTML,
       url: "https://developer.mozilla.org/de/docs/Web/HTML",
     },
     {
       name: "CSS",
-      icon: CSS,
+      logo: CSS,
       url: "https://developer.mozilla.org/de/docs/Web/CSS",
     },
     {
       name: "JavaScript",
-      icon: JavaScript,
+      logo: JavaScript,
       url: "https://developer.mozilla.org/de/docs/Web/JavaScript",
     },
     {
       name: "TypeScript",
-      icon: TypeScript,
+      logo: TypeScript,
       url: "https://www.typescriptlang.org",
     },
     {
       name: "Tailwind CSS",
-      icon: TailwindCSS,
+      logo: TailwindCSS,
       url: "https://tailwindcss.com",
     },
     {
       name: "React",
-      icon: React,
+      logo: React,
       url: "https://react.dev",
     },
     {
       name: "React Router",
-      icon: ReactRouter,
+      logo: ReactRouter,
       url: "https://reactrouter.com",
     },
     {
       name: "Remix",
-      icon: Remix,
+      logo: Remix,
       url: "https://remix.run",
     },
     {
       name: "Next.js",
-      icon: Nextjs,
+      logo: Nextjs,
       url: "https://nextjs.org",
     },
   ],
   Backend: [
     {
       name: "Node.js",
-      icon: NodeJS,
+      logo: NodeJS,
       url: "https://nodejs.org",
     },
     {
       name: "Deno",
-      icon: Deno,
+      logo: Deno,
       url: "https://deno.land",
     },
     {
       name: "PHP",
-      icon: PHP,
+      logo: PHP,
       url: "https://www.php.net",
     },
   ],
   Design: [
     {
       name: "Figma",
-      icon: Figma,
+      logo: Figma,
       url: "https://www.figma.com",
     },
     {
       name: "Creative Cloud",
-      icon: CreativeCloud,
+      logo: CreativeCloud,
       url: "https://www.adobe.com/creativecloud.html",
     },
   ],
   CMS: [
     {
       name: "WordPress",
-      icon: Wordpress,
+      logo: Wordpress,
       url: "https://wordpress.org",
     },
     {
       name: "Payload",
-      icon: Payload,
+      logo: Payload,
       url: "https://payloadcms.com",
     },
     {
       name: "Sanity",
-      icon: Sanity,
+      logo: Sanity,
       url: "https://www.sanity.io",
     },
   ],
   Tools: [
     {
       name: "VS Code",
-      icon: VisualStudioCode,
+      logo: VisualStudioCode,
       url: "https://code.visualstudio.com",
     },
     {
       name: "Vite",
-      icon: Vite,
+      logo: Vite,
       url: "https://vite.dev",
     },
     {
       name: "GitHub Copilot",
-      icon: Copilot,
+      logo: Copilot,
       url: "https://github.com/features/copilot",
     },
     {
       name: "GitHub",
-      icon: GitHub,
+      logo: GitHub,
       url: "https://github.com",
     },
   ],
-} as const satisfies {
-  [key: string]: {
-    name: string;
-    icon: React.FunctionComponent<
-      React.ComponentProps<"svg"> & {
-        title?: string;
-        titleId?: string;
-        desc?: string;
-        descId?: string;
-      }
-    >;
-    url: string;
-  }[];
-};
+} as const satisfies { [key: string]: Skill[] };

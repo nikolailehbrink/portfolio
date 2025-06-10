@@ -6,6 +6,12 @@ import {
   type Icon,
 } from "@phosphor-icons/react";
 
+type SocialProfile = {
+  name: string;
+  href: string;
+  logo: Icon;
+};
+
 export const SOCIAL_MEDIA_PROFILES = [
   {
     name: "GitHub",
@@ -27,8 +33,4 @@ export const SOCIAL_MEDIA_PROFILES = [
     href: "https://dribbble.com/nikolailehbrink",
     logo: DribbbleLogo,
   },
-] as const satisfies {
-  name: string;
-  href: string;
-  logo: Icon;
-}[];
+] as const satisfies SocialProfile[];
