@@ -1,16 +1,7 @@
+import type { WorkExperience } from "@/data/workExperience";
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router";
-
-export type Experience = {
-  title: string;
-  description: string;
-  startDate: string;
-  endDate: string | null;
-  logo: string;
-  organization: string;
-  url: string;
-};
 
 const DATE_TIME_FORMAT_OPTIONS: Intl.DateTimeFormatOptions = {
   year: "numeric",
@@ -25,7 +16,7 @@ export default function ExperienceCard({
   organization,
   logo,
   url,
-}: Experience) {
+}: WorkExperience) {
   const formattedStartDate = formatDate(startDate, DATE_TIME_FORMAT_OPTIONS);
   const formattedEndDate =
     endDate !== null
@@ -45,14 +36,14 @@ export default function ExperienceCard({
           p-1"
       >
         <img
-          src={logo}
-          alt={organization}
           className="absolute inset-0 size-full rounded-full blur-2xl"
+          {...logo}
+          alt={organization}
         />
         <img
-          src={logo}
-          alt={organization}
           className="relative size-10 rounded-full"
+          {...logo}
+          alt={organization}
         />
       </Link>
 

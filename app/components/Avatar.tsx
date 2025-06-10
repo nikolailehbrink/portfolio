@@ -10,8 +10,8 @@ export default function Avatar({
       src={avatar}
       className={cn("object-cover", className)}
       alt="Avatar"
-      width={128}
-      height={128}
+      width={400}
+      height={400}
       title="Profile image"
       {...props}
     />

@@ -1,4 +1,4 @@
-import type { PROJECTS } from "@/data/projects";
+import type { Project } from "@/data/projects";
 import { Button } from "./ui/button";
 import { Link } from "react-router";
 import { GithubLogo, LinkSimple } from "@phosphor-icons/react";
@@ -11,7 +11,7 @@ export default function ProjectTeaser({
   title,
   github,
   url,
-}: (typeof PROJECTS)[number]) {
+}: Project) {
   return (
     <div
       className="relative row-span-4 flex flex-col justify-start gap-2
@@ -33,7 +33,7 @@ export default function ProjectTeaser({
             via-transparent to-neutral-900 to-95%"
         ></div>
         <img
-          src={image}
+          {...image}
           alt={title}
           className="aspect-[4/3] rounded-lg object-cover"
         />
