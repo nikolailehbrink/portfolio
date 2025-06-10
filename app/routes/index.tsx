@@ -152,10 +152,12 @@ export default function Home({
             topics.
           </p>
           {posts.length > 0 ? (
-            <div className="relative flex flex-col gap-4">
-              {posts.map((post) => (
-                <PostTeaser key={post.slug} {...post}></PostTeaser>
-              ))}
+            <div className="relative">
+              <ul className="flex flex-col gap-4">
+                {posts.map((post) => (
+                  <PostTeaser key={post.slug} {...post}></PostTeaser>
+                ))}
+              </ul>
               <div
                 className="absolute -inset-x-[3px] -bottom-[3px] z-30 flex
                   justify-center rounded-xl bg-gradient-to-b from-transparent
