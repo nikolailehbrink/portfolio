@@ -17,6 +17,13 @@ import {
 import { transformerMetaDiff } from "./app/lib/shiki/transformerMetaDiff";
 
 export default defineConfig(({ command }) => ({
+  build: {
+    rollupOptions: {
+      // There was a build error related to the @forge42/seo-tools package
+      // https://github.com/forge-42/seo-tools/issues/13
+      external: ["virtual:remix/server-build"],
+    },
+  },
   server: {
     open: true,
     host: true,
