@@ -196,12 +196,6 @@ export default function Home({
                     className="relative flex snap-x snap-mandatory gap-4
                       overflow-x-auto border-b bg-neutral-900 p-4 shadow"
                   >
-                    <div className="absolute inset-y-0">
-                      <div
-                        className="sticky right-0 size-full w-4 bg-gradient-to-l
-                          from-neutral-900 to-transparent"
-                      ></div>
-                    </div>
                     {skillSet.map(({ name, logo: Logo, url }) => (
                       <li key={name} className="snap-start scroll-mx-4">
                         <Link
@@ -213,8 +207,8 @@ export default function Home({
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <span className="">{name}</span>
                           <Logo className="size-8 rounded" />
+                          <span>{name}</span>
                         </Link>
                       </li>
                     ))}
