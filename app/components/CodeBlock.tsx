@@ -35,7 +35,10 @@ export default function CodeBlock({ children, className, ...props }: Props) {
               return (
                 <span
                   key={`${name}-${index}`}
-                  className="inline-flex items-center gap-x-0.5"
+                  className={cn(
+                    "inline-flex items-center gap-x-0.5",
+                    isLast ? "text-foreground" : "",
+                  )}
                 >
                   {filePaths.length > 1 &&
                     (!isLast ? (
