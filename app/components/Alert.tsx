@@ -37,7 +37,7 @@ export default function Alert({
   return (
     // According to https://cva.style/docs/getting-started/extending-components one can pass the className prop to the function
     // However this adds the class at the end and doesn't merge it with the existing classes, so I use cn here
-    <div className={cn(alert({ type }), className)} {...props}>
+    <div role="note" className={cn(alert({ type }), className)} {...props}>
       <div className="flex items-center gap-1.5">
         <div className="relative">
           <div className="absolute inset-1 opacity-50 blur-md"></div>
