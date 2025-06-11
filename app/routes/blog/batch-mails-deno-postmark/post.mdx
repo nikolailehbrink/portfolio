@@ -9,7 +9,7 @@ export const handle = {
     "Learn how we efficiently send over 37k notification emails with detailed logging and error handling.",
   tags: ["Deno", "Postmark", "Email", "TypeScript"],
   draft: false,
-  readingTime: 7,
+  readingTime: 8,
 };
 
 Recently, we needed to send over 37k emails to our users. This task required a reliable, efficient solution that
@@ -36,7 +36,7 @@ Here is what makes Deno great:
 
 Here's the script we used to send our emails:
 
-```typescript filename="emails/main.ts"
+```typescript filename="emails/main.ts" showLineNumbers
 import postmark from "npm:postmark";
 import users from "./users.json" with { type: "json" };
 
@@ -121,7 +121,7 @@ One of Deno's standout features is its native TypeScript support. Unlike Node.js
 
 Deno provides a clean API for accessing environment variables:
 
-```typescript
+```typescript showLineNumbers=3
 const SERVER_API_TOKEN = Deno.env.get("POSTMARK_SERVER_API_TOKEN");
 
 if (SERVER_API_TOKEN === undefined) {
@@ -139,7 +139,7 @@ if (SERVER_API_TOKEN === undefined) {
 
 Deno supports importing JSON files directly with the `with { type: "json" }{:js}` syntax:
 
-```typescript
+```typescript showLineNumbers=1
 import users from "./users.json" with { type: "json" };
 ```
 
@@ -151,7 +151,7 @@ As a result our user data was loaded directly as an object.
 
 Deno provides straightforward [APIs for file operations](https://docs.deno.com/api/deno/file-system). We used these to implement a robust logging system:
 
-```typescript
+```typescript showLineNumbers=45
 await Deno.writeTextFile(
   "logs.txt",
   responses.map((response) => JSON.stringify(response)).join("\n") + "\n",
@@ -172,7 +172,7 @@ This dual logging approach turned out pretty valuable for monitoring the progres
 
 Deno also made it simple to read binary files, which we needed for attaching a PDF to our emails:
 
-```typescript
+```typescript showLineNumbers=17
 const pdf = Deno.readFileSync("./data-privacy-note.pdf");
 const pdfBase64 = btoa(String.fromCharCode(...pdf));
 ```
@@ -192,7 +192,7 @@ The `Deno.readFileSync(){:ts}` function returns a `Uint8Array{:js}`, which we co
 
 We imported the <ProfileBadge platform="GitHub" handle={"ActiveCampaign/postmark.js"}>Postmark Node.js Library</ProfileBadge> using Deno's npm compatibility:
 
-```typescript
+```typescript showLineNumbers
 import postmark from "npm:postmark";
 ```
 
@@ -245,7 +245,7 @@ The template contained our email content, while our script focused on the delive
 
 Our script included comprehensive error handling and logging:
 
-```typescript
+```typescript showLineNumbers=42
 try {
   const responses = await client.sendEmailBatchWithTemplates(emails);
   // Log all responses
