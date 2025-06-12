@@ -53,7 +53,7 @@ export default function ProjectTeaser({
               <Button asChild>
                 <Link to={url} target="_blank" rel="noopener noreferrer">
                   <LinkSimple weight="duotone" size={20} />
-                  Details
+                  Visit
                 </Link>
               </Button>
             ) : null}
