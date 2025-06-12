@@ -7,7 +7,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
   const { origin } = new URL(request.url);
   const sitemap = await generateRemixSitemap({
     domain: origin,
-    ignore: [href("/api/chat"), href("/legal-notice"), href("/privacy-policy")],
+    ignore: [href("/api/chat")],
     // @ts-expect-error Type mismatch, maybe related to a stricter type mentioned in release notes for v.7.0.0
     // https://github.com/forge-42/seo-tools/issues/8
     routes,
