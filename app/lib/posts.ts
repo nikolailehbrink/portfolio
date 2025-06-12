@@ -38,11 +38,6 @@ export async function getPosts(options?: {
   if (category) {
     files = files.filter((file) => file.metadata.tags?.includes(category));
   }
-
-  if (take && take > 0) {
-    files = files.slice(0, take);
-  }
-
   if (files.length > 1) {
     files = files.sort((a, b) => {
       return (
@@ -50,6 +45,10 @@ export async function getPosts(options?: {
         new Date(a.metadata.publicationDate).getTime()
       );
     });
+  }
+
+  if (take && take > 0) {
+    files = files.slice(0, take);
   }
 
   return files;
