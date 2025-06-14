@@ -22,6 +22,7 @@ import {
   TextColumns,
 } from "@phosphor-icons/react";
 import { resend } from "@/lib/resend";
+import NewsletterForm from "@/components/NewsletterForm";
 
 export async function loader() {
   const posts = await getPosts({ take: 2 });
@@ -176,6 +177,7 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
               </div>
             </div>
           ) : null}
+          <NewsletterForm showText={false} />
         </div>
       </div>
       <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-2">

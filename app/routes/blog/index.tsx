@@ -4,6 +4,7 @@ import PostTeaser from "@/components/PostTeaser";
 import { Badge } from "@/components/ui/badge";
 import { Form, useSearchParams } from "react-router";
 import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
+import NewsletterForm from "@/components/NewsletterForm";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { searchParams } = new URL(request.url);
@@ -25,6 +26,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
         various topics, including web development, technology, and personal
         topics.
       </p>
+      <NewsletterForm showText={false} className="max-w-2xl"></NewsletterForm>
       <div
         className="relative mt-4 grid max-w-xl overflow-hidden rounded-lg border
           border-border bg-neutral-900 offset-border"
