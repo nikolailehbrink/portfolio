@@ -26,7 +26,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
         topics.
       </p>
       <div
-        className="relative grid max-w-xl overflow-hidden rounded-lg border
+        className="relative mt-4 grid max-w-xl overflow-hidden rounded-lg border
           border-border bg-neutral-900 offset-border"
       >
         <div

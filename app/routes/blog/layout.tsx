@@ -50,7 +50,7 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
       <header
         className={cn(
           "mx-auto prose w-full prose-neutral dark:prose-invert",
-          cover !== undefined ? "text-center" : "",
+          cover !== undefined ? "sm:text-center" : "",
         )}
       >
         <LinkedHeading level={1}>{title}</LinkedHeading>
