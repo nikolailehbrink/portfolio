@@ -8,7 +8,7 @@ Source code for my personal portfolio website. The site showcases my projects an
 
 ## ✨ Features
 
-- **Modern Technologies**: Built with [React Router 7](https://reactrouter.com/), [TypeScript](https://www.typescriptlang.org/) [MDX](https://mdxjs.com/), and [Tailwind CSS](https://tailwindcss.com/).
+- **Modern Technologies**: Built with [React Router 7](https://reactrouter.com/), [TypeScript](https://www.typescriptlang.org/), [MDX](https://mdxjs.com/), and [Tailwind CSS](https://tailwindcss.com/).
 - **Homepage**: A homepage with a brief introduction, a list of projects, my skills, work experience, and contact information.
 - **Custom AI Chatbot**: A [personal AI chatbot](https://www.nikolailehbr.ink/chat) capable of responding to queries about domain-specific information related to me, developed using [LLamaIndex.TS](https://ts.llamaindex.ai/), the [Vercel AI SDK](https://sdk.vercel.ai/docs), and powered by the [OpenAI API](https://openai.com/blog/openai-api).
 - **Personal blog**: A [blog section](https://www.nikolailehbr.ink/blog) to share my thoughts and experiences. Built with [MDX](https://mdxjs.com/) to handle content management.
