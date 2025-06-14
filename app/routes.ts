@@ -31,7 +31,7 @@ export default [
       route("privacy-policy", "./routes/legal/privacy-policy.md"),
       route("legal-notice", "routes/legal/legal-notice.md"),
     ]),
-    ]),
+  ]),
   ...prefix("api", [
     route("chat", "routes/api/chat.ts"),
     ...prefix("newsletter", [
@@ -39,6 +39,6 @@ export default [
       route("signup", "routes/api/newsletter/signup.ts"),
     ]),
   ]),
-    route("sitemap.xml", "routes/sitemap.xml.ts"),
-    route("robots.txt", "routes/robots.txt.ts"),
+  route("sitemap.xml", "routes/sitemap.xml.ts"),
+  route("robots.txt", "routes/robots.txt.ts"),
 ] satisfies RouteConfig;
