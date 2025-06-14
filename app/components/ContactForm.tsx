@@ -16,13 +16,14 @@ import {
   PhoneTransfer,
   TextAlignLeft,
   Textbox,
-  Warning,
 } from "@phosphor-icons/react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
+import FormMessage from "./FormMessage";
+import FormItem from "./FormItem";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -99,7 +100,9 @@ export default function ContactForm({
           {...getInputProps(fields.email, { type: "email" })}
           placeholder="john.doe@example.com"
         />
-        <FormError id={fields.email.errorId}>{fields.email.errors}</FormError>
+        <FormMessage id={fields.email.errorId}>
+          {fields.email.errors}
+        </FormMessage>
       </FormItem>
       <FormItem>
         <Label htmlFor={fields.name.id}>
@@ -110,7 +113,7 @@ export default function ContactForm({
           {...getInputProps(fields.name, { type: "text" })}
           placeholder="John Doe"
         />
-        <FormError id={fields.name.errorId}>{fields.name.errors}</FormError>
+        <FormMessage id={fields.name.errorId}>{fields.name.errors}</FormMessage>
       </FormItem>
       <FormItem>
         <Label htmlFor={fields.subject.id}>
@@ -121,9 +124,9 @@ export default function ContactForm({
           {...getInputProps(fields.subject, { type: "text" })}
           placeholder="What can I help you with?"
         />
-        <FormError id={fields.subject.errorId}>
+        <FormMessage id={fields.subject.errorId}>
           {fields.subject.errors}
-        </FormError>
+        </FormMessage>
       </FormItem>
       <FormItem>
         <Label htmlFor={fields.phone.id}>
@@ -134,7 +137,9 @@ export default function ContactForm({
           {...getInputProps(fields.phone, { type: "text" })}
           placeholder="+49 12345 6789"
         />
-        <FormError id={fields.phone.errorId}>{fields.phone.errors}</FormError>
+        <FormMessage id={fields.phone.errorId}>
+          {fields.phone.errors}
+        </FormMessage>
       </FormItem>
 
       <FormItem className="@lg:col-span-2">
@@ -146,9 +151,9 @@ export default function ContactForm({
           {...getTextareaProps(fields.message)}
           placeholder="Type your message here."
         />
-        <FormError id={fields.message.errorId}>
+        <FormMessage id={fields.message.errorId}>
           {fields.message.errors}
-        </FormError>
+        </FormMessage>
       </FormItem>
       <Button className="@lg:col-span-2" type="submit" disabled={isLoading}>
         {isLoading ? (
@@ -164,43 +169,5 @@ export default function ContactForm({
         )}
       </Button>
     </Form>
-  );
-}
-
-export function FormError({
-  children,
-  className,
-  ...props
-}: {
-  children: React.ReactNode;
-} & React.ComponentProps<"div">) {
-  if (!children) {
-    return null;
-  }
-  return (
-    <div
-      className={cn("flex items-center gap-1 text-sm text-red-400", className)}
-      {...props}
-    >
-      <Warning size={16} weight="duotone" />
-      {children}
-    </div>
-  );
-}
-
-export function FormItem({
-  children,
-  className,
-  ...props
-}: {
-  children: React.ReactNode;
-} & React.ComponentProps<"div">) {
-  return (
-    <div
-      className={cn("group/form-item flex flex-col gap-2", className)}
-      {...props}
-    >
-      {children}
-    </div>
   );
 }
