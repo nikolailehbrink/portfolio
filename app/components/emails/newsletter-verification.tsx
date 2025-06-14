@@ -80,25 +80,29 @@ const NewsletterVerificationEmail = ({
                 </Button>
               </Section>
 
-              <Container className="text-neutral-400">
-                <Text className="mb-[12px] text-[14px] leading-[20px]">
-                  If the button above doesn&apos;t work, you can also copy and
-                  paste this link into your browser:
-                </Text>
+              <Text
+                className="mb-[12px] text-[14px] leading-[20px]
+                  text-neutral-400"
+              >
+                If the button above doesn&apos;t work, you can also copy and
+                paste this link into your browser:
+              </Text>
 
-                <Text
-                  className="mb-[12px] text-[14px] leading-[20px] break-all
-                    text-sky-600"
-                >
-                  {confirmationLink}
-                </Text>
+              <Text
+                className="mb-[12px] text-[14px] leading-[20px] break-all
+                  text-sky-600"
+              >
+                {confirmationLink}
+              </Text>
 
-                <Text className="mb-[12px]">
-                  Note: This verification link will expire in 24 hours for
-                  security reasons. If you didn&apos;t subscribe to our
-                  newsletter, you can safely ignore this email.
-                </Text>
-              </Container>
+              <Text
+                className="mb-[12px] text-[14px] leading-[20px]
+                  text-neutral-400"
+              >
+                Note: This verification link will expire in 24 hours for
+                security reasons. If you didn&apos;t subscribe to our
+                newsletter, you can safely ignore this email.
+              </Text>
 
               <Text
                 className="mb-[8px] text-[16px] leading-[24px] text-neutral-300"

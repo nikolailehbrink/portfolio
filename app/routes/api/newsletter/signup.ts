@@ -35,7 +35,7 @@ export async function action({ request }: Route.ActionArgs) {
   const confirmationLink = `${origin}${href("/api/newsletter/verification")}?token=${token}`;
 
   const { error } = await resend.emails.send({
-    from: "Newsletter <newsletter@nikolailehbr.ink>",
+    from: "Nikolai Lehbrink <newsletter@nikolailehbr.ink>",
     to: [import.meta.env.DEV ? "delivered@resend.dev" : email],
     subject: "Please confirm your newsletter subscription",
     tags: [
