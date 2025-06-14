@@ -71,12 +71,17 @@ export async function action({ request }: Route.ActionArgs) {
       formErrors: ["Failed to send the message. Please try again later."],
     });
   }
+
+  return {
+    //https://github.com/edmundhung/conform/issues/410
+    ...submission.reply(),
+    ...submission.reply({
+      resetForm: true,
+    }),
+  };
 }
 
-export default function Home({
-  actionData: lastResult,
-  loaderData: { posts },
-}: Route.ComponentProps) {
+export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
   return (
     <div className="flex flex-col items-start gap-8 sm:items-center sm:gap-16">
       <div className="relative flex items-center justify-center">
@@ -256,7 +261,7 @@ export default function Home({
           want to say hello, feel free to reach out using the form below. I will
           get back to you as soon as possible.
         </p>
-        <ContactForm lastResult={lastResult} />
+        <ContactForm />
       </section>
     </div>
   );
