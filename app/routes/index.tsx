@@ -3,7 +3,6 @@ import { SKILLS } from "@/data/skills";
 import Avatar from "@/components/Avatar";
 import { EDUCATION, WORK_EXPERIENCE } from "@/data/workExperience";
 import type { Route } from "./+types";
-import { Resend } from "resend";
 import { parseWithZod } from "@conform-to/zod";
 import ContactForm, {
   schema as contactFormSchema,
@@ -22,6 +21,7 @@ import {
   Student,
   TextColumns,
 } from "@phosphor-icons/react";
+import { resend } from "@/lib/resend";
 
 export async function loader() {
   const posts = await getPosts({ take: 2 });
@@ -29,7 +29,6 @@ export async function loader() {
 }
 
 export async function action({ request }: Route.ActionArgs) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
   const formData = await request.formData();
   const submission = parseWithZod(formData, { schema: contactFormSchema });
 
@@ -41,7 +40,7 @@ export async function action({ request }: Route.ActionArgs) {
   const { email, name, subject, phone, message } = submission.value;
 
   const { error } = await resend.emails.send({
-    from: "Kontaktformular <contact@nikolailehbr.ink>",
+    from: "Kontaktformular <contact-form@nikolailehbr.ink>",
     replyTo: email,
     to: [
       import.meta.env.DEV ? "delivered@resend.dev" : "mail@nikolailehbr.ink",
