@@ -23,9 +23,14 @@ import clsx from "clsx";
 export const links: LinksFunction = () => {
   return [
     { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+    { rel: "icon", href: "/favicon.ico" },
     {
       rel: "apple-touch-icon",
       href: "/apple-touch-icon.png",
+    },
+    {
+      rel: "manifest",
+      href: "/site.webmanifest",
     },
   ];
 };
@@ -46,10 +51,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         scheme-light dark:bg-neutral-950 dark:text-neutral-400 dark:scheme-dark"
     >
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#171717"></meta>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
