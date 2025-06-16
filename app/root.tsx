@@ -14,9 +14,17 @@ import ogImage from "./og-image.webp";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import interLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 
 export const links: LinksFunction = () => {
   return [
+    {
+      rel: "preload",
+      href: interLatin,
+      as: "font",
+      type: "font/woff2",
+      crossOrigin: "anonymous",
+    },
     { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
     { rel: "icon", href: "/favicon.ico" },
     {
