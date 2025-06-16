@@ -7,7 +7,6 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLocation,
   type LinksFunction,
 } from "react-router";
 import { Analytics } from "@vercel/analytics/react";
@@ -37,9 +36,6 @@ export function loader({ request }: Route.LoaderArgs) {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { pathname } = useLocation();
-  const isChatRoute = pathname.includes("/chat");
-
   return (
     <html
       lang="en"
@@ -53,12 +49,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body
-        className={clsx(
-          "flex flex-col bg-background bg-pattern text-foreground",
-          isChatRoute ? "h-dvh" : "min-h-dvh",
-        )}
-      >
+      <body>
         {children}
         <Analytics />
         <ScrollRestoration />

@@ -9,7 +9,6 @@ import {
 export default [
   layout("routes/layout.tsx", [
     index("routes/index.tsx"),
-    route("chat", "routes/chat/index.tsx"),
     ...prefix("blog", [
       index("routes/blog/index.tsx"),
       layout("routes/blog/layout.tsx", [
@@ -31,6 +30,9 @@ export default [
       route("privacy-policy", "./routes/legal/privacy-policy.md"),
       route("legal-notice", "routes/legal/legal-notice.md"),
     ]),
+  ]),
+  ...prefix("chat", [
+    layout("routes/chat/layout.tsx", [index("routes/chat/index.tsx")]),
   ]),
   ...prefix("api", [
     route("chat", "routes/api/chat.ts"),
