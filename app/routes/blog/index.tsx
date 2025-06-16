@@ -87,32 +87,61 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
   );
 }
 
-export const meta: Route.MetaFunction = mergeRouteModuleMeta(() => {
-  const title = "Blog | Nikolai Lehbrink";
-  const description =
-    "A collection of my thoughts, ideas, and experiences in web development, technology, and personal topics.";
-  return [
-    { title: title },
-    {
-      name: "description",
-      content: description,
-    },
-    {
-      property: "og:title",
-      content: title,
-    },
-    { property: "og:description", content: description },
-    {
-      "script:ld+json": {
-        "@context": "https://schema.org/",
-        "@type": "Blog",
-        name: title,
-        description: description,
-        publisher: {
-          "@type": "Person",
-          name: "Nikolai Lehbrink",
+export const meta: Route.MetaFunction = mergeRouteModuleMeta(
+  ({ data, matches }) => {
+    if (!data) {
+      return [];
+    }
+    const { origin } = matches[0].data;
+    const { posts } = data;
+    const title = "Blog | Nikolai Lehbrink";
+    const description =
+      "A collection of my thoughts, ideas, and experiences in web development, technology, and personal topics.";
+    return [
+      { title },
+      {
+        name: "description",
+        content: description,
+      },
+      {
+        property: "og:title",
+        content: title,
+      },
+      { property: "og:description", content: description },
+      {
+        "script:ld+json": {
+          "@context": "https://schema.org/",
+          "@type": "Blog",
+          name: title,
+          description: description,
+          publisher: {
+            "@type": "Person",
+            name: "Nikolai Lehbrink",
+          },
+          blogPost: posts.map(({ slug, metadata }) => ({
+            "@type": "BlogPosting",
+            mainEntityOfPage: `${origin}${slug}`,
+            headline: metadata.title,
+            description: metadata.description,
+            datePublished: metadata.publicationDate,
+            ...(metadata.modificationDate && {
+              dateModified: metadata.modificationDate,
+            }),
+            author: metadata.authors.map((author) => ({
+              "@type": "Person",
+              name: author,
+            })),
+            ...(metadata.cover && {
+              image: {
+                "@type": "ImageObject",
+                url: origin + metadata.cover,
+              },
+            }),
+            url: `${origin}${slug}`,
+            keywords: metadata.tags,
+          })),
         },
       },
-    },
-  ];
-});
+    ];
+  },
+);
