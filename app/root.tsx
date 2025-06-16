@@ -15,6 +15,7 @@ import ogImage from "./og-image.webp";
 import type { Route } from "./+types/root";
 import "./app.css";
 import interLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import { SOCIAL_MEDIA_PROFILES } from "./data/socialProfiles";
 
 export const links: LinksFunction = () => {
   return [
@@ -188,7 +189,20 @@ export const meta: Route.MetaFunction = ({
       "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "Person",
+        url: origin,
+        description,
         name: "Nikolai Lehbrink",
+        ...SOCIAL_MEDIA_PROFILES.map((profile) => ({
+          sameAs: profile.href,
+        })),
+        contactPoint: {
+          "@type": "ContactPoint",
+          email: "mail@nikolailehbr.ink",
+        },
+        logo: {
+          "@type": "ImageObject",
+          url: origin + "/favicon.svg",
+        },
       },
     },
   ];

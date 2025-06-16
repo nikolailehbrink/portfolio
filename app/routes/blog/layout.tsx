@@ -228,13 +228,14 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
     const publicationTime = new Date(publicationDate).toISOString();
     const modificationTime =
       modificationDate && new Date(modificationDate).toISOString();
+    const fullPath = origin + pathname;
 
     return [
       { title },
       { name: "description", content: description },
       { property: "og:title", content: title },
-      { property: "og:url", content: origin + pathname },
-      ...(authors && authors.length > 0
+      { property: "og:url", content: fullPath },
+      ...(authors.length > 0
         ? authors.map((author) => ({
             property: "article:author",
             content: author,
@@ -261,19 +262,28 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
         "script:ld+json": {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          headline: title,
-          name: title,
+          headline: postTitle,
           description: description,
           datePublished: publicationTime,
           dateModified: modificationTime,
-          authors: authors.map((author) => ({
-            "@type": "Person",
-            name: author,
+          ...authors.map((name) => ({
+            author: {
+              "@type": "Person",
+              name,
+            },
           })),
-          image: originImagePath,
+          ...(originImagePath && { image: originImagePath }),
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": fullPath,
+          },
           publisher: {
             "@type": "Person",
             name: "Nikolai Lehbrink",
+            logo: {
+              "@type": "ImageObject",
+              url: origin + "/favicon.svg",
+            },
           },
           keywords: tags,
         },
