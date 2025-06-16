@@ -266,11 +266,9 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
           description: description,
           datePublished: publicationTime,
           dateModified: modificationTime,
-          ...authors.map((name) => ({
-            author: {
-              "@type": "Person",
-              name,
-            },
+          author: authors.map((name) => ({
+            "@type": "Person",
+            name,
           })),
           ...(originImagePath && { image: originImagePath }),
           mainEntityOfPage: {
@@ -280,10 +278,6 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
           publisher: {
             "@type": "Person",
             name: "Nikolai Lehbrink",
-            logo: {
-              "@type": "ImageObject",
-              url: origin + "/favicon.svg",
-            },
           },
           keywords: tags,
         },

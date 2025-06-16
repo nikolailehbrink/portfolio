@@ -192,16 +192,10 @@ export const meta: Route.MetaFunction = ({
         url: origin,
         description,
         name: "Nikolai Lehbrink",
-        ...SOCIAL_MEDIA_PROFILES.map((profile) => ({
-          sameAs: profile.href,
-        })),
+        sameAs: SOCIAL_MEDIA_PROFILES.map((profile) => profile.href),
         contactPoint: {
           "@type": "ContactPoint",
           email: "mail@nikolailehbr.ink",
-        },
-        logo: {
-          "@type": "ImageObject",
-          url: origin + "/favicon.svg",
         },
       },
     },
