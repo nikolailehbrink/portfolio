@@ -16,10 +16,6 @@ import ogImage from "./og-image.webp";
 import type { Route } from "./+types/root";
 import "./app.css";
 
-// Supports weights 100-900
-import "@fontsource-variable/inter";
-import clsx from "clsx";
-
 export const links: LinksFunction = () => {
   return [
     { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
