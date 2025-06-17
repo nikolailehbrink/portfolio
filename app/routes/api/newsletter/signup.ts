@@ -1,5 +1,5 @@
 import { createSignedToken } from "@/lib/token";
-import { href } from "react-router";
+import { data, href } from "react-router";
 import { resend } from "@/lib/resend";
 import NewsletterVerificationEmail, {
   PlainText,
@@ -11,6 +11,12 @@ import type { Route } from "./+types/signup";
 export async function action({ request }: Route.ActionArgs) {
   const { origin } = new URL(request.url);
   const formData = await request.formData();
+
+  const honeypot = formData.get("company");
+
+  if (typeof honeypot === "string" && honeypot.trim() !== "") {
+    return data({ success: true });
+  }
   const submission = parseWithZod(formData, { schema: newsletterFormSchema });
 
   if (submission.status !== "success") {
@@ -19,12 +25,12 @@ export async function action({ request }: Route.ActionArgs) {
 
   const { email } = submission.value;
 
-  const { data } = await resend.contacts.get({
+  const { data: contact } = await resend.contacts.get({
     email,
     audienceId: "1a231b09-a625-43c1-9cc2-5d8f34972bdb",
   });
 
-  if (data) {
+  if (contact) {
     return submission.reply({
       formErrors: ["You are already subscribed to the newsletter."],
     });

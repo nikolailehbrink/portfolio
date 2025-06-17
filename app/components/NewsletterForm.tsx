@@ -68,6 +68,13 @@ export default function NewsletterForm({
         </>
       ) : null}
 
+      <div style={{ display: "none" }}>
+        <label className="hidden">
+          Leave this field empty:
+          <input type="text" name="company" autoComplete="off" />
+        </label>
+      </div>
+
       <FormItem>
         <Label className="sr-only" htmlFor={fields.email.id}>
           Email
