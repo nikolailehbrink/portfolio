@@ -7,7 +7,6 @@ import {
   Pause,
 } from "@phosphor-icons/react";
 import type { UseChatHelpers } from "@ai-sdk/react";
-import { track } from "@vercel/analytics/react";
 
 export default function Actions({
   status,
@@ -32,8 +31,7 @@ export default function Actions({
       />
       {status === "error" && (
         <Button
-          aria-label="Reload message
-        "
+          aria-label="Reload message"
           size="icon"
           onClick={() => reload()}
         >
@@ -46,7 +44,6 @@ export default function Actions({
           type="submit"
           size="icon"
           disabled={disabled || !input || input.length < 2}
-          onClick={() => track("submit-ai-message")}
         >
           <PaperPlaneTilt weight="duotone" size={24} />
         </Button>

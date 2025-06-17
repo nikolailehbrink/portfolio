@@ -68,8 +68,8 @@ export default function NewsletterForm({
         </>
       ) : null}
 
-      <div style={{ display: "none" }}>
-        <label className="hidden">
+      <div className="hidden">
+        <label>
           Leave this field empty:
           <input type="text" name="company" autoComplete="off" />
         </label>

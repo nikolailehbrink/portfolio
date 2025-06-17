@@ -7,6 +7,7 @@ import NewsletterVerificationEmail, {
 import { schema as newsletterFormSchema } from "@/components/NewsletterForm";
 import { parseWithZod } from "@conform-to/zod";
 import type { Route } from "./+types/signup";
+import { track } from "@vercel/analytics/server";
 
 export async function action({ request }: Route.ActionArgs) {
   const { origin } = new URL(request.url);
@@ -15,6 +16,9 @@ export async function action({ request }: Route.ActionArgs) {
   const honeypot = formData.get("company");
 
   if (typeof honeypot === "string" && honeypot.trim() !== "") {
+    await track("honeypot-triggered", {
+      form: "newsletter-signup",
+    });
     return data({ success: true });
   }
   const submission = parseWithZod(formData, { schema: newsletterFormSchema });

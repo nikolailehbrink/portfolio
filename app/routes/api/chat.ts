@@ -5,10 +5,13 @@ import { llamaindex } from "@llamaindex/vercel";
 import { LlamaCloudIndex } from "llamaindex";
 import { typedMessageCountCookie } from "@/lib/cookies.server";
 import { MESSAGE_LIMIT } from "../chat";
+import { track } from "@vercel/analytics/server";
 
 export const maxDuration = 30;
 
 export async function action({ request }: Route.ActionArgs) {
+  await track("submit-ai-message");
+
   const cookieHeader = request.headers.get("Cookie");
 
   const storedTokenCount = await typedMessageCountCookie.parse(cookieHeader);

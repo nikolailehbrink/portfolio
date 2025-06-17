@@ -5,17 +5,23 @@ import { Badge } from "@/components/ui/badge";
 import { Form, useSearchParams } from "react-router";
 import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
 import NewsletterForm from "@/components/NewsletterForm";
+import { track } from "@vercel/analytics/server";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { searchParams } = new URL(request.url);
-  const filterCategory = searchParams.get("category");
-  const posts = await getPosts({ category: filterCategory });
+  const category = searchParams.get("category");
+  if (category) {
+    await track("blog-category-filtered", {
+      category,
+    });
+  }
+  const posts = await getPosts({ category });
   const categories = await getBlogCategories();
-  return { posts, categories, filterCategory };
+  return { posts, categories, category };
 }
 
 export default function Blog({ loaderData }: Route.ComponentProps) {
-  const { posts, categories, filterCategory } = loaderData;
+  const { posts, categories, category: filterCategory } = loaderData;
   const [searchParams] = useSearchParams();
   const hasCategoryFilter = filterCategory !== null;
   return (
