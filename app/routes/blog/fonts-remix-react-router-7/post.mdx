@@ -1,0 +1,217 @@
+export const handle = {
+  title: "The missing guide to fonts in Remix.run and React Router 7",
+  description:
+    "Learn how to self-host fonts, integrate Fontsource, style with Tailwind CSS, and boost performance using preloading.",
+  publicationDate: "2025-06-18",
+  authors: ["Nikolai Lehbrink"],
+  tags: ["React Router 7", "Remix", "Fonts", "Tips and Tricks"],
+  readingTime: 10,
+};
+import Alert from "../../../components/Alert";
+import ProfileBadge from "../../../components/ProfileBadge";
+
+Ever since I began to use Remix.run or it's successor React Router 7, I have been on the lookout for a guide on how to handle fonts in the framework properly. Seeing the reactions to the <ProfileBadge platform="GitHub" handle="remix-run/remix/discussions/9251">Fonts Guide proposal</ProfileBadge> I am certainly not the only one. So, this post aims to fill that gap and to provide you with some tips to get you started more quickly with your font setup.
+
+{/* prettier-ignore */}
+<Alert type="question" heading="Starting a new project?">
+  If you want to get going quickly, you can try out my React Router 7 starter
+  template <ProfileBadge platform="GitHub" handle="nikolailehbrink/retail">ReTail</ProfileBadge>, which comes with a preconfigured font setup [using Fontsource](#using-fontsource) and some other useful features.
+</Alert>
+{/* prettier-ignore */}
+
+## Self-hosted fonts
+
+In my opinion, you should self-host your web fonts whenever possible. This avoids issues with third-party services, yet another network request and [potential GDPR violations](https://thehackernews.com/2022/01/german-court-rules-websites-embedding.html).
+
+### Using a local font file
+
+Let's suppose you bought a font from [MyFonts](https://www.myfonts.com/) or some other vendor. You now have a local font file that is not distributed in some kind of font package and you have to integrate it in your website or application by hand. Here is how you can do that:
+
+1. **Add your font file**
+
+   Create a `fonts` directory in your `public` folder (e.g., `public/fonts/`) and
+   place your font file (e.g., `Savate-Regular.ttf`) in there.
+
+   <Alert type="info">
+     Because Remix and React Router 7 leverage [Vite](https://vite.dev/) under
+     the hood, you can use the [`public`
+     directory](https://vite.dev/guide/assets#the-public-directory) to serve
+     static assets like fonts.
+   </Alert>
+
+2. **Register the font in your CSS**
+
+   Add a `@font-face{:postcss}` rule to your global CSS file (e.g., `app.css`):
+
+   ```css filename="app/app.css" showLineNumbers
+   @font-face {
+     font-family: "Savate";
+     src: url("/fonts/Savate-Regular.ttf") format("truetype");
+     font-weight: normal;
+     font-style: normal;
+     font-display: swap;
+   }
+   ```
+
+   <Alert type="warning">
+     Note how the `src` does not start with a `./` or `/public/`. This is
+     because the `public` directory is automatically served at the root of your
+     domain, so you should reference it using the root absolute path with a
+     leading slash like `/fonts/Savate-Regular.ttf`. The font will then be
+     accessible at `https://your-domain.com/fonts/Savate-Regular.ttf`.
+   </Alert>
+
+3. **Use the font in your components**
+
+   Reference the font in your CSS:
+
+   ```css filename="app/app.css" showLineNumbers=7 highlight={2}
+   h1 {
+     font-family: "Savate", sans-serif;
+   }
+   ```
+
+   And in your component (e.g., `index.tsx`):
+
+   ```tsx filename="app/routes/index.tsx"
+   export default function Index() {
+     return <h1>This heading uses the Savate font</h1>;
+   }
+   ```
+
+   <Alert type="tip" heading="Try to use modern font formats">
+     If possible, use modern font formats like WOFF2 or WOFF instead of TTF or
+     OTF. They are generally smaller, more efficient and widely supported by
+     modern browsers. Consider using a tool like
+     [Transfonter](https://transfonter.org/) to convert your font files to these
+     formats.
+   </Alert>
+
+### Using Fontsource
+
+With [Fontsource](https://fontsource.org/) you not only get the benefits of self-hosting, but also the convenience of using a package manager instead of manually downloading and managing font files. The library provides a wide range of fonts, including [Google Fonts](https://fonts.google.com/) and other popular open-source fonts.
+
+1. **Find and install your font**
+
+   Search for your font on [https://fontsource.org/](https://fontsource.org/), click on the desired font, go to the "Install" tab and copy the installation command. For example, to use `Inter` as a [variable font](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts/Variable_fonts_guide), you would run:
+
+   ```sh
+   npm install @fontsource-variable/inter
+   ```
+
+2. **Import the font in your app**
+
+   Import the font at the top of your Root Layout (e.g., `root.tsx`):
+
+   ```tsx filename="app/root.tsx"
+   import "@fontsource-variable/inter";
+   ```
+
+   <Alert type="question" heading="How does the import work?">
+     The import statement will automatically include the necessary CSS for the
+     font in your application. Fontsource packages come with a pre-defined CSS
+     file that sets up the `@font-face` rules for you, so you don't have to
+     write them manually.
+   </Alert>
+
+3. **Use the font in your CSS**
+
+   Reference the font in your CSS:
+
+   ```css filename="app/app.css" showLineNumbers highlight={2}
+   h1 {
+     font-family: "Inter Variable", sans-serif;
+     font-weight: 700;
+     font-size: 1.5rem;
+   }
+   ```
+
+   And in your component (e.g., `index.tsx`):
+
+   ```tsx filename="app/routes/index.tsx"
+   export default function Index() {
+     return <h1>Inter is the best!</h1>;
+   }
+   ```
+
+   This translates to:
+
+   <div className="text rounded-lg bg-pattern-15 p-4 text-2xl font-bold text-white">
+     <span>Inter is the best!</span>
+   </div>
+
+## Registering Fonts in Tailwind CSS
+
+If you use Tailwind CSS (I am using v4 here), you can use either method above, then:
+
+1. **Add the typeface name to your `@theme{:postcss}` configuration**
+
+   ```postcss filename="app/app.css" highlight={5}
+   @import "tailwindcss";
+   /* ... */
+
+   @theme {
+     --font-sans: "Inter Variable", "sans-serif";
+   }
+   ```
+
+2. **Use the font in your components**
+
+   Use the `font-sans` class or your custom class in your JSX, typically in your Root Layout:
+
+   ```tsx filename="app/root.tsx" highlight={3}
+   export function Layout({ children }: { children: React.ReactNode }) {
+     return (
+       <html lang="en" className="font-sans">
+         <head>
+           <meta charSet="utf-8" />
+           <meta name="viewport" content="width=device-width, initial-scale=1" />
+           <Meta />
+           <Links />
+         </head>
+         <body>
+           {children}
+           <ScrollRestoration />
+           <Scripts />
+         </body>
+       </html>
+     );
+   }
+   ```
+
+For more details, see the [Tailwind docs on custom fonts](https://tailwindcss.com/docs/font-family#customizing-your-theme).
+
+## Preloading Fonts
+
+Preloading fonts can help to improve website performance and [FOUT](https://rabbitloader.com/articles/fout/) by loading them early, before they’re needed.
+
+<Alert type="warning" heading="Preload only critical fonts">
+  To keep load times efficient, only preload the fonts and subsets that are
+  actually critical for the initial render.
+</Alert>
+
+To preload fonts in Remix.run or React Router 7, you can export a [`links` function](https://reactrouter.com/api/components/Links) from your Root Layout.
+
+```tsx filename="app/root.tsx"
+import { LinksFunction } from "react-router";
+
+export const links: LinksFunction = () => [
+  {
+    rel: "preload",
+    href: "/fonts/Inter.woff2",
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous",
+  },
+];
+```
+
+### Using preloading with Fontsource
+
+For preloading Fontsource fonts, you can use the same approach, but you need to find the correct URL for the font file, which you typically do by leveraging [Vite's URL imports](https://vite.dev/guide/assets#explicit-url-imports). Refer to the [Fontsource documentation](https://fontsource.org/docs/getting-started/preload) for more information.
+
+{/* prettier-ignore */}
+<Alert type="tip" heading="Working example">
+  If you want to see a working example of how to set up fonts with Fontsource and preloading in React Router 7, check out my starter template <ProfileBadge platform="GitHub" handle="nikolailehbrink/retail">ReTail</ProfileBadge>.
+</Alert>
+{/* prettier-ignore */}

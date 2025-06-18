@@ -21,6 +21,10 @@ export default [
           "syntax-highlighting-shiki-next-js",
           "./routes/blog/syntax-highlighting-shiki-next-js/post.mdx",
         ),
+        route(
+          "fonts-remix-react-router-7",
+          "./routes/blog/fonts-remix-react-router-7/post.mdx",
+        ),
       ]),
     ]),
     ...prefix("newsletter", [
