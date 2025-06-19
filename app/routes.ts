@@ -22,6 +22,14 @@ export default [
           "./routes/blog/syntax-highlighting-shiki-next-js/post.mdx",
         ),
         route(
+          "sitemap-react-router-7",
+          "./routes/blog/sitemap-react-router-7/post.mdx",
+        ),
+        route(
+          "robots-txt-react-router-7",
+          "./routes/blog/robots-txt-react-router-7/post.mdx",
+        ),
+        route(
           "fonts-remix-react-router-7",
           "./routes/blog/fonts-remix-react-router-7/post.mdx",
         ),

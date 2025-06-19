@@ -1,0 +1,223 @@
+import Alert from "../../../components/Alert";
+import ProfileBadge from "../../../components/ProfileBadge";
+import NewsletterForm from "../../../components/NewsletterForm";
+
+export const handle = {
+  title: "How to generate a robots.txt file in React Router 7",
+  description:
+    "Learn how to dynamically generate a robots.txt file for your React Router 7 or Remix.run app with environment-based rules and automatic sitemap integration.",
+  publicationDate: "2025-06-11",
+  authors: ["Nikolai Lehbrink"],
+  tags: ["React Router 7", "SEO", "robots.txt", "Remix"],
+  readingTime: 6,
+  draft: true,
+};
+
+A properly configured `robots.txt` file is crucial for controlling how search engines crawl and index your website. Instead of serving a static file, generating it dynamically allows you to adapt the rules based on your environment.
+
+<Alert type="question" heading="What exactly is a robots.txt file?">
+  A `robots.txt` file tells search engines which parts of your site they’re
+  allowed to visit and which parts to skip. It helps control crawler behavior to
+  avoid unnecessary load or indexing of unimportant routes. **While it doesn’t
+  guarantee pages stay out of search results**, it’s useful for guiding how bots
+  interact with your app.
+</Alert>
+
+## Prerequisites
+
+- A project using **React Router 7** or **Remix.run**
+
+## Step 1: Install the Required Package
+
+If you haven't already installed it for your [sitemap generation](/blog/sitemap-react-router-7), add the <ProfileBadge platform="GitHub" handle="forge-42/seo-tools">@forge42/seo-tools</ProfileBadge> package. It provides utilities for handling SEO-related tasks and has a dedicated `@forge42/seo-tools/remix` export that works with Remix.run and React Router 7 applications.
+
+```shellscript
+npm install @forge42/seo-tools
+```
+
+## Step 2: Create the robots.txt Route
+
+Create a file at `app/routes/robots.txt.ts`. This route will generate your robots.txt file dynamically:
+
+```typescript filename="app/routes/robots.txt.ts" showLineNumbers
+import { generateRobotsTxt } from "@forge42/seo-tools/robots";
+import { href } from "react-router";
+import type { Route } from "./+types/robots.txt";
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const isProductionDeployment = process.env.VERCEL_ENV === "production";
+  const { origin } = new URL(request.url);
+
+  const robotsTxt = generateRobotsTxt([
+    {
+      userAgent: "*",
+      [isProductionDeployment ? "allow" : "disallow"]: ["/"],
+      ...(isProductionDeployment
+        ? {
+            disallow: ["/api/"],
+          }
+        : {}),
+      sitemap: [origin + href("/sitemap.xml")],
+    },
+  ]);
+
+  return new Response(robotsTxt, {
+    headers: {
+      "Content-Type": "text/plain",
+    },
+  });
+}
+```
+
+### Breaking Down the Implementation
+
+<NewsletterForm />
+
+Let's examine what each part of this code does:
+
+#### Environment-Based Access Control
+
+```typescript showLineNumbers=5
+const isProductionDeployment = process.env.VERCEL_ENV === "production";
+```
+
+I am using Vercel as my hosting service and here as an example, but you can adapt this check based on your deployment platform:
+
+- **Vercel**: `process.env.VERCEL_ENV === "production"`
+- **Netlify**: `process.env.CONTEXT === "production"`
+- **Generic**: `process.env.NODE_ENV === "production"`
+
+#### Dynamic Allow/Disallow Rules
+
+```typescript showLineNumbers=11
+[isProductionDeployment ? "allow" : "disallow"]: ["/"],
+```
+
+This pattern uses computed property names to either:
+
+- **Production**: Allow all routes (`allow: ["/"]`)
+- **Non-production**: Block all routes (`disallow: ["/"]`)
+
+<Alert type="tip">
+  Blocking staging, preview, or development environments should prevent search
+  engines from indexing incomplete or test content that could hurt your SEO.
+</Alert>
+
+#### Production-Specific Rules
+
+```typescript showLineNumbers=12
+...(isProductionDeployment
+  ? {
+      disallow: ["/api/"],
+    }
+  : {})
+```
+
+In production, I still want to block certain paths like API endpoints that shouldn't be crawled by search engines.
+
+#### Automatic Sitemap Integration
+
+```typescript
+sitemap: [origin + href("/sitemap.xml")],
+```
+
+This automatically includes your sitemap URL, using:
+
+- `origin` from the request to get the correct domain
+- `href(){:ts}` function for type-safe route references
+
+<Alert type="tip">
+  The `href{:ts}` function ensures your sitemap path is correctly typed and prevents
+  broken links if you ever rename your sitemap route. This is the same approach
+  I used in the [sitemap generation
+  guide](/blog/sitemap-react-router-7#step-2-create-the-sitemap-loader).
+</Alert>
+
+## Step 3: Register the Route
+
+Add the `robots.txt` route to your route configuration:
+
+```typescript filename="app/routes.ts"
+export default [
+  // ...
+  route("robots.txt", "routes/robots.txt.ts"),
+] satisfies RouteConfig;
+```
+
+## Step 4: Test Your robots.txt
+
+Visit `/robots.txt` in your browser to see the generated file. You should see different output based on your environment:
+
+**Production environment:**
+
+```plaintext
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://yourdomain.com/sitemap.xml
+```
+
+**Non-production environment:**
+
+```plaintext
+User-agent: *
+Disallow: /
+Sitemap: https://staging.yourdomain.com/sitemap.xml
+```
+
+<Alert>
+  For best SEO results, implement both this `robots.txt` and a
+  [`sitemap.xml`](/blog/sitemap-react-router-7) file I covered in my previous
+  article.
+</Alert>
+
+## Step 5: Advanced Configuration
+
+You can extend the robots.txt with more sophisticated rules:
+
+```typescript
+const robotsTxt = generateRobotsTxt([
+  {
+    userAgent: "*",
+    [isProductionDeployment ? "allow" : "disallow"]: ["/"],
+    ...(isProductionDeployment
+      ? {
+          disallow: [
+            "/api/",
+            "/admin/",
+            "/private/",
+            "/*.json$", // Block JSON files
+            "/search?*", // Block search result pages
+          ],
+          crawlDelay: 1, // Be nice to servers
+        }
+      : {}),
+    sitemap: [origin + href("/sitemap.xml")],
+  },
+  // Specific rules for different bots
+  ...(isProductionDeployment
+    ? [
+        {
+          userAgent: "Googlebot",
+          allow: ["/api/og/*"], // Allow OG image generation
+        },
+      ]
+    : []),
+]);
+```
+
+## Step 6: Validate Your robots.txt
+
+Use these tools to validate your robots.txt file:
+
+- [Google's robots.txt Tester](https://support.google.com/webmasters/answer/6062598)
+- [Bing Webmaster Tools](https://www.bing.com/webmasters/)
+- [robots.txt Checker](https://technicalseo.com/tools/robots-txt/)
+
+## Conclusion
+
+Generating a dynamic robots.txt file in React Router 7 or Remix.run gives you powerful control over how search engines interact with your site across different environments. By blocking non-production deployments and automatically including your sitemap, you ensure better SEO hygiene and prevent indexing issues.
+
+The `@forge42/seo-tools` package makes this process straightforward while giving you the flexibility to customize rules based on your specific needs.
+
+For more advanced robots.txt configurations and SEO tools, check out the [official documentation](https://github.com/forge-42/seo-tools).
