@@ -1,4 +1,4 @@
-import { getBlogCategories, getPosts } from "@/lib/posts";
+import { getBlogCategories, getPosts } from "@/lib/posts.server";
 import type { Route } from "./+types";
 import PostTeaser from "@/components/PostTeaser";
 import { Badge } from "@/components/ui/badge";

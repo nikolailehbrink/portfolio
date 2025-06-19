@@ -4,7 +4,7 @@ import CodeBlock from "@/components/CodeBlock";
 import LinkedHeading from "@/components/LinkedHeading";
 import Giscus from "@giscus/react";
 
-import { getNextPost, getPost } from "@/lib/posts";
+import { getNextPost, getPost } from "@/lib/posts.server";
 import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
 import type { Route } from "./+types/layout";
 import { Badge } from "@/components/ui/badge";

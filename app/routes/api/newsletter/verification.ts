@@ -1,7 +1,7 @@
 import { verifySignedToken } from "@/lib/token";
-import { resend } from "@/lib/resend";
 import { href, redirect } from "react-router";
 import type { Route } from "./+types/verification";
+import { resend } from "@/lib/resend.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { searchParams } = new URL(request.url);

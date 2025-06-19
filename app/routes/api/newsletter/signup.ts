@@ -1,6 +1,5 @@
 import { createSignedToken } from "@/lib/token";
 import { data, href } from "react-router";
-import { resend } from "@/lib/resend";
 import NewsletterVerificationEmail, {
   PlainText,
 } from "@/components/emails/newsletter-verification";
@@ -8,6 +7,7 @@ import { schema as newsletterFormSchema } from "@/components/NewsletterForm";
 import { parseWithZod } from "@conform-to/zod";
 import type { Route } from "./+types/signup";
 import { track } from "@vercel/analytics/server";
+import { resend } from "@/lib/resend.server";
 
 export async function action({ request }: Route.ActionArgs) {
   const { origin } = new URL(request.url);

@@ -1,4 +1,4 @@
-import type { PostHandle } from "@/lib/posts";
+import type { PostHandle } from "@/lib/posts.server";
 import { CalendarDots, ClockCountdown } from "@phosphor-icons/react";
 import { Link } from "react-router";
 import { Badge } from "./ui/badge";

@@ -10,7 +10,7 @@ import ContactForm, {
 import ExperienceCard from "@/components/ExperienceCard";
 import { PROJECTS } from "@/data/projects";
 import ProjectTeaser from "@/components/ProjectTeaser";
-import { getPosts } from "@/lib/posts";
+import { getPosts } from "@/lib/posts.server";
 import PostTeaser from "@/components/PostTeaser";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +21,7 @@ import {
   Student,
   TextColumns,
 } from "@phosphor-icons/react";
-import { resend } from "@/lib/resend";
+import { resend } from "@/lib/resend.server";
 import NewsletterForm from "@/components/NewsletterForm";
 
 export async function loader() {
