@@ -23,6 +23,7 @@ import {
 } from "@phosphor-icons/react";
 import { resend } from "@/lib/resend.server";
 import NewsletterForm from "@/components/NewsletterForm";
+import { cn } from "@/lib/utils";
 
 export async function loader() {
   const posts = await getPosts({ take: 2 });
@@ -84,7 +85,10 @@ export async function action({ request }: Route.ActionArgs) {
 export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
   return (
     <div className="flex flex-col items-start gap-8 sm:items-center sm:gap-16">
-      <div className="relative flex items-center justify-center">
+      <div
+        className="relative flex animate-in items-center justify-center
+          duration-500 slide-in-from-bottom-50"
+      >
         <div
           className="absolute -inset-0.5 rounded-2xl bg-gradient-to-br
             from-amber-600 via-sky-600 to-sky-400 opacity-75 blur-2xl"
@@ -95,7 +99,10 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
         ></div>
         <Avatar className="relative size-24 rounded-xl sm:size-40" />
       </div>
-      <div className="z-10 space-y-6 sm:text-center">
+      <div
+        className="z-10 animate-in space-y-6 duration-500
+          slide-in-from-bottom-25 fade-in sm:text-center"
+      >
         <h1 className="text-4xl font-bold tracking-tight">Nikolai Lehbrink</h1>
         <p className="max-w-prose text-pretty text-white/70 sm:text-lg">
           I am a <b className="text-white">Full Stack Developer</b> and mostly{" "}
@@ -104,7 +111,10 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
           and sharing my knowledge with others.
         </p>
       </div>
-      <div className="relative">
+      <div
+        className="relative animate-in duration-300 slide-in-from-bottom-10
+          fade-in"
+      >
         <div
           className="absolute -top-1/12 left-1/5 h-80 w-40 rotate-45
             bg-neutral-500/40 blur-2xl"
@@ -133,6 +143,7 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
               development and design.
             </p>
           </div>
+          {/* TODO: Add animation to this element */}
           <div
             className="order-last animate-pulse rounded-lg bg-neutral-900 p-4
               text-center text-muted-foreground offset-border"
@@ -140,8 +151,17 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
             More projects are listed here soon!
           </div>
 
-          {PROJECTS.map((project) => (
-            <ProjectTeaser key={project.title} {...project} />
+          {PROJECTS.map((project, index) => (
+            <ProjectTeaser
+              className={cn(
+                "animate-in duration-500 slide-in-from-bottom-25 fade-in",
+                index % 2 === 0
+                  ? "sm:duration-700 sm:slide-in-from-bottom-35"
+                  : "",
+              )}
+              key={project.title}
+              {...project}
+            />
           ))}
         </div>
       </div>

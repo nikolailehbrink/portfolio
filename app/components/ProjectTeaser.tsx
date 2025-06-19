@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Link } from "react-router";
 import { GithubLogo, LinkSimple } from "@phosphor-icons/react";
 import { Badge } from "./ui/badge";
+import { cn } from "@/lib/utils";
 
 export default function ProjectTeaser({
   tags,
@@ -11,12 +12,18 @@ export default function ProjectTeaser({
   title,
   github,
   url,
-}: Project) {
+  className,
+  ...props
+}: Project & React.ComponentProps<"div">) {
   return (
     <div
-      className="relative row-span-4 flex flex-col justify-start gap-2
-        overflow-hidden rounded-xl bg-neutral-900 p-4 offset-border
-        lg:last:col-start-3 lg:last:row-start-2"
+      className={cn(
+        `relative row-span-4 flex flex-col justify-start gap-2 overflow-hidden
+        rounded-xl bg-neutral-900 p-4 offset-border lg:last:col-start-3
+        lg:last:row-start-2`,
+        className,
+      )}
+      {...props}
     >
       <div
         className="absolute top-2 right-2 z-10 flex items-center gap-2 text-xs"

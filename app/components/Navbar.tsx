@@ -5,8 +5,9 @@ import { href, NavLink } from "react-router";
 export default function Navbar() {
   return (
     <nav
-      className="sticky top-0 z-50 container flex justify-center
-        bg-gradient-to-b from-background to-transparent p-4"
+      className="sticky top-0 z-50 container flex animate-in justify-center
+        bg-gradient-to-b from-background to-transparent p-4 duration-300
+        slide-in-from-bottom-30 fade-in-0"
     >
       <menu
         className="flex items-center gap-1 rounded-xl border border-muted
