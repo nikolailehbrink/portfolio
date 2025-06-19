@@ -3,10 +3,10 @@ import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router";
 
-const DATE_TIME_FORMAT_OPTIONS: Intl.DateTimeFormatOptions = {
+const DATE_TIME_FORMAT_OPTIONS = {
   year: "numeric",
   month: "long",
-};
+} satisfies Intl.DateTimeFormatOptions;
 
 export default function ExperienceCard({
   title,

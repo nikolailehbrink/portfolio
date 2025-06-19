@@ -3,19 +3,21 @@ import Message from "./Message";
 import { formatDate } from "@/lib/format";
 import { Link } from "react-router";
 
+const DATE_TIME_FORMAT_OPTIONS = {
+  month: "short",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+} satisfies Intl.DateTimeFormatOptions;
+
 export default function LimitHitMessage({
   messageCountResetDate,
 }: {
   messageCountResetDate?: Date;
 }) {
   const resetMessageCount = messageCountResetDate
-    ? formatDate(messageCountResetDate, {
-        month: "short",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      })
+    ? formatDate(messageCountResetDate, DATE_TIME_FORMAT_OPTIONS)
     : null;
   return (
     <Message

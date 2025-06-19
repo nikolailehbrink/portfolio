@@ -4,6 +4,12 @@ import { Link } from "react-router";
 import { Badge } from "./ui/badge";
 import { formatDate } from "@/lib/format";
 
+const DATE_TIME_FORMAT_OPTIONS = {
+  year: "numeric",
+  day: "2-digit",
+  month: "short",
+} satisfies Intl.DateTimeFormatOptions;
+
 export default function PostTeaser({
   slug,
   metadata,
@@ -13,11 +19,10 @@ export default function PostTeaser({
 }) {
   const { publicationDate, readingTime, title, description } = metadata;
 
-  const formattedPublicationDate = formatDate(publicationDate, {
-    year: "numeric",
-    day: "2-digit",
-    month: "short",
-  });
+  const formattedPublicationDate = formatDate(
+    publicationDate,
+    DATE_TIME_FORMAT_OPTIONS,
+  );
 
   return (
     <li
