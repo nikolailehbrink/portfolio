@@ -8,7 +8,7 @@
     "format": "prettier --write .",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "lint:inspect": "eslint --inspect-config",
-    "start": "react-router-serve ./build/server/index.js",
+    "start": "dotenv react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
     "clean": "rm -rf node_modules",
     "prepare": "husky"
