@@ -35,7 +35,7 @@ export async function getPosts(options?: {
   });
 
   if (import.meta.env.PROD) {
-    files = files.filter(({ metadata: { draft } }) => draft !== true);
+    files = files.filter(({ metadata: { draft } }) => !draft);
   }
 
   const { category, take } = options || {};
