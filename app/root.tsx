@@ -16,6 +16,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import interLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import { SOCIAL_MEDIA_PROFILES } from "./data/socialProfiles";
+import { Button } from "./components/ui/button";
 
 export const links: LinksFunction = () => {
   return [
@@ -99,29 +100,24 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
           <code>{stack}</code>
         </pre>
       )}
-      <Link
-        className="flex items-center gap-2 rounded-md border-2
-          border-neutral-700 bg-neutral-900 px-3 py-2 text-neutral-200
-          transition-colors hover:border-neutral-300 hover:bg-neutral-800
-          hover:text-neutral-50"
-        prefetch="intent"
-        to={href("/")}
-      >
-        Go Home!
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="currentColor"
-          viewBox="0 0 256 256"
-        >
-          <path
-            d="M216,116.69V216H152V152H104v64H40V116.69l82.34-82.35a8,8,0,0,1,11.32,0Z"
-            opacity="0.2"
-          ></path>
-          <path d="M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,120l80-80,80,80v88H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48Zm96,88H112V160h32Z"></path>
-        </svg>
-      </Link>
+      <Button asChild>
+        <Link prefetch="intent" to={href("/")}>
+          Go Home!
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+          >
+            <path
+              d="M216,116.69V216H152V152H104v64H40V116.69l82.34-82.35a8,8,0,0,1,11.32,0Z"
+              opacity="0.2"
+            ></path>
+            <path d="M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,120l80-80,80,80v88H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48Zm96,88H112V160h32Z"></path>
+          </svg>
+        </Link>
+      </Button>
     </main>
   );
 }
