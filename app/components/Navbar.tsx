@@ -9,7 +9,7 @@ export default function Navbar({
   return (
     <nav
       className={cn(
-        `sticky top-0 z-50 container flex justify-center bg-gradient-to-b
+        `sticky top-0 z-50 container flex justify-center bg-linear-to-b
         from-background to-transparent p-4`,
         className,
       )}

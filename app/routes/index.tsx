@@ -90,12 +90,12 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
           duration-1000 fade-in-50 zoom-in-75"
       >
         <div
-          className="absolute -inset-px animate-in rounded-2xl bg-gradient-to-br
+          className="absolute -inset-px animate-in rounded-2xl bg-linear-to-br
             from-amber-600 via-sky-600 to-sky-400 opacity-75 blur-2xl
             duration-[2s] zoom-in-80"
         ></div>
         <div
-          className="absolute -inset-0.5 rounded-2xl bg-gradient-to-br
+          className="absolute -inset-0.5 rounded-2xl bg-linear-to-br
             from-amber-600 via-sky-600 to-sky-400"
         ></div>
         <Avatar className="relative size-24 rounded-xl sm:size-40" />
@@ -194,7 +194,7 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
               </ul>
               <div
                 className="absolute -inset-x-[3px] -bottom-[3px] z-30 flex
-                  justify-center rounded-xl bg-gradient-to-b from-transparent
+                  justify-center rounded-xl bg-linear-to-b from-transparent
                   to-background pt-12 pb-4"
               >
                 <Button asChild>

@@ -9,7 +9,7 @@ export default function GradientHeading({
         offset-border"
     >
       <span
-        className="inline-block rounded-xl bg-gradient-to-b from-neutral-500
+        className="inline-block rounded-xl bg-linear-to-b from-neutral-500
           to-neutral-300 bg-clip-text text-3xl font-bold text-transparent"
       >
         {children}
