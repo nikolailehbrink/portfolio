@@ -63,7 +63,10 @@ export async function getPost(url: string) {
   const { pathname } = new URL(url);
   const posts = await getPosts();
   const post = posts.find(({ slug }) => pathname.endsWith(slug));
-  if (!post) throw new Error(`No post found for ${url}`);
+  if (!post)
+    throw new Response(`No post found for ${url}`, {
+      status: 404,
+    });
   return post;
 }
 
