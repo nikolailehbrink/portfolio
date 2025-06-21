@@ -13,6 +13,7 @@ import Avatar from "@/components/Avatar";
 import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
 import { track } from "@vercel/analytics/react";
 import { formatDate } from "@/lib/format";
+import { Pencil } from "@phosphor-icons/react";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { url } = request;
@@ -40,11 +41,14 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
       publicationDate,
       readingTime,
       modificationDate,
+      draft,
     },
     nextPost,
     formattedPublicationDate,
     formattedModificationDate,
   } = loaderData;
+
+  const isDraft = import.meta.env.DEV && draft;
   return (
     <article className="flex w-full flex-col gap-12">
       <header
@@ -92,6 +96,12 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
               </>
             ) : null}
           </div>
+          {isDraft && (
+            <Badge className="dark:bg-orange-500/20 dark:text-orange-400">
+              <Pencil size={16} weight="duotone" />
+              Draft
+            </Badge>
+          )}
         </div>
         {description && <p className="text-muted-foreground">{description}</p>}
         {tags && tags.length > 0 ? (

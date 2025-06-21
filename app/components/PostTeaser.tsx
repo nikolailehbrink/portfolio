@@ -1,5 +1,5 @@
 import type { PostHandle } from "@/lib/posts.server";
-import { CalendarDots, ClockCountdown } from "@phosphor-icons/react";
+import { CalendarDots, ClockCountdown, Pencil } from "@phosphor-icons/react";
 import { Link } from "react-router";
 import { Badge } from "./ui/badge";
 import { formatDate } from "@/lib/format";
@@ -17,12 +17,14 @@ export default function PostTeaser({
   slug: string;
   metadata: PostHandle;
 }) {
-  const { publicationDate, readingTime, title, description } = metadata;
+  const { publicationDate, readingTime, title, description, draft } = metadata;
 
   const formattedPublicationDate = formatDate(
     publicationDate,
     DATE_TIME_FORMAT_OPTIONS,
   );
+
+  const isDraft = import.meta.env.DEV && draft;
 
   return (
     <li
@@ -37,6 +39,12 @@ export default function PostTeaser({
           hover:bg-neutral-800"
       >
         <div className="flex gap-2 text-xs text-muted-foreground">
+          {isDraft && (
+            <Badge className="dark:bg-orange-500/20 dark:text-orange-400">
+              <Pencil size={16} weight="duotone" />
+              Draft
+            </Badge>
+          )}
           <Badge className="dark:bg-sky-500/20 dark:text-sky-400" asChild>
             <time dateTime={publicationDate}>
               <CalendarDots size={16} weight="duotone" />
