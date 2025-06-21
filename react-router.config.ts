@@ -10,6 +10,7 @@ const vercelConfig = {
     "/blog/batch-mails-deno-postmark",
     "/blog/tailwind-css-tips",
     "/blog/syntax-highlighting-shiki-next-js",
+    "/blog/fonts-remix-react-router-7",
   ],
 } satisfies Config;
 
