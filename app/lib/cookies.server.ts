@@ -14,7 +14,7 @@ const SECONDS_TO_CHAT_AGAIN = import.meta.env.PROD
   ? 60 * 60 * 24 // 24 hours
   : 60; // 1 minute
 
-export const messageCountSchema = z.coerce.number().nonnegative().nullable();
+const messageCountSchema = z.coerce.number().nonnegative().nullable();
 
 const messageCountCookie = createCookie("messageCount", {
   maxAge: SECONDS_TO_CHAT_AGAIN,

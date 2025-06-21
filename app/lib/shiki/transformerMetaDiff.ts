@@ -10,7 +10,7 @@ const CLASSES = {
  * Parse line numbers from a string like "1,3,4-5,7-9"
  * Returns an array of line numbers (1-indexed)
  */
-export function parseLineNumbers(lineNumbersStr: string): number[] {
+function parseLineNumbers(lineNumbersStr: string): number[] {
   if (!lineNumbersStr) return [];
 
   const result: number[] = [];
@@ -43,7 +43,7 @@ export function parseLineNumbers(lineNumbersStr: string): number[] {
   return result;
 }
 
-export interface TransformerMetaLineDiffOptions {
+interface TransformerMetaLineDiffOptions {
   /**
    * Class for added lines
    * @default 'diff-add'

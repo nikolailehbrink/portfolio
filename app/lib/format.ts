@@ -14,4 +14,4 @@ export function formatDate(
   return new Intl.DateTimeFormat(locale, options).format(date);
 }
 
-export const locale = "en-US";
+const locale = "en-US";
