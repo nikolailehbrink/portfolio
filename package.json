@@ -1,18 +1,30 @@
 {
+  "name": "portfolio-website",
   "private": true,
+  "description": "Personal portfolio website including a blog, an interactive AI chatbot and insights into my professional work.",
+  "homepage": "https://www.nikolailehbr.ink/",
+  "bugs": {
+    "url": "https://github.com/nikolailehbrink/portfolio/issues",
+    "email": "mail@nikolailehbr.ink"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikolailehbrink/portfolio.git"
+  },
+  "author": "Nikolai Lehbrink <mail@nikolailehbr.ink> (https://www.nikolailehbr.ink/)",
   "type": "module",
   "scripts": {
     "build": "react-router build",
     "check:unused": "knip",
+    "clean": "rm -rf node_modules",
     "dev": "react-router dev",
     "dev:email": "email dev --dir app/components/emails",
     "format": "prettier --write .",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "lint:inspect": "eslint --inspect-config",
+    "prepare": "husky",
     "start": "dotenv react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc",
-    "clean": "rm -rf node_modules",
-    "prepare": "husky"
+    "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
     "@ai-sdk/openai": "1.3.16",
