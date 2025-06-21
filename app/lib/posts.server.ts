@@ -10,6 +10,7 @@ const postHandleSchema = z.object({
   tags: z.array(z.string()).optional(),
   cover: z.string().optional(),
   modificationDate: z.string().date().optional(),
+  draft: z.boolean().optional(),
 });
 
 export type PostHandle = z.infer<typeof postHandleSchema>;
@@ -32,6 +33,10 @@ export async function getPosts(options?: {
 
     return { slug: `/${slug}`, metadata };
   });
+
+  if (import.meta.env.PROD) {
+    files = files.filter(({ metadata: { draft } }) => draft !== true);
+  }
 
   const { category, take } = options || {};
 
