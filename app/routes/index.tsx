@@ -87,11 +87,12 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
     <div className="flex flex-col items-start gap-8 sm:items-center sm:gap-16">
       <div
         className="relative flex animate-in items-center justify-center
-          duration-500 slide-in-from-bottom-50"
+          duration-1000 fade-in-50 zoom-in-75"
       >
         <div
-          className="absolute -inset-0.5 rounded-2xl bg-gradient-to-br
-            from-amber-600 via-sky-600 to-sky-400 opacity-75 blur-2xl"
+          className="absolute -inset-px animate-in rounded-2xl bg-gradient-to-br
+            from-amber-600 via-sky-600 to-sky-400 opacity-75 blur-2xl
+            duration-[2s] zoom-in-80"
         ></div>
         <div
           className="absolute -inset-0.5 rounded-2xl bg-gradient-to-br
@@ -99,12 +100,18 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
         ></div>
         <Avatar className="relative size-24 rounded-xl sm:size-40" />
       </div>
-      <div
-        className="z-10 animate-in space-y-6 duration-500
-          slide-in-from-bottom-25 fade-in sm:text-center"
-      >
-        <h1 className="text-4xl font-bold tracking-tight">Nikolai Lehbrink</h1>
-        <p className="max-w-prose text-pretty text-white/70 sm:text-lg">
+      <div className="z-10 space-y-6 fade-in sm:text-center">
+        <h1
+          className="animate-in text-4xl font-bold tracking-tight duration-1000
+            slide-in-from-bottom-40 sm:zoom-in-80"
+        >
+          Nikolai Lehbrink
+        </h1>
+        <p
+          className="max-w-prose animate-in text-pretty text-white/70
+            duration-1000 slide-in-from-bottom-30 fade-in sm:text-lg
+            sm:slide-in-from-bottom-40"
+        >
           I am a <b className="text-white">Full Stack Developer</b> and mostly{" "}
           <b className="text-white">Frontend Engineer</b> with a passion for
           building web applications based in Munich. I enjoy learning new things
@@ -112,16 +119,17 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
         </p>
       </div>
       <div
-        className="relative animate-in duration-300 slide-in-from-bottom-10
-          fade-in"
+        className="relative animate-in duration-1000 slide-in-from-bottom-5
+          sm:slide-in-from-top-5"
       >
         <div
-          className="absolute -top-1/12 left-1/5 h-80 w-40 rotate-45
-            bg-neutral-500/40 blur-2xl"
+          className="absolute -top-1/12 left-1/5 h-80 w-40 rotate-45 animate-in
+            bg-neutral-500/40 blur-2xl duration-[2.5s] fade-in"
         ></div>
         <div
-          className="absolute -top-12 left-2/5 h-50 w-24 rotate-45
-            bg-neutral-500/50 blur-3xl lg:-top-1/5 lg:left-2/5 lg:h-96 lg:w-36"
+          className="absolute -top-12 left-2/5 h-50 w-24 rotate-45 animate-in
+            bg-neutral-500/50 blur-3xl duration-[3s] fade-in lg:-top-1/5
+            lg:left-2/5 lg:h-96 lg:w-36"
         ></div>
         <div
           className="relative grid grid-cols-1 gap-8 rounded-3xl border-t
@@ -129,8 +137,9 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
             max-sm:-mx-4 sm:grid-cols-2 sm:p-8 lg:grid-cols-3"
         >
           <div
-            className="absolute -top-px left-1/4 h-px w-1/3 bg-linear-to-r
-              from-transparent via-white/60 to-transparent"
+            className="absolute -top-px left-1/4 h-px w-1/3 animate-in
+              bg-linear-to-r from-transparent via-white/60 to-transparent
+              duration-[2s] slide-in-from-left-100 fade-in-40"
           ></div>
           <div className="flex flex-col gap-2 sm:row-span-2">
             <h2 className="flex items-center gap-1 text-2xl font-bold">
@@ -154,9 +163,9 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
           {PROJECTS.map((project, index) => (
             <ProjectTeaser
               className={cn(
-                "animate-in duration-500 slide-in-from-bottom-25 fade-in",
+                "animate-in duration-700 fade-in-50 sm:slide-in-from-bottom-25",
                 index % 2 === 0
-                  ? "sm:duration-700 sm:slide-in-from-bottom-35"
+                  ? "sm:duration-1000 sm:slide-in-from-bottom-35"
                   : "",
               )}
               key={project.title}

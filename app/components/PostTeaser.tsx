@@ -3,6 +3,7 @@ import { CalendarDots, ClockCountdown, Pencil } from "@phosphor-icons/react";
 import { Link } from "react-router";
 import { Badge } from "./ui/badge";
 import { formatDate } from "@/lib/format";
+import { cn } from "@/lib/utils";
 
 const DATE_TIME_FORMAT_OPTIONS = {
   year: "numeric",
@@ -13,10 +14,12 @@ const DATE_TIME_FORMAT_OPTIONS = {
 export default function PostTeaser({
   slug,
   metadata,
+  className,
+  ...props
 }: {
   slug: string;
   metadata: PostHandle;
-}) {
+} & React.ComponentProps<"li">) {
   const { publicationDate, readingTime, title, description, draft } = metadata;
 
   const formattedPublicationDate = formatDate(
@@ -28,8 +31,12 @@ export default function PostTeaser({
 
   return (
     <li
-      className="group relative flex flex-col rounded-lg border bg-neutral-900
-        offset-border transition-colors hover:bg-neutral-800"
+      className={cn(
+        `group relative flex flex-col rounded-lg border bg-neutral-900
+        offset-border transition-colors hover:bg-neutral-800`,
+        className,
+      )}
+      {...props}
     >
       <Link className="absolute inset-0 z-20" to={slug} prefetch="intent">
         <span className="sr-only">Link to article</span>

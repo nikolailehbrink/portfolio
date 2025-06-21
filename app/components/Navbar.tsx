@@ -2,12 +2,18 @@ import { NAVIGATION_LINKS } from "@/data/navigationItems";
 import { cn } from "@/lib/utils";
 import { href, NavLink } from "react-router";
 
-export default function Navbar() {
+export default function Navbar({
+  className,
+  ...props
+}: React.ComponentProps<"nav">) {
   return (
     <nav
-      className="sticky top-0 z-50 container flex animate-in justify-center
-        bg-gradient-to-b from-background to-transparent p-4 duration-300
-        slide-in-from-bottom-30 fade-in-0"
+      className={cn(
+        `sticky top-0 z-50 container flex justify-center bg-gradient-to-b
+        from-background to-transparent p-4`,
+        className,
+      )}
+      {...props}
     >
       <menu
         className="flex items-center gap-1 rounded-xl border border-muted
