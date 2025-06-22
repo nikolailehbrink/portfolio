@@ -24,6 +24,7 @@
     "lint:inspect": "eslint --inspect-config",
     "prepare": "husky",
     "start": "dotenv react-router-serve ./build/server/index.js",
+    "test": "vitest",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
@@ -95,7 +96,8 @@
     "vite": "6.3.2",
     "vite-plugin-devtools-json": "0.1.1",
     "vite-plugin-svgr": "4.3.0",
-    "vite-tsconfig-paths": "5.1.4"
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.2.4"
   },
   "engines": {
     "node": "22.x"
