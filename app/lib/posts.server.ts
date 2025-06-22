@@ -3,13 +3,13 @@ import { z } from "zod";
 const postHandleSchema = z.object({
   title: z.string(),
   description: z.string(),
-  publicationDate: z.string().date(),
+  publicationDate: z.coerce.date(),
   featured: z.boolean().optional(),
   authors: z.array(z.string()).min(1),
   readingTime: z.number().optional(),
   tags: z.array(z.string()).optional(),
   cover: z.string().optional(),
-  modificationDate: z.string().date().optional(),
+  modificationDate: z.coerce.date().optional(),
   draft: z.boolean().optional(),
 });
 
@@ -46,8 +46,8 @@ export async function getPosts(options?: {
   if (files.length > 1) {
     files = files.sort((a, b) => {
       return (
-        new Date(b.metadata.publicationDate).getTime() -
-        new Date(a.metadata.publicationDate).getTime()
+        b.metadata.publicationDate.getTime() -
+        a.metadata.publicationDate.getTime()
       );
     });
   }

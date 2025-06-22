@@ -88,7 +88,9 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
           </div>
           <span>•</span>
           <div className="inline-flex gap-2 text-sm">
-            <time dateTime={publicationDate}>{formattedPublicationDate}</time>
+            <time dateTime={publicationDate.toISOString()}>
+              {formattedPublicationDate}
+            </time>
             {readingTime ? (
               <>
                 <span>•</span>
@@ -149,7 +151,7 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
             variant="secondary"
             className="bg-sky-500/20 text-sky-400"
           >
-            <time dateTime={modificationDate}>
+            <time dateTime={modificationDate?.toISOString()}>
               Last updated: {formattedModificationDate}
             </time>
           </Badge>
@@ -235,9 +237,8 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
 
     const originImagePath = cover ? origin + cover : undefined;
     const { pathname } = location;
-    const publicationTime = new Date(publicationDate).toISOString();
-    const modificationTime =
-      modificationDate && new Date(modificationDate).toISOString();
+    const publicationTime = publicationDate.toISOString();
+    const modificationTime = modificationDate && modificationDate.toISOString();
     const fullPath = origin + pathname;
 
     return [
