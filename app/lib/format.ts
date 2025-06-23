@@ -11,6 +11,11 @@ export function formatDate(
   if (typeof date === "string" || typeof date === "number") {
     date = new Date(date);
   }
+
+  if (isNaN(date.getDate())) {
+    throw new Error("Invalid date provided");
+  }
+
   return new Intl.DateTimeFormat(locale, options).format(date);
 }
 

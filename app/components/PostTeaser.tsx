@@ -53,7 +53,7 @@ export default function PostTeaser({
             </Badge>
           )}
           <Badge className="dark:bg-sky-500/20 dark:text-sky-400" asChild>
-            <time dateTime={publicationDate}>
+            <time dateTime={publicationDate.toISOString()}>
               <CalendarDots size={16} weight="duotone" />
               {formattedPublicationDate}
             </time>
