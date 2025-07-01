@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const postHandleSchema = z.object({
+export const postHandleSchema = z.object({
   title: z.string(),
   description: z.string(),
   publicationDate: z.coerce.date(),
