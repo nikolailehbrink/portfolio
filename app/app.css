@@ -140,7 +140,7 @@
 }
 
 :not(pre) > code {
-  @apply rounded-lg border border-neutral-700 bg-muted px-1.5 py-0.5 text-sm font-normal whitespace-nowrap before:content-none after:content-none;
+  @apply rounded-lg border border-neutral-700 bg-muted px-1.5 py-0.5 text-sm font-normal before:content-none after:content-none;
 }
 
 @utility offset-border {
