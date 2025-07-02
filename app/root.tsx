@@ -7,7 +7,6 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  type LinksFunction,
 } from "react-router";
 import { Analytics } from "@vercel/analytics/react";
 import ogImage from "./og-image.webp";
@@ -18,7 +17,7 @@ import interLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal
 import { SOCIAL_MEDIA_PROFILES } from "./data/socialProfiles";
 import { Button } from "./components/ui/button";
 
-export const links: LinksFunction = () => {
+export const links: Route.LinksFunction = () => {
   return [
     {
       rel: "preload",

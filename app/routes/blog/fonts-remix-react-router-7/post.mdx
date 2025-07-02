@@ -193,9 +193,9 @@ Preloading fonts can help to improve website performance and [FOUT](https://rabb
 To preload fonts in Remix.run or React Router 7, you can export a [`links` function](https://reactrouter.com/api/components/Links) from your Root Layout.
 
 ```tsx filename="app/root.tsx"
-import { LinksFunction } from "react-router";
+import type { Route } from "./+types/root";
 
-export const links: LinksFunction = () => [
+export const links: Route.LinksFunction = () => [
   {
     rel: "preload",
     href: "/fonts/Inter.woff2",
