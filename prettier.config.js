@@ -1,6 +1,6 @@
 /** @type {import("prettier").Config} */
 const functions = ["cn", "clsx", "cva"];
-const config = {
+export default {
   tailwindFunctions: functions,
   customFunctions: functions,
   tailwindStylesheet: "./app/app.css",
@@ -15,5 +15,3 @@ const config = {
   tabWidth: 2,
   singleQuote: false,
 };
-
-export default config;
