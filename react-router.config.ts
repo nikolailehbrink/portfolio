@@ -11,6 +11,7 @@ export default {
     href("/blog/sitemap-react-router-7"),
     href("/blog/syntax-highlighting-shiki-next-js"),
     href("/blog/tailwindcss-v3-tips"),
+    href("/blog/tailwindcss-v4-tips"),
     href("/privacy-policy"),
     href("/legal-notice"),
   ],
