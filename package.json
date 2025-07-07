@@ -30,8 +30,8 @@
   "dependencies": {
     "@ai-sdk/openai": "1.3.16",
     "@ai-sdk/react": "1.2.9",
-    "@conform-to/react": "1.4.0",
-    "@conform-to/zod": "1.4.0",
+    "@conform-to/react": "1.8.1",
+    "@conform-to/zod": "1.8.1",
     "@fontsource-variable/inter": "5.2.5",
     "@forge42/seo-tools": "1.4.2",
     "@giscus/react": "3.1.0",
@@ -58,7 +58,7 @@
     "resend": "4.5.2",
     "tailwind-merge": "3.2.0",
     "tw-animate-css": "1.2.5",
-    "zod": "3.24.3"
+    "zod": "3.25.75"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "19.8.0",

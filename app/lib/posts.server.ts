@@ -1,8 +1,12 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 
 export const postHandleSchema = z.object({
-  title: z.string(),
-  description: z.string(),
+  title: z.string().min(30, {
+    message: "Title must be at least 30 characters long.",
+  }),
+  description: z.string().min(60, {
+    message: "Description must be at least 60 characters long.",
+  }),
   publicationDate: z.coerce.date(),
   featured: z.boolean().optional(),
   authors: z.array(z.string()).min(1),

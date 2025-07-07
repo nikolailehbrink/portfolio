@@ -10,16 +10,16 @@ importers:
     dependencies:
       '@ai-sdk/openai':
         specifier: 1.3.16
-        version: 1.3.16(zod@3.24.3)
+        version: 1.3.16(zod@3.25.75)
       '@ai-sdk/react':
         specifier: 1.2.9
-        version: 1.2.9(react@19.1.0)(zod@3.24.3)
+        version: 1.2.9(react@19.1.0)(zod@3.25.75)
       '@conform-to/react':
-        specifier: 1.4.0
-        version: 1.4.0(react@19.1.0)
+        specifier: 1.8.1
+        version: 1.8.1(react@19.1.0)
       '@conform-to/zod':
-        specifier: 1.4.0
-        version: 1.4.0(zod@3.24.3)
+        specifier: 1.8.1
+        version: 1.8.1(zod@3.25.75)
       '@fontsource-variable/inter':
         specifier: 5.2.5
         version: 5.2.5
@@ -31,7 +31,7 @@ importers:
         version: 3.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@llamaindex/vercel':
         specifier: 0.1.2
-        version: 0.1.2(ai@4.3.9(react@19.1.0)(zod@3.24.3))(gpt-tokenizer@2.9.0)
+        version: 0.1.2(ai@4.3.9(react@19.1.0)(zod@3.25.75))(gpt-tokenizer@2.9.0)
       '@mdx-js/react':
         specifier: 3.1.0
         version: 3.1.0(@types/react@19.1.2)(react@19.1.0)
@@ -61,7 +61,7 @@ importers:
         version: 1.1.2(@react-router/dev@7.6.3(@react-router/serve@7.6.3(react-router@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3))(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(rolldown-vite@7.0.5(@types/node@22.13.10)(esbuild@0.25.1)(jiti@2.4.2))(typescript@5.8.3))(@react-router/node@7.6.3(react-router@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3))(isbot@5.1.26)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       ai:
         specifier: 4.3.9
-        version: 4.3.9(react@19.1.0)(zod@3.24.3)
+        version: 4.3.9(react@19.1.0)(zod@3.25.75)
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -73,7 +73,7 @@ importers:
         version: 5.1.26
       llamaindex:
         specifier: 0.10.2
-        version: 0.10.2(gpt-tokenizer@2.9.0)(tree-sitter@0.22.4)(web-tree-sitter@0.24.7)(zod@3.24.3)
+        version: 0.10.2(gpt-tokenizer@2.9.0)(tree-sitter@0.22.4)(web-tree-sitter@0.24.7)(zod@3.25.75)
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -88,7 +88,7 @@ importers:
         version: 6.0.0
       remix-utils:
         specifier: 8.5.0
-        version: 8.5.0(react-router@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(zod@3.24.3)
+        version: 8.5.0(react-router@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(zod@3.25.75)
       resend:
         specifier: 4.5.2
         version: 4.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -99,8 +99,8 @@ importers:
         specifier: 1.2.5
         version: 1.2.5
       zod:
-        specifier: 3.24.3
-        version: 3.24.3
+        specifier: 3.25.75
+        version: 3.25.75
     devDependencies:
       '@commitlint/config-conventional':
         specifier: 19.8.0
@@ -435,16 +435,16 @@ packages:
     resolution: {integrity: sha512-LRjP623jPyf3Poyfb0ohMj8I3ORyBDOwXAgxxVPbSD0unJuW2mJWeiRfaQinjtccMqC5Wy1HOMfa4btKjbNxbg==}
     engines: {node: '>=v18'}
 
-  '@conform-to/dom@1.4.0':
-    resolution: {integrity: sha512-BvYzotcvq6PxTmxCOV089VXzv7oij+yeGIO/Q5/K2f8s030EHzxelPHmLmdnGrKrPP4XRVaYqQHdjHExrqbkBg==}
+  '@conform-to/dom@1.8.1':
+    resolution: {integrity: sha512-Sg4Jz31ZyiqbFHAKOmG+sVHtukku2Xmxv9ObYzj/TrKMXF1R9qN3ShucAIZWtRaw9l9vZGiqpDnSyfevmiBxuQ==}
 
-  '@conform-to/react@1.4.0':
-    resolution: {integrity: sha512-1oYN+sErUCmxVcVSGE8mO9PiAHKqkb9KrXstER4rTHw+xC3NrQJjQBs+ifilMCfGFw/UJZRexo05TwyI+h0jpg==}
+  '@conform-to/react@1.8.1':
+    resolution: {integrity: sha512-+bm+j0MOeOxrhrjWeoLmpmt+m1djZmPM/qE+AH5+8RewuC6GyXEXPyWAyES9bw9mZJ/WqInVS6Ljrf4gQ0I0zA==}
     peerDependencies:
       react: '>=18'
 
-  '@conform-to/zod@1.4.0':
-    resolution: {integrity: sha512-8tEH5jZYHph7A+d4EPr7eIQpoygcOPvqDdMVML//nO3bixQjhu+mLSEoh/zun0BAhL2ePS5nxywhMP9buOlh8w==}
+  '@conform-to/zod@1.8.1':
+    resolution: {integrity: sha512-OO3CvfA1STL68oTKTMEcXWR/pBwWfJDSRVvBiR34gLlkZBV01Kfvmea2kQarFXLCJSANvjUyG52OZe9GxvPUGw==}
     peerDependencies:
       zod: ^3.21.0
 
@@ -4863,47 +4863,47 @@ packages:
     peerDependencies:
       zod: ^3.25.0
 
-  zod@3.24.3:
-    resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
+  zod@3.25.75:
+    resolution: {integrity: sha512-OhpzAmVzabPOL6C3A3gpAifqr9MqihV/Msx3gor2b2kviCgcb+HM9SEOpMWwwNp9MRunWnhtAKUoo0AHhjyPPg==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
 
-  '@ai-sdk/openai@1.3.16(zod@3.24.3)':
+  '@ai-sdk/openai@1.3.16(zod@3.25.75)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.7(zod@3.24.3)
-      zod: 3.24.3
+      '@ai-sdk/provider-utils': 2.2.7(zod@3.25.75)
+      zod: 3.25.75
 
-  '@ai-sdk/provider-utils@2.2.7(zod@3.24.3)':
+  '@ai-sdk/provider-utils@2.2.7(zod@3.25.75)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
       nanoid: 3.3.11
       secure-json-parse: 2.7.0
-      zod: 3.24.3
+      zod: 3.25.75
 
   '@ai-sdk/provider@1.1.3':
     dependencies:
       json-schema: 0.4.0
 
-  '@ai-sdk/react@1.2.9(react@19.1.0)(zod@3.24.3)':
+  '@ai-sdk/react@1.2.9(react@19.1.0)(zod@3.25.75)':
     dependencies:
-      '@ai-sdk/provider-utils': 2.2.7(zod@3.24.3)
-      '@ai-sdk/ui-utils': 1.2.8(zod@3.24.3)
+      '@ai-sdk/provider-utils': 2.2.7(zod@3.25.75)
+      '@ai-sdk/ui-utils': 1.2.8(zod@3.25.75)
       react: 19.1.0
       swr: 2.3.3(react@19.1.0)
       throttleit: 2.1.0
     optionalDependencies:
-      zod: 3.24.3
+      zod: 3.25.75
 
-  '@ai-sdk/ui-utils@1.2.8(zod@3.24.3)':
+  '@ai-sdk/ui-utils@1.2.8(zod@3.25.75)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.7(zod@3.24.3)
-      zod: 3.24.3
-      zod-to-json-schema: 3.24.4(zod@3.24.3)
+      '@ai-sdk/provider-utils': 2.2.7(zod@3.25.75)
+      zod: 3.25.75
+      zod-to-json-schema: 3.24.4(zod@3.25.75)
 
   '@ampproject/remapping@2.3.0':
     dependencies:
@@ -5171,17 +5171,17 @@ snapshots:
       '@types/conventional-commits-parser': 5.0.1
       chalk: 5.4.1
 
-  '@conform-to/dom@1.4.0': {}
+  '@conform-to/dom@1.8.1': {}
 
-  '@conform-to/react@1.4.0(react@19.1.0)':
+  '@conform-to/react@1.8.1(react@19.1.0)':
     dependencies:
-      '@conform-to/dom': 1.4.0
+      '@conform-to/dom': 1.8.1
       react: 19.1.0
 
-  '@conform-to/zod@1.4.0(zod@3.24.3)':
+  '@conform-to/zod@1.8.1(zod@3.25.75)':
     dependencies:
-      '@conform-to/dom': 1.4.0
-      zod: 3.24.3
+      '@conform-to/dom': 1.8.1
+      zod: 3.25.75
 
   '@emnapi/core@1.4.3':
     dependencies:
@@ -5489,8 +5489,8 @@ snapshots:
       '@llamaindex/env': 0.1.29(gpt-tokenizer@2.9.0)
       '@types/node': 22.13.10
       magic-bytes.js: 1.10.0
-      zod: 3.24.3
-      zod-to-json-schema: 3.24.4(zod@3.24.3)
+      zod: 3.25.75
+      zod-to-json-schema: 3.24.4(zod@3.25.75)
     transitivePeerDependencies:
       - '@huggingface/transformers'
       - gpt-tokenizer
@@ -5511,11 +5511,11 @@ snapshots:
       tree-sitter: 0.22.4
       web-tree-sitter: 0.24.7
 
-  '@llamaindex/openai@0.3.4(gpt-tokenizer@2.9.0)(zod@3.24.3)':
+  '@llamaindex/openai@0.3.4(gpt-tokenizer@2.9.0)(zod@3.25.75)':
     dependencies:
       '@llamaindex/core': 0.6.2(gpt-tokenizer@2.9.0)
       '@llamaindex/env': 0.1.29(gpt-tokenizer@2.9.0)
-      openai: 4.95.1(zod@3.24.3)
+      openai: 4.95.1(zod@3.25.75)
     transitivePeerDependencies:
       - '@huggingface/transformers'
       - encoding
@@ -5523,20 +5523,20 @@ snapshots:
       - ws
       - zod
 
-  '@llamaindex/vercel@0.1.2(ai@4.3.9(react@19.1.0)(zod@3.24.3))(gpt-tokenizer@2.9.0)':
+  '@llamaindex/vercel@0.1.2(ai@4.3.9(react@19.1.0)(zod@3.25.75))(gpt-tokenizer@2.9.0)':
     dependencies:
       '@llamaindex/core': 0.6.2(gpt-tokenizer@2.9.0)
-      ai: 4.3.9(react@19.1.0)(zod@3.24.3)
-      zod: 3.24.3
+      ai: 4.3.9(react@19.1.0)(zod@3.25.75)
+      zod: 3.25.75
     transitivePeerDependencies:
       - '@huggingface/transformers'
       - gpt-tokenizer
 
-  '@llamaindex/workflow@1.0.3(@llamaindex/core@0.6.2(gpt-tokenizer@2.9.0))(@llamaindex/env@0.1.29(gpt-tokenizer@2.9.0))(zod@3.24.3)':
+  '@llamaindex/workflow@1.0.3(@llamaindex/core@0.6.2(gpt-tokenizer@2.9.0))(@llamaindex/env@0.1.29(gpt-tokenizer@2.9.0))(zod@3.25.75)':
     dependencies:
       '@llamaindex/core': 0.6.2(gpt-tokenizer@2.9.0)
       '@llamaindex/env': 0.1.29(gpt-tokenizer@2.9.0)
-      zod: 3.24.3
+      zod: 3.25.75
 
   '@mdx-js/mdx@3.1.0(acorn@8.14.1)':
     dependencies:
@@ -6571,15 +6571,15 @@ snapshots:
     dependencies:
       humanize-ms: 1.2.1
 
-  ai@4.3.9(react@19.1.0)(zod@3.24.3):
+  ai@4.3.9(react@19.1.0)(zod@3.25.75):
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.7(zod@3.24.3)
-      '@ai-sdk/react': 1.2.9(react@19.1.0)(zod@3.24.3)
-      '@ai-sdk/ui-utils': 1.2.8(zod@3.24.3)
+      '@ai-sdk/provider-utils': 2.2.7(zod@3.25.75)
+      '@ai-sdk/react': 1.2.9(react@19.1.0)(zod@3.25.75)
+      '@ai-sdk/ui-utils': 1.2.8(zod@3.25.75)
       '@opentelemetry/api': 1.9.0
       jsondiffpatch: 0.6.0
-      zod: 3.24.3
+      zod: 3.25.75
     optionalDependencies:
       react: 19.1.0
 
@@ -8044,8 +8044,8 @@ snapshots:
       smol-toml: 1.3.4
       strip-json-comments: 5.0.2
       typescript: 5.8.3
-      zod: 3.24.3
-      zod-validation-error: 3.5.2(zod@3.24.3)
+      zod: 3.25.75
+      zod-validation-error: 3.5.2(zod@3.25.75)
 
   language-subtag-registry@0.3.23: {}
 
@@ -8123,14 +8123,14 @@ snapshots:
       lit-element: 4.2.0
       lit-html: 3.3.0
 
-  llamaindex@0.10.2(gpt-tokenizer@2.9.0)(tree-sitter@0.22.4)(web-tree-sitter@0.24.7)(zod@3.24.3):
+  llamaindex@0.10.2(gpt-tokenizer@2.9.0)(tree-sitter@0.22.4)(web-tree-sitter@0.24.7)(zod@3.25.75):
     dependencies:
       '@llamaindex/cloud': 4.0.3(@llamaindex/core@0.6.2(gpt-tokenizer@2.9.0))(@llamaindex/env@0.1.29(gpt-tokenizer@2.9.0))
       '@llamaindex/core': 0.6.2(gpt-tokenizer@2.9.0)
       '@llamaindex/env': 0.1.29(gpt-tokenizer@2.9.0)
       '@llamaindex/node-parser': 2.0.2(@llamaindex/core@0.6.2(gpt-tokenizer@2.9.0))(@llamaindex/env@0.1.29(gpt-tokenizer@2.9.0))(tree-sitter@0.22.4)(web-tree-sitter@0.24.7)
-      '@llamaindex/openai': 0.3.4(gpt-tokenizer@2.9.0)(zod@3.24.3)
-      '@llamaindex/workflow': 1.0.3(@llamaindex/core@0.6.2(gpt-tokenizer@2.9.0))(@llamaindex/env@0.1.29(gpt-tokenizer@2.9.0))(zod@3.24.3)
+      '@llamaindex/openai': 0.3.4(gpt-tokenizer@2.9.0)(zod@3.25.75)
+      '@llamaindex/workflow': 1.0.3(@llamaindex/core@0.6.2(gpt-tokenizer@2.9.0))(@llamaindex/env@0.1.29(gpt-tokenizer@2.9.0))(zod@3.25.75)
       '@types/lodash': 4.17.16
       '@types/node': 22.13.10
       ajv: 8.17.1
@@ -8727,7 +8727,7 @@ snapshots:
       regex: 6.0.1
       regex-recursion: 6.0.2
 
-  openai@4.95.1(zod@3.24.3):
+  openai@4.95.1(zod@3.25.75):
     dependencies:
       '@types/node': 18.19.80
       '@types/node-fetch': 2.6.12
@@ -8737,7 +8737,7 @@ snapshots:
       formdata-node: 4.4.1
       node-fetch: 2.7.0
     optionalDependencies:
-      zod: 3.24.3
+      zod: 3.25.75
     transitivePeerDependencies:
       - encoding
 
@@ -9091,13 +9091,13 @@ snapshots:
       unified: 11.0.5
       vfile: 6.0.3
 
-  remix-utils@8.5.0(react-router@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(zod@3.24.3):
+  remix-utils@8.5.0(react-router@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(zod@3.25.75):
     dependencies:
       type-fest: 4.40.0
     optionalDependencies:
       react: 19.1.0
       react-router: 7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      zod: 3.24.3
+      zod: 3.25.75
 
   require-from-string@2.0.2: {}
 
@@ -9988,14 +9988,14 @@ snapshots:
 
   yoctocolors@2.1.1: {}
 
-  zod-to-json-schema@3.24.4(zod@3.24.3):
+  zod-to-json-schema@3.24.4(zod@3.25.75):
     dependencies:
-      zod: 3.24.3
+      zod: 3.25.75
 
-  zod-validation-error@3.5.2(zod@3.24.3):
+  zod-validation-error@3.5.2(zod@3.25.75):
     dependencies:
-      zod: 3.24.3
+      zod: 3.25.75
 
-  zod@3.24.3: {}
+  zod@3.25.75: {}
 
   zwitch@2.0.4: {}

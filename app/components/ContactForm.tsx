@@ -4,7 +4,7 @@ import {
   getTextareaProps,
   useForm,
 } from "@conform-to/react";
-import { getZodConstraint, parseWithZod } from "@conform-to/zod";
+import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
 import { useFetcher, type FormProps } from "react-router";
 import { Label } from "./ui/label";
 import {
@@ -20,7 +20,7 @@ import {
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { cn } from "@/lib/utils";
 import type { action } from "@/routes/index";
 import FormMessage from "./FormMessage";
@@ -31,11 +31,7 @@ const phoneRegex = new RegExp(
 );
 
 export const schema = z.object({
-  email: z
-    .string({
-      required_error: "Your email is required.",
-    })
-    .email("Please enter a valid email address."),
+  email: z.email("Please enter a valid email address."),
   name: z.string().min(2, "Name must be at least 2 characters.").optional(),
   subject: z
     .string()
@@ -45,7 +41,8 @@ export const schema = z.object({
   phone: z.string().regex(phoneRegex, "Invalid phone number!").optional(),
   message: z
     .string({
-      required_error: "The message is required.",
+      error: (issue) =>
+        issue.input === undefined ? "The message is required." : null,
     })
     .min(10, "Message must be at least 10 characters.")
     .max(500, "Message must be less than 500 characters."),

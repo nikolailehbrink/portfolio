@@ -1,22 +1,18 @@
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
-import { getZodConstraint, parseWithZod } from "@conform-to/zod";
+import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
 import { href, useFetcher, useLocation, type FormProps } from "react-router";
 import { Label } from "./ui/label";
 import { CheckCircle, CircleNotch, Envelope } from "@phosphor-icons/react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { cn } from "@/lib/utils";
 import type { action } from "@/routes/index";
 import FormMessage from "./FormMessage";
 import FormItem from "./FormItem";
 
 export const schema = z.object({
-  email: z
-    .string({
-      required_error: "Your email is required.",
-    })
-    .email("Please enter a valid email address."),
+  email: z.email("Please enter a valid email address."),
 });
 
 export default function NewsletterForm({
