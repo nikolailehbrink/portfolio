@@ -3,7 +3,7 @@ import { SKILLS } from "@/data/skills";
 import Avatar from "@/components/Avatar";
 import { EDUCATION, WORK_EXPERIENCE } from "@/data/workExperience";
 import type { Route } from "./+types";
-import { parseWithZod } from "@conform-to/zod";
+import { parseWithZod } from "@conform-to/zod/v4";
 import ContactForm, {
   schema as contactFormSchema,
 } from "@/components/ContactForm";
