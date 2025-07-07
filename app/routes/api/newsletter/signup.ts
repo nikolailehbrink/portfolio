@@ -4,7 +4,7 @@ import NewsletterVerificationEmail, {
   PlainText,
 } from "@/components/emails/newsletter-verification";
 import { schema as newsletterFormSchema } from "@/components/NewsletterForm";
-import { parseWithZod } from "@conform-to/zod";
+import { parseWithZod } from "@conform-to/zod/v4";
 import type { Route } from "./+types/signup";
 import { track } from "@vercel/analytics/server";
 import { resend } from "@/lib/resend.server";
