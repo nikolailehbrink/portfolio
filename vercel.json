@@ -1,5 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/blog/tailwind-css-tips",
+      "destination": "/blog/tailwindcss-v3-tips"
+    }
+  ],
   "images": {
     "sizes": [
       16, 32, 64, 128, 192, 256, 384, 512, 640, 750, 828, 960, 1024, 1080, 1280,

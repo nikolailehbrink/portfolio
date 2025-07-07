@@ -10,7 +10,7 @@ export default {
     href("/blog/fonts-remix-react-router-7"),
     href("/blog/sitemap-react-router-7"),
     href("/blog/syntax-highlighting-shiki-next-js"),
-    href("/blog/tailwind-css-tips"),
+    href("/blog/tailwindcss-v3-tips"),
     href("/privacy-policy"),
     href("/legal-notice"),
   ],

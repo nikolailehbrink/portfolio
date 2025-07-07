@@ -1,4 +1,4 @@
-import cover from "./tailwind-tips.webp";
+import cover from "./tailwindcss-tips.webp";
 import Alert from "../../../components/Alert";
 import ProfileBadge from "../../../components/ProfileBadge";
 import GradientHeading from "./GradientHeading";
@@ -6,26 +6,23 @@ import BreakoutSection from "./BreakoutSection";
 import NewsletterForm from "../../../components/NewsletterForm";
 
 export const handle = {
-  title: "Tailwind CSS Tips Every Developer Should Know",
+  title: "Tailwind CSS v3 tips every developer should know",
   description:
-    "Looking for ways to improve your development with Tailwind CSS? Explore tips and tricks from workflow optimizations to common design patterns.",
+    "Looking for ways to improve your development with Tailwind CSS v3? Discover tips and tricks from workflow optimizations to common design patterns.",
   publicationDate: "2024-04-19",
-  modificationDate: "2024-04-25",
+  modificationDate: "2025-07-08",
   authors: ["Nikolai Lehbrink"],
   tags: ["Tailwind CSS", "Tips and Tricks"],
   cover,
   readingTime: 12,
-
 };
 
-Over the past two years, I've used Tailwind CSS in almost every web project I've undertaken. Along the way, I've picked up a few handy tips and tricks that I'd like to share.
+Over the past years, I've used Tailwind CSS in almost every web project I've undertaken. Along the way, I've picked up a few handy tips and tricks that I'd like to share.
 
-<Alert heading="My intention in writing this article">
-  My goal is to offer a cheat sheet that addresses the challenges I face and to
-  continually update this article whenever I find something new.
+<Alert type="question" heading="Do you use Tailwind CSS v4?">
+  The updated version of this post for [Tailwind CSS
+  v4](https://tailwindcss.com/) is available [here](/blog/tailwindcss-v4-tips).
 </Alert>
-
-Please do not hesitate to [get in touch with me](/#contact) if you have a tip that you think I should include.
 
 ## Common Practices
 
@@ -35,7 +32,7 @@ Some scenarios that many people have probably encountered.
 
 Often times in web design, we do not wan't to scale or fit content to the outermost width of the viewport but rather have content inside a container which helps usability and helps the user to focus on the important part of the site.
 
-The [`container` class](https://v3.tailwindcss.com/docs/container) in Tailwind CSS can be used to achieve just that, applying a `max-width` to the specific element.
+The [`container` class](https://v3.tailwindcss.com/docs/container) in Tailwind CSS v3 can be used to achieve just that, applying a `max-width` to the specific element.
 
 <Alert type="tip">
   A common case is that the container needs to be centred in the middle of the
@@ -136,8 +133,7 @@ You can use [`@apply{:css}`](https://tailwindcss.com/docs/functions-and-directiv
 With the implementation of [arbitrary variants](https://tailwindcss.com/docs/hover-focus-and-other-states#using-arbitrary-variants) in [Tailwind CSS v3.1](https://tailwindcss.com/blog/tailwindcss-v3-1) it is possible to create custom variants directly in your HTML.
 
 ```html {1}
-<div class="... [&>pre]:overflow-x-auto [&>pre]:!bg-neutral-900 [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&>pre]:scrollbar-thin [&_code]:block [&_code]:w-fit [&_code]:min-w-full">
-  <!-- Auto generated code -->
+<div class="[&>pre]:overflow-x-auto [&_code]:block ...">
   <!-- <pre>
     <code>
       ...
@@ -181,7 +177,7 @@ export const viewport: Viewport = {
 
 ### Setting width and height in one go
 
-Often, when browsing through tutorials on YouTube or other websites, you'll notice that many developers apply width and height classes separately to achieve square dimensions for elements like icons or avatars. That is because previously, this was the standard approach in Tailwind CSS.
+Often, when browsing through tutorials on YouTube or other websites, you'll notice that many developers apply width and height classes separately to achieve square dimensions for elements like icons or avatars. That is because previously, this was the standard approach in Tailwind CSS v3.
 
 With the introduction of the `size-*` utilities in [Tailwind CSS v3.4](https://tailwindcss.com/blog/tailwindcss-v3-4#new-size-utilities), setting both dimensions simultaneously has become much more straightforward.
 
@@ -194,11 +190,11 @@ With the introduction of the `size-*` utilities in [Tailwind CSS v3.4](https://t
 
 ## Optimize Development
 
-Tips that should make your development with Tailwind CSS easier.
+Tips that should make your development with Tailwind CSS v3 easier.
 
 ### Automatic wrapping of long class names
 
-In Tailwind CSS it is almost impossible to avoid writing long class names for certain elements. This should not be a problem, but the class names remain on one line and are not, for example, formatted and limited in length by Prettier and split over several lines. This means that developers often have to scroll horizontally for some time to find the right class.
+With Tailwind CSS it is almost impossible to avoid writing long class names for certain elements. This should not be a problem, but the class names remain on one line and are not, for example, formatted and limited in length by Prettier and split over several lines. This means that developers often have to scroll horizontally for some time to find the right class.
 
 <Alert>
   The problem is so significant that it is [rated as the top idea for Tailwind
@@ -216,17 +212,17 @@ to also automatically sort the classes.
 <Alert type="tip">
   For more information on how to get the plugin up and running, I suggest you
   read the [installation
-  instructions](https://github.com/ony3000/prettier-plugin-classnames?tab=readme-ov-file#installation).
+  instructions](https://github.com/ony3000/prettier-plugin-classnames?tab=readme-ov-file#installation1).
   Basically it's just a matter of installing the plugin, adding it to your
   `prettier.config.js` and restarting your code editor.
 </Alert>
 
 I am using the plugin on this site with the following `prettier.config.js`.
 
-```js filename="prettier.config.js" {9,11,14} showLineNumbers
+```js filename="prettier.config.js" {9,11-12,14} showLineNumbers
 /** @type {import("prettier").Config} */
 const functions = ["cn", "clsx", "cva"];
-module.exports = {
+export default {
   // Used to sort classes in strings provided to function calls (clsx, twMerge or cva)
   tailwindFunctions: functions,
   // Used to wrap classes in strings provided to function calls (clsx, twMerge or cva)
@@ -310,18 +306,18 @@ A workaround for this is to set a negative `margin` on the horizontal axis and b
 
 The result is a section that extends beyond the plugin’s defined `max-width`.
 
-<BreakoutSection></BreakoutSection>
+<BreakoutSection />
 
-### Create gradient headings
+### Create gradient text with Tailwind CSS
 
 Many professional websites today use gradient headlines to grab the attention of visitors and give their pages a dynamic, modern look.
 
 <GradientHeading>This is a demo text</GradientHeading>
 
-Here is how you can implement that in one line with Tailwind CSS.
+Here is how you can implement that in one line with Tailwind CSS v3.
 
 ```html {1}
-<h1 class="inline-block bg-linear-to-b from-neutral-500 to-neutral-300 bg-clip-text text-3xl text-transparent">
+<h1 class="inline-block bg-gradient-to-b from-neutral-500 to-neutral-300 bg-clip-text text-3xl text-transparent">
   This is a demo text
 </h1>
 ```

@@ -16,7 +16,7 @@ export default [
           "batch-mails-deno-postmark",
           "./routes/blog/batch-mails-deno-postmark/post.mdx",
         ),
-        route("tailwind-css-tips", "./routes/blog/tailwind-css-tips/post.mdx"),
+        route("tailwindcss-v3-tips", "./routes/blog/tailwindcss-tips/v3.mdx"),
         route(
           "syntax-highlighting-shiki-next-js",
           "./routes/blog/syntax-highlighting-shiki-next-js/post.mdx",
