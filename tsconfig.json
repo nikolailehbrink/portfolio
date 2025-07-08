@@ -22,7 +22,9 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    // https://github.com/aleclarson/vite-tsconfig-paths?tab=readme-ov-file#%EF%B8%8F-non-typescript-modules-need-special-configuration
+    "allowJs": true
   },
   "mdx": {
     // Enable strict type checking in MDX files.

@@ -1,5 +1,5 @@
 import type { UIMessage } from "ai";
-import Avatar from "../Avatar";
+import Avatar from "@/components/Avatar";
 import { User } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
