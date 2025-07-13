@@ -16,6 +16,10 @@ export default [
           "batch-mails-deno-postmark",
           "./routes/blog/batch-mails-deno-postmark/post.mdx",
         ),
+        route(
+          "realistic-button-design-css",
+          "./routes/blog/realistic-button-design-css/post.mdx",
+        ),
         route("tailwindcss-v3-tips", "./routes/blog/tailwindcss-tips/v3.mdx"),
         route("tailwindcss-v4-tips", "./routes/blog/tailwindcss-tips/v4.mdx"),
         route(

@@ -1,0 +1,195 @@
+import Alert from "@/components/Alert";
+
+export const handle = {
+  title: "Make your button design stand out",
+  description:
+    "Learn how to make buttons look more realistic using inset shadows and gradients inspired by real-world materials and lighting.",
+  publicationDate: "2025-07-12",
+  authors: ["Nikolai Lehbrink"],
+  tags: ["CSS", "Buttons", "Tips and Tricks", "Tailwind CSS"],
+  readingTime: 10,
+  draft: true,
+};
+
+## The _problem_ with flat buttons
+
+Flat buttons are a staple of modern web design, but they can sometimes feel a bit lifeless or different from how you would expect a physical button. They can lack the depth and visual quality that can make the user interface feel more realistic.
+
+Let's look at a simple example of a flat button with a solid color.
+
+```html
+<button
+  class="rounded-md border border-neutral-600 bg-neutral-900 px-3
+    py-1.5 text-sm text-neutral-100 hover:bg-neutral-800">
+  Flat Button
+</button>
+```
+
+<div className="not-prose flex justify-center rounded-lg bg-neutral-100 p-4">
+  <button className="rounded-md border border-neutral-600 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 hover:bg-neutral-800">
+    Flat Button
+  </button>
+</div>
+
+{/* As you can see, it looks quite dull and doesn't provide much the visual and haptic feedback that you would expect from a physical button. */}
+
+## Take lighting into account
+
+Light interacts with surfaces in the real world, creating highlights and shadows that make objects look three-dimensional.
+
+For example: If you look down on your keyboard you will see with a bit of luck that the keys are not just flat surfaces, but they have a slight inner shadow and a gradient that gives them depth.
+
+We can make use of this principle to create a more realistic button. The light typically comes from above, so the top of the button should be brighter, while the sides and bottom are darker.
+
+```html /relative before:absolute/ /before:inset-0 before:bg-linear-to-b before:from-white/ /before:to-transparent/ noCopy
+<button
+  class="rounded-md ... relative before:absolute
+    before:inset-0 before:bg-linear-to-b before:from-white/20
+    before:to-transparent">
+  With Gradient
+</button>
+```
+
+<Alert type="info" className="mt-4">
+  I am using a <code>before</code> pseudo-element to create the gradient effect.
+  This allows me to keep the simple hover effect with a solid color without
+  having to updating the gradient on hover.
+</Alert>
+
+<div className="not-prose mt-8 flex justify-center rounded-lg bg-neutral-100 p-4">
+  <div className="flex gap-2">
+    <button className="rounded-md border border-neutral-600 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 hover:bg-neutral-800">
+      Flat Button
+    </button>
+    <button className="not-prose relative overflow-hidden rounded-md border border-neutral-600 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 before:absolute before:inset-0 before:bg-linear-to-b before:from-white/20 before:to-transparent hover:bg-neutral-800">
+      With Gradient
+    </button>
+  </div>
+</div>
+
+## Border colors and shadows
+
+If you paid close attention to the previous examples, you might have noticed that the button has a small border around it with a slightly lighter color than the background. This is how I would go about to style a flat button.
+
+If we go back to our keyboard example however, you'll notice that the keys typically have a darker border around them. That’s because they’re raised and there’s a small gap between the key and the surface it sits in, where not much light reaches.
+
+So let's adjust the border color to be darker and add a subtle shadow to give the button a little bit of elevation as it would have in the real world.
+
+```html /border-neutral-900/ /shadow-md/ noCopy
+<button
+  class="rounded-md ... border-neutral-900 shadow-md">
+  Darker Border With Shadow
+</button>
+```
+
+<div className="not-prose flex justify-center rounded-lg bg-neutral-100 p-4">
+  <div className="flex gap-2">
+    <button className="relative overflow-hidden rounded-md border border-neutral-600 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 before:absolute before:inset-0 before:bg-linear-to-b before:from-white/20 before:to-transparent hover:bg-neutral-800">
+      Lighter Border
+    </button>
+    <button className="relative overflow-hidden rounded-md border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 shadow-md before:absolute before:inset-0 before:bg-linear-to-b before:from-white/20 before:to-transparent hover:bg-neutral-800">
+      Darker Border With Shadow
+    </button>
+  </div>
+</div>
+
+These changes are barely noticeable, but they do make a difference in the end.
+
+## Make the button stand out
+
+When talking about pressing a button, that means that it has to stick out slightly so that it can be pressed down.
+
+We already talked about lighting and how it comes from above. That also means that the top of the mass sticking out should be brighter than the button itself.
+
+This is where we can use a little trick with an inset shadow without any blur to create the illusion of depth. Let's add an inner shadow to the top of the button that is lighter than the border color.
+
+```html /inset-shadow-2xs inset-shadow-neutral-700/ noCopy
+<button
+  class="rounded-md ... inset-shadow-2xs inset-shadow-neutral-700">
+  With Inner Shadow
+</button>
+```
+
+<div className="not-prose flex justify-center rounded-lg bg-neutral-100 p-4">
+  <div className="flex gap-2">
+    <button className="relative overflow-hidden rounded-md border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 shadow-md before:absolute before:inset-0 before:bg-linear-to-b before:from-white/20 before:to-transparent hover:bg-neutral-800">
+      Without Inner Shadow
+    </button>
+    <button className="relative overflow-hidden rounded-md border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 shadow-md inset-shadow-2xs inset-shadow-neutral-700 before:absolute before:inset-0 before:bg-linear-to-b before:from-white/20 before:to-transparent hover:bg-neutral-800">
+      With Inner Shadow
+    </button>
+  </div>
+</div>
+
+## The icing on the cake
+
+As you might have noticed, the buttons here aren’t images, but real HTML elements you can interact with. If you clicked one, you probably saw that apart from the background color changing on hover, nothing really happens when you press it.
+
+We can improve that by styling the button’s active state. To make it look like the button is being pressed down, we can use a darker background color and blend the inset shadow with it. We can also remove the outer shadow to make it look like the button is being pressed into the surface.
+
+```html /active:bg-neutral-950 active:shadow-none/ /active:inset-shadow-neutral-800/ noCopy
+<button
+  class="rounded-md ... active:bg-neutral-950 active:shadow-none
+    active:inset-shadow-neutral-800">
+  Active State
+</button>
+```
+
+<div className="not-prose flex justify-center rounded-lg bg-neutral-100 p-4">
+  <div className="flex gap-2">
+    <button className="relative overflow-hidden rounded-md border border-neutral-950 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 shadow-md inset-shadow-2xs inset-shadow-neutral-600 before:absolute before:inset-0 before:bg-linear-to-b before:from-white/20 before:to-transparent hover:bg-neutral-800">
+      Try To Click Me
+    </button>
+    <button className="relative overflow-hidden rounded-md border border-neutral-950 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 shadow-md inset-shadow-2xs inset-shadow-neutral-600 before:absolute before:inset-0 before:bg-linear-to-b before:from-white/20 before:to-transparent hover:bg-neutral-800 active:bg-neutral-950 active:shadow-none active:inset-shadow-neutral-800">
+      Click Me
+    </button>
+  </div>
+</div>
+
+Now that looks much better to me!  
+However there are two subtleties that I would enhance further.
+
+First of all, we can change the cursor to a pointer to indicate that the button is clickable.
+
+<Alert>
+  I know that there is a [long debate about whether to use a pointer cursor or
+  not](https://ux.stackexchange.com/questions/105024/why-dont-button-html-elements-have-a-css-cursor-pointer-by-default),
+  but I think most people expect it and in my opinion it makes the button feel
+  more interactive.
+</Alert>
+
+Secondly, we can add a slight transition to the button to make the hover and active states feel smoother.
+
+```html /cursor-pointer transition-all/ noCopy
+<button class="rounded-md ... cursor-pointer transition-all">
+  After
+</button>
+```
+
+## Final result
+
+Here is the final result with all the enhancements applied. I think you'll agree that it looks much more realistic and feels more like a physical button.
+
+```html
+<button
+  class="relative cursor-pointer overflow-hidden rounded-md border
+    border-neutral-950 bg-neutral-900 px-3 py-1.5 text-neutral-100
+    shadow-md inset-shadow-2xs inset-shadow-neutral-600 transition-all
+    before:absolute before:inset-0 before:bg-linear-to-b
+    before:from-white/20 before:to-transparent hover:bg-neutral-800
+    active:bg-neutral-950 active:shadow-none
+    active:inset-shadow-neutral-800">
+  After
+</button>
+```
+
+<div className="not-prose relative flex items-center justify-center rounded-lg bg-linear-to-br from-sky-200 to-sky-50 p-4 text-sm">
+  <div className="flex gap-2">
+    <button className="rounded-md border border-neutral-600 bg-neutral-900 px-3 py-1.5 text-sm text-neutral-100 hover:bg-neutral-800">
+      Before
+    </button>
+    <button className="relative cursor-pointer overflow-hidden rounded-md border border-neutral-950 bg-neutral-900 px-3 py-1.5 text-neutral-100 shadow-md inset-shadow-2xs inset-shadow-neutral-600 transition-all before:absolute before:inset-0 before:bg-linear-to-b before:from-white/20 before:to-transparent hover:bg-neutral-800 active:bg-neutral-950 active:shadow-none active:inset-shadow-neutral-800">
+      After
+    </button>
+  </div>
+</div>
