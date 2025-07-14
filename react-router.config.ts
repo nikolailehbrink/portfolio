@@ -12,6 +12,7 @@ export default {
     href("/blog/syntax-highlighting-shiki-next-js"),
     href("/blog/tailwindcss-v3-tips"),
     href("/blog/tailwindcss-v4-tips"),
+    href("/blog/realistic-button-design-css"),
     href("/privacy-policy"),
     href("/legal-notice"),
   ],
