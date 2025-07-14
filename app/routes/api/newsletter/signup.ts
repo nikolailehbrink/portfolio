@@ -10,7 +10,9 @@ import { track } from "@vercel/analytics/server";
 import { resend } from "@/lib/resend.server";
 
 export async function action({ request }: Route.ActionArgs) {
-  const { origin } = new URL(request.url);
+  const { headers, url } = request;
+  const { origin } = new URL(url);
+
   const formData = await request.formData();
 
   const honeypot = formData.get("company");
@@ -18,6 +20,7 @@ export async function action({ request }: Route.ActionArgs) {
   if (typeof honeypot === "string" && honeypot.trim() !== "") {
     await track("honeypot-triggered", {
       form: "newsletter-signup",
+      input: honeypot,
     });
     return data({ success: true });
   }
@@ -72,6 +75,17 @@ export async function action({ request }: Route.ActionArgs) {
       ],
     });
   }
+
+  let referrer = headers.get("referer");
+
+  if (referrer) {
+    referrer = new URL(referrer).pathname;
+  }
+
+  await track("newsletter-signup", {
+    email,
+    path: referrer,
+  });
 
   //https://github.com/edmundhung/conform/issues/410
   return {
