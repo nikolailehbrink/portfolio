@@ -2,7 +2,7 @@ import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
 import { href, useFetcher, useLocation, type FormProps } from "react-router";
 import { Label } from "./ui/label";
-import { CheckCircle, CircleNotch, Envelope } from "@phosphor-icons/react";
+import { CircleNotch, Envelope } from "@phosphor-icons/react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { z } from "zod/v4";
@@ -117,11 +117,13 @@ export default function NewsletterForm({
         <FormMessage
           className="col-span-full items-start rounded-md border border-sky-900
             bg-sky-950 p-2 text-sky-400"
-          icon={CheckCircle}
+          icon={Envelope}
           iconSize={20}
         >
-          Thank you for signing up! Please check your email to verify your
-          subscription.
+          <p>
+            <strong>Almost there!</strong> Look for a verification email in your
+            inbox - and don’t forget to check your <i>spam folder</i>.
+          </p>
         </FormMessage>
       )}
     </Form>
