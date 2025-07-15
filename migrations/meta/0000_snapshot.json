@@ -1,0 +1,36 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "2cc4ea84-7ac5-4601-b1b3-be2bd69e8c5e",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "foo": {
+      "name": "foo",
+      "columns": {
+        "bar": {
+          "name": "bar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Hey!'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

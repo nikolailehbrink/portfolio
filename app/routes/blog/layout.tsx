@@ -13,17 +13,35 @@ import Avatar from "@/components/Avatar";
 import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
 import { track } from "@vercel/analytics/react";
 import { formatDate } from "@/lib/format";
-import { Pencil } from "@phosphor-icons/react";
+import { db } from "@/lib/turso";
+import { postCounter } from "../../../db/schema";
+import { Eye, Pencil } from "@phosphor-icons/react";
+import { sql } from "drizzle-orm";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { url } = request;
+  const { pathname } = new URL(url);
+  const slug = pathname.substring(pathname.lastIndexOf("/") + 1);
   const { metadata } = await getPost(url);
   const formattedPublicationDate = formatDate(metadata.publicationDate);
   const formattedModificationDate = metadata.modificationDate
     ? formatDate(metadata.modificationDate)
     : null;
   const nextPost = await getNextPost(url);
+  // FIXME: Make this work with Prerendering
+  const result = await db
+    .insert(postCounter)
+    .values({ slug })
+    .onConflictDoUpdate({
+      target: postCounter.slug,
+      set: { views: sql`${postCounter.views} + 1` },
+    })
+    .returning();
+
+  const views = result[result.length - 1].views;
+
   return {
+    views,
     metadata,
     nextPost,
     formattedPublicationDate,
@@ -33,6 +51,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function PostLayout({ loaderData }: Route.ComponentProps) {
   const {
+    views,
     metadata: {
       cover,
       title,
@@ -97,6 +116,10 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
                 <span>{readingTime} min read</span>
               </>
             ) : null}
+            <span>•</span>
+            <span className="flex items-center gap-1">
+              <Eye weight="duotone" /> {views}
+            </span>
           </div>
           {isDraft && (
             <Badge className="dark:bg-orange-500/20 dark:text-orange-400">

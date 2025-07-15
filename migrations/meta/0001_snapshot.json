@@ -1,0 +1,51 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "54651150-6a65-4bd0-aec3-bb25fc95c082",
+  "prevId": "2cc4ea84-7ac5-4601-b1b3-be2bd69e8c5e",
+  "tables": {
+    "postCounter": {
+      "name": "postCounter",
+      "columns": {
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "views": {
+          "name": "views",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "postCounter_slug_unique": {
+          "name": "postCounter_slug_unique",
+          "columns": [
+            "slug"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}
