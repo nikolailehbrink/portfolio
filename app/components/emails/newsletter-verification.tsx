@@ -3,7 +3,6 @@ import {
   Button,
   Container,
   Head,
-  Heading,
   Html,
   Preview,
   Section,
@@ -13,25 +12,18 @@ import {
 
 type NewsletterVerificationProps = {
   confirmationLink: string;
-  email: string;
 };
 
-export function PlainText({
-  email = "there",
-  confirmationLink,
-}: NewsletterVerificationProps) {
-  return `Welcome to my Newsletter! 🗞️
-Hi ${email},
-Thank you for subscribing to my newsletter! I am excited to have you join my community and share valuable insights, updates, and exclusive content with you.
-To complete your subscription and start receiving my newsletter, please verify your email address by clicking the link below:
+export function PlainText({ confirmationLink }: NewsletterVerificationProps) {
+  return `Hi there,
+Thanks for signing up for my newsletter.
+Please confirm your subscription by clicking the link below:
 ${confirmationLink}
-Note: This verification link will expire in 24 hours for security reasons. If you didn't subscribe to my newsletter, you can safely ignore this email.
-Best regards,
-Nikolai Lehbrink`;
+This link expires in 24 hours. If you didn’t request this, you can ignore this email.
+— Nikolai Lehbrink`;
 }
 
 const NewsletterVerificationEmail = ({
-  email = "there",
   confirmationLink,
 }: NewsletterVerificationProps) => {
   return (
@@ -39,8 +31,7 @@ const NewsletterVerificationEmail = ({
       <Tailwind>
         <Head />
         <Preview>
-          Please verify your email address to complete ymy newsletter
-          subscription
+          Please confirm your email to complete your newsletter subscription
         </Preview>
         <Body className="bg-neutral-950 font-sans text-neutral-300">
           <Container
@@ -48,25 +39,14 @@ const NewsletterVerificationEmail = ({
               p-[40px] shadow-sm"
           >
             <Section>
-              <Heading
-                className="mb-[24px] text-[32px] font-bold text-neutral-100"
-              >
-                Welcome to my Newsletter! 🗞️
-              </Heading>
-
               <Text className="mb-[24px] text-[16px] leading-[24px]">
-                Hi <span className="font-semibold text-sky-500">{email}</span>,
+                Hi there,
               </Text>
 
               <Text className="mb-[24px] text-[16px] leading-[24px]">
-                Thank you for subscribing to my newsletter! I am excited to have
-                you join my community and share valuable insights, updates, and
-                exclusive content with you.
-              </Text>
-
-              <Text className="mb-[32px] text-[16px] leading-[24px]">
-                To complete your subscription and start receiving my newsletter,
-                please verify your email address by clicking the button below:
+                Thanks for signing up for my newsletter. To complete your
+                subscription, please confirm your email address by clicking the
+                button below:
               </Text>
 
               <Section className="mb-[24px]">
@@ -76,7 +56,7 @@ const NewsletterVerificationEmail = ({
                     text-[14px] font-semibold text-sky-400 no-underline
                     hover:bg-sky-600 hover:text-sky-50"
                 >
-                  Verify Email Address
+                  Confirm Email
                 </Button>
               </Section>
 
@@ -84,13 +64,17 @@ const NewsletterVerificationEmail = ({
                 className="mb-[12px] text-[14px] leading-[20px]
                   text-neutral-400"
               >
-                If the button above doesn&apos;t work, you can also copy and
-                paste this link into your browser:
+                If the button above doesn’t work, you can copy and paste this
+                link into your browser:
               </Text>
 
               <Text
-                className="mb-[12px] text-[14px] leading-[20px] break-all
-                  text-sky-600"
+                className="mb-[12px] text-[14px] leading-[20px] text-sky-600"
+                style={{
+                  wordBreak: "break-all",
+                  overflowWrap: "break-word",
+                  wordWrap: "break-word",
+                }}
               >
                 {confirmationLink}
               </Text>
@@ -99,17 +83,14 @@ const NewsletterVerificationEmail = ({
                 className="mb-[12px] text-[14px] leading-[20px]
                   text-neutral-400"
               >
-                Note: This verification link will expire in 24 hours for
-                security reasons. If you didn&apos;t subscribe to our
-                newsletter, you can safely ignore this email.
+                This link will expire in 24 hours. If you didn’t request this
+                subscription, you can ignore this message.
               </Text>
 
               <Text
                 className="mb-[8px] text-[16px] leading-[24px] text-neutral-300"
               >
-                Best regards,
-                <br />
-                Nikolai Lehbrink
+                — Nikolai Lehbrink
               </Text>
             </Section>
           </Container>
@@ -120,7 +101,6 @@ const NewsletterVerificationEmail = ({
 };
 
 NewsletterVerificationEmail.PreviewProps = {
-  email: "john.doe@example.com",
   confirmationLink:
     "https://nikolailehbr.ink/newsletter/verification?token=abc123xyz789asdjpasd.asdjaspdfgsgpisdf.asdjaspidaspf",
 } satisfies NewsletterVerificationProps;

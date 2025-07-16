@@ -50,7 +50,7 @@ export async function action({ request }: Route.ActionArgs) {
   const { error } = await resend.emails.send({
     from: "Nikolai Lehbrink <mail@nikolailehbr.ink>",
     to: [import.meta.env.DEV ? "delivered@resend.dev" : email],
-    subject: "Please confirm your newsletter subscription",
+    subject: "Confirm your newsletter subscription",
     tags: [
       {
         name: "category",
@@ -59,11 +59,9 @@ export async function action({ request }: Route.ActionArgs) {
     ],
     text: PlainText({
       confirmationLink,
-      email,
     }),
     react: NewsletterVerificationEmail({
       confirmationLink,
-      email,
     }),
   });
 
