@@ -144,7 +144,10 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
           />
         </div>
       )}
-      <section className="mx-auto prose w-full prose-neutral dark:prose-invert">
+      <section
+        className="mx-auto prose w-full prose-neutral dark:prose-invert
+          prose-a:decoration-sky-500 prose-a:underline-offset-4"
+      >
         {formattedModificationDate ? (
           <Badge
             asChild
