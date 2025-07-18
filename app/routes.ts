@@ -38,6 +38,10 @@ export default [
           "fonts-remix-react-router-7",
           "./routes/blog/fonts-remix-react-router-7/post.mdx",
         ),
+        route(
+          "enhance-mdx-typescript",
+          "./routes/blog/enhance-mdx-typescript/post.mdx",
+        ),
       ]),
     ]),
     ...prefix("newsletter", [
