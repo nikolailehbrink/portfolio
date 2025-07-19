@@ -45,6 +45,7 @@
     "@react-router/serve": "7.6.3",
     "@unpic/react": "1.0.1",
     "@vercel/analytics": "1.5.0",
+    "@vercel/og": "0.7.2",
     "@vercel/react-router": "1.1.2",
     "ai": "4.3.9",
     "class-variance-authority": "0.7.1",
