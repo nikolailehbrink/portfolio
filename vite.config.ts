@@ -21,7 +21,9 @@ export default defineConfig(({ command }) => ({
     rollupOptions: {
       // There was a build error related to the @forge42/seo-tools package
       // https://github.com/forge-42/seo-tools/issues/13
-      external: ["virtual:remix/server-build"],
+      // Second build error was related to the @resvg/resvg-js package "Could not load ...darwin-arm64.node"
+      //  - stream did not contain valid UTF-8
+      external: ["virtual:remix/server-build", "@resvg/resvg-js"],
     },
   },
   server: {

@@ -62,6 +62,7 @@ export default [
       route("signup", "routes/api/newsletter/signup.ts"),
     ]),
   ]),
+  route("og", "routes/api/og/route.tsx"),
   route("sitemap.xml", "routes/sitemap.xml.ts"),
   route("robots.txt", "routes/robots.txt.ts"),
 ] satisfies RouteConfig;
