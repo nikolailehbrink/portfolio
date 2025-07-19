@@ -13,6 +13,7 @@ export default function Image({
         { "saturate-[1.2]": import.meta.env.PROD },
         className,
       )}
+      loading="lazy"
       {...props}
       {...(import.meta.env.PROD ? { cdn: "vercel" } : {})}
     />
