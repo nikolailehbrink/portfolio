@@ -1,3 +1,8 @@
+import Image from "@/components/ui/image";
+import errorMessage from "./error-message.png";
+import withTypeCheck from "./invalid-props-with-typechecking.png";
+import withoutTypeCheck from "./invalid-props-without-typechecking.png";
+
 export const handle = {
   title: "Set up path aliases and type checking in MDX with TypeScript",
   description:
@@ -20,11 +25,11 @@ Both of these can be resolved with minimal configuration.
 
 ## 1. Enable TypeScript Path Aliases in `.mdx` Files
 
-When using Vite and TypeScript, it is recommended to use the [`vite-tsconfig-paths`](https://github.com/aleclarson/vite-tsconfig-paths) plugin, which automatically resolves your `tsconfig.json` paths in `.ts` and `.tsx` files.
+When using Vite with TypeScript, it's recommended to use the [`vite-tsconfig-paths`](https://github.com/aleclarson/vite-tsconfig-paths) plugin to automatically resolve path aliases defined in your `tsconfig.json` for `.ts` and `.tsx` files.
 
-For example, you can use clean import paths like `@/components/Button` instead of long relative paths such as `../../components/Button`.
+This allows you to use clean import paths like `@/components/Button` instead of long relative ones like `../../components/Button`.
 
-Here’s how path aliases are set up on this website:
+Here's how path aliases are set up on this website:
 
 ```json filename="portfolio/tsconfig.json"
 {
@@ -49,11 +54,22 @@ export default defineConfig({
 
 ```tsx filename="portfolio/app/routes/example.tsx"
 import Button from "@/components/ui/Button";
+
+export default function Example() {
+  return <Button>Click me</Button>;
+}
 ```
 
 ### Path Aliases Don’t Work in `.mdx`
 
-The problem is, that path aliases do _not_ apply to non-TypeScript modules—like `.mdx` out of the box.
+The problem is, that path aliases do _not_ apply to non-TypeScript modules — like `.mdx` — out of the box.
+
+<Image
+  src={errorMessage}
+  width={750}
+  height={146}
+  caption="Path aliases do not work in MDX files out of the box — leading to an error when importing components"
+/>
 
 To enable this behavior, you need to opt into JavaScript file support by enabling `allowJs` in your `tsconfig.json`:
 
@@ -65,11 +81,11 @@ To enable this behavior, you need to opt into JavaScript file support by enablin
 }
 ```
 
-With this option enabled, Vite will - in most cases - correctly resolve path aliases inside MDX content.
+With this option enabled, Vite will — in most cases — correctly resolve path aliases inside MDX content.
 
 ### Alternative: Use `loose: true`
 
-According to the [plugin's documentation](https://github.com/aleclarson/vite-tsconfig-paths?tab=readme-ov-file#%EF%B8%8F-non-typescript-modules-need-special-configuration), if you prefer not to enable `allowJs`, or it didn't help, you can pass `loose: true` to the plugin config instead:
+According to [`vite-tsconfig-paths` documentation](https://github.com/aleclarson/vite-tsconfig-paths?tab=readme-ov-file#%EF%B8%8F-non-typescript-modules-need-special-configuration), if you prefer not to enable `allowJs`, or it didn't help, you can pass `loose: true` to the plugin config instead:
 
 ```ts filename="vite.config.ts"
 import { defineConfig } from "vite";
@@ -85,9 +101,14 @@ This should make alias resolution work across all file types, without changing y
 
 ## 2. Enable Strict Type Checking in MDX Files
 
-By default, MDX files don’t benefit from TypeScript’s type checking. That means you can pass incorrect props to components inside `.mdx` files—and nothing will warn you.
+By default, MDX files don’t benefit from TypeScript’s type checking. That means you can pass incorrect props to components inside `.mdx` files and nothing will warn you.
 
-{/* TODO: Add image with incorrectly passed in prop */}
+<Image
+  src={withoutTypeCheck}
+  width={750}
+  height={335}
+  caption="Without type checking enabled, props can be passed incorrectly to components in MDX without any warnings or errors"
+/>
 
 The [`mdx-analyzer`](https://github.com/mdx-js/mdx-analyzer) project supports strict type checking inside MDX via the `checkMdx` flag. This enables proper validation of component usage in `.mdx` files.
 
@@ -101,6 +122,11 @@ To turn it on, add the following to your `tsconfig.json`:
 }
 ```
 
-{/* TODO: Add image of image where an error is shown, that there is an incorrect prop */}
+With `checkMdx` enabled, you’ll get type errors when props don’t match expected types. This improves reliability and helps catch mistakes earlier.
 
-With `checkMdx` enabled, you’ll get type errors when props don’t match expected types—just like in your `.tsx` files. This improves reliability and helps catch mistakes earlier.
+<Image
+  src={withTypeCheck}
+  width={750}
+  height={574}
+  caption="With type checking enabled, invalid props in MDX trigger a clear error message"
+/>
