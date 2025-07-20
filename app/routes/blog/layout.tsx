@@ -1,5 +1,5 @@
 import { MDXProvider } from "@mdx-js/react";
-import { Link, Outlet } from "react-router";
+import { href, Link, Outlet } from "react-router";
 import CodeBlock from "@/components/CodeBlock";
 import LinkedHeading from "@/components/LinkedHeading";
 import Giscus from "@giscus/react";
@@ -236,6 +236,11 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
 
     const { origin } = matches[0].data;
 
+    const ogImageUrl = new URL(href("/api/og"), origin);
+    const { searchParams } = ogImageUrl;
+    searchParams.append("title", postTitle);
+    searchParams.append("description", description);
+
     const title = `${postTitle} | Nikolai Lehbrink`;
 
     const originImagePath = cover ? origin + cover : undefined;
@@ -263,9 +268,7 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
         : []),
       { property: "article:section", content: tags?.[0] ?? "" },
       { property: "og:description", content: description },
-      ...(originImagePath
-        ? [{ property: "og:image", content: originImagePath }]
-        : []),
+      { property: "og:image", content: originImagePath ?? ogImageUrl },
       ...(modificationTime && modificationTime > publicationTime
         ? [{ property: "og:article:modified_time", content: modificationTime }]
         : []),
@@ -284,7 +287,7 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
             "@type": "Person",
             name,
           })),
-          ...(originImagePath && { image: originImagePath }),
+          image: originImagePath ?? ogImageUrl,
           mainEntityOfPage: {
             "@type": "WebPage",
             "@id": fullPath,

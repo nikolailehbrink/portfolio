@@ -25,6 +25,8 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
       href("/api/chat"),
       href("/api/newsletter/signup"),
       href("/api/newsletter/verification"),
+      href("/newsletter/confirmation"),
+      href("/api/og"),
     ],
     // @ts-expect-error Type mismatch, maybe related to a stricter type mentioned in release notes for v.7.0.0
     // https://github.com/forge-42/seo-tools/issues/8
