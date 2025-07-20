@@ -44,4 +44,9 @@ export default tseslint.config(
       "react-hooks/exhaustive-deps": "warn",
     },
   },
+  {
+    rules: {
+      "object-shorthand": ["error", "always"],
+    },
+  },
 );
