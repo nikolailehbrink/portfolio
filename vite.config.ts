@@ -1,6 +1,5 @@
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import mdx from "@mdx-js/rollup";
 import rehypeShiki from "@shikijs/rehype";
@@ -15,21 +14,16 @@ import {
   transformerMetaWordHighlight,
 } from "@shikijs/transformers";
 import { transformerMetaDiff } from "./app/lib/shiki/transformerMetaDiff";
+import type { UserConfig } from "vite";
 
-export default defineConfig(({ command }) => ({
-  build: {
-    rollupOptions: {
-      // There was a build error related to the @forge42/seo-tools package
-      // https://github.com/forge-42/seo-tools/issues/13
-      external: ["virtual:remix/server-build"],
-    },
-  },
+export default {
   server: {
     open: true,
     host: true,
   },
   ssr: {
-    noExternal: command === "build" ? true : undefined,
+    // https://github.com/phosphor-icons/react/issues/45
+    noExternal: ["@phosphor-icons/react"],
   },
   plugins: [
     arraybuffer(),
@@ -63,9 +57,8 @@ export default defineConfig(({ command }) => ({
         },
       },
     }),
-
     tailwindcss(),
     reactRouter(),
     tsconfigPaths(),
   ],
-}));
+} satisfies UserConfig;
