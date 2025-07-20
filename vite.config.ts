@@ -9,7 +9,7 @@ import svgr from "vite-plugin-svgr";
 import { qrcodeNetwork } from "./app/lib/vite/plugin-qrcode-network";
 import { transformerCodeBlock } from "./app/lib/shiki/transformerCodeBlock";
 import devtoolsJson from "vite-plugin-devtools-json";
-
+import arraybuffer from "vite-plugin-arraybuffer";
 import {
   transformerMetaHighlight,
   transformerMetaWordHighlight,
@@ -32,6 +32,7 @@ export default defineConfig(({ command }) => ({
     noExternal: command === "build" ? true : undefined,
   },
   plugins: [
+    arraybuffer(),
     devtoolsJson(),
     mdx({
       rehypePlugins: [
