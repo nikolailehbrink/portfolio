@@ -2,7 +2,7 @@
 import { ImageResponse } from "@vercel/og";
 import InterLatin400 from "./inter-latin-400-normal.ttf?arraybuffer";
 import InterLatin700 from "./inter-latin-700-normal.ttf?arraybuffer";
-import type { Route } from "./+types/og";
+import type { Route } from "./+types";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { searchParams, origin } = new URL(request.url);
