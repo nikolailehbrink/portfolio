@@ -1,8 +1,13 @@
 import { ImageResponse } from "@vercel/og";
 import type { Route } from "./+types/og";
+import interLatin400 from "./inter-latin-400-normal.ttf";
+import interLatin700 from "./inter-latin-700-normal.ttf";
 
 export async function loader({ request }: Route.LoaderArgs) {
-  //
+  const [interLatin400Data, interLatin700Data] = await Promise.all([
+    fetch(new URL(interLatin400, request.url)).then((res) => res.arrayBuffer()),
+    fetch(new URL(interLatin700, request.url)).then((res) => res.arrayBuffer()),
+  ]);
   try {
     const { searchParams } = new URL(request.url);
 
@@ -17,6 +22,7 @@ export async function loader({ request }: Route.LoaderArgs) {
           style={{
             backgroundColor: "black",
             backgroundSize: "150px 150px",
+            fontFamily: "Inter", // 👈 Add this
             height: "100%",
             width: "100%",
             display: "flex",
@@ -73,6 +79,22 @@ export async function loader({ request }: Route.LoaderArgs) {
           </div>
         </div>
       ),
+      {
+        fonts: [
+          {
+            name: "Inter",
+            data: interLatin400Data,
+            style: "normal",
+            weight: 400,
+          },
+          {
+            name: "Inter",
+            data: interLatin700Data,
+            style: "normal",
+            weight: 700,
+          },
+        ],
+      },
     );
   } catch (e: unknown) {
     console.log(`${e.message}`);
