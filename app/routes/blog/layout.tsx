@@ -222,42 +222,50 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
     if (!data) {
       return [];
     }
-    const {
-      metadata: {
-        title: postTitle,
-        description,
-        publicationDate,
-        authors,
-        cover,
-        tags,
-        modificationDate,
-      },
-    } = data;
 
+    const { metadata } = data;
     const { origin } = matches[0].data;
+    const { pathname: currentPath } = location;
 
-    const ogImageUrl = new URL(href("/api/og"), origin);
-    const { searchParams } = ogImageUrl;
-    searchParams.append("title", postTitle);
-    searchParams.append("description", description);
+    const {
+      title,
+      description,
+      publicationDate,
+      modificationDate,
+      authors,
+      cover: coverImagePath,
+      tags,
+    } = metadata;
 
-    const title = `${postTitle} | Nikolai Lehbrink`;
+    const fullPageUrl = origin + currentPath;
+    const pageTitle = `${title} | Nikolai Lehbrink`;
+    const coverImageUrl = coverImagePath ? origin + coverImagePath : undefined;
 
-    const originImagePath = cover ? origin + cover : undefined;
-    const { pathname } = location;
-    const publicationTime = publicationDate.toISOString();
-    const modificationTime = modificationDate && modificationDate.toISOString();
-    const fullPath = origin + pathname;
+    const dynamicOgImageUrl = new URL(href("/api/og"), origin);
+    dynamicOgImageUrl.searchParams.append("title", title);
+    dynamicOgImageUrl.searchParams.append("description", description);
+
+    const publishedTimestamp = publicationDate.toISOString();
+    const modifiedTimestamp = modificationDate?.toISOString();
+    const hasNewerModificationDate =
+      modifiedTimestamp && modifiedTimestamp > publishedTimestamp;
+
+    // Determine final image URL (prefer cover image over dynamic OG image)
+    const finalImageUrl = coverImageUrl ?? dynamicOgImageUrl;
+    const primaryTag = tags?.[0] ?? "";
 
     return [
-      { title },
+      { title: pageTitle },
       { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:url", content: fullPath },
+      { property: "og:title", content: pageTitle },
+      { property: "og:url", content: fullPageUrl },
+      { property: "og:description", content: description },
+      { property: "og:image", content: finalImageUrl },
+      { property: "og:type", content: "article" },
       ...(authors.length > 0
-        ? authors.map((author) => ({
+        ? authors.map((authorName) => ({
             property: "article:author",
-            content: author,
+            content: authorName,
           }))
         : []),
       ...(tags && tags.length > 0
@@ -266,31 +274,27 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
             content: tag,
           }))
         : []),
-      { property: "article:section", content: tags?.[0] ?? "" },
-      { property: "og:description", content: description },
-      { property: "og:image", content: originImagePath ?? ogImageUrl },
-      ...(modificationTime && modificationTime > publicationTime
-        ? [{ property: "og:article:modified_time", content: modificationTime }]
+      { property: "article:section", content: primaryTag },
+      { property: "og:article:published_time", content: publishedTimestamp },
+      ...(hasNewerModificationDate
+        ? [{ property: "og:article:modified_time", content: modifiedTimestamp }]
         : []),
-      { property: "og:type", content: "article" },
-      { property: "og:article:published_time", content: publicationTime },
-      // https://developers.google.com/search/docs/appearance/structured-data/article
       {
         "script:ld+json": {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          headline: postTitle,
-          description: description,
-          datePublished: publicationTime,
-          dateModified: modificationTime,
+          headline: title,
+          description,
+          datePublished: publishedTimestamp,
+          dateModified: modifiedTimestamp,
           author: authors.map((name) => ({
             "@type": "Person",
             name,
           })),
-          image: originImagePath ?? ogImageUrl,
+          image: finalImageUrl,
           mainEntityOfPage: {
             "@type": "WebPage",
-            "@id": fullPath,
+            "@id": fullPageUrl,
           },
           publisher: {
             "@type": "Person",
