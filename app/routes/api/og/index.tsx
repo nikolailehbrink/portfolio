@@ -22,7 +22,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     return new ImageResponse(
       (
         <div tw="flex h-full w-full flex-col justify-end bg-neutral-900 text-neutral-100">
-          <span tw="absolute top-10 left-12 text-3xl text-neutral-300">
+          <span tw="absolute top-10 left-12 text-3xl text-neutral-400">
             {origin}
           </span>
           <div tw="flex w-full flex-col p-12 pb-10">
