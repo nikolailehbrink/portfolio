@@ -3,12 +3,13 @@ import ProfileBadge from "@/components/ProfileBadge";
 import NewsletterForm from "@/components/NewsletterForm";
 
 export const handle = {
-  title: "How to generate a Sitemap in React Router 7 or Remix.run",
+  title: "How to generate a Sitemap in React Router 7 and Remix",
   description:
-    "Learn how to automatically generate a sitemap.xml file for your React Router 7 app using minimal configuration with this step-by-step guide.",
+    "Learn how to automatically generate a sitemap.xml file for your React Router 7 or Remix app using minimal configuration with this step-by-step guide.",
   publicationDate: "2025-07-01",
+  modificationDate: "2025-07-21",
   authors: ["Nikolai Lehbrink"],
-  tags: ["React Router 7", "SEO", "Sitemap"],
+  tags: ["React Router 7", "SEO", "Sitemap", "Remix"],
   readingTime: 5,
 };
 
@@ -21,20 +22,20 @@ If you’re building a website or web application, you’ll want to make sure yo
 
 ## Prerequisites
 
-- A project using **React Router 7** or **Remix.run**.
-- Your have access to your route definitions via for example `virtual:react-router/server-build` or `virtual:remix/server-build`.
+- A project using **React Router 7** or **Remix**.
+- Access to your route definitions via `virtual:react-router/server-build` or `virtual:remix/server-build`.
 
-## Step 1: Install the Required Package
+## Install the `@forge42/seo-tools` package
 
-First, you need to install the <ProfileBadge platform="GitHub" handle="forge-42/seo-tools">@forge42/seo-tools</ProfileBadge> package. This library provides utilities for handling SEO-related tasks and has a dedicated `@forge42/seo-tools/remix` export that works with Remix.run and React Router 7 applications.
+First, install the <ProfileBadge platform="GitHub" handle="forge-42/seo-tools">@forge42/seo-tools</ProfileBadge> package. This library provides utilities for handling SEO-related tasks and has a dedicated `@forge42/seo-tools/remix` export that works with Remix and React Router 7 applications.
 
 ```bash
 npm install @forge42/seo-tools
 ```
 
-## Step 2: Create the Sitemap Loader
+## Create the resource route for the sitemap
 
-Create a file at `app/routes/sitemap.xml.ts`. This file will export a `loader` that generates the sitemap on demand:
+Create a file at `app/routes/sitemap.xml.ts`. This will be the [resource route](https://reactrouter.com/how-to/resource-routes) and exports a `loader` that generates the sitemap on demand:
 
 ```typescript filename="app/routes/sitemap.xml.ts" showLineNumbers
 import { generateRemixSitemap } from "@forge42/seo-tools/remix/sitemap";
@@ -64,14 +65,14 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
 <NewsletterForm />
 
-1.  We dynamically import the `virtual:react-router/server-build` to get our route definitions.
+1.  Dynamically import `virtual:react-router/server-build` to get your route definitions.
     <Alert type="info">
       Since [React Router
-      v7.4.0](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#v740)
-      the `virtual:react-router/server-build` module is type safe and we can
-      destructure our `routes` object from it.
+      v7.4.0](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#v740),
+      the `virtual:react-router/server-build` module is type safe and you can
+      destructure your `routes` object from it.
     </Alert>
-1.  **`generateRemixSitemap(){:ts}`**: This helper function takes your route definitions and creates a valid sitemap.
+2.  The `generateRemixSitemap()` helper function takes your route definitions and creates a valid sitemap.
     <Alert type="info">
       Because the package is build for Remix v2, the function automatically
       looks for routes in `virtual:remix/server-build`, but with React Router 7,
@@ -80,25 +81,24 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
       [opened an issue](https://github.com/forge-42/seo-tools/issues/13) to get
       native support for React Router 7.
     </Alert>
-1.  **`ignore`**: Excludes routes you don’t want indexed (like API endpoints or legal pages).
-
+3.  The `ignore` option excludes routes you don’t want indexed (like API endpoints or legal pages).
     <Alert type="question" heading="Why ignore some routes?">
       Not every route should be indexed by search engines. Exclude API
       endpoints, admin pages, or anything private.
     </Alert>
-
-    I prefer using the `href(){:ts}` function from React Router 7 to ensure the paths are correct.
-
+    I prefer using the `href()` function from React Router 7 for type-safe
+    paths.
     <Alert type="tip">
       The `href` function was introduced in [React Router
       v7.2.0](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#v720)
       and ensures type safety for your links.
     </Alert>
+4.  The `domain` option specifies the domain for your URLs. Using the request’s `origin` should work in any environment.
+5.  The response returns the sitemap as XML with the correct content type.
 
-1.  **`domain`**: This specifies the domain to append the urls to. I used the request’s `origin`, so it works in any environment.
-1.  **Response**: Returns the sitemap as an XML response with the correct content type.
+For more information and advanced usage, check out the [official documentation](https://github.com/forge-42/seo-tools).
 
-## Step 3: Register the Route
+## Register the route
 
 Make sure the route is included in your route config:
 
@@ -111,58 +111,19 @@ export default [
 
 Now, visiting `/sitemap.xml` in your browser will return a fresh, up-to-date sitemap!
 
-<Alert type="warning" heading="Douplicate Route Registration">
-  When using the package I came across an issue where the home route (`/`) was
-  registered multiple times in the sitemap. I already [opened an
-  issue](https://github.com/forge-42/seo-tools/issues/12) to address this.
+<Alert type="warning" heading="Duplicate route registration">
+  When using the package, I found the home route (`/`) was registered multiple
+  times in the sitemap. See [issue
+  #12](https://github.com/forge-42/seo-tools/issues/12).
 </Alert>
 
-## Step 4: Test Your Sitemap
+## Test your sitemap
 
 Visit `/sitemap.xml` in your browser or use an [online validator](https://www.mysitemapgenerator.com/service/check.html) to check that your sitemap is valid and includes all the right routes.
 
-## Step 5: Submit to Search Engines
+## Submit the sitemap to search engines
 
-If you want your sitemap to be indexed by search engines, you need to submit it. Most search engines will automatically discover it if you link to it from your `robots.txt`, but submitting it directly is more reliable.
+To have your sitemap indexed, you should submit it to search engines. Most will discover it if you [link to it from your `robots.txt`](/blog/robots-txt-react-router-7#automatic-sitemap-integration), but submitting directly is more reliable.
 
-Once you have your sitemap, submit it to search engines like Google and Bing:
-
-- For Google, use the [Search Console](https://search.google.com/search-console/sitemaps).
-- For Bing, use the [Bing Webmaster Tools](https://www.bing.com/webmasters/sitemaps).
-
-## ⚠️ Vite Build Issue
-
-If you’re using React Router 7 with Vite, you might run into a build error related to the virtual module import path. This happens because `@forge42/seo-tools` tries to import `virtual:remix/server-build` by default, but in React Router 7 projects, the correct module is `virtual:react-router/server-build`.
-
-This mismatch can cause your Vite (or Rollup) build to fail with a module resolution error like:
-
-```
-Rollup failed to resolve import "virtual:remix/server-build" from .../@forge42+seo-tools....
-```
-
-### The Fix: Add the remix virtual module as an external dependency
-
-As a temporary workaround, add the following to your `vite.config.ts` to tell Vite/Rollup to treat the old virtual module as an external dependency:
-
-```ts filename="vite.config.ts"
-import type { UserConfig } from "vite";
-
-export default {
-  // ...
-  build: {
-    rollupOptions: {
-      external: ["virtual:remix/server-build"],
-    },
-  } satisfies UserConfig,
-};
-```
-
-This will unblock your build until the package adds official support for React Router 7’s new module path.
-
-## Conclusion
-
-Generating a sitemap in React Router 7 or Remix.run is straightforward when you leverage your existing route definitions and a tool like `@forge42/seo-tools`. This approach saves time, reduces errors, and helps your site stay SEO-friendly.
-
-For more information and advanced usage, check out the [official documentation](https://github.com/forge-42/seo-tools) for the package.
-
-If you have questions or want to share your own tips, feel free to to do so in the comments!
+- For Google, use [Search Console](https://search.google.com/search-console/sitemaps).
+- For Bing, use [Bing Webmaster Tools](https://www.bing.com/webmasters/sitemaps).

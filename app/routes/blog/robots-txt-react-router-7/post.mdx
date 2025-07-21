@@ -3,12 +3,13 @@ import ProfileBadge from "@/components/ProfileBadge";
 import NewsletterForm from "@/components/NewsletterForm";
 
 export const handle = {
-  title: "How to generate a robots.txt file in React Router 7",
+  title: "How to generate a robots.txt file in React Router 7 and Remix",
   description:
-    "Learn how to dynamically generate a robots.txt file for your React Router 7 or Remix.run app with environment-based rules and automatic sitemap integration.",
+    "Learn how to dynamically generate a robots.txt file for your React Router 7 or Remix app with environment-based rules and automatic sitemap integration.",
   publicationDate: "2025-07-21",
+  modificationDate: "2025-07-21",
   authors: ["Nikolai Lehbrink"],
-  tags: ["React Router 7", "SEO", "robots.txt", "Remix"],
+  tags: ["React Router 7", "Remix", "SEO", "robots.txt"],
   readingTime: 6,
 };
 
@@ -22,15 +23,15 @@ A properly configured `robots.txt` file is crucial for controlling how search en
   interact with your app.
 </Alert>
 
-## Step 1: Install the Required Package
+## Install the `@forge42/seo-tools` package
 
-If you haven't already installed it for your [sitemap generation](/blog/sitemap-react-router-7), add the <ProfileBadge platform="GitHub" handle="forge-42/seo-tools">@forge42/seo-tools</ProfileBadge> package. It provides utilities for handling SEO-related tasks and has a dedicated `@forge42/seo-tools/remix` export that works well with Remix.run and React Router 7 applications.
+If you haven't already installed it for your [sitemap generation](/blog/sitemap-react-router-7), add the <ProfileBadge platform="GitHub" handle="forge-42/seo-tools">@forge42/seo-tools</ProfileBadge> package. It provides utilities for handling SEO-related tasks and has a dedicated `@forge42/seo-tools/remix` export that works with Remix and React Router 7 applications.
 
 ```shellscript
 npm install @forge42/seo-tools
 ```
 
-## Step 2: Create the robots.txt Route
+## Create the `robots.txt` resource route
 
 Create a file at `app/routes/robots.txt.ts`. This will serve as a [resource route](https://reactrouter.com/how-to/resource-routes) for dynamically generating your robots.txt.
 
@@ -126,7 +127,7 @@ This automatically includes your sitemap URL, using:
   [sitemap generation guide](/blog/sitemap-react-router-7).
 </Alert>
 
-## Step 3: Register the Route
+## Register the route
 
 Add the `robots.txt` route to your route configuration:
 
@@ -137,7 +138,7 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-## Step 4: Test Your robots.txt
+## Test the robots.txt output in the browser
 
 Visit `/robots.txt` in your browser to see the generated file. You should see different output based on your environment:
 
@@ -158,7 +159,7 @@ Disallow: /
 Sitemap: http://localhost:5173/sitemap.xml
 ```
 
-## Step 5: Advanced Configuration
+## Add dynamic logic or custom rules (optional)
 
 You can extend the robots.txt with more sophisticated rules:
 
@@ -193,7 +194,7 @@ const robotsTxt = generateRobotsTxt([
 ]);
 ```
 
-## Step 6: Validate Your robots.txt
+## Validate your robots.txt
 
 Use these tools to validate your robots.txt file:
 

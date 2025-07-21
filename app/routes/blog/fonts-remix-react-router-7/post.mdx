@@ -2,16 +2,17 @@ import Alert from "@/components/Alert";
 import ProfileBadge from "@/components/ProfileBadge";
 
 export const handle = {
-  title: "The missing guide to fonts in Remix.run and React Router 7",
+  title: "The missing guide to fonts in React Router 7 and Remix",
   description:
     "Learn how to self-host fonts, integrate Fontsource, style with Tailwind CSS, and boost performance using preloading.",
   publicationDate: "2025-06-18",
+  modificationDate: "2025-07-21",
   authors: ["Nikolai Lehbrink"],
   tags: ["React Router 7", "Remix", "Fonts", "Tips and Tricks"],
   readingTime: 10,
 };
 
-Ever since I began to use Remix.run or it's successor React Router 7, I have been on the lookout for a guide on how to handle fonts in the framework properly. Seeing the reactions to the <ProfileBadge platform="GitHub" handle="remix-run/remix/discussions/9251">Fonts Guide proposal</ProfileBadge> I am certainly not the only one. So, this post aims to fill that gap and to provide you with some tips to get you started more quickly with your font setup.
+Ever since I began to use Remix and its successor React Router 7, I have been on the lookout for a guide on how to handle fonts in the framework properly. Seeing the reactions to the <ProfileBadge platform="GitHub" handle="remix-run/remix/discussions/9251">Fonts Guide proposal</ProfileBadge> I am certainly not the only one. So, this post aims to fill that gap and to provide you with some tips to get you started more quickly with your font setup.
 
 {/* prettier-ignore */}
 <Alert type="question" heading="Starting a new project?">
@@ -191,7 +192,7 @@ Preloading fonts can help to improve website performance and [FOUT](https://rabb
   actually critical for the initial render.
 </Alert>
 
-To preload fonts in Remix.run or React Router 7, you can export a [`links` function](https://reactrouter.com/api/components/Links) from your Root Layout.
+To preload fonts in Remix and React Router 7, you can export a [`links` function](https://reactrouter.com/api/components/Links) from your Root Layout.
 
 ```tsx filename="app/root.tsx"
 import type { Route } from "./+types/root";
