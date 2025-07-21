@@ -57,7 +57,9 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
           cover !== undefined ? "sm:text-center" : "",
         )}
       >
-        <LinkedHeading level={1}>{title}</LinkedHeading>
+        <LinkedHeading className="leading-tight" level={1}>
+          {title}
+        </LinkedHeading>
         <div className="not-prose inline-flex flex-wrap items-center gap-2">
           <div className="inline-flex items-center gap-2 text-sm">
             <Avatar className="size-10 rounded-full" />
