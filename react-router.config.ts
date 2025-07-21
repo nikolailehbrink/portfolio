@@ -8,6 +8,7 @@ export default {
   prerender: [
     href("/blog/batch-mails-deno-postmark"),
     href("/blog/fonts-remix-react-router-7"),
+    href("/blog/robots-txt-react-router-7"),
     href("/blog/sitemap-react-router-7"),
     href("/blog/syntax-highlighting-shiki-next-js"),
     href("/blog/tailwindcss-v3-tips"),
