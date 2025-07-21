@@ -24,7 +24,7 @@ A properly configured `robots.txt` file is crucial for controlling how search en
 
 ## Step 1: Install the Required Package
 
-If you haven't already installed it for your [sitemap generation](/blog/sitemap-react-router-7), add the <ProfileBadge platform="GitHub" handle="forge-42/seo-tools">@forge42/seo-tools</ProfileBadge> package. It provides utilities for handling SEO-related tasks and has a dedicated `@forge42/seo-tools/remix` export that works with Remix.run and React Router 7 applications.
+If you haven't already installed it for your [sitemap generation](/blog/sitemap-react-router-7), add the <ProfileBadge platform="GitHub" handle="forge-42/seo-tools">@forge42/seo-tools</ProfileBadge> package. It provides utilities for handling SEO-related tasks and has a dedicated `@forge42/seo-tools/remix` export that works well with Remix.run and React Router 7 applications.
 
 ```shellscript
 npm install @forge42/seo-tools
@@ -32,7 +32,7 @@ npm install @forge42/seo-tools
 
 ## Step 2: Create the robots.txt Route
 
-Create a file at `app/routes/robots.txt.ts`. This route will generate your robots.txt file dynamically:
+Create a file at `app/routes/robots.txt.ts`. This will serve as a [resource route](https://reactrouter.com/how-to/resource-routes) for dynamically generating your robots.txt.
 
 ```typescript filename="app/routes/robots.txt.ts" showLineNumbers
 import { generateRobotsTxt } from "@forge42/seo-tools/robots";
@@ -108,7 +108,7 @@ This pattern uses computed property names to either:
   : {})
 ```
 
-In production, I still want to block certain paths like API endpoints that shouldn't be crawled by search engines.
+In production, we still want to block certain paths like API endpoints that shouldn't be crawled by search engines.
 
 #### Automatic Sitemap Integration
 
@@ -122,10 +122,8 @@ This automatically includes your sitemap URL, using:
 - `href(){:ts}` function for type-safe route references
 
 <Alert type="tip">
-  The `href{:ts}` function ensures your sitemap path is correctly typed and prevents
-  broken links if you ever rename your sitemap route. This is the same approach
-  I used in the [sitemap generation
-  guide](/blog/sitemap-react-router-7#step-2-create-the-sitemap-loader).
+  If you want to learn how to generate a sitemap in React Router 7, check out my
+  [sitemap generation guide](/blog/sitemap-react-router-7).
 </Alert>
 
 ## Step 3: Register the Route
@@ -157,14 +155,8 @@ Sitemap: https://yourdomain.com/sitemap.xml
 ```plaintext
 User-agent: *
 Disallow: /
-Sitemap: https://staging.yourdomain.com/sitemap.xml
+Sitemap: http://localhost:5173/sitemap.xml
 ```
-
-<Alert>
-  For best SEO results, implement both this `robots.txt` and a
-  [`sitemap.xml`](/blog/sitemap-react-router-7) file I covered in my previous
-  article.
-</Alert>
 
 ## Step 5: Advanced Configuration
 
@@ -208,11 +200,5 @@ Use these tools to validate your robots.txt file:
 - [Google's robots.txt Tester](https://support.google.com/webmasters/answer/6062598)
 - [Bing Webmaster Tools](https://www.bing.com/webmasters/)
 - [robots.txt Checker](https://technicalseo.com/tools/robots-txt/)
-
-## Conclusion
-
-Generating a dynamic robots.txt file in React Router 7 or Remix.run gives you powerful control over how search engines interact with your site across different environments. By blocking non-production deployments and automatically including your sitemap, you ensure better SEO hygiene and prevent indexing issues.
-
-The `@forge42/seo-tools` package makes this process straightforward while giving you the flexibility to customize rules based on your specific needs.
 
 For more advanced robots.txt configurations and SEO tools, check out the [official documentation](https://github.com/forge-42/seo-tools).
