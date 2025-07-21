@@ -127,7 +127,7 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
           "@context": "https://schema.org/",
           "@type": "Blog",
           name: title,
-          description: description,
+          description,
           publisher: {
             "@type": "Person",
             name: "Nikolai Lehbrink",

@@ -58,7 +58,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
     // in case the document is reloaded for progressive enhancement
     lastResult: data,
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema: schema });
+      return parseWithZod(formData, { schema });
     },
     // To derive all validation attributes
     constraint: getZodConstraint(schema),

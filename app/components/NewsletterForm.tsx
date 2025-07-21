@@ -27,7 +27,7 @@ export default function NewsletterForm({
   const [form, fields] = useForm({
     lastResult: data,
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema: schema });
+      return parseWithZod(formData, { schema });
     },
     constraint: getZodConstraint(schema),
     shouldRevalidate: "onInput",
