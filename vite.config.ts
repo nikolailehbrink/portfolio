@@ -26,8 +26,9 @@ export default {
     noExternal: ["@phosphor-icons/react"],
   },
   plugins: [
-    arraybuffer(),
+    qrcodeNetwork(),
     devtoolsJson(),
+    arraybuffer(),
     mdx({
       rehypePlugins: [
         [
@@ -48,7 +49,6 @@ export default {
       ],
       providerImportSource: "@mdx-js/react",
     }),
-    qrcodeNetwork(),
     svgr({
       svgrOptions: {
         plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
