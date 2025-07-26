@@ -41,35 +41,33 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
           className="absolute inset-y-0 right-0 w-2 rounded-e-lg bg-linear-to-r
             from-transparent to-neutral-900"
         ></div>
-        <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto p-2">
-          <Form className="snap-end scroll-mr-2">
-            <Badge
-              asChild
-              className="cursor-pointer"
-              variant={hasCategoryFilter ? "secondary" : "default"}
-            >
-              <button type="submit">All</button>
-            </Badge>
-          </Form>
+        <Form className="flex snap-x snap-mandatory gap-2 overflow-x-auto p-2">
+          <Badge
+            asChild
+            className="cursor-pointer snap-end scroll-mr-2"
+            variant={hasCategoryFilter ? "secondary" : "default"}
+          >
+            <button type="submit">All</button>
+          </Badge>
           {categories.map((category) => {
             const isActive = searchParams.get("category") === category;
             return (
-              <Form key={category} className="snap-end scroll-mr-2">
-                <Badge asChild variant={isActive ? "default" : "secondary"}>
-                  <button
-                    {...(!isActive
-                      ? { name: "category", value: category }
-                      : {})}
-                    type="submit"
-                    className="cursor-pointer"
-                  >
-                    {category}
-                  </button>
-                </Badge>
-              </Form>
+              <Badge
+                key={category}
+                className="cursor-pointer snap-end scroll-mr-2"
+                asChild
+                variant={isActive ? "default" : "secondary"}
+              >
+                <button
+                  {...(!isActive ? { name: "category", value: category } : {})}
+                  type="submit"
+                >
+                  {category}
+                </button>
+              </Badge>
             );
           })}
-        </div>
+        </Form>
       </div>
       <ul
         className="mt-2 grid grid-cols-1 gap-4 rounded-md md:grid-cols-2
