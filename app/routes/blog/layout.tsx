@@ -13,8 +13,16 @@ import Avatar from "@/components/Avatar";
 import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
 import { track } from "@vercel/analytics/react";
 import { formatDate } from "@/lib/format";
-import { Pencil } from "@phosphor-icons/react";
+import { ListNumbers, Pencil } from "@phosphor-icons/react";
 import TableOfContents from "@/components/TableOfContents";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { url } = request;
@@ -52,6 +60,9 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
     tableOfContents,
     isDraft,
   } = loaderData;
+
+  // Equal to sm:..
+  const isTablet = useMediaQuery("(width >= 40rem)");
 
   return (
     <article className="flex w-full flex-col gap-12">
@@ -155,9 +166,8 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
           md:grid-cols-[1fr_auto_1fr]"
       >
         <section
-          className="prose prose-neutral max-xl:order-last md:col-start-2
-            dark:prose-invert prose-a:decoration-sky-500
-            prose-a:underline-offset-4"
+          className="prose prose-neutral md:col-start-2 dark:prose-invert
+            prose-a:decoration-sky-500 prose-a:underline-offset-4"
         >
           {formattedModificationDate ? (
             <Badge
@@ -197,13 +207,42 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
           </MDXProvider>
         </section>
         {tableOfContents.length > 0 ? (
-          <TableOfContents
-            className="md:col-start-2 xl:sticky xl:top-16 xl:col-start-3
-              xl:max-h-[calc(100dvh_-_--spacing(24))] xl:max-w-xs
-              xl:overflow-y-auto"
-            maxDepth={3}
-            outline={tableOfContents}
-          />
+          isTablet ? (
+            <TableOfContents
+              className="rounded-xl border bg-neutral-900 bg-linear-to-b
+                shadow-xl offset-border max-xl:order-first md:col-start-2
+                xl:sticky xl:top-16 xl:col-start-3
+                xl:max-h-[calc(100dvh_-_--spacing(24))] xl:max-w-xs
+                xl:overflow-y-auto"
+              maxDepth={3}
+              outline={tableOfContents}
+            />
+          ) : (
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button
+                  size="icon"
+                  className="sticky bottom-4 size-12 justify-self-end
+                    bg-sky-950"
+                >
+                  <ListNumbers
+                    className="text-sky-400"
+                    size={28}
+                    weight="duotone"
+                  />
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerClose asChild>
+                  <TableOfContents
+                    className=""
+                    maxDepth={3}
+                    outline={tableOfContents}
+                  />
+                </DrawerClose>
+              </DrawerContent>
+            </Drawer>
+          )
         ) : null}
       </div>
 

@@ -11,21 +11,16 @@ export default function TableOfContents({
   maxDepth: number;
 } & React.ComponentProps<"nav">) {
   return (
-    <nav
-      className={cn(
-        `rounded-xl border bg-neutral-900 bg-linear-to-b p-6 pb-4 shadow-xl
-        offset-border`,
-        className,
-      )}
-      {...props}
-    >
-      <h2 className="mb-2 text-xl font-bold">Table of Contents</h2>
+    <nav className={cn("p-6 pb-4", className)} {...props}>
+      <p className="mb-2 text-2xl font-bold text-foreground sm:text-xl">
+        Table of Contents
+      </p>
       <ol
         className="prose prose-neutral dark:prose-invert prose-a:block
-          prose-a:text-sm prose-a:leading-snug prose-a:text-muted-foreground
+          prose-a:leading-snug prose-a:text-muted-foreground
           prose-a:no-underline prose-a:hover:text-foreground
-          prose-a:hover:decoration-sky-500 prose-ol:my-2 prose-ol:list-none
-          prose-ol:pl-4 prose-li:my-2 prose-li:px-0"
+          prose-a:hover:decoration-sky-500 sm:prose-a:text-sm prose-ol:my-2
+          prose-ol:list-none prose-ol:pl-6 prose-li:my-2 prose-li:px-0"
       >
         {outline.map((entry) => (
           <TocItem key={entry.value} maxDepth={maxDepth} {...entry} />
@@ -46,6 +41,10 @@ function TocItem({
 
   return (
     <li>
+      {/* {/* Using <Link /> here causes unexpected behavior when rendered inside a drawer.
+    For now, <a> is used to avoid navigation issues and UI glitches.*/}
+      {/* TODO: Replace the history instead of pushing to it the whole time */}
+
       <a href={`#${id}`}>{value}</a>
       {children && children.length > 0 && (
         <ol>
