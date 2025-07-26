@@ -2,7 +2,7 @@ import { getBlogCategories, getPosts } from "@/lib/posts.server";
 import type { Route } from "./+types";
 import PostTeaser from "@/components/PostTeaser";
 import { Badge } from "@/components/ui/badge";
-import { Form, useSearchParams } from "react-router";
+import { Form } from "react-router";
 import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
 import NewsletterForm from "@/components/NewsletterForm";
 import { track } from "@vercel/analytics/server";
@@ -10,20 +10,24 @@ import { track } from "@vercel/analytics/server";
 export async function loader({ request }: Route.LoaderArgs) {
   const { searchParams } = new URL(request.url);
   const category = searchParams.get("category");
-  if (category) {
+
+  const categories = await getBlogCategories();
+  const filteredCategory = categories.find(({ slug }) => slug === category);
+  const posts = await getPosts({ category: filteredCategory?.name });
+
+  if (filteredCategory) {
     await track("blog-category-filtered", {
-      category,
+      category: filteredCategory.name,
     });
   }
-  const posts = await getPosts({ category });
-  const categories = await getBlogCategories();
-  return { posts, categories, category };
+
+  return { posts, categories, filteredCategory };
 }
 
 export default function Blog({ loaderData }: Route.ComponentProps) {
-  const { posts, categories, category: filterCategory } = loaderData;
-  const [searchParams] = useSearchParams();
-  const hasCategoryFilter = filterCategory !== null;
+  const { posts, categories, filteredCategory } = loaderData;
+  const hasCategoryFilter = filteredCategory !== undefined;
+
   return (
     <div className="flex flex-col gap-4 sm:items-center">
       <h1 className="text-3xl font-bold sm:text-center sm:text-4xl">Blog</h1>
@@ -49,20 +53,20 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
           >
             <button type="submit">All</button>
           </Badge>
-          {categories.map((category) => {
-            const isActive = searchParams.get("category") === category;
+          {categories.map(({ name, slug }) => {
+            const isActive = filteredCategory?.slug === slug;
             return (
               <Badge
-                key={category}
+                key={name}
                 className="cursor-pointer snap-end scroll-mr-2"
                 asChild
                 variant={isActive ? "default" : "secondary"}
               >
                 <button
-                  {...(!isActive ? { name: "category", value: category } : {})}
+                  {...(!isActive ? { name: "category", value: slug } : {})}
                   type="submit"
                 >
-                  {category}
+                  {name}
                 </button>
               </Badge>
             );
@@ -90,7 +94,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
               text-muted-foreground"
           >
             No posts were found{" "}
-            {filterCategory ? `for ${filterCategory}.` : "."} <br />
+            {filteredCategory ? `for ${filteredCategory.name}.` : "."} <br />
           </p>
         )}
       </ul>

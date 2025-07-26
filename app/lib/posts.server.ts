@@ -1,5 +1,5 @@
 import { z } from "zod/v4";
-import { isDraft } from "./utils";
+import { isDraft, slugify } from "./utils";
 
 export const postHandleSchema = z.object({
   title: z.string().min(30, {
@@ -82,7 +82,13 @@ export async function getBlogCategories() {
   posts.forEach((post) => {
     post.metadata.tags?.forEach((tag) => categories.add(tag));
   });
-  return [...categories].sort((a, b) => a.localeCompare(b));
+  const categoryList = [...categories]
+    .sort((a, b) => a.localeCompare(b))
+    .map((category) => ({
+      name: category,
+      slug: slugify(category),
+    }));
+  return [...categoryList];
 }
 
 export async function getNextPost(url: string) {
