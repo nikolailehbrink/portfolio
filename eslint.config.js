@@ -47,6 +47,7 @@ export default tseslint.config(
   {
     rules: {
       "object-shorthand": ["error", "always"],
+      "no-useless-rename": "error",
     },
   },
 );

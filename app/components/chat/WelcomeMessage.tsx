@@ -3,7 +3,7 @@ import { X } from "@phosphor-icons/react";
 
 export default function WelcomeMessage({
   showCloseButton,
-  setShowWelcomeMessage: setShowWelcomeMessage,
+  setShowWelcomeMessage,
 }: {
   showCloseButton: boolean;
   setShowWelcomeMessage: React.Dispatch<React.SetStateAction<boolean>>;
