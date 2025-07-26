@@ -14,16 +14,16 @@ import {
   transformerMetaWordHighlight,
 } from "@shikijs/transformers";
 import { transformerMetaDiff } from "./app/lib/shiki/transformerMetaDiff";
-import type { UserConfig } from "vite";
+import { defineConfig } from "vite";
 
-export default {
+export default defineConfig(({ command }) => ({
   server: {
     open: true,
     host: true,
   },
   ssr: {
     // https://github.com/phosphor-icons/react/issues/45
-    noExternal: ["@phosphor-icons/react"],
+    noExternal: command === "build" ? ["@phosphor-icons/react"] : undefined,
   },
   plugins: [
     qrcodeNetwork(),
@@ -61,4 +61,4 @@ export default {
     reactRouter(),
     tsconfigPaths(),
   ],
-} satisfies UserConfig;
+}));
