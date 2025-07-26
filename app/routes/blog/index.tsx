@@ -76,15 +76,14 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
           lg:max-w-5xl"
       >
         {posts.length > 0 ? (
-          posts.map(({ slug, metadata }, index) => (
+          posts.map((post, index) => (
             <PostTeaser
-              key={slug}
-              slug={slug}
-              metadata={metadata}
+              key={post.slug}
+              className="animate-in slide-in-from-bottom-25 fade-in"
               style={{
                 animationDuration: `${300 + index * 300}ms`,
               }}
-              className="animate-in slide-in-from-bottom-25 fade-in"
+              {...post}
             />
           ))
         ) : (

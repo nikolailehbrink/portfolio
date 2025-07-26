@@ -17,7 +17,7 @@ import { Pencil } from "@phosphor-icons/react";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { url } = request;
-  const { metadata } = await getPost(url);
+  const { metadata, isDraft } = await getPost(url);
   const formattedPublicationDate = formatDate(metadata.publicationDate);
   const formattedModificationDate = metadata.modificationDate
     ? formatDate(metadata.modificationDate)
@@ -25,6 +25,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   const nextPost = await getNextPost(url);
   return {
     metadata,
+    isDraft,
     nextPost,
     formattedPublicationDate,
     formattedModificationDate,
@@ -41,14 +42,13 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
       publicationDate,
       readingTime,
       modificationDate,
-      draft,
     },
     nextPost,
     formattedPublicationDate,
     formattedModificationDate,
+    isDraft,
   } = loaderData;
 
-  const isDraft = import.meta.env.DEV && draft;
   return (
     <article className="flex w-full flex-col gap-12">
       <header

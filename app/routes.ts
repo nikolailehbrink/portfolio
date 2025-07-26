@@ -5,6 +5,8 @@ import {
   prefix,
   route,
 } from "@react-router/dev/routes";
+import { remixRoutesOptionAdapter } from "@react-router/remix-routes-option-adapter";
+import { flatRoutes } from "remix-flat-routes";
 
 export default [
   layout("routes/layout.tsx", [
@@ -12,36 +14,11 @@ export default [
     ...prefix("blog", [
       index("routes/blog/index.tsx"),
       layout("routes/blog/layout.tsx", [
-        route(
-          "batch-mails-deno-postmark",
-          "./routes/blog/batch-mails-deno-postmark/post.mdx",
-        ),
-        route(
-          "realistic-button-design-css",
-          "./routes/blog/realistic-button-design-css/post.mdx",
-        ),
-        route("tailwindcss-v3-tips", "./routes/blog/tailwindcss-tips/v3.mdx"),
-        route("tailwindcss-v4-tips", "./routes/blog/tailwindcss-tips/v4.mdx"),
-        route(
-          "syntax-highlighting-shiki-next-js",
-          "./routes/blog/syntax-highlighting-shiki-next-js/post.mdx",
-        ),
-        route(
-          "sitemap-react-router-7",
-          "./routes/blog/sitemap-react-router-7/post.mdx",
-        ),
-        route(
-          "robots-txt-react-router-7",
-          "./routes/blog/robots-txt-react-router-7/post.mdx",
-        ),
-        route(
-          "fonts-remix-react-router-7",
-          "./routes/blog/fonts-remix-react-router-7/post.mdx",
-        ),
-        route(
-          "enhance-mdx-typescript",
-          "./routes/blog/enhance-mdx-typescript/post.mdx",
-        ),
+        ...(await remixRoutesOptionAdapter((defineRoutes) => {
+          return flatRoutes("routes/blog/posts", defineRoutes, {
+            ignoredRouteFiles: ["**/.*"],
+          });
+        })),
       ]),
     ]),
     ...prefix("newsletter", [

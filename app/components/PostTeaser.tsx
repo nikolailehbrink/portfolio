@@ -1,4 +1,4 @@
-import type { PostHandle } from "@/lib/posts.server";
+import type { Post } from "@/lib/posts.server";
 import { CalendarDots, ClockCountdown, Pencil } from "@phosphor-icons/react";
 import { Link } from "react-router";
 import { Badge } from "./ui/badge";
@@ -14,20 +14,16 @@ const DATE_TIME_FORMAT_OPTIONS = {
 export default function PostTeaser({
   slug,
   metadata,
+  isDraft,
   className,
   ...props
-}: {
-  slug: string;
-  metadata: PostHandle;
-} & React.ComponentProps<"li">) {
-  const { publicationDate, readingTime, title, description, draft } = metadata;
+}: Post & React.ComponentProps<"li">) {
+  const { publicationDate, readingTime, title, description } = metadata;
 
   const formattedPublicationDate = formatDate(
     publicationDate,
     DATE_TIME_FORMAT_OPTIONS,
   );
-
-  const isDraft = import.meta.env.DEV && draft;
 
   return (
     <li

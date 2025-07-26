@@ -1,4 +1,5 @@
 import { z } from "zod/v4";
+import { isDraft } from "./utils";
 
 export const postHandleSchema = z.object({
   title: z.string().min(30, {
@@ -14,7 +15,6 @@ export const postHandleSchema = z.object({
   tags: z.array(z.string()).optional(),
   cover: z.string().optional(),
   modificationDate: z.coerce.date().optional(),
-  draft: z.boolean().optional(),
 });
 
 export type PostHandle = z.infer<typeof postHandleSchema>;
@@ -23,6 +23,8 @@ const postModules = import.meta.glob("../routes/blog/**/*.mdx", {
   eager: true,
   import: "handle",
 });
+
+export type Post = Awaited<ReturnType<typeof getPosts>>[number];
 
 export async function getPosts(options?: {
   take?: number;
@@ -35,11 +37,11 @@ export async function getPosts(options?: {
     const slug = routes[id]?.path;
     if (slug === undefined) throw new Error(`No route for ${id}`);
 
-    return { slug: `/${slug}`, metadata };
+    return { slug: `/${slug}`, metadata, isDraft: isDraft(slug) };
   });
 
   if (import.meta.env.PROD) {
-    files = files.filter(({ metadata: { draft } }) => !draft);
+    files = files.filter(({ isDraft }) => !isDraft);
   }
 
   const { category, take } = options || {};
