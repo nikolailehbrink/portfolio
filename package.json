@@ -43,6 +43,7 @@
     "@react-email/components": "0.0.42",
     "@react-router/node": "7.6.3",
     "@react-router/serve": "7.6.3",
+    "@stefanprobst/rehype-extract-toc": "3.0.0",
     "@unpic/react": "1.0.1",
     "@vercel/analytics": "1.5.0",
     "@vercel/og": "0.7.2",

@@ -1,5 +1,6 @@
 import { z } from "zod/v4";
 import { isDraft } from "./utils";
+import type { Toc } from "@stefanprobst/rehype-extract-toc";
 
 export const postHandleSchema = z.object({
   title: z.string().min(30, {
@@ -19,9 +20,11 @@ export const postHandleSchema = z.object({
 
 export type PostHandle = z.infer<typeof postHandleSchema>;
 
-const postModules = import.meta.glob("../routes/blog/**/*.mdx", {
+const postModules = import.meta.glob<{
+  handle: unknown;
+  tableOfContents: Toc;
+}>("../routes/blog/**/*.mdx", {
   eager: true,
-  import: "handle",
 });
 
 export type Post = Awaited<ReturnType<typeof getPosts>>[number];
@@ -31,14 +34,21 @@ export async function getPosts(options?: {
   category?: string | null;
 }) {
   const { routes } = await import("virtual:react-router/server-build");
-  let files = Object.entries(postModules).map(([path, handle]) => {
-    const metadata = postHandleSchema.parse(handle);
-    const id = path.replace("../", "").replace(/\.mdx$/, "");
-    const slug = routes[id]?.path;
-    if (slug === undefined) throw new Error(`No route for ${id}`);
+  let files = Object.entries(postModules).map(
+    ([path, { handle, tableOfContents }]) => {
+      const metadata = postHandleSchema.parse(handle);
+      const id = path.replace("../", "").replace(/\.mdx$/, "");
+      const slug = routes[id]?.path;
+      if (slug === undefined) throw new Error(`No route for ${id}`);
 
-    return { slug: `/${slug}`, metadata, isDraft: isDraft(slug) };
-  });
+      return {
+        slug: `/${slug}`,
+        metadata,
+        isDraft: isDraft(slug),
+        tableOfContents,
+      };
+    },
+  );
 
   if (import.meta.env.PROD) {
     files = files.filter(({ isDraft }) => !isDraft);
