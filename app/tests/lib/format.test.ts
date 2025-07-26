@@ -29,8 +29,6 @@ describe("The formatDate() function", () => {
       day: "2-digit",
     } satisfies Intl.DateTimeFormatOptions;
     const formattedDate = formatDate(date, options);
-    console.log(formattedDate);
-
     expect(formattedDate).toBe("October 01, 23");
   });
 });
