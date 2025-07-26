@@ -22,7 +22,7 @@ However, when working with MDX and TypeScript in a Vite-powered project (in my c
 
 Both of these can be resolved with minimal configuration.
 
-## 1. Enable TypeScript Path Aliases in `.mdx` Files
+## Enable TypeScript Path Aliases in `.mdx` Files
 
 When using Vite with TypeScript, it's recommended to use the [`vite-tsconfig-paths`](https://github.com/aleclarson/vite-tsconfig-paths) plugin to automatically resolve path aliases defined in your `tsconfig.json` for `.ts` and `.tsx` files.
 
@@ -98,7 +98,7 @@ export default defineConfig({
 
 This should make alias resolution work across all file types, without changing your TypeScript configuration.
 
-## 2. Enable Strict Type Checking in MDX Files
+## Enable Strict Type Checking in MDX Files
 
 By default, MDX files don’t benefit from TypeScript’s type checking. That means you can pass incorrect props to components inside `.mdx` files and nothing will warn you.
 
