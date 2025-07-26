@@ -8,7 +8,7 @@ import { getNextPost, getPost } from "@/lib/posts.server";
 import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
 import type { Route } from "./+types/layout";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { cn, slugify } from "@/lib/utils";
 import Avatar from "@/components/Avatar";
 import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
 import { track } from "@vercel/analytics/react";
@@ -115,9 +115,7 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
                 <Badge key={tag} asChild variant="secondary">
                   <Link
                     className="no-underline"
-                    target="_blank"
-                    rel="noreferrer"
-                    to={`/blog?category=${tag}`}
+                    to={`${href("/blog")}?category=${slugify(tag)}`}
                   >
                     {tag}
                   </Link>
