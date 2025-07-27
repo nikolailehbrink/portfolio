@@ -219,6 +219,7 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
             <Drawer>
               <DrawerTrigger asChild>
                 <Button
+                  onClick={() => track("open-toc-drawer")}
                   size="icon"
                   className="sticky bottom-4 size-12 justify-self-end
                     bg-sky-950"
