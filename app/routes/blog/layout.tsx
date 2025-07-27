@@ -13,22 +13,33 @@ import Avatar from "@/components/Avatar";
 import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
 import { track } from "@vercel/analytics/react";
 import { formatDate } from "@/lib/format";
-import { Pencil } from "@phosphor-icons/react";
+import { ListNumbers, Pencil } from "@phosphor-icons/react";
+import TableOfContents from "@/components/TableOfContents";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { url } = request;
-  const { metadata, isDraft } = await getPost(url);
+  const { metadata, tableOfContents, isDraft } = await getPost(url);
   const formattedPublicationDate = formatDate(metadata.publicationDate);
   const formattedModificationDate = metadata.modificationDate
     ? formatDate(metadata.modificationDate)
     : null;
   const nextPost = await getNextPost(url);
+
   return {
     metadata,
-    isDraft,
+    tableOfContents,
     nextPost,
     formattedPublicationDate,
     formattedModificationDate,
+    isDraft,
   };
 }
 
@@ -46,8 +57,12 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
     nextPost,
     formattedPublicationDate,
     formattedModificationDate,
+    tableOfContents,
     isDraft,
   } = loaderData;
+
+  // Equal to sm:..
+  const isTablet = useMediaQuery("(width >= 40rem)");
 
   return (
     <article className="flex w-full flex-col gap-12">
@@ -144,47 +159,90 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
           />
         </div>
       )}
-      <section
-        className="mx-auto prose w-full prose-neutral dark:prose-invert
-          prose-a:decoration-sky-500 prose-a:underline-offset-4"
+      <div
+        className="relative grid grid-cols-1 items-start justify-end gap-8
+          md:grid-cols-[1fr_auto_1fr]"
       >
-        {formattedModificationDate ? (
-          <Badge
-            asChild
-            variant="secondary"
-            className="bg-sky-500/20 text-sky-400"
-          >
-            <time dateTime={modificationDate?.toISOString()}>
-              Last updated: {formattedModificationDate}
-            </time>
-          </Badge>
-        ) : null}
-        <MDXProvider
-          components={{
-            pre: CodeBlock,
-            a: ({ href, ...props }) => {
-              const isExternalLink = href?.startsWith("http");
-              return (
-                <Link
-                  to={href ?? ""}
-                  prefetch={isExternalLink ? "none" : "viewport"}
-                  target={isExternalLink ? "_blank" : "_self"}
-                  rel={isExternalLink ? "noreferrer" : "noopener"}
-                  {...props}
-                />
-              );
-            },
-            h1: (props) => <LinkedHeading level={1} {...props} />,
-            h2: (props) => <LinkedHeading level={2} {...props} />,
-            h3: (props) => <LinkedHeading level={3} {...props} />,
-            h4: (props) => <LinkedHeading level={4} {...props} />,
-            h5: (props) => <LinkedHeading level={5} {...props} />,
-            h6: (props) => <LinkedHeading level={6} {...props} />,
-          }}
+        <section
+          className="prose prose-neutral md:col-start-2 dark:prose-invert
+            prose-a:decoration-sky-500 prose-a:underline-offset-4"
         >
-          <Outlet />
-        </MDXProvider>
-      </section>
+          {formattedModificationDate ? (
+            <Badge
+              asChild
+              variant="secondary"
+              className="bg-sky-500/20 text-sky-400"
+            >
+              <time dateTime={modificationDate?.toISOString()}>
+                Last updated: {formattedModificationDate}
+              </time>
+            </Badge>
+          ) : null}
+          <MDXProvider
+            components={{
+              pre: CodeBlock,
+              a: ({ href, ...props }) => {
+                const isExternalLink = href?.startsWith("http");
+                return (
+                  <Link
+                    to={href ?? ""}
+                    prefetch={isExternalLink ? "none" : "viewport"}
+                    target={isExternalLink ? "_blank" : "_self"}
+                    rel={isExternalLink ? "noreferrer" : "noopener"}
+                    {...props}
+                  />
+                );
+              },
+              h1: (props) => <LinkedHeading level={1} {...props} />,
+              h2: (props) => <LinkedHeading level={2} {...props} />,
+              h3: (props) => <LinkedHeading level={3} {...props} />,
+              h4: (props) => <LinkedHeading level={4} {...props} />,
+              h5: (props) => <LinkedHeading level={5} {...props} />,
+              h6: (props) => <LinkedHeading level={6} {...props} />,
+            }}
+          >
+            <Outlet />
+          </MDXProvider>
+        </section>
+        {tableOfContents.length > 0 ? (
+          isTablet ? (
+            <TableOfContents
+              className="rounded-xl border bg-neutral-900 bg-linear-to-b
+                shadow-xl offset-border max-xl:order-first md:col-start-2
+                xl:sticky xl:top-16 xl:col-start-3
+                xl:max-h-[calc(100dvh_-_--spacing(24))] xl:max-w-xs
+                xl:overflow-y-auto"
+              maxDepth={3}
+              outline={tableOfContents}
+            />
+          ) : (
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button
+                  size="icon"
+                  className="sticky bottom-4 size-12 justify-self-end
+                    bg-sky-950"
+                >
+                  <ListNumbers
+                    className="text-sky-400"
+                    size={28}
+                    weight="duotone"
+                  />
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerClose asChild>
+                  <TableOfContents
+                    className=""
+                    maxDepth={3}
+                    outline={tableOfContents}
+                  />
+                </DrawerClose>
+              </DrawerContent>
+            </Drawer>
+          )
+        ) : null}
+      </div>
 
       <div className="flex justify-center *:max-w-6xl">
         <Giscus

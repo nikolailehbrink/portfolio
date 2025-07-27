@@ -4,6 +4,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import mdx from "@mdx-js/rollup";
 import rehypeShiki from "@shikijs/rehype";
 import rehypeSlug from "rehype-slug";
+import rehypeExtractToc from "@stefanprobst/rehype-extract-toc";
+import rehypeExtractTocExport from "@stefanprobst/rehype-extract-toc/mdx";
 import svgr from "vite-plugin-svgr";
 import { qrcodeNetwork } from "./app/lib/vite/plugin-qrcode-network";
 import { transformerCodeBlock } from "./app/lib/shiki/transformerCodeBlock";
@@ -46,6 +48,12 @@ export default defineConfig(({ command }) => ({
           },
         ],
         rehypeSlug,
+        rehypeExtractToc,
+        // Explicitly set the export name to "tableOfContents" for clarity and future flexibility.
+        // Note: This disables React Fast Refresh due to multiple component exports, so HMR is currently off.
+        // To enable HMR, consider changing the export name to "handle", which is whitelisted by the React Router plugin.
+        // TODO:
+        [rehypeExtractTocExport, { name: "tableOfContents" }],
       ],
       providerImportSource: "@mdx-js/react",
     }),

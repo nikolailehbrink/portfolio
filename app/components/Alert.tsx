@@ -56,7 +56,7 @@ export default function Alert({
 
 const alert = cva(
   `not-prose z-20 flex flex-col items-start gap-2 rounded-xl bg-neutral-900
-  bg-linear-160 to-50% p-4 ring ring-black/10 ring-inset md:-mx-8 lg:-mx-12
+  bg-linear-160 to-50% p-4 ring ring-black/10 ring-inset md:-ml-8 lg:-ml-12
   dark:ring-white/10 [li>div]:mx-0 [li>div]:mt-2 [li>div]:mb-3`,
   {
     variants: {
