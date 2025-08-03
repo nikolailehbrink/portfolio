@@ -1,21 +1,24 @@
 import Alert from "@/components/Alert";
+import cover from "./TableOfContents.webp";
+
 export const handle = {
-  title: "How to set up a table of contents in MDX with TypeScript support",
+  title: "How to set up a table of contents in MDX",
   description:
     "Learn how to automatically extract a structured table of contents from MDX posts using rehype plugins, Vite, and TypeScript.",
   publicationDate: "2025-08-04T08:00:00Z",
   authors: ["Nikolai Lehbrink"],
   tags: ["MDX", "Vite", "React Router 7", "Tips and Tricks"],
   readingTime: 4,
+  cover,
 };
 
-Recently I added the Table of Contents that you see on this post to my website. I am using MDX to write my blog posts, and I wanted to have a table of contents that is automatically generated from the headings in the post.
+Recently I added the Table of Contents you see on this post to my website. I'm using MDX to write blog posts and wanted a ToC that updates automatically based on the post's headings.
 
-Here is how you can do the same.
+Here's how I set it up and how you can too.
 
 ## Install the necessary package
 
-The easiest solution I found was to use the [`rehype-extract-toc`](https://github.com/stefanprobst/rehype-extract-toc) package. It can extract the table of contents from the headings into an object that will be exported as a component export.
+The easiest and most reliable solution I found is [`rehype-extract-toc`](https://github.com/stefanprobst/rehype-extract-toc). It parses all heading elements in your MDX and turns them into a structured table of contents object, which can then be exported from the file as a named component export.
 
 ```bash
 npm install @stefanprobst/rehype-extract-toc
@@ -23,9 +26,9 @@ npm install @stefanprobst/rehype-extract-toc
 
 ## Configure the MDX plugin
 
-Now this can be different depending on your setup, but I am using `@mdx-js/rollup`, because I am using React Router 7 with Vite under the hood. So I added the plugin per the [documentation](https://github.com/stefanprobst/rehype-extract-toc/tree/main?tab=readme-ov-file#how-to-use-with-mdx) to my `vite.config.ts` file:
+My MDX setup uses [`@mdx-js/rollup`](https://mdxjs.com/packages/rollup/), since I’m working with React Router 7 and Vite. Here’s how I added the plugin to Vite's config file, based on the [official documentation](https://github.com/stefanprobst/rehype-extract-toc?tab=readme-ov-file#how-to-use-with-mdx):
 
-```ts
+```ts filename="vite.config.ts"
 import type { UserConfig } from "vite";
 import mdx from "@mdx-js/rollup";
 import rehypeExtractToc from "@stefanprobst/rehype-extract-toc";
@@ -33,12 +36,12 @@ import rehypeExtractTocExport from "@stefanprobst/rehype-extract-toc/mdx";
 
 export default {
   plugins: [
-    // ...
+    // other plugins...
     mdx({
       rehypePlugins: [
         rehypeExtractToc,
-        // If you want to use a different component export name, you can pass an options object:
-        // [rehypeExtractTocExport, { name: "differentName" }],
+        // Optional: use a custom export name
+        // [rehypeExtractTocExport, { name: "customExportName" }],
         rehypeExtractTocExport,
       ],
     }),
@@ -48,20 +51,24 @@ export default {
 
 ## Access the table of contents
 
-Now you can access the table of contents in your routes. Because I am using Vite, I can access the component exports via `import.meta.glob` and access the table of contents with that.
+Because I’m using Vite, I take advantage of `import.meta.glob{:ts}` to access the component exports.
 
-```ts filename="app/lib/posts.ts"
+```ts filename="app/lib/posts.ts" showLineNumbers
 import type { Toc } from "@stefanprobst/rehype-extract-toc";
 
 const posts = import.meta.glob<Toc>("../routes/blog/**/*.mdx", {
   eager: true,
-  // Only import the named export `tableOfContents`
-  // If you need to import other exports as well, remove this line and adjust the types inside .glob<...>
+  // This is the default export name, but you can change it in the plugin config (see above)
   import: "tableOfContents",
 });
 ```
 
-This will output an object where the keys are the paths to the MDX files and the values are the table of contents objects.
+<Alert type="tip">
+  Importing named exports together with `eager: true` [allows for
+  tree-shaking](https://vite.dev/guide/features.html#named-imports).
+</Alert>
+
+This gives you an object with file paths as keys and ToC entry arrays as values:
 
 ```ts
 '../routes/blog/posts/drafts/mdx-table-of-contents/route.mdx': [
@@ -73,23 +80,17 @@ This will output an object where the keys are the paths to the MDX files and the
   {
     depth: 2,
     value: 'Configure the MDX plugin',
-    id: 'configure-the-mdx-plugin'
-    children: [
-      {
-        depth: 3,
-        value: 'Access the table of contents',
-        id: 'access-the-table-of-contents'
-      }
-    ]
+    id: 'configure-the-mdx-plugin',
   },
+  ...
 ]
 ```
 
 ### Map the file paths to your routes
 
-Now you should map the file paths to your routes. This depends on your setup again, but for React Router 7, this would look like the following:
+This depends on your setup. With React Router 7, I map file paths to route slugs using the route manifest:
 
-```ts filename="app/lib/posts.ts"
+```ts filename="app/lib/posts.ts" showLineNumbers=7
 export async function getPosts() {
   const { routes } = await import("virtual:react-router/server-build");
   let files = Object.entries(posts).map(([path, tableOfContents]) => {
@@ -104,7 +105,9 @@ export async function getPosts() {
 }
 ```
 
-You can now use the function to get the specific data for your posts, including the table of contents. Again React Router 7 specific, but you can adapt it to your setup.
+## Load the table of contents in your layout
+
+You can now use this function in your route loader to fetch the ToC:
 
 ```tsx filename="app/routes/blog/layout.tsx" showLineNumbers
 import { getPosts } from "~/lib/posts";
@@ -121,22 +124,19 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function PostLayout({ loaderData }: Route.ComponentProps) {
   const { post } = loaderData;
+  const { tableOfContents } = post;
+
   // ...
 }
 ```
 
-## The Table of Contents Component
+## Create the Table of Contents component
 
-To display the table of contents, you need a component that renders it.
+To render the ToC, I wrote a recursive component that can handle nested entries. The plugin provides TypeScript types `Toc` and `TocEntry` out of the box.
 
-It's useful to think about how to create a recursive component, that can handle nested headings.
-
-What's cool is that the `rehype-extract-toc` package provides you with a `Toc` and a `TocEntry` type. Each `TocEntry` can have a `children` property that is an array of more `TocEntry` objects, allowing for nested headings.
-
-Here is the unstyled component that I came up with:
+Here’s a basic, unstyled version of the component I put together:
 
 ```tsx filename="app/components/TableOfContents.tsx" showLineNumbers
-import { cn } from "@/lib/utils";
 import type { Toc, TocEntry } from "@stefanprobst/rehype-extract-toc";
 
 export default function TableOfContents({
@@ -184,14 +184,14 @@ function TocItem({
 ```
 
 <Alert type="warning">
-  To make the links to the headings work, you need to add the `id` attribute to
-  the headings. You would normally do this by using a plugin like
+  To make the anchor links work, make sure your headings have `id` attributes.
+  You can add them using a plugin like
   [`rehype-slug`](https://www.npmjs.com/package/rehype-slug).
 </Alert>
 
 ## Display the component
 
-Now in the final step you should display the component that we just created. We can dynamically render the component when there are headings in the post.
+Render the ToC conditionally inside your post layout.
 
 ```tsx filename="app/routes/blog/layout.tsx" showLineNumbers=13
 export default function PostLayout({ loaderData }: Route.ComponentProps) {
@@ -201,11 +201,7 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
   return (
     <article>
       {tableOfContents.length > 0 ? (
-        <TableOfContents
-          // Adjust the maxDepth as needed
-          maxDepth={3}
-          outline={tableOfContents}
-        />
+        <TableOfContents maxDepth={3} outline={tableOfContents} />
       ) : null}
       {/* The rest of your post content goes here */}
     </article>
@@ -213,11 +209,11 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
 }
 ```
 
-You now have a fully functional table of contents in your MDX posts that is automatically generated from the headings in the post.
-
 <Alert type="tip">
   If you want to see the fully styled component and implementation, you can
   check out [the
   commit](https://github.com/nikolailehbrink/portfolio/commit/9338a4156d8c3713f6ae594f4fa4809e813a8ec7)
-  for this website.
+  that added this to my site.
 </Alert>
+
+You now have a fully automated, table of contents setup for your MDX blog posts.
