@@ -1,6 +1,5 @@
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 import mdx from "@mdx-js/rollup";
 import rehypeShiki from "@shikijs/rehype";
 import rehypeSlug from "rehype-slug";
@@ -26,6 +25,13 @@ export default defineConfig(({ command }) => ({
   ssr: {
     // https://github.com/phosphor-icons/react/issues/45
     noExternal: command === "build" ? ["@phosphor-icons/react"] : undefined,
+  },
+  resolve: {
+    tsconfigPaths: true,
+  },
+  experimental: {
+    // Needed for resolve.tsconfigPaths to work
+    enableNativePlugin: true,
   },
   plugins: [
     qrcodeNetwork(),
@@ -67,6 +73,5 @@ export default defineConfig(({ command }) => ({
     }),
     tailwindcss(),
     reactRouter(),
-    tsconfigPaths(),
   ],
 }));
