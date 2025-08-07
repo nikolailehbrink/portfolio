@@ -8,14 +8,14 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
 import { useFetcher, type FormProps } from "react-router";
 import { Label } from "./ui/label";
 import {
-  At,
-  CheckCircle,
-  CircleNotch,
-  IdentificationBadge,
-  PaperPlaneTilt,
-  PhoneTransfer,
-  TextAlignLeft,
-  Textbox,
+  AtIcon,
+  CheckCircleIcon,
+  CircleNotchIcon,
+  IdentificationBadgeIcon,
+  PaperPlaneTiltIcon,
+  PhoneTransferIcon,
+  TextAlignLeftIcon,
+  TextboxIcon,
 } from "@phosphor-icons/react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -86,7 +86,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
     >
       <FormItem>
         <Label htmlFor={fields.email.id}>
-          <At weight="duotone" size={20} />
+          <AtIcon weight="duotone" size={20} />
           Email
         </Label>
         <Input
@@ -99,7 +99,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
       </FormItem>
       <FormItem>
         <Label htmlFor={fields.name.id}>
-          <IdentificationBadge weight="duotone" size={20} />
+          <IdentificationBadgeIcon weight="duotone" size={20} />
           Name
         </Label>
         <Input
@@ -110,7 +110,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
       </FormItem>
       <FormItem>
         <Label htmlFor={fields.subject.id}>
-          <Textbox weight="duotone" size={20} />
+          <TextboxIcon weight="duotone" size={20} />
           Subject
         </Label>
         <Input
@@ -123,7 +123,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
       </FormItem>
       <FormItem>
         <Label htmlFor={fields.phone.id}>
-          <PhoneTransfer weight="duotone" size={20} />
+          <PhoneTransferIcon weight="duotone" size={20} />
           Phone
         </Label>
         <Input
@@ -137,7 +137,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
 
       <FormItem className="@lg:col-span-2">
         <Label htmlFor={fields.message.id}>
-          <TextAlignLeft weight="duotone" size={20} />
+          <TextAlignLeftIcon weight="duotone" size={20} />
           Message
         </Label>
         <Textarea
@@ -163,7 +163,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
         <FormMessage
           className="col-span-full items-start rounded-md border border-sky-900
             bg-sky-950 p-2 text-sky-400"
-          icon={CheckCircle}
+          icon={CheckCircleIcon}
           iconSize={20}
         >
           Thank you for your message! I will get back to you as soon as
@@ -174,12 +174,16 @@ export default function ContactForm({ className, ...props }: FormProps) {
         {isLoading ? (
           <>
             Sending
-            <CircleNotch className="animate-spin" weight="duotone" size={20} />
+            <CircleNotchIcon
+              className="animate-spin"
+              weight="duotone"
+              size={20}
+            />
           </>
         ) : (
           <>
             Submit
-            <PaperPlaneTilt weight="duotone" size={20} />
+            <PaperPlaneTiltIcon weight="duotone" size={20} />
           </>
         )}
       </Button>

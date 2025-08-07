@@ -1,8 +1,8 @@
 import type { TypedRoute } from "@/types/href";
 import {
-  ArticleNyTimes,
-  ChatsCircle,
-  HouseLine,
+  ArticleNyTimesIcon,
+  ChatsCircleIcon,
+  HouseLineIcon,
   type Icon,
 } from "@phosphor-icons/react";
 
@@ -16,16 +16,16 @@ export const NAVIGATION_LINKS = [
   {
     name: "Home",
     path: "/",
-    icon: HouseLine,
+    icon: HouseLineIcon,
   },
   {
     name: "Blog",
     path: "/blog",
-    icon: ArticleNyTimes,
+    icon: ArticleNyTimesIcon,
   },
   {
     name: "AI Chat",
     path: "/chat",
-    icon: ChatsCircle,
+    icon: ChatsCircleIcon,
   },
 ] as const satisfies NavigationLink[];

@@ -36,8 +36,8 @@ importers:
         specifier: 3.1.0
         version: 3.1.0(@types/react@19.1.2)(react@19.1.0)
       '@phosphor-icons/react':
-        specifier: 2.1.7
-        version: 2.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 2.1.10
+        version: 2.1.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-dialog':
         specifier: 1.1.14
         version: 1.1.14(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1140,8 +1140,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@phosphor-icons/react@2.1.7':
-    resolution: {integrity: sha512-g2e2eVAn1XG2a+LI09QU3IORLhnFNAFkNbo2iwbX6NOKSLOwvEMmTa7CgOzEbgNWR47z8i8kwjdvYZ5fkGx1mQ==}
+  '@phosphor-icons/react@2.1.10':
+    resolution: {integrity: sha512-vt8Tvq8GLjheAZZYa+YG/pW7HDbov8El/MANW8pOAz4eGxrwhnbfrQZq0Cp4q8zBEu8NIhHdnr+r8thnfRSNYA==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>= 16.8'
@@ -6245,7 +6245,7 @@ snapshots:
   '@oxc-resolver/binding-win32-x64-msvc@11.2.0':
     optional: true
 
-  '@phosphor-icons/react@2.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@phosphor-icons/react@2.1.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)

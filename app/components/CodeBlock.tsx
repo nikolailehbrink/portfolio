@@ -1,4 +1,4 @@
-import { FileCode, FolderSimple } from "@phosphor-icons/react";
+import { FileCodeIcon, FolderSimpleIcon } from "@phosphor-icons/react";
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { LANGUAGE_FILE_ICONS } from "@/lib/shiki/fileIcons";
 import { cn } from "@/lib/utils";
@@ -19,8 +19,8 @@ export default function CodeBlock({ children, className, ...props }: Props) {
 
   const filePaths = filename ? filename.split("/") : [];
   const LanguageIcon = language
-    ? (LANGUAGE_FILE_ICONS.get(language) ?? FileCode)
-    : FileCode;
+    ? (LANGUAGE_FILE_ICONS.get(language) ?? FileCodeIcon)
+    : FileCodeIcon;
   const { copiedText, copyToClipboard, idle } = useCopyToClipboard();
   return (
     <figure className="group/code-block rounded-xl offset-border">
@@ -42,7 +42,7 @@ export default function CodeBlock({ children, className, ...props }: Props) {
                 >
                   {filePaths.length > 1 &&
                     (!isLast ? (
-                      <FolderSimple
+                      <FolderSimpleIcon
                         weight="duotone"
                         size={20}
                         aria-hidden="true"

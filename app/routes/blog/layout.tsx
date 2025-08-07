@@ -13,7 +13,7 @@ import Avatar from "@/components/Avatar";
 import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
 import { track } from "@vercel/analytics/react";
 import { formatDate } from "@/lib/format";
-import { ListNumbers, Pencil } from "@phosphor-icons/react";
+import { ListNumbersIcon, PencilIcon } from "@phosphor-icons/react";
 import TableOfContents from "@/components/TableOfContents";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import {
@@ -117,7 +117,7 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
           </div>
           {isDraft && (
             <Badge className="dark:bg-orange-500/20 dark:text-orange-400">
-              <Pencil size={16} weight="duotone" />
+              <PencilIcon size={16} weight="duotone" />
               Draft
             </Badge>
           )}
@@ -224,7 +224,7 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
                   className="sticky bottom-4 size-12 justify-self-end
                     bg-sky-950"
                 >
-                  <ListNumbers
+                  <ListNumbersIcon
                     className="text-sky-400"
                     size={28}
                     weight="duotone"

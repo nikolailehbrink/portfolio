@@ -1,5 +1,5 @@
 import Message from "./Message";
-import { X } from "@phosphor-icons/react";
+import { XIcon } from "@phosphor-icons/react";
 
 export default function WelcomeMessage({
   showCloseButton,
@@ -24,7 +24,7 @@ export default function WelcomeMessage({
           className="absolute top-0 right-0 cursor-pointer rounded-se-xl
             rounded-es-xl border bg-neutral-900 p-1.5 hover:bg-neutral-800"
         >
-          <X size={16} weight="bold" />
+          <XIcon size={16} weight="bold" />
         </button>
       )}
     </Message>

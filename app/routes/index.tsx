@@ -14,12 +14,12 @@ import { getPosts } from "@/lib/posts.server";
 import PostTeaser from "@/components/PostTeaser";
 import { Button } from "@/components/ui/button";
 import {
-  ArticleNyTimes,
-  Kanban,
-  Mailbox,
-  ProjectorScreenChart,
-  Student,
-  TextColumns,
+  ArticleNyTimesIcon,
+  KanbanIcon,
+  MailboxIcon,
+  ProjectorScreenChartIcon,
+  StudentIcon,
+  TextColumnsIcon,
 } from "@phosphor-icons/react";
 import { resend } from "@/lib/resend.server";
 import NewsletterForm from "@/components/NewsletterForm";
@@ -143,7 +143,7 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
           ></div>
           <div className="flex flex-col gap-2 sm:row-span-2">
             <h2 className="flex items-center gap-1 text-2xl font-bold">
-              <ProjectorScreenChart size={28} weight="duotone" />
+              <ProjectorScreenChartIcon size={28} weight="duotone" />
               Projects
             </h2>
             <p className="max-w-prose text-muted-foreground">
@@ -177,7 +177,7 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
       <div className="flex w-full max-w-3xl flex-col gap-4">
         <div className="flex flex-col gap-2">
           <h2 className="flex items-center gap-1 text-2xl font-bold">
-            <ArticleNyTimes size={28} weight="duotone" />
+            <ArticleNyTimesIcon size={28} weight="duotone" />
             Blog
           </h2>
           <p className="mb-3 max-w-prose text-muted-foreground">
@@ -199,7 +199,7 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
               >
                 <Button asChild>
                   <Link to="/blog">
-                    <TextColumns size={24} weight="duotone" />
+                    <TextColumnsIcon size={24} weight="duotone" />
                     View all posts
                   </Link>
                 </Button>
@@ -212,7 +212,7 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
       <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-2">
         <div className="flex max-w-2xl flex-col gap-2">
           <h2 className="flex items-center gap-1 text-2xl font-bold">
-            <Kanban size={28} weight="duotone" />
+            <KanbanIcon size={28} weight="duotone" />
             Skills
           </h2>
           <p className="mb-3 max-w-prose text-muted-foreground">
@@ -263,7 +263,7 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
         </div>
         <div className="flex flex-col gap-2">
           <h2 className="flex items-center gap-1 text-2xl font-bold">
-            <Student size={28} weight="duotone" />
+            <StudentIcon size={28} weight="duotone" />
             Work and Education
           </h2>
           <p className="mb-3 max-w-prose text-muted-foreground">
@@ -283,7 +283,7 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
       </div>
       <section className="@container flex w-full flex-col gap-2 lg:max-w-3xl">
         <h2 className="flex items-center gap-1 text-2xl font-bold">
-          <Mailbox size={28} weight="duotone" />
+          <MailboxIcon size={28} weight="duotone" />
           Contact
         </h2>
         <p className="mb-3 max-w-prose text-muted-foreground">

@@ -1,27 +1,27 @@
 import { Link } from "react-router";
 import {
-  GithubLogo,
-  LinkedinLogo,
-  XLogo,
-  YoutubeLogo,
+  GithubLogoIcon,
+  LinkedinLogoIcon,
+  XLogoIcon,
+  YoutubeLogoIcon,
 } from "@phosphor-icons/react";
 
 const SOCIAL_MEDIA_PLATFORMS = {
   GitHub: {
     profileUrl: "https://github.com",
-    logo: GithubLogo,
+    logo: GithubLogoIcon,
   },
   X: {
     profileUrl: "https://x.com",
-    logo: XLogo,
+    logo: XLogoIcon,
   },
   LinkedIn: {
     profileUrl: "https://linkedin.com/in/",
-    logo: LinkedinLogo,
+    logo: LinkedinLogoIcon,
   },
   YouTube: {
     profileUrl: "https://www.youtube.com/@",
-    logo: YoutubeLogo,
+    logo: YoutubeLogoIcon,
   },
 } as const;
 

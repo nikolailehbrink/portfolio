@@ -1,5 +1,9 @@
 import type { Post } from "@/lib/posts.server";
-import { CalendarDots, ClockCountdown, Pencil } from "@phosphor-icons/react";
+import {
+  CalendarDotsIcon,
+  ClockCountdownIcon,
+  PencilIcon,
+} from "@phosphor-icons/react";
 import { Link } from "react-router";
 import { Badge } from "./ui/badge";
 import { formatDate } from "@/lib/format";
@@ -44,19 +48,19 @@ export default function PostTeaser({
         <div className="flex gap-2 text-xs text-muted-foreground">
           {isDraft && (
             <Badge className="dark:bg-orange-500/20 dark:text-orange-400">
-              <Pencil size={16} weight="duotone" />
+              <PencilIcon size={16} weight="duotone" />
               Draft
             </Badge>
           )}
           <Badge className="dark:bg-sky-500/20 dark:text-sky-400" asChild>
             <time dateTime={publicationDate.toISOString()}>
-              <CalendarDots size={16} weight="duotone" />
+              <CalendarDotsIcon size={16} weight="duotone" />
               {formattedPublicationDate}
             </time>
           </Badge>
           {readingTime && (
             <Badge variant="secondary" className="group-hover:bg-neutral-700">
-              <ClockCountdown size={16} weight="duotone" />
+              <ClockCountdownIcon size={16} weight="duotone" />
               {readingTime} min read
             </Badge>
           )}
