@@ -1,12 +1,15 @@
+import { useChat } from "@ai-sdk/react";
+import { useRevalidator } from "react-router";
+
 import Actions from "@/components/chat/Actions";
 import Body from "@/components/chat/Body";
 import ExampleMessage from "@/components/chat/ExampleMessage";
 import { EXAMPLE_MESSAGES } from "@/data/exampleChatMessages";
-import { useChat } from "@ai-sdk/react";
-import type { Route } from "./+types";
 import { typedMessageCountCookie } from "@/lib/cookies.server";
-import { useRevalidator } from "react-router";
 import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
+
+import type { Route } from "./+types";
+
 import ogImage from "./og-image.webp";
 
 export const MESSAGE_LIMIT = import.meta.env.PROD ? 10 : 2;
@@ -25,14 +28,14 @@ export default function Chat({ loaderData }: Route.ComponentProps) {
   const { disableChat, messageCountResetDate } = loaderData;
   const revalidator = useRevalidator();
   const {
-    messages,
-    input,
     handleInputChange,
     handleSubmit,
+    input,
+    messages,
+    reload,
     setInput,
     status,
     stop,
-    reload,
   } = useChat({
     onFinish() {
       // Check for the message count
@@ -48,19 +51,19 @@ export default function Chat({ loaderData }: Route.ComponentProps) {
         sm:offset-border"
     >
       <Body
-        messages={messages}
-        status={status}
         disabled={disableChat}
         messageCountResetDate={messageCountResetDate}
+        messages={messages}
+        status={status}
       />
       {!disableChat ? (
         <>
           <div className="flex justify-center gap-2">
-            {EXAMPLE_MESSAGES.map(({ heading, message, icon: Icon }) => (
+            {EXAMPLE_MESSAGES.map(({ heading, icon: Icon, message }) => (
               <ExampleMessage
                 key={heading}
-                setInput={setInput}
                 message={message}
+                setInput={setInput}
               >
                 <Icon size={20} weight="duotone" />
                 <span className="max-sm:sr-only">{heading}</span>
@@ -68,13 +71,13 @@ export default function Chat({ loaderData }: Route.ComponentProps) {
             ))}
           </div>
           <Actions
+            disabled={disableChat}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
             input={input}
             reload={reload}
             status={status}
             stop={stop}
-            disabled={disableChat}
           />
         </>
       ) : null}
@@ -94,29 +97,29 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(({ matches }) => {
       title,
     },
     {
-      name: "description",
       content: description,
+      name: "description",
     },
     {
-      property: "og:title",
       content: title,
+      property: "og:title",
     },
-    { property: "og:description", content: description },
+    { content: description, property: "og:description" },
     {
-      property: "og:image",
       content: ogImagePath,
+      property: "og:image",
     },
     {
-      property: "og:image:type",
       content: "image/png",
+      property: "og:image:type",
     },
     {
-      property: "og:image:height",
       content: "630",
+      property: "og:image:height",
     },
     {
-      property: "og:image:width",
       content: "1200",
+      property: "og:image:width",
     },
   ];
 });

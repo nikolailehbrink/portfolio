@@ -1,20 +1,22 @@
-import type { WorkExperience } from "@/data/workExperience";
-import { formatDate } from "@/lib/format";
-import { cn } from "@/lib/utils";
 import { Link } from "react-router";
 
+import type { WorkExperience } from "@/data/workExperience";
+
+import { formatDate } from "@/lib/format";
+import { cn } from "@/lib/utils";
+
 const DATE_TIME_FORMAT_OPTIONS = {
-  year: "numeric",
   month: "long",
+  year: "numeric",
 } satisfies Intl.DateTimeFormatOptions;
 
 export default function ExperienceCard({
-  title,
   description,
-  startDate,
   endDate,
-  organization,
   logo,
+  organization,
+  startDate,
+  title,
   url,
 }: WorkExperience) {
   const formattedStartDate = formatDate(startDate, DATE_TIME_FORMAT_OPTIONS);
@@ -28,24 +30,24 @@ export default function ExperienceCard({
         bg-neutral-900 p-4 offset-border transition-colors"
     >
       <Link
-        to={url}
-        target="_blank"
-        rel="noopener noreferrer"
         aria-label="Company Logo"
         className="relative h-fit shrink-0 rounded-full border bg-neutral-800
           p-1"
+        rel="noopener noreferrer"
+        target="_blank"
+        to={url}
       >
         <img
           className="absolute inset-0 size-full rounded-full blur-2xl"
           {...logo}
-          loading="lazy"
           alt={organization}
+          loading="lazy"
         />
         <img
           className="relative size-10 rounded-full"
           {...logo}
-          loading="lazy"
           alt={organization}
+          loading="lazy"
         />
         <span className="sr-only">Link to {url}</span>
       </Link>

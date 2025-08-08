@@ -22,6 +22,27 @@ import type { ShikiTransformer } from "shiki";
 export function transformerCodeBlock(): ShikiTransformer {
   return {
     name: "transformer-code-block",
+    pre(hast) {
+      // Handle line numbers display, has to be done in the pre step,
+      // because preprocess only returns the code and not the hast
+      const showLineNumbers =
+        this.options.meta?.__raw?.includes("showLineNumbers");
+
+      if (!showLineNumbers) {
+        return;
+      }
+      this.addClassToHast(hast, "show-line-numbers");
+      const startingNumberMatch = this.options.meta?.__raw?.match(
+        /showLineNumbers=(\d+)/,
+      );
+      const startingNumber =
+        startingNumberMatch && parseInt(startingNumberMatch[1], 10);
+
+      if (startingNumber) {
+        hast.properties.style = `--starting-line-number: ${startingNumber};`;
+      }
+      return;
+    },
     preprocess(code) {
       // Initialize metadata object with code and language
       const metaData: Record<string, string> = {
@@ -52,27 +73,6 @@ export function transformerCodeBlock(): ShikiTransformer {
         ...this.options.meta,
         ...metaData,
       };
-    },
-    pre(hast) {
-      // Handle line numbers display, has to be done in the pre step,
-      // because preprocess only returns the code and not the hast
-      const showLineNumbers =
-        this.options.meta?.__raw?.includes("showLineNumbers");
-
-      if (!showLineNumbers) {
-        return;
-      }
-      this.addClassToHast(hast, "show-line-numbers");
-      const startingNumberMatch = this.options.meta?.__raw?.match(
-        /showLineNumbers=(\d+)/,
-      );
-      const startingNumber =
-        startingNumberMatch && parseInt(startingNumberMatch[1], 10);
-
-      if (startingNumber) {
-        hast.properties.style = `--starting-line-number: ${startingNumber};`;
-      }
-      return;
     },
   };
 }

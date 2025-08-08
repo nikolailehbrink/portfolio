@@ -1,4 +1,3 @@
-import type { TypedRoute } from "@/types/href";
 import {
   ArticleNyTimesIcon,
   ChatsCircleIcon,
@@ -6,26 +5,28 @@ import {
   type Icon,
 } from "@phosphor-icons/react";
 
+import type { TypedRoute } from "@/types/href";
+
 type NavigationLink = {
+  icon: Icon;
   name: string;
   path: TypedRoute;
-  icon: Icon;
 };
 
 export const NAVIGATION_LINKS = [
   {
+    icon: HouseLineIcon,
     name: "Home",
     path: "/",
-    icon: HouseLineIcon,
   },
   {
+    icon: ArticleNyTimesIcon,
     name: "Blog",
     path: "/blog",
-    icon: ArticleNyTimesIcon,
   },
   {
+    icon: ChatsCircleIcon,
     name: "AI Chat",
     path: "/chat",
-    icon: ChatsCircleIcon,
   },
 ] as const satisfies NavigationLink[];

@@ -1,5 +1,6 @@
-import { formatDate } from "@/lib/format";
 import { describe, expect, it } from "vitest";
+
+import { formatDate } from "@/lib/format";
 
 describe("The formatDate() function", () => {
   it("should format a date correctly", () => {
@@ -24,9 +25,9 @@ describe("The formatDate() function", () => {
   it("should allow custom date formatting options", () => {
     const date = new Date("2023-10-01T12:00:00Z");
     const options = {
-      year: "2-digit",
-      month: "long",
       day: "2-digit",
+      month: "long",
+      year: "2-digit",
     } satisfies Intl.DateTimeFormatOptions;
     const formattedDate = formatDate(date, options);
     expect(formattedDate).toBe("October 01, 23");

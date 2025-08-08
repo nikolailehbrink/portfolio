@@ -5,8 +5,6 @@ import {
   useForm,
 } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
-import { useFetcher, type FormProps } from "react-router";
-import { Label } from "./ui/label";
 import {
   AtIcon,
   CheckCircleIcon,
@@ -17,14 +15,19 @@ import {
   TextAlignLeftIcon,
   TextboxIcon,
 } from "@phosphor-icons/react";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+import { type FormProps, useFetcher } from "react-router";
 import { z } from "zod/v4";
-import { cn } from "@/lib/utils";
+
 import type { action } from "@/routes/index";
-import FormMessage from "./FormMessage";
+
+import { cn } from "@/lib/utils";
+
 import FormItem from "./FormItem";
+import FormMessage from "./FormMessage";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -32,13 +35,6 @@ const phoneRegex = new RegExp(
 
 export const schema = z.object({
   email: z.email("Please enter a valid email address."),
-  name: z.string().min(2, "Name must be at least 2 characters.").optional(),
-  subject: z
-    .string()
-    .min(2, "Subject must be at least 2 characters.")
-    .max(50, "Subject must be less than 50 characters.")
-    .optional(),
-  phone: z.string().regex(phoneRegex, "Invalid phone number!").optional(),
   message: z
     .string({
       error: (issue) =>
@@ -46,13 +42,23 @@ export const schema = z.object({
     })
     .min(10, "Message must be at least 10 characters.")
     .max(500, "Message must be less than 500 characters."),
+  name: z.string().min(2, "Name must be at least 2 characters.").optional(),
+  phone: z.string().regex(phoneRegex, "Invalid phone number!").optional(),
+  subject: z
+    .string()
+    .min(2, "Subject must be at least 2 characters.")
+    .max(50, "Subject must be less than 50 characters.")
+    .optional(),
 });
 
 export default function ContactForm({ className, ...props }: FormProps) {
-  const { Form, data, state } = useFetcher<typeof action>({
+  const { data, Form, state } = useFetcher<typeof action>({
     key: "contact-form",
   });
   const [form, fields] = useForm({
+    // To derive all validation attributes
+    constraint: getZodConstraint(schema),
+    id: "contact",
     // This not only syncs the error from the server
     // But is also used as the default value of the form
     // in case the document is reloaded for progressive enhancement
@@ -60,13 +66,10 @@ export default function ContactForm({ className, ...props }: FormProps) {
     onValidate({ formData }) {
       return parseWithZod(formData, { schema });
     },
-    // To derive all validation attributes
-    constraint: getZodConstraint(schema),
-    // Validate field once user leaves the field
-    shouldValidate: "onBlur",
     // Then, revalidate field as user types again
     shouldRevalidate: "onInput",
-    id: "contact",
+    // Validate field once user leaves the field
+    shouldValidate: "onBlur",
   });
 
   const isLoading = state !== "idle";
@@ -74,19 +77,19 @@ export default function ContactForm({ className, ...props }: FormProps) {
 
   return (
     <Form
-      method="POST"
+      action="/?index"
       className={cn(
         `inline-grid w-full grid-cols-1 gap-4 rounded-xl border bg-neutral-900
         p-4 offset-border @lg:grid-cols-2`,
         className,
       )}
-      action="/?index"
+      method="POST"
       {...props}
       {...getFormProps(form)}
     >
       <FormItem>
         <Label htmlFor={fields.email.id}>
-          <AtIcon weight="duotone" size={20} />
+          <AtIcon size={20} weight="duotone" />
           Email
         </Label>
         <Input
@@ -99,7 +102,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
       </FormItem>
       <FormItem>
         <Label htmlFor={fields.name.id}>
-          <IdentificationBadgeIcon weight="duotone" size={20} />
+          <IdentificationBadgeIcon size={20} weight="duotone" />
           Name
         </Label>
         <Input
@@ -110,7 +113,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
       </FormItem>
       <FormItem>
         <Label htmlFor={fields.subject.id}>
-          <TextboxIcon weight="duotone" size={20} />
+          <TextboxIcon size={20} weight="duotone" />
           Subject
         </Label>
         <Input
@@ -123,7 +126,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
       </FormItem>
       <FormItem>
         <Label htmlFor={fields.phone.id}>
-          <PhoneTransferIcon weight="duotone" size={20} />
+          <PhoneTransferIcon size={20} weight="duotone" />
           Phone
         </Label>
         <Input
@@ -137,7 +140,7 @@ export default function ContactForm({ className, ...props }: FormProps) {
 
       <FormItem className="@lg:col-span-2">
         <Label htmlFor={fields.message.id}>
-          <TextAlignLeftIcon weight="duotone" size={20} />
+          <TextAlignLeftIcon size={20} weight="duotone" />
           Message
         </Label>
         <Textarea
@@ -170,20 +173,20 @@ export default function ContactForm({ className, ...props }: FormProps) {
           possible.
         </FormMessage>
       )}
-      <Button className="col-span-full" type="submit" disabled={isLoading}>
+      <Button className="col-span-full" disabled={isLoading} type="submit">
         {isLoading ? (
           <>
             Sending
             <CircleNotchIcon
               className="animate-spin"
-              weight="duotone"
               size={20}
+              weight="duotone"
             />
           </>
         ) : (
           <>
             Submit
-            <PaperPlaneTiltIcon weight="duotone" size={20} />
+            <PaperPlaneTiltIcon size={20} weight="duotone" />
           </>
         )}
       </Button>

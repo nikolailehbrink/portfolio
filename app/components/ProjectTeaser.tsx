@@ -1,18 +1,21 @@
-import type { Project } from "@/data/projects";
-import { Button } from "./ui/button";
-import { Link } from "react-router";
 import { GithubLogoIcon, LinkSimpleIcon } from "@phosphor-icons/react";
-import { Badge } from "./ui/badge";
+import { Link } from "react-router";
+
+import type { Project } from "@/data/projects";
+
 import { cn } from "@/lib/utils";
 
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+
 export default function ProjectTeaser({
-  tags,
-  description,
-  image,
-  title,
-  github,
-  url,
   className,
+  description,
+  github,
+  image,
+  tags,
+  title,
+  url,
   ...props
 }: Project & React.ComponentProps<"div">) {
   return (
@@ -29,7 +32,7 @@ export default function ProjectTeaser({
         className="absolute top-2 right-2 z-10 flex items-center gap-2 text-xs"
       >
         {tags.map((tag) => (
-          <Badge key={tag} className="bg-sky-950 text-sky-400">
+          <Badge className="bg-sky-950 text-sky-400" key={tag}>
             {tag}
           </Badge>
         ))}
@@ -58,8 +61,8 @@ export default function ProjectTeaser({
           <div className="flex items-center gap-2">
             {url ? (
               <Button asChild>
-                <Link to={url} target="_blank" rel="noopener noreferrer">
-                  <LinkSimpleIcon weight="duotone" size={20} />
+                <Link rel="noopener noreferrer" target="_blank" to={url}>
+                  <LinkSimpleIcon size={20} weight="duotone" />
                   Visit
                 </Link>
               </Button>
@@ -67,12 +70,12 @@ export default function ProjectTeaser({
             {github ? (
               <Button
                 asChild
+                className="bg-sky-950 text-sky-400 hover:bg-sky-900"
                 size="icon"
                 variant="secondary"
-                className="bg-sky-950 text-sky-400 hover:bg-sky-900"
               >
-                <Link to={github} target="_blank" rel="noopener noreferrer">
-                  <GithubLogoIcon weight="duotone" size={20} />
+                <Link rel="noopener noreferrer" target="_blank" to={github}>
+                  <GithubLogoIcon size={20} weight="duotone" />
                   <span className="sr-only">Link to GitHub repository</span>
                 </Link>
               </Button>

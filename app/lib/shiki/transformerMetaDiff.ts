@@ -1,47 +1,10 @@
 import type { ShikiTransformer } from "shiki";
 
 const CLASSES = {
+  hasDiff: "has-diff",
   lineAdd: "diff add",
   lineRemove: "diff remove",
-  hasDiff: "has-diff",
 };
-
-/**
- * Parse line numbers from a string like "1,3,4-5,7-9"
- * Returns an array of line numbers (1-indexed)
- */
-function parseLineNumbers(lineNumbersStr: string): number[] {
-  if (!lineNumbersStr) return [];
-
-  const result: number[] = [];
-
-  // Split by commas
-  const parts = lineNumbersStr.split(",");
-
-  for (const part of parts) {
-    const trimmedPart = part.trim();
-
-    // Check if it's a range (e.g., "4-5")
-    if (trimmedPart.includes("-")) {
-      const [start, end] = trimmedPart
-        .split("-")
-        .map((n) => parseInt(n.trim(), 10));
-
-      // Validate range
-      if (isNaN(start) || isNaN(end)) continue;
-
-      // Add all numbers in the range
-      for (let i = start; i <= end; i++) result.push(i);
-    }
-    // Single line number
-    else {
-      const num = parseInt(trimmedPart, 10);
-      if (!isNaN(num)) result.push(num);
-    }
-  }
-
-  return result;
-}
 
 interface TransformerMetaLineDiffOptions {
   /**
@@ -51,16 +14,16 @@ interface TransformerMetaLineDiffOptions {
   addClassName?: string;
 
   /**
-   * Class for removed lines
-   * @default 'diff-remove'
-   */
-  removeClassName?: string;
-
-  /**
    * Class for the pre element when diff is present
    * @default 'has-diff'
    */
   hasDiffClassName?: string;
+
+  /**
+   * Class for removed lines
+   * @default 'diff-remove'
+   */
+  removeClassName?: string;
 }
 
 /**
@@ -76,12 +39,11 @@ export function transformerMetaDiff(
 ): ShikiTransformer {
   const {
     addClassName = CLASSES.lineAdd,
-    removeClassName = CLASSES.lineRemove,
     hasDiffClassName = CLASSES.hasDiff,
+    removeClassName = CLASSES.lineRemove,
   } = options;
 
   return {
-    name: "transformerMetaDiff",
     code(node) {
       // Extract add and remove parameters from meta
       const meta = this.options.meta?.__raw || "";
@@ -118,5 +80,43 @@ export function transformerMetaDiff(
         }
       });
     },
+    name: "transformerMetaDiff",
   };
+}
+
+/**
+ * Parse line numbers from a string like "1,3,4-5,7-9"
+ * Returns an array of line numbers (1-indexed)
+ */
+function parseLineNumbers(lineNumbersStr: string): number[] {
+  if (!lineNumbersStr) return [];
+
+  const result: number[] = [];
+
+  // Split by commas
+  const parts = lineNumbersStr.split(",");
+
+  for (const part of parts) {
+    const trimmedPart = part.trim();
+
+    // Check if it's a range (e.g., "4-5")
+    if (trimmedPart.includes("-")) {
+      const [start, end] = trimmedPart
+        .split("-")
+        .map((n) => parseInt(n.trim(), 10));
+
+      // Validate range
+      if (isNaN(start) || isNaN(end)) continue;
+
+      // Add all numbers in the range
+      for (let i = start; i <= end; i++) result.push(i);
+    }
+    // Single line number
+    else {
+      const num = parseInt(trimmedPart, 10);
+      if (!isNaN(num)) result.push(num);
+    }
+  }
+
+  return result;
 }

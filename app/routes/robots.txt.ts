@@ -1,5 +1,6 @@
 import { generateRobotsTxt } from "@forge42/seo-tools/robots";
 import { href } from "react-router";
+
 import type { Route } from "./+types/robots.txt";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -10,8 +11,8 @@ export async function loader({ request }: Route.LoaderArgs) {
       userAgent: "*",
       ...(isVercelProductionDeployment
         ? {
-            disallow: ["/api/"],
             allow: ["/api/og/"],
+            disallow: ["/api/"],
           }
         : {
             disallow: ["/"],

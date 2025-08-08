@@ -1,32 +1,33 @@
+import Giscus from "@giscus/react";
 import { MDXProvider } from "@mdx-js/react";
+import { ListNumbersIcon, PencilIcon } from "@phosphor-icons/react";
+import { track } from "@vercel/analytics/react";
 import { href, Link, Outlet } from "react-router";
+
+import Avatar from "@/components/Avatar";
 import CodeBlock from "@/components/CodeBlock";
 import LinkedHeading from "@/components/LinkedHeading";
-import Giscus from "@giscus/react";
-
-import { getNextPost, getPost } from "@/lib/posts.server";
-import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
-import type { Route } from "./+types/layout";
-import { Badge } from "@/components/ui/badge";
-import { cn, slugify } from "@/lib/utils";
-import Avatar from "@/components/Avatar";
-import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
-import { track } from "@vercel/analytics/react";
-import { formatDate } from "@/lib/format";
-import { ListNumbersIcon, PencilIcon } from "@phosphor-icons/react";
 import TableOfContents from "@/components/TableOfContents";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
+import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { formatDate } from "@/lib/format";
+import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
+import { getNextPost, getPost } from "@/lib/posts.server";
+import { cn, slugify } from "@/lib/utils";
+
+import type { Route } from "./+types/layout";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { url } = request;
-  const { metadata, tableOfContents, isDraft } = await getPost(url);
+  const { isDraft, metadata, tableOfContents } = await getPost(url);
   const formattedPublicationDate = formatDate(metadata.publicationDate);
   const formattedModificationDate = metadata.modificationDate
     ? formatDate(metadata.modificationDate)
@@ -34,31 +35,31 @@ export async function loader({ request }: Route.LoaderArgs) {
   const nextPost = await getNextPost(url);
 
   return {
-    metadata,
-    tableOfContents,
-    nextPost,
-    formattedPublicationDate,
     formattedModificationDate,
+    formattedPublicationDate,
     isDraft,
+    metadata,
+    nextPost,
+    tableOfContents,
   };
 }
 
 export default function PostLayout({ loaderData }: Route.ComponentProps) {
   const {
+    formattedModificationDate,
+    formattedPublicationDate,
+    isDraft,
     metadata: {
       cover,
-      title,
       description,
-      tags,
+      modificationDate,
       publicationDate,
       readingTime,
-      modificationDate,
+      tags,
+      title,
     },
     nextPost,
-    formattedPublicationDate,
-    formattedModificationDate,
     tableOfContents,
-    isDraft,
   } = loaderData;
 
   // Equal to sm:..
@@ -84,19 +85,19 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
                 {SOCIAL_MEDIA_PROFILES.map(({ href, logo: Logo, name }) => {
                   return (
                     <Link
-                      key={name}
-                      to={href}
-                      target="_blank"
-                      rel="noreferrer"
                       className="text-muted-foreground hover:text-primary"
+                      key={name}
                       onClick={() =>
                         track("post-author-social-link", {
                           name,
                         })
                       }
+                      rel="noreferrer"
+                      target="_blank"
+                      to={href}
                     >
                       <span className="sr-only">Link to {name} profile</span>
-                      <Logo weight="duotone" size={20} />
+                      <Logo size={20} weight="duotone" />
                     </Link>
                   );
                 })}
@@ -127,7 +128,7 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
           <div className="inline-flex flex-wrap gap-2">
             {tags.map((tag) => {
               return (
-                <Badge key={tag} asChild variant="secondary">
+                <Badge asChild key={tag} variant="secondary">
                   <Link
                     className="no-underline"
                     to={`${href("/blog")}?category=${slugify(tag)}`}
@@ -147,15 +148,15 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
             overflow-hidden rounded-2xl sm:border sm:p-2"
         >
           <img
-            src={cover}
             alt="Post Thumbnail"
             className="absolute aspect-video size-full object-cover blur-3xl"
+            src={cover}
           />
           <img
-            src={cover}
             alt="Post Thumbnail"
             className="relative aspect-video size-full rounded-xl object-cover
               sm:border"
+            src={cover}
           />
         </div>
       )}
@@ -170,8 +171,8 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
           {formattedModificationDate ? (
             <Badge
               asChild
-              variant="secondary"
               className="bg-sky-500/20 text-sky-400"
+              variant="secondary"
             >
               <time dateTime={modificationDate?.toISOString()}>
                 Last updated: {formattedModificationDate}
@@ -180,15 +181,14 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
           ) : null}
           <MDXProvider
             components={{
-              pre: CodeBlock,
               a: ({ href, ...props }) => {
                 const isExternalLink = href?.startsWith("http");
                 return (
                   <Link
-                    to={href ?? ""}
                     prefetch={isExternalLink ? "none" : "viewport"}
-                    target={isExternalLink ? "_blank" : "_self"}
                     rel={isExternalLink ? "noreferrer" : "noopener"}
+                    target={isExternalLink ? "_blank" : "_self"}
+                    to={href ?? ""}
                     {...props}
                   />
                 );
@@ -199,6 +199,7 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
               h4: (props) => <LinkedHeading level={4} {...props} />,
               h5: (props) => <LinkedHeading level={5} {...props} />,
               h6: (props) => <LinkedHeading level={6} {...props} />,
+              pre: CodeBlock,
             }}
           >
             <Outlet />
@@ -219,10 +220,10 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
             <Drawer>
               <DrawerTrigger asChild>
                 <Button
-                  onClick={() => track("open-toc-drawer")}
-                  size="icon"
                   className="sticky bottom-4 size-12 justify-self-end
                     bg-sky-950"
+                  onClick={() => track("open-toc-drawer")}
+                  size="icon"
                 >
                   <ListNumbersIcon
                     className="text-sky-400"
@@ -247,18 +248,18 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
 
       <div className="flex justify-center *:max-w-6xl">
         <Giscus
-          id="comments"
-          repo="nikolailehbrink/portfolio"
-          repoId="R_kgDOLDU6NA"
           category="Announcements"
           categoryId="DIC_kwDOLDU6NM4CrKfK"
-          mapping="pathname"
-          reactionsEnabled="1"
           emitMetadata="0"
+          id="comments"
           inputPosition="bottom"
-          theme="noborder_gray"
           lang="en"
           loading="lazy"
+          mapping="pathname"
+          reactionsEnabled="1"
+          repo="nikolailehbrink/portfolio"
+          repoId="R_kgDOLDU6NA"
+          theme="noborder_gray"
         />
       </div>
       {nextPost && (
@@ -287,13 +288,13 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
     const { pathname: currentPath } = location;
 
     const {
-      title,
-      description,
-      publicationDate,
-      modificationDate,
       authors,
       cover: coverImagePath,
+      description,
+      modificationDate,
+      publicationDate,
       tags,
+      title,
     } = metadata;
 
     const fullPageUrl = origin + currentPath;
@@ -315,51 +316,51 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
 
     return [
       { title: pageTitle },
-      { name: "description", content: description },
-      { property: "og:title", content: pageTitle },
-      { property: "og:url", content: fullPageUrl },
-      { property: "og:description", content: description },
-      { property: "og:image", content: finalImageUrl },
-      { property: "og:type", content: "article" },
+      { content: description, name: "description" },
+      { content: pageTitle, property: "og:title" },
+      { content: fullPageUrl, property: "og:url" },
+      { content: description, property: "og:description" },
+      { content: finalImageUrl, property: "og:image" },
+      { content: "article", property: "og:type" },
       ...(authors.length > 0
         ? authors.map((authorName) => ({
-            property: "article:author",
             content: authorName,
+            property: "article:author",
           }))
         : []),
       ...(tags && tags.length > 0
         ? tags.map((tag) => ({
-            property: "article:tag",
             content: tag,
+            property: "article:tag",
           }))
         : []),
-      { property: "article:section", content: primaryTag },
-      { property: "og:article:published_time", content: publishedTimestamp },
+      { content: primaryTag, property: "article:section" },
+      { content: publishedTimestamp, property: "og:article:published_time" },
       ...(hasNewerModificationDate
-        ? [{ property: "og:article:modified_time", content: modifiedTimestamp }]
+        ? [{ content: modifiedTimestamp, property: "og:article:modified_time" }]
         : []),
       {
         "script:ld+json": {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          headline: title,
-          description,
-          datePublished: publishedTimestamp,
-          dateModified: modifiedTimestamp,
           author: authors.map((name) => ({
             "@type": "Person",
             name,
           })),
+          dateModified: modifiedTimestamp,
+          datePublished: publishedTimestamp,
+          description,
+          headline: title,
           image: finalImageUrl,
+          keywords: tags,
           mainEntityOfPage: {
-            "@type": "WebPage",
             "@id": fullPageUrl,
+            "@type": "WebPage",
           },
           publisher: {
             "@type": "Person",
             name: "Nikolai Lehbrink",
           },
-          keywords: tags,
         },
       },
     ];

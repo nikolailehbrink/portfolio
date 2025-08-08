@@ -1,13 +1,15 @@
-import { createSignedToken } from "@/lib/token";
+import { parseWithZod } from "@conform-to/zod/v4";
+import { track } from "@vercel/analytics/server";
 import { data, href } from "react-router";
+
 import NewsletterVerificationEmail, {
   PlainText,
 } from "@/components/emails/newsletter-verification";
 import { schema as newsletterFormSchema } from "@/components/NewsletterForm";
-import { parseWithZod } from "@conform-to/zod/v4";
-import type { Route } from "./+types/signup";
-import { track } from "@vercel/analytics/server";
 import { resend } from "@/lib/resend.server";
+import { createSignedToken } from "@/lib/token";
+
+import type { Route } from "./+types/signup";
 
 export async function action({ request }: Route.ActionArgs) {
   const { headers, url } = request;
@@ -33,8 +35,8 @@ export async function action({ request }: Route.ActionArgs) {
   const { email } = submission.value;
 
   const { data: contact } = await resend.contacts.get({
-    email,
     audienceId: "1a231b09-a625-43c1-9cc2-5d8f34972bdb",
+    email,
   });
 
   if (contact) {
@@ -49,7 +51,9 @@ export async function action({ request }: Route.ActionArgs) {
 
   const { error } = await resend.emails.send({
     from: "Nikolai Lehbrink <mail@nikolailehbr.ink>",
-    to: [import.meta.env.DEV ? "delivered@resend.dev" : email],
+    react: NewsletterVerificationEmail({
+      confirmationLink,
+    }),
     subject: "Confirm your newsletter subscription",
     tags: [
       {
@@ -60,9 +64,7 @@ export async function action({ request }: Route.ActionArgs) {
     text: PlainText({
       confirmationLink,
     }),
-    react: NewsletterVerificationEmail({
-      confirmationLink,
-    }),
+    to: [import.meta.env.DEV ? "delivered@resend.dev" : email],
   });
 
   if (error) {

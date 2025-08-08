@@ -1,18 +1,4 @@
-import { Link } from "react-router";
-import { SKILLS } from "@/data/skills";
-import Avatar from "@/components/Avatar";
-import { EDUCATION, WORK_EXPERIENCE } from "@/data/workExperience";
-import type { Route } from "./+types";
 import { parseWithZod } from "@conform-to/zod/v4";
-import ContactForm, {
-  schema as contactFormSchema,
-} from "@/components/ContactForm";
-import ExperienceCard from "@/components/ExperienceCard";
-import { PROJECTS } from "@/data/projects";
-import ProjectTeaser from "@/components/ProjectTeaser";
-import { getPosts } from "@/lib/posts.server";
-import PostTeaser from "@/components/PostTeaser";
-import { Button } from "@/components/ui/button";
 import {
   ArticleNyTimesIcon,
   KanbanIcon,
@@ -21,9 +7,25 @@ import {
   StudentIcon,
   TextColumnsIcon,
 } from "@phosphor-icons/react";
-import { resend } from "@/lib/resend.server";
+import { Link } from "react-router";
+
+import Avatar from "@/components/Avatar";
+import ContactForm, {
+  schema as contactFormSchema,
+} from "@/components/ContactForm";
+import ExperienceCard from "@/components/ExperienceCard";
 import NewsletterForm from "@/components/NewsletterForm";
+import PostTeaser from "@/components/PostTeaser";
+import ProjectTeaser from "@/components/ProjectTeaser";
+import { Button } from "@/components/ui/button";
+import { PROJECTS } from "@/data/projects";
+import { SKILLS } from "@/data/skills";
+import { EDUCATION, WORK_EXPERIENCE } from "@/data/workExperience";
+import { getPosts } from "@/lib/posts.server";
+import { resend } from "@/lib/resend.server";
 import { cn } from "@/lib/utils";
+
+import type { Route } from "./+types";
 
 export async function loader() {
   const posts = await getPosts({ take: 2 });
@@ -39,30 +41,30 @@ export async function action({ request }: Route.ActionArgs) {
     return submission.reply();
   }
 
-  const { email, name, subject, phone, message } = submission.value;
+  const { email, message, name, phone, subject } = submission.value;
 
   const { error } = await resend.emails.send({
     from: "Kontaktformular <contact-form@nikolailehbr.ink>",
-    replyTo: email,
-    to: [
-      import.meta.env.DEV ? "delivered@resend.dev" : "mail@nikolailehbr.ink",
-    ],
-    subject: subject ?? "New inquiry",
     html: `
         ${name && `<p>Name: ${name}</p>`}
         ${phone && `<p>Phone: ${phone}</p>`}
         <p>Message: ${message}</p>
     `,
-    text: `
-        ${name && `Name: ${name}\n`}
-        ${phone && `Phone: ${phone}\n`}
-        Message: ${message}
-    `,
+    replyTo: email,
+    subject: subject ?? "New inquiry",
     tags: [
       {
         name: "category",
         value: "contact_form",
       },
+    ],
+    text: `
+        ${name && `Name: ${name}\n`}
+        ${phone && `Phone: ${phone}\n`}
+        Message: ${message}
+    `,
+    to: [
+      import.meta.env.DEV ? "delivered@resend.dev" : "mail@nikolailehbr.ink",
     ],
   });
 
@@ -225,24 +227,24 @@ export default function Home({ loaderData: { posts } }: Route.ComponentProps) {
             {Object.entries(SKILLS).map(([category, skillSet]) => {
               return (
                 <div
-                  key={category}
                   className="flex flex-col gap-1 overflow-x-hidden rounded-lg
                     border bg-background shadow-md offset-border"
+                  key={category}
                 >
                   <ul
                     className="relative flex snap-x snap-mandatory gap-4
                       overflow-x-auto border-b bg-neutral-900 p-4 shadow"
                   >
-                    {skillSet.map(({ name, logo: Logo, url }) => (
-                      <li key={name} className="snap-start scroll-mx-4">
+                    {skillSet.map(({ logo: Logo, name, url }) => (
+                      <li className="snap-start scroll-mx-4" key={name}>
                         <Link
                           className="flex flex-col items-center gap-2 text-xs
                             whitespace-nowrap text-muted-foreground
                             grayscale-100 transition-[filter_color] duration-300
                             hover:text-foreground hover:grayscale-0"
-                          to={url}
-                          target="_blank"
                           rel="noopener noreferrer"
+                          target="_blank"
+                          to={url}
                         >
                           <Logo className="size-8 rounded" />
                           <span>{name}</span>

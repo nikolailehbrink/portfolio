@@ -1,6 +1,7 @@
+import { href, NavLink } from "react-router";
+
 import { NAVIGATION_LINKS } from "@/data/navigationItems";
 import { cn } from "@/lib/utils";
-import { href, NavLink } from "react-router";
 
 export default function Navbar({
   className,
@@ -19,11 +20,8 @@ export default function Navbar({
         className="flex items-center gap-1 rounded-xl border border-muted
           bg-background/75 p-1 shadow-lg backdrop-blur-xl"
       >
-        {NAVIGATION_LINKS.map(({ path, name, icon: Icon }) => (
+        {NAVIGATION_LINKS.map(({ icon: Icon, name, path }) => (
           <NavLink
-            key={path}
-            to={href(path)}
-            prefetch="intent"
             className={({ isActive }) =>
               cn(
                 `flex gap-1 rounded-lg border px-3 py-1 transition-colors
@@ -34,6 +32,9 @@ export default function Navbar({
                     hover:border-neutral-700 hover:bg-neutral-800 max-sm:px-2`,
               )
             }
+            key={path}
+            prefetch="intent"
+            to={href(path)}
           >
             {({ isActive }) => (
               <>

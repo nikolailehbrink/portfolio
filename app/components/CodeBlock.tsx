@@ -1,13 +1,14 @@
 import { FileCodeIcon, FolderSimpleIcon } from "@phosphor-icons/react";
+import { track } from "@vercel/analytics/react";
+
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { LANGUAGE_FILE_ICONS } from "@/lib/shiki/fileIcons";
 import { cn } from "@/lib/utils";
-import { track } from "@vercel/analytics/react";
 
 type Props = React.ComponentProps<"pre"> & {
   "data-code"?: string;
-  "data-language"?: string;
   "data-filename"?: string;
+  "data-language"?: string;
   "data-no-copy"?: true;
 };
 
@@ -34,18 +35,18 @@ export default function CodeBlock({ children, className, ...props }: Props) {
               const isLast = index === filePaths.length - 1;
               return (
                 <span
-                  key={`${name}-${index}`}
                   className={cn(
                     "inline-flex items-center gap-x-0.5",
                     isLast ? "text-foreground" : "",
                   )}
+                  key={`${name}-${index}`}
                 >
                   {filePaths.length > 1 &&
                     (!isLast ? (
                       <FolderSimpleIcon
-                        weight="duotone"
-                        size={20}
                         aria-hidden="true"
+                        size={20}
+                        weight="duotone"
                       />
                     ) : null)}
                   {name}
@@ -54,7 +55,7 @@ export default function CodeBlock({ children, className, ...props }: Props) {
               );
             })}
           </div>
-          {language && <LanguageIcon weight="duotone" size={20} />}
+          {language && <LanguageIcon size={20} weight="duotone" />}
         </figcaption>
       ) : null}
       <div className="relative">
@@ -71,6 +72,7 @@ export default function CodeBlock({ children, className, ...props }: Props) {
         </pre>
         {code && !noCopy ? (
           <button
+            aria-label={idle ? "Copy code to clipboard" : "Code copied"}
             className={`absolute top-2 right-2 rounded-md bg-neutral-800 p-2
               py-1.5 text-right font-sans text-xs text-neutral-400 opacity-0
               shadow-sm transition-all group-hover/code-block:opacity-100
@@ -84,9 +86,8 @@ export default function CodeBlock({ children, className, ...props }: Props) {
                 code,
               });
             }}
-            aria-label={idle ? "Copy code to clipboard" : "Code copied"}
-            title={idle ? "Copy code to clipboard" : "Code copied"}
             tabIndex={0}
+            title={idle ? "Copy code to clipboard" : "Code copied"}
           >
             {copiedText}
           </button>

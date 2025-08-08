@@ -6,8 +6,8 @@ import {
   Html,
   Preview,
   Section,
-  Text,
   Tailwind,
+  Text,
 } from "@react-email/components";
 
 type NewsletterVerificationProps = {
@@ -27,7 +27,7 @@ const NewsletterVerificationEmail = ({
   confirmationLink,
 }: NewsletterVerificationProps) => {
   return (
-    <Html lang="en" dir="ltr">
+    <Html dir="ltr" lang="en">
       <Tailwind>
         <Head />
         <Preview>
@@ -51,10 +51,10 @@ const NewsletterVerificationEmail = ({
 
               <Section className="mb-[24px]">
                 <Button
-                  href={confirmationLink}
                   className="rounded-lg bg-sky-950 px-5 py-3 text-center
                     text-[14px] font-semibold text-sky-400 no-underline
                     hover:bg-sky-600 hover:text-sky-50"
+                  href={confirmationLink}
                 >
                   Confirm Email
                 </Button>
@@ -71,8 +71,8 @@ const NewsletterVerificationEmail = ({
               <Text
                 className="mb-[12px] text-[14px] leading-[20px] text-sky-600"
                 style={{
-                  wordBreak: "break-all",
                   overflowWrap: "break-word",
+                  wordBreak: "break-all",
                   wordWrap: "break-word",
                 }}
               >

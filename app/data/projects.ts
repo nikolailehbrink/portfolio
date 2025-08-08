@@ -1,59 +1,59 @@
 import courseCertificate from "@/assets/images/projects/course-certificate.webp";
-import secretMessages from "@/assets/images/projects/secret-messages.webp";
 import Flowchart from "@/assets/images/projects/flow-chart.webp";
 import moskito from "@/assets/images/projects/moskito.webp";
+import secretMessages from "@/assets/images/projects/secret-messages.webp";
 
 export type Project = {
-  title: string;
   description: string;
+  github?: string;
   image: React.ComponentProps<"img">;
   tags: string[];
+  title: string;
   url?: string;
-  github?: string;
 };
 
 export const PROJECTS = [
   {
-    title: "Online course certificate",
     description: "Course certificate for learntypescript.online",
     image: {
-      src: courseCertificate,
       height: 1201,
+      src: courseCertificate,
       width: 1600,
     },
     tags: ["Design"],
+    title: "Online course certificate",
   },
   {
-    title: "Reacts Data Flow",
     description: "Interactive flowchart for react-tutorial.app",
     image: {
+      height: 1762,
       src: Flowchart,
       width: 1898,
-      height: 1762,
     },
     tags: ["Design"],
+    title: "Reacts Data Flow",
   },
   {
-    title: "secretmessag.es",
     description: "Secret message generator",
+    github: "https://github.com/nikolailehbrink/secret-messages",
     image: {
+      height: 630,
       src: secretMessages,
       width: 1200,
-      height: 630,
     },
-    url: "https://secretmessag.es",
     tags: ["Web Application", "Design"],
-    github: "https://github.com/nikolailehbrink/secret-messages",
+    title: "secretmessag.es",
+    url: "https://secretmessag.es",
   },
   {
-    title: "moskito.de",
     description: "Agency website",
     image: {
+      height: 800,
       src: moskito,
       width: 1200,
-      height: 800,
     },
-    url: "https://moskito.de",
     tags: ["Website", "Design"],
+    title: "moskito.de",
+    url: "https://moskito.de",
   },
 ] as const satisfies Project[];

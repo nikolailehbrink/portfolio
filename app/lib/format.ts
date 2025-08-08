@@ -1,11 +1,11 @@
 export function formatDate(
-  date: Date | string | number,
+  date: number | string | Date,
   options?: Intl.DateTimeFormatOptions,
 ) {
   options ??= {
-    year: "numeric",
     day: "2-digit",
     month: "short",
+    year: "numeric",
   };
 
   if (typeof date === "string" || typeof date === "number") {

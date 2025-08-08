@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+
 import Message from "./Message";
 
 export default function ErrorMessage() {
@@ -8,7 +9,7 @@ export default function ErrorMessage() {
       <p className="text-red-400">
         I am sorry, but there is currently an error on my end. Try to reload the
         message next to the text field or{" "}
-        <Link to="mailto:mail@nikolailehbr.ink" className="underline">
+        <Link className="underline" to="mailto:mail@nikolailehbr.ink">
           chat with the real me
         </Link>
         .

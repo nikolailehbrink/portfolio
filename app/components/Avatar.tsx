@@ -7,12 +7,12 @@ export default function Avatar({
 }: React.ComponentProps<"img">) {
   return (
     <img
-      src={avatar}
-      className={cn("object-cover", className)}
       alt="Avatar"
-      width={400}
+      className={cn("object-cover", className)}
       height={400}
+      src={avatar}
       title="Profile image"
+      width={400}
       {...props}
     />
   );

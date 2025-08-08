@@ -8,22 +8,22 @@ import {
 export const EXAMPLE_MESSAGES = [
   {
     heading: "Hobbies",
-    message: "What do you do for fun?",
     icon: BarbellIcon,
+    message: "What do you do for fun?",
   },
   {
     heading: "Background",
-    message: "What did you study?",
     icon: GraduationCapIcon,
+    message: "What did you study?",
   },
   {
     heading: "Traveling",
-    message: "What's the most interesting place you've visited?",
     icon: BackpackIcon,
+    message: "What's the most interesting place you've visited?",
   },
   {
     heading: "Skills",
-    message: "What is a skill you're proud of?",
     icon: BooksIcon,
+    message: "What is a skill you're proud of?",
   },
 ] as const;

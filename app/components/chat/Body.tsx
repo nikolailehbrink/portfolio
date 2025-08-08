@@ -1,17 +1,20 @@
 import type { UseChatHelpers } from "@ai-sdk/react";
+
 import { useState } from "react";
+
 import { useScrollToBottom } from "@/hooks/useScrollToBottom";
-import LoadingMessage from "./LoadingMessage";
-import WelcomeMessage from "./WelcomeMessage";
-import Message from "./Message";
+
 import ErrorMessage from "./ErrorMessage";
 import LimitHitMessage from "./LimitHitMessage";
+import LoadingMessage from "./LoadingMessage";
+import Message from "./Message";
+import WelcomeMessage from "./WelcomeMessage";
 
 export default function Body({
-  messages,
-  status,
   disabled = false,
   messageCountResetDate,
+  messages,
+  status,
 }: Pick<UseChatHelpers, "messages" | "status"> & {
   disabled?: boolean;
   messageCountResetDate?: Date;
@@ -22,8 +25,8 @@ export default function Body({
   const lastMessage = messages[messages.length - 1];
   return (
     <div
-      ref={containerRef}
       className="flex grow flex-col gap-4 overflow-y-auto pr-4"
+      ref={containerRef}
     >
       {/* Don't show if user starts new chat with Message Limit hit */}
       {showWelcomeMessage && !(messages.length === 0 && disabled === true) ? (
@@ -33,7 +36,7 @@ export default function Body({
         />
       ) : null}
       {messages.map(
-        ({ id, role, content }) =>
+        ({ content, id, role }) =>
           // See comment below
           content.length > 0 && (
             <Message key={id} role={role}>

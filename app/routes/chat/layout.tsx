@@ -1,6 +1,7 @@
+import { Outlet } from "react-router";
+
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { Outlet } from "react-router";
 
 // TODO: Really best way to do this is to use a second layout file?
 export default function ChatLayout() {

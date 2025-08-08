@@ -1,15 +1,17 @@
 import type { UIMessage } from "ai";
-import Avatar from "@/components/Avatar";
+
 import { UserIcon } from "@phosphor-icons/react";
+
+import Avatar from "@/components/Avatar";
 import { cn } from "@/lib/utils";
 
 export default function Message({
-  role,
   children,
   className,
+  role,
   ...props
-}: React.ComponentProps<"div"> &
-  Pick<UIMessage, "role"> & {
+}: Pick<UIMessage, "role"> &
+  React.ComponentProps<"div"> & {
     children: React.ReactNode;
   }) {
   return (
@@ -44,13 +46,13 @@ export default function Message({
 }
 
 function MessageBubble({
-  role,
   children,
   className,
+  role,
 }: {
-  role: UIMessage["role"];
   children: React.ReactNode;
   className?: string;
+  role: UIMessage["role"];
 }) {
   return (
     <div

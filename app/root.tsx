@@ -1,3 +1,5 @@
+import interLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import { Analytics } from "@vercel/analytics/react";
 import {
   href,
   isRouteErrorResponse,
@@ -8,65 +10,35 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import { Analytics } from "@vercel/analytics/react";
-import ogImage from "./og-image.webp";
 
 import type { Route } from "./+types/root";
+
 import "./app.css";
-import interLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
-import { SOCIAL_MEDIA_PROFILES } from "./data/socialProfiles";
 import { Button } from "./components/ui/button";
+import { SOCIAL_MEDIA_PROFILES } from "./data/socialProfiles";
+import ogImage from "./og-image.webp";
 
 export const links: Route.LinksFunction = () => {
   return [
     {
-      rel: "preload",
-      href: interLatin,
       as: "font",
-      type: "font/woff2",
       crossOrigin: "anonymous",
+      href: interLatin,
+      rel: "preload",
+      type: "font/woff2",
     },
-    { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-    { rel: "icon", href: "/favicon.ico" },
+    { href: "/favicon.svg", rel: "icon", type: "image/svg+xml" },
+    { href: "/favicon.ico", rel: "icon" },
     {
-      rel: "apple-touch-icon",
       href: "/apple-touch-icon.png",
+      rel: "apple-touch-icon",
     },
     {
-      rel: "manifest",
       href: "/site.webmanifest",
+      rel: "manifest",
     },
   ];
 };
-
-export function loader({ request }: Route.LoaderArgs) {
-  const { origin } = new URL(request.url);
-  return { origin };
-}
-
-export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <html
-      lang="en"
-      className="dark scroll-pt-20 scroll-smooth bg-white text-pretty
-        scheme-light dark:bg-neutral-950 dark:text-neutral-400 dark:scheme-dark"
-    >
-      <head>
-        <meta name="theme-color" content="#171717"></meta>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        {children}
-        <Analytics />
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 export default function App() {
   return <Outlet />;
@@ -103,11 +75,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
         <Link prefetch="intent" to={href("/")}>
           Go Home!
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
             fill="currentColor"
+            height="24"
             viewBox="0 0 256 256"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M216,116.69V216H152V152H104v64H40V116.69l82.34-82.35a8,8,0,0,1,11.32,0Z"
@@ -119,6 +91,35 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       </Button>
     </main>
   );
+}
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html
+      className="dark scroll-pt-20 scroll-smooth bg-white text-pretty
+        scheme-light dark:bg-neutral-950 dark:text-neutral-400 dark:scheme-dark"
+      lang="en"
+    >
+      <head>
+        <meta content="#171717" name="theme-color"></meta>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <Analytics />
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+export function loader({ request }: Route.LoaderArgs) {
+  const { origin } = new URL(request.url);
+  return { origin };
 }
 
 export const meta: Route.MetaFunction = ({
@@ -143,55 +144,55 @@ export const meta: Route.MetaFunction = ({
       title,
     },
     {
-      name: "description",
       content: description,
+      name: "description",
     },
     {
-      property: "og:site_name",
       content: "Nikolai Lehbrink",
+      property: "og:site_name",
     },
-    { tagName: "link", rel: "canonical", href: currentUrl },
+    { href: currentUrl, rel: "canonical", tagName: "link" },
     {
-      property: "og:type",
-
       content: "website",
+
+      property: "og:type",
     },
     {
-      property: "og:locale",
       content: "en_US",
+      property: "og:locale",
     },
     {
-      property: "og:title",
       content: title,
+      property: "og:title",
     },
-    { property: "og:image", content: ogImageUrl },
-    { property: "og:image:alt", content: title },
-    { property: "og:url", content: currentUrl },
-    { property: "og:description", content: description },
+    { content: ogImageUrl, property: "og:image" },
+    { content: title, property: "og:image:alt" },
+    { content: currentUrl, property: "og:url" },
+    { content: description, property: "og:description" },
     {
-      property: "twitter:card",
       content: "summary_large_image",
+      property: "twitter:card",
     },
     {
+      content: "@nikolailehbrink",
       property: "twitter:site",
-      content: "@nikolailehbrink",
     },
     {
-      property: "twitter:creator",
       content: "@nikolailehbrink",
+      property: "twitter:creator",
     },
     {
       "script:ld+json": {
         "@context": "https://schema.org",
         "@type": "Person",
-        url: origin,
-        description,
-        name: "Nikolai Lehbrink",
-        sameAs: SOCIAL_MEDIA_PROFILES.map((profile) => profile.href),
         contactPoint: {
           "@type": "ContactPoint",
           email: "mail@nikolailehbr.ink",
         },
+        description,
+        name: "Nikolai Lehbrink",
+        sameAs: SOCIAL_MEDIA_PROFILES.map((profile) => profile.href),
+        url: origin,
       },
     },
   ];

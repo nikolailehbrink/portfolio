@@ -1,39 +1,41 @@
-import { Form } from "react-router";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import type { UseChatHelpers } from "@ai-sdk/react";
+
 import {
   ArrowCounterClockwiseIcon,
   PaperPlaneTiltIcon,
   PauseIcon,
 } from "@phosphor-icons/react";
-import type { UseChatHelpers } from "@ai-sdk/react";
+import { Form } from "react-router";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function Actions({
-  status,
+  disabled = false,
+  handleInputChange,
   handleSubmit,
   input,
-  handleInputChange,
   reload,
+  status,
   stop,
-  disabled = false,
 }: Pick<
   UseChatHelpers,
-  "status" | "handleSubmit" | "input" | "handleInputChange" | "reload" | "stop"
+  "handleInputChange" | "handleSubmit" | "input" | "reload" | "status" | "stop"
 > & { disabled?: boolean }) {
   return (
-    <Form onSubmit={handleSubmit} className="flex gap-2 pr-4">
+    <Form className="flex gap-2 pr-4" onSubmit={handleSubmit}>
       <Input
-        name="prompt"
-        value={input}
-        onChange={handleInputChange}
-        disabled={disabled}
         aria-label="Type your message here"
+        disabled={disabled}
+        name="prompt"
+        onChange={handleInputChange}
+        value={input}
       />
       {status === "error" && (
         <Button
           aria-label="Reload message"
-          size="icon"
           onClick={() => reload()}
+          size="icon"
         >
           <ArrowCounterClockwiseIcon size={24} weight="duotone" />
         </Button>
@@ -41,20 +43,20 @@ export default function Actions({
       {status === "ready" ? (
         <Button
           aria-label="Send message"
-          type="submit"
-          size="icon"
           disabled={disabled || !input || input.length < 2}
+          size="icon"
+          type="submit"
         >
-          <PaperPlaneTiltIcon weight="duotone" size={24} />
+          <PaperPlaneTiltIcon size={24} weight="duotone" />
         </Button>
       ) : status !== "error" ? (
         <Button
-          aria-label="Stop message"
           aria-busy={status === "streaming"}
-          type="button"
-          size="icon"
-          onClick={stop}
+          aria-label="Stop message"
           disabled={disabled || status === "submitted"}
+          onClick={stop}
+          size="icon"
+          type="button"
         >
           <PauseIcon size={24} weight="duotone" />
         </Button>

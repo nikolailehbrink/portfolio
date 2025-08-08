@@ -1,15 +1,16 @@
-import { cn } from "@/lib/utils";
 import type { Toc, TocEntry } from "@stefanprobst/rehype-extract-toc";
 
+import { cn } from "@/lib/utils";
+
 export default function TableOfContents({
-  outline,
-  maxDepth,
   className,
+  maxDepth,
+  outline,
   ...props
-}: {
-  outline: Toc;
+}: React.ComponentProps<"nav"> & {
   maxDepth: number;
-} & React.ComponentProps<"nav">) {
+  outline: Toc;
+}) {
   return (
     <nav className={cn("p-6 pb-4", className)} {...props}>
       <p className="mb-2 text-2xl font-bold text-foreground sm:text-xl">
@@ -31,11 +32,11 @@ export default function TableOfContents({
 }
 
 function TocItem({
-  depth,
-  value,
-  id,
   children,
+  depth,
+  id,
   maxDepth,
+  value,
 }: TocEntry & { maxDepth: number }) {
   if (depth > maxDepth) return null;
 

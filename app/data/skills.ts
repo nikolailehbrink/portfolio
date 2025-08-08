@@ -1,151 +1,151 @@
+import Copilot from "@/assets/svg/copilot.svg?react";
 import CreativeCloud from "@/assets/svg/creative-cloud.svg?react";
+import CSS from "@/assets/svg/css.svg?react";
 import Deno from "@/assets/svg/deno.svg?react";
 import Figma from "@/assets/svg/figma.svg?react";
+import GitHub from "@/assets/svg/github.svg?react";
+import HTML from "@/assets/svg/html.svg?react";
 import JavaScript from "@/assets/svg/javascript.svg?react";
+import Nextjs from "@/assets/svg/nextjs.svg?react";
 import NodeJS from "@/assets/svg/nodejs.svg?react";
+import Payload from "@/assets/svg/payload.svg?react";
+import PHP from "@/assets/svg/php.svg?react";
 import ReactRouter from "@/assets/svg/react-router.svg?react";
+import React from "@/assets/svg/react.svg?react";
+import Remix from "@/assets/svg/remix.svg?react";
+import Sanity from "@/assets/svg/sanity.svg?react";
 import TailwindCSS from "@/assets/svg/tailwindcss.svg?react";
 import TypeScript from "@/assets/svg/typescript.svg?react";
 import VisualStudioCode from "@/assets/svg/visual-studio-code.svg?react";
 import Vite from "@/assets/svg/vite.svg?react";
-import Copilot from "@/assets/svg/copilot.svg?react";
-import CSS from "@/assets/svg/css.svg?react";
-import HTML from "@/assets/svg/html.svg?react";
-import React from "@/assets/svg/react.svg?react";
-import GitHub from "@/assets/svg/github.svg?react";
-import Nextjs from "@/assets/svg/nextjs.svg?react";
-import Remix from "@/assets/svg/remix.svg?react";
-import PHP from "@/assets/svg/php.svg?react";
-import Payload from "@/assets/svg/payload.svg?react";
-import Sanity from "@/assets/svg/sanity.svg?react";
 import Wordpress from "@/assets/svg/wordpress.svg?react";
 
 type Skill = {
-  name: string;
   logo: React.FunctionComponent<
     React.ComponentProps<"svg"> & {
-      title?: string;
-      titleId?: string;
       desc?: string;
       descId?: string;
+      title?: string;
+      titleId?: string;
     }
   >;
+  name: string;
   url: string;
 };
 
 export const SKILLS = {
-  Frontend: [
-    {
-      name: "HTML",
-      logo: HTML,
-      url: "https://developer.mozilla.org/de/docs/Web/HTML",
-    },
-    {
-      name: "CSS",
-      logo: CSS,
-      url: "https://developer.mozilla.org/de/docs/Web/CSS",
-    },
-    {
-      name: "JavaScript",
-      logo: JavaScript,
-      url: "https://developer.mozilla.org/de/docs/Web/JavaScript",
-    },
-    {
-      name: "TypeScript",
-      logo: TypeScript,
-      url: "https://www.typescriptlang.org",
-    },
-    {
-      name: "Tailwind CSS",
-      logo: TailwindCSS,
-      url: "https://tailwindcss.com",
-    },
-    {
-      name: "React",
-      logo: React,
-      url: "https://react.dev",
-    },
-    {
-      name: "React Router",
-      logo: ReactRouter,
-      url: "https://reactrouter.com",
-    },
-    {
-      name: "Remix",
-      logo: Remix,
-      url: "https://remix.run",
-    },
-    {
-      name: "Next.js",
-      logo: Nextjs,
-      url: "https://nextjs.org",
-    },
-  ],
   Backend: [
     {
-      name: "Node.js",
       logo: NodeJS,
+      name: "Node.js",
       url: "https://nodejs.org",
     },
     {
-      name: "Deno",
       logo: Deno,
+      name: "Deno",
       url: "https://deno.land",
     },
     {
-      name: "PHP",
       logo: PHP,
+      name: "PHP",
       url: "https://www.php.net",
-    },
-  ],
-  Design: [
-    {
-      name: "Figma",
-      logo: Figma,
-      url: "https://www.figma.com",
-    },
-    {
-      name: "Creative Cloud",
-      logo: CreativeCloud,
-      url: "https://www.adobe.com/creativecloud.html",
     },
   ],
   CMS: [
     {
-      name: "WordPress",
       logo: Wordpress,
+      name: "WordPress",
       url: "https://wordpress.org",
     },
     {
-      name: "Payload",
       logo: Payload,
+      name: "Payload",
       url: "https://payloadcms.com",
     },
     {
-      name: "Sanity",
       logo: Sanity,
+      name: "Sanity",
       url: "https://www.sanity.io",
+    },
+  ],
+  Design: [
+    {
+      logo: Figma,
+      name: "Figma",
+      url: "https://www.figma.com",
+    },
+    {
+      logo: CreativeCloud,
+      name: "Creative Cloud",
+      url: "https://www.adobe.com/creativecloud.html",
+    },
+  ],
+  Frontend: [
+    {
+      logo: HTML,
+      name: "HTML",
+      url: "https://developer.mozilla.org/de/docs/Web/HTML",
+    },
+    {
+      logo: CSS,
+      name: "CSS",
+      url: "https://developer.mozilla.org/de/docs/Web/CSS",
+    },
+    {
+      logo: JavaScript,
+      name: "JavaScript",
+      url: "https://developer.mozilla.org/de/docs/Web/JavaScript",
+    },
+    {
+      logo: TypeScript,
+      name: "TypeScript",
+      url: "https://www.typescriptlang.org",
+    },
+    {
+      logo: TailwindCSS,
+      name: "Tailwind CSS",
+      url: "https://tailwindcss.com",
+    },
+    {
+      logo: React,
+      name: "React",
+      url: "https://react.dev",
+    },
+    {
+      logo: ReactRouter,
+      name: "React Router",
+      url: "https://reactrouter.com",
+    },
+    {
+      logo: Remix,
+      name: "Remix",
+      url: "https://remix.run",
+    },
+    {
+      logo: Nextjs,
+      name: "Next.js",
+      url: "https://nextjs.org",
     },
   ],
   Tools: [
     {
-      name: "VS Code",
       logo: VisualStudioCode,
+      name: "VS Code",
       url: "https://code.visualstudio.com",
     },
     {
-      name: "Vite",
       logo: Vite,
+      name: "Vite",
       url: "https://vite.dev",
     },
     {
-      name: "GitHub Copilot",
       logo: Copilot,
+      name: "GitHub Copilot",
       url: "https://github.com/features/copilot",
     },
     {
-      name: "GitHub",
       logo: GitHub,
+      name: "GitHub",
       url: "https://github.com",
     },
   ],

@@ -1,21 +1,23 @@
 /* eslint-disable react/no-unknown-property */
 import { ImageResponse } from "@vercel/og";
+
+import type { Route } from "./+types";
+
 import InterLatin400 from "./inter-latin-400-normal.ttf?arraybuffer";
 import InterLatin700 from "./inter-latin-700-normal.ttf?arraybuffer";
-import type { Route } from "./+types";
 
 export async function loader({ request }: Route.LoaderArgs) {
   try {
-    const { searchParams, origin } = new URL(request.url);
+    const { origin, searchParams } = new URL(request.url);
     const title = searchParams.get("title")?.trim().slice(0, 70);
     const description = searchParams.get("description")?.trim().slice(0, 200);
 
     if (!title || !description) {
       return new Response("Missing title or description", {
-        status: 400,
         headers: {
           "Content-Type": "text/plain",
         },
+        status: 400,
       });
     }
 
@@ -44,14 +46,14 @@ export async function loader({ request }: Route.LoaderArgs) {
       {
         fonts: [
           {
-            name: "Inter",
             data: InterLatin400,
+            name: "Inter",
             style: "normal",
             weight: 400,
           },
           {
-            name: "Inter",
             data: InterLatin700,
+            name: "Inter",
             style: "normal",
             weight: 700,
           },
@@ -61,10 +63,10 @@ export async function loader({ request }: Route.LoaderArgs) {
   } catch (error) {
     console.error("OG Image generation error:", error);
     return new Response("Internal server error", {
-      status: 500,
       headers: {
         "Content-Type": "text/plain",
       },
+      status: 500,
     });
   }
 }

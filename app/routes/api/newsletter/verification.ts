@@ -1,7 +1,9 @@
-import { verifySignedToken } from "@/lib/token";
 import { href, redirect } from "react-router";
-import type { Route } from "./+types/verification";
+
 import { resend } from "@/lib/resend.server";
+import { verifySignedToken } from "@/lib/token";
+
+import type { Route } from "./+types/verification";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { searchParams } = new URL(request.url);
@@ -20,8 +22,8 @@ export async function loader({ request }: Route.LoaderArgs) {
   try {
     // Check if the contact already exists
     const { data } = await resend.contacts.get({
-      email,
       audienceId: "1a231b09-a625-43c1-9cc2-5d8f34972bdb",
+      email,
     });
 
     if (data) {
@@ -31,8 +33,8 @@ export async function loader({ request }: Route.LoaderArgs) {
     }
 
     const { error } = await resend.contacts.create({
-      email,
       audienceId: "1a231b09-a625-43c1-9cc2-5d8f34972bdb",
+      email,
     });
 
     if (error) {

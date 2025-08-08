@@ -1,28 +1,31 @@
-import type { Post } from "@/lib/posts.server";
 import {
   CalendarDotsIcon,
   ClockCountdownIcon,
   PencilIcon,
 } from "@phosphor-icons/react";
 import { Link } from "react-router";
-import { Badge } from "./ui/badge";
+
+import type { Post } from "@/lib/posts.server";
+
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
+import { Badge } from "./ui/badge";
+
 const DATE_TIME_FORMAT_OPTIONS = {
-  year: "numeric",
   day: "2-digit",
   month: "short",
+  year: "numeric",
 } satisfies Intl.DateTimeFormatOptions;
 
 export default function PostTeaser({
-  slug,
-  metadata,
-  isDraft,
   className,
+  isDraft,
+  metadata,
+  slug,
   ...props
 }: Post & React.ComponentProps<"li">) {
-  const { publicationDate, readingTime, title, description } = metadata;
+  const { description, publicationDate, readingTime, title } = metadata;
 
   const formattedPublicationDate = formatDate(
     publicationDate,
@@ -38,7 +41,7 @@ export default function PostTeaser({
       )}
       {...props}
     >
-      <Link className="absolute inset-0 z-20" to={slug} prefetch="intent">
+      <Link className="absolute inset-0 z-20" prefetch="intent" to={slug}>
         <span className="sr-only">Link to article</span>
       </Link>
       <div
@@ -52,14 +55,14 @@ export default function PostTeaser({
               Draft
             </Badge>
           )}
-          <Badge className="dark:bg-sky-500/20 dark:text-sky-400" asChild>
+          <Badge asChild className="dark:bg-sky-500/20 dark:text-sky-400">
             <time dateTime={publicationDate.toISOString()}>
               <CalendarDotsIcon size={16} weight="duotone" />
               {formattedPublicationDate}
             </time>
           </Badge>
           {readingTime && (
-            <Badge variant="secondary" className="group-hover:bg-neutral-700">
+            <Badge className="group-hover:bg-neutral-700" variant="secondary">
               <ClockCountdownIcon size={16} weight="duotone" />
               {readingTime} min read
             </Badge>

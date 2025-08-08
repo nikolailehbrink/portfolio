@@ -1,37 +1,40 @@
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
-import { href, useFetcher, useLocation, type FormProps } from "react-router";
-import { Label } from "./ui/label";
 import { CircleNotchIcon, EnvelopeIcon } from "@phosphor-icons/react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { type FormProps, href, useFetcher, useLocation } from "react-router";
 import { z } from "zod/v4";
-import { cn } from "@/lib/utils";
+
 import type { action } from "@/routes/index";
-import FormMessage from "./FormMessage";
+
+import { cn } from "@/lib/utils";
+
 import FormItem from "./FormItem";
+import FormMessage from "./FormMessage";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 export const schema = z.object({
   email: z.email("Please enter a valid email address."),
 });
 
 export default function NewsletterForm({
-  showText = true,
   className,
+  showText = true,
   ...props
 }: FormProps & {
   showText?: boolean;
 }) {
   const { pathname } = useLocation();
-  const { Form, data, state } = useFetcher<typeof action>();
+  const { data, Form, state } = useFetcher<typeof action>();
   const [form, fields] = useForm({
+    constraint: getZodConstraint(schema),
+    id: `newsletter-signup-form-${pathname}`,
     lastResult: data,
     onValidate({ formData }) {
       return parseWithZod(formData, { schema });
     },
-    constraint: getZodConstraint(schema),
     shouldRevalidate: "onInput",
-    id: `newsletter-signup-form-${pathname}`,
   });
 
   const isLoading = state !== "idle";
@@ -40,14 +43,14 @@ export default function NewsletterForm({
 
   return (
     <Form
-      method="POST"
+      action={href("/api/newsletter/signup")}
       className={cn(
         `not-prose inline-grid w-full grid-cols-1 gap-2 rounded-xl border
         bg-linear-to-b from-neutral-900 to-neutral-900 p-4 offset-border
         @lg:grid-cols-2`,
         className,
       )}
-      action={href("/api/newsletter/signup")}
+      method="POST"
       {...props}
       {...getFormProps(form)}
     >
@@ -67,7 +70,7 @@ export default function NewsletterForm({
       <div className="hidden">
         <label>
           Leave this field empty:
-          <input type="text" name="company" autoComplete="off" />
+          <input autoComplete="off" name="company" type="text" />
         </label>
       </div>
 
@@ -80,20 +83,20 @@ export default function NewsletterForm({
             {...getInputProps(fields.email, { type: "email" })}
             placeholder="Enter your email"
           />
-          <Button type="submit" disabled={isLoading}>
+          <Button disabled={isLoading} type="submit">
             {isLoading ? (
               <>
                 Sending
                 <CircleNotchIcon
                   className="animate-spin"
-                  weight="duotone"
                   size={20}
+                  weight="duotone"
                 />
               </>
             ) : (
               <>
                 Join newsletter
-                <EnvelopeIcon weight="duotone" size={20} />
+                <EnvelopeIcon size={20} weight="duotone" />
               </>
             )}
           </Button>

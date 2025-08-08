@@ -1,23 +1,26 @@
-import { z } from "zod/v4";
-import { isDraft, slugify } from "./utils";
 import type { Toc } from "@stefanprobst/rehype-extract-toc";
 
+import { z } from "zod/v4";
+
+import { isDraft, slugify } from "./utils";
+
 export const postHandleSchema = z.object({
-  title: z.string().min(30, {
-    message: "Title must be at least 30 characters long.",
-  }),
+  authors: z.array(z.string()).min(1),
+  cover: z.string().optional(),
   description: z.string().min(60, {
     message: "Description must be at least 60 characters long.",
   }),
-  publicationDate: z.coerce.date(),
   featured: z.boolean().optional(),
-  authors: z.array(z.string()).min(1),
+  modificationDate: z.coerce.date().optional(),
+  publicationDate: z.coerce.date(),
   readingTime: z.number().optional(),
   tags: z.array(z.string()).optional(),
-  cover: z.string().optional(),
-  modificationDate: z.coerce.date().optional(),
+  title: z.string().min(30, {
+    message: "Title must be at least 30 characters long.",
+  }),
 });
 
+export type Post = Awaited<ReturnType<typeof getPosts>>[number];
 export type PostHandle = z.infer<typeof postHandleSchema>;
 
 const postModules = import.meta.glob<{
@@ -27,11 +30,42 @@ const postModules = import.meta.glob<{
   eager: true,
 });
 
-export type Post = Awaited<ReturnType<typeof getPosts>>[number];
+export async function getBlogCategories() {
+  const posts = await getPosts();
+  const categories = new Set<string>();
+  posts.forEach((post) => {
+    post.metadata.tags?.forEach((tag) => categories.add(tag));
+  });
+  const categoryList = [...categories]
+    .sort((a, b) => a.localeCompare(b))
+    .map((category) => ({
+      name: category,
+      slug: slugify(category),
+    }));
+  return [...categoryList];
+}
+
+export async function getNextPost(url: string) {
+  const posts = await getPosts();
+  const index = posts.findIndex(({ slug }) => url.endsWith(slug));
+  if (index === -1 || index === posts.length - 1) return null;
+  return posts[index + 1];
+}
+
+export async function getPost(url: string) {
+  const { pathname } = new URL(url);
+  const posts = await getPosts();
+  const post = posts.find(({ slug }) => pathname.endsWith(slug));
+  if (!post)
+    throw new Response(`No post found for ${url}`, {
+      status: 404,
+    });
+  return post;
+}
 
 export async function getPosts(options?: {
-  take?: number;
   category?: string | null;
+  take?: number;
 }) {
   const { routes } = await import("virtual:react-router/server-build");
   let files = Object.entries(postModules).map(
@@ -42,9 +76,9 @@ export async function getPosts(options?: {
       if (slug === undefined) throw new Error(`No route for ${id}`);
 
       return {
-        slug: `/${slug}`,
-        metadata,
         isDraft: isDraft(slug),
+        metadata,
+        slug: `/${slug}`,
         tableOfContents,
       };
     },
@@ -73,37 +107,4 @@ export async function getPosts(options?: {
   }
 
   return files;
-}
-
-export async function getPost(url: string) {
-  const { pathname } = new URL(url);
-  const posts = await getPosts();
-  const post = posts.find(({ slug }) => pathname.endsWith(slug));
-  if (!post)
-    throw new Response(`No post found for ${url}`, {
-      status: 404,
-    });
-  return post;
-}
-
-export async function getBlogCategories() {
-  const posts = await getPosts();
-  const categories = new Set<string>();
-  posts.forEach((post) => {
-    post.metadata.tags?.forEach((tag) => categories.add(tag));
-  });
-  const categoryList = [...categories]
-    .sort((a, b) => a.localeCompare(b))
-    .map((category) => ({
-      name: category,
-      slug: slugify(category),
-    }));
-  return [...categoryList];
-}
-
-export async function getNextPost(url: string) {
-  const posts = await getPosts();
-  const index = posts.findIndex(({ slug }) => url.endsWith(slug));
-  if (index === -1 || index === posts.length - 1) return null;
-  return posts[index + 1];
 }

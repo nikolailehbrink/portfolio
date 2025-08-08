@@ -1,5 +1,6 @@
+import { type ImageProps, Image as UnpicImage } from "@unpic/react";
+
 import { cn } from "@/lib/utils";
-import { Image as UnpicImage, type ImageProps } from "@unpic/react";
 
 export default function Image({
   caption,

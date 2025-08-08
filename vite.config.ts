@@ -1,34 +1,24 @@
-import { reactRouter } from "@react-router/dev/vite";
-import tailwindcss from "@tailwindcss/vite";
 import mdx from "@mdx-js/rollup";
+import { reactRouter } from "@react-router/dev/vite";
 import rehypeShiki from "@shikijs/rehype";
-import rehypeSlug from "rehype-slug";
-import rehypeExtractToc from "@stefanprobst/rehype-extract-toc";
-import rehypeExtractTocExport from "@stefanprobst/rehype-extract-toc/mdx";
-import svgr from "vite-plugin-svgr";
-import { qrcodeNetwork } from "./app/lib/vite/plugin-qrcode-network";
-import { transformerCodeBlock } from "./app/lib/shiki/transformerCodeBlock";
-import devtoolsJson from "vite-plugin-devtools-json";
-import arraybuffer from "vite-plugin-arraybuffer";
 import {
   transformerMetaHighlight,
   transformerMetaWordHighlight,
 } from "@shikijs/transformers";
-import { transformerMetaDiff } from "./app/lib/shiki/transformerMetaDiff";
+import rehypeExtractToc from "@stefanprobst/rehype-extract-toc";
+import rehypeExtractTocExport from "@stefanprobst/rehype-extract-toc/mdx";
+import tailwindcss from "@tailwindcss/vite";
+import rehypeSlug from "rehype-slug";
 import { defineConfig } from "vite";
+import arraybuffer from "vite-plugin-arraybuffer";
+import devtoolsJson from "vite-plugin-devtools-json";
+import svgr from "vite-plugin-svgr";
+
+import { transformerCodeBlock } from "./app/lib/shiki/transformerCodeBlock";
+import { transformerMetaDiff } from "./app/lib/shiki/transformerMetaDiff";
+import { qrcodeNetwork } from "./app/lib/vite/plugin-qrcode-network";
 
 export default defineConfig(({ command }) => ({
-  server: {
-    open: true,
-    host: true,
-  },
-  ssr: {
-    // https://github.com/phosphor-icons/react/issues/45
-    noExternal: command === "build" ? ["@phosphor-icons/react"] : undefined,
-  },
-  resolve: {
-    tsconfigPaths: true,
-  },
   experimental: {
     // Needed for resolve.tsconfigPaths to work
     enableNativePlugin: true,
@@ -38,13 +28,14 @@ export default defineConfig(({ command }) => ({
     devtoolsJson(),
     arraybuffer(),
     mdx({
+      providerImportSource: "@mdx-js/react",
       rehypePlugins: [
         [
           rehypeShiki,
           {
-            theme: "dark-plus",
             // support inline syntax highlighting
             inline: "tailing-curly-colon",
+            theme: "dark-plus",
             transformers: [
               transformerMetaDiff(),
               transformerMetaWordHighlight(),
@@ -61,7 +52,6 @@ export default defineConfig(({ command }) => ({
         // TODO:
         [rehypeExtractTocExport, { name: "tableOfContents" }],
       ],
-      providerImportSource: "@mdx-js/react",
     }),
     svgr({
       svgrOptions: {
@@ -74,4 +64,15 @@ export default defineConfig(({ command }) => ({
     tailwindcss(),
     reactRouter(),
   ],
+  resolve: {
+    tsconfigPaths: true,
+  },
+  server: {
+    host: true,
+    open: true,
+  },
+  ssr: {
+    // https://github.com/phosphor-icons/react/issues/45
+    noExternal: command === "build" ? ["@phosphor-icons/react"] : undefined,
+  },
 }));

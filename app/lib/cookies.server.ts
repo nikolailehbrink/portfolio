@@ -1,7 +1,7 @@
 import { createCookie } from "react-router";
+import { createTypedCookie } from "remix-utils/typed-cookie";
 // TODO: Update to zod/v4 when remix-utils supports it
 import { z } from "zod";
-import { createTypedCookie } from "remix-utils/typed-cookie";
 
 let messageCookieSecret = process.env.MESSAGE_COOKIE_SECRET;
 if (!messageCookieSecret) {
@@ -18,11 +18,11 @@ const SECONDS_TO_CHAT_AGAIN = import.meta.env.PROD
 const messageCountSchema = z.coerce.number().nonnegative().nullable();
 
 const messageCountCookie = createCookie("messageCount", {
-  maxAge: SECONDS_TO_CHAT_AGAIN,
   httpOnly: true,
-  secure: import.meta.env.PROD,
-  secrets: [messageCookieSecret],
+  maxAge: SECONDS_TO_CHAT_AGAIN,
   sameSite: "lax",
+  secrets: [messageCookieSecret],
+  secure: import.meta.env.PROD,
 });
 
 export const typedMessageCountCookie = createTypedCookie({

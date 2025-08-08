@@ -1,17 +1,17 @@
 import type { TypedRoute } from "@/types/href";
 
 type LegalSite = {
-  name: string;
   href: TypedRoute;
+  name: string;
 };
 
 export const LEGAL_SITES = [
   {
-    name: "Privacy Policy",
     href: "/privacy-policy",
+    name: "Privacy Policy",
   },
   {
-    name: "Legal Notice",
     href: "/legal-notice",
+    name: "Legal Notice",
   },
 ] as const satisfies LegalSite[];

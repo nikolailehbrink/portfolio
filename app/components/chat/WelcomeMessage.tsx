@@ -1,12 +1,13 @@
-import Message from "./Message";
 import { XIcon } from "@phosphor-icons/react";
 
+import Message from "./Message";
+
 export default function WelcomeMessage({
-  showCloseButton,
   setShowWelcomeMessage,
+  showCloseButton,
 }: {
-  showCloseButton: boolean;
   setShowWelcomeMessage: React.Dispatch<React.SetStateAction<boolean>>;
+  showCloseButton: boolean;
 }) {
   return (
     // eslint-disable-next-line jsx-a11y/aria-role
@@ -19,10 +20,10 @@ export default function WelcomeMessage({
       </p>
       {showCloseButton && (
         <button
-          onClick={() => setShowWelcomeMessage(false)}
           aria-label="Close note"
           className="absolute top-0 right-0 cursor-pointer rounded-se-xl
             rounded-es-xl border bg-neutral-900 p-1.5 hover:bg-neutral-800"
+          onClick={() => setShowWelcomeMessage(false)}
         >
           <XIcon size={16} weight="bold" />
         </button>

@@ -1,8 +1,9 @@
-import { cn } from "@/lib/utils";
-import { href, Link } from "react-router";
-import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
 import { track } from "@vercel/analytics/react";
+import { href, Link } from "react-router";
+
 import { LEGAL_SITES } from "@/data/legalSites";
+import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
+import { cn } from "@/lib/utils";
 
 export default function Footer({
   className,
@@ -32,19 +33,19 @@ export default function Footer({
             py-1.5"
         >
           <menu className="flex gap-2">
-            {SOCIAL_MEDIA_PROFILES.map(({ href, name, logo: Logo }) => (
+            {SOCIAL_MEDIA_PROFILES.map(({ href, logo: Logo, name }) => (
               <Link
-                key={href}
-                to={href}
-                target="_blank"
-                rel="noreferrer"
                 aria-label={name}
                 className="text-muted-foreground hover:text-foreground"
+                key={href}
                 onClick={() =>
                   track("footer-social-link", {
                     name,
                   })
                 }
+                rel="noreferrer"
+                target="_blank"
+                to={href}
               >
                 <span className="sr-only">Link to {name} profile</span>
                 <Logo size={20} weight="duotone" />
@@ -56,9 +57,9 @@ export default function Footer({
           <menu className="flex gap-2">
             {LEGAL_SITES.map(({ href: link, name }) => (
               <Link
+                className="text-muted-foreground hover:text-foreground"
                 key={link}
                 to={href(link)}
-                className="text-muted-foreground hover:text-foreground"
               >
                 {name}
               </Link>

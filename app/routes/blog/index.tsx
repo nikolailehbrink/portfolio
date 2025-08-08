@@ -1,11 +1,13 @@
-import { getBlogCategories, getPosts } from "@/lib/posts.server";
-import type { Route } from "./+types";
+import { track } from "@vercel/analytics/server";
+import { Form } from "react-router";
+
+import NewsletterForm from "@/components/NewsletterForm";
 import PostTeaser from "@/components/PostTeaser";
 import { Badge } from "@/components/ui/badge";
-import { Form } from "react-router";
 import { mergeRouteModuleMeta } from "@/lib/mergeMeta";
-import NewsletterForm from "@/components/NewsletterForm";
-import { track } from "@vercel/analytics/server";
+import { getBlogCategories, getPosts } from "@/lib/posts.server";
+
+import type { Route } from "./+types";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { searchParams } = new URL(request.url);
@@ -21,11 +23,11 @@ export async function loader({ request }: Route.LoaderArgs) {
     });
   }
 
-  return { posts, categories, filteredCategory };
+  return { categories, filteredCategory, posts };
 }
 
 export default function Blog({ loaderData }: Route.ComponentProps) {
-  const { posts, categories, filteredCategory } = loaderData;
+  const { categories, filteredCategory, posts } = loaderData;
   const hasCategoryFilter = filteredCategory !== undefined;
 
   return (
@@ -36,7 +38,7 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
         various topics, including web development, technology, and personal
         topics.
       </p>
-      <NewsletterForm showText={false} className="max-w-2xl"></NewsletterForm>
+      <NewsletterForm className="max-w-2xl" showText={false}></NewsletterForm>
       <div
         className="relative mt-4 grid max-w-xl overflow-hidden rounded-lg border
           border-border bg-neutral-900 offset-border"
@@ -57,9 +59,9 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
             const isActive = filteredCategory?.slug === slug;
             return (
               <Badge
-                key={name}
-                className="cursor-pointer snap-end scroll-mr-2"
                 asChild
+                className="cursor-pointer snap-end scroll-mr-2"
+                key={name}
                 variant={isActive ? "default" : "secondary"}
               >
                 <button
@@ -80,8 +82,8 @@ export default function Blog({ loaderData }: Route.ComponentProps) {
         {posts.length > 0 ? (
           posts.map((post, index) => (
             <PostTeaser
-              key={post.slug}
               className="animate-in slide-in-from-bottom-25 fade-in"
+              key={post.slug}
               style={{
                 animationDuration: `${300 + index * 300}ms`,
               }}
@@ -115,30 +117,24 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
     return [
       { title },
       {
-        name: "description",
         content: description,
+        name: "description",
       },
       {
-        property: "og:title",
         content: title,
+        property: "og:title",
       },
-      { property: "og:description", content: description },
+      { content: description, property: "og:description" },
       {
         "script:ld+json": {
           "@context": "https://schema.org/",
           "@type": "Blog",
-          name: title,
-          description,
-          publisher: {
-            "@type": "Person",
-            name: "Nikolai Lehbrink",
-          },
-          blogPost: posts.map(({ slug, metadata }) => ({
+          blogPost: posts.map(({ metadata, slug }) => ({
             "@type": "BlogPosting",
-            mainEntityOfPage: `${origin}${slug}`,
-            headline: metadata.title,
-            description: metadata.description,
             datePublished: metadata.publicationDate,
+            description: metadata.description,
+            headline: metadata.title,
+            mainEntityOfPage: `${origin}${slug}`,
             ...(metadata.modificationDate && {
               dateModified: metadata.modificationDate,
             }),
@@ -152,9 +148,15 @@ export const meta: Route.MetaFunction = mergeRouteModuleMeta(
                 url: origin + metadata.cover,
               },
             }),
-            url: `${origin}${slug}`,
             keywords: metadata.tags,
+            url: `${origin}${slug}`,
           })),
+          description,
+          name: title,
+          publisher: {
+            "@type": "Person",
+            name: "Nikolai Lehbrink",
+          },
         },
       },
     ];
