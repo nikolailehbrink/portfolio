@@ -1,0 +1,56 @@
+export const handle = {
+  title: "How to Load Files as ArrayBuffer in Vite",
+  publicationDate: "2025-08-11",
+  authors: ["Nikolai Lehbrink"],
+  description:
+    "How to load files like fonts as ArrayBuffers in Vite, with an example for embedding custom fonts when using Satori or @vercel/og for dynamic OG images.",
+  tags: ["Vite", "ArrayBuffer", "Fonts", "Open Graph"],
+  readingTime: 1,
+};
+
+[Vite](https://vite.dev/) normally handles files like `.ttf` fonts by [returning their URLs](https://vite.dev/guide/assets.html#importing-asset-as-url). That works for most cases, but sometimes you need the imported data in a different format.
+
+I encountered this when trying to [generate dynamic Open Graph images](https://github.com/nikolailehbrink/portfolio/commit/9fcd942ffbfafa31234b75b8c359fa64e65c7373) with [`@vercel/og`](https://vercel.com/docs/functions/og-image-generation). The API allows you to embed fonts directly, but it expects the font data as an [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
+
+## Why I Didn't Use `fetch` for Loading Fonts
+
+Vercel's own documentation [shows an example](https://vercel.com/guides/using-custom-font) of loading fonts via `fetch` from a URL - either from Google Fonts or from a local file.
+
+I first tried the local file approach, but when deploying to Vercel, I ran into a cross-origin issue. While it worked fine locally, in production the font failed to load reliably.
+
+## Using `vite-plugin-arraybuffer`
+
+Short on time, I turned to [`vite-plugin-arraybuffer`](https://github.com/tachibana-shin/vite-plugin-arraybuffer), which offered a simpler and more reliable solution in my case.
+
+This small plugin lets you import binary files as `ArrayBuffer`s simply by adding a query parameter to the import path:
+
+```ts /?arraybuffer/ filename="app/routes/api/og-image.ts" showLineNumbers
+import InterLatin400 from "./inter-latin-400-normal.ttf?arraybuffer";
+import InterLatin700 from "./inter-latin-700-normal.ttf?arraybuffer";
+```
+
+This syntax is similar to other Vite asset import options, such as `?url` for [explicit URL imports](https://vite.dev/guide/assets.html#explicit-url-imports) or `?raw` for [importing files as strings](https://vite.dev/guide/assets.html#importing-asset-as-string) and made it straightforward to pass font data to `ImageResponse`:
+
+```ts /InterLatin400/ /InterLatin700/ filename="app/routes/api/og-image.ts" showLineNumbers=3
+export async function loader({ request }: Route.LoaderArgs) {
+  // ...
+  return new ImageResponse(<div></div>, {
+    fonts: [
+      { name: "Inter", data: InterLatin400, style: "normal", weight: 400 },
+      { name: "Inter", data: InterLatin700, style: "normal", weight: 700 },
+    ],
+  });
+}
+```
+
+### TypeScript Support
+
+The plugin also [includes TypeScript support out of the box](https://github.com/tachibana-shin/vite-plugin-arraybuffer?tab=readme-ov-file#typescript-support):
+
+```json filename="tsconfig.json" highlight={3}
+{
+  "compilerOptions": {
+    "types": ["vite-plugin-arraybuffer/types"]
+  }
+}
+```
