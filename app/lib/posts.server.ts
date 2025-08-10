@@ -11,7 +11,7 @@ export const postHandleSchema = z.object({
   }),
   publicationDate: z.coerce.date(),
   featured: z.boolean().optional(),
-  authors: z.array(z.string()).min(1),
+  authors: z.array(z.string()).min(1).default(["Nikolai Lehbrink"]),
   readingTime: z.number().optional(),
   tags: z.array(z.string()).optional(),
   cover: z.string().optional(),
