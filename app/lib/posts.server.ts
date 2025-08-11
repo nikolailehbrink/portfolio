@@ -2,7 +2,7 @@ import { z } from "zod/v4";
 import { isDraft, slugify } from "./utils";
 import type { Toc } from "@stefanprobst/rehype-extract-toc";
 
-export const postHandleSchema = z.object({
+const postHandleSchema = z.object({
   title: z.string().min(30, {
     message: "Title must be at least 30 characters long.",
   }),
@@ -17,8 +17,6 @@ export const postHandleSchema = z.object({
   cover: z.string().optional(),
   modificationDate: z.coerce.date().optional(),
 });
-
-export type PostHandle = z.infer<typeof postHandleSchema>;
 
 const postModules = import.meta.glob<{
   handle: unknown;
