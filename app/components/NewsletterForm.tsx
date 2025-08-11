@@ -2,7 +2,7 @@ import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
 import { href, useFetcher, useLocation, type FormProps } from "react-router";
 import { Label } from "./ui/label";
-import { CircleNotch, Envelope } from "@phosphor-icons/react";
+import { CircleNotchIcon, EnvelopeIcon } from "@phosphor-icons/react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { z } from "zod/v4";
@@ -84,7 +84,7 @@ export default function NewsletterForm({
             {isLoading ? (
               <>
                 Sending
-                <CircleNotch
+                <CircleNotchIcon
                   className="animate-spin"
                   weight="duotone"
                   size={20}
@@ -93,7 +93,7 @@ export default function NewsletterForm({
             ) : (
               <>
                 Join newsletter
-                <Envelope weight="duotone" size={20} />
+                <EnvelopeIcon weight="duotone" size={20} />
               </>
             )}
           </Button>
@@ -117,7 +117,7 @@ export default function NewsletterForm({
         <FormMessage
           className="col-span-full items-start rounded-md border border-sky-900
             bg-sky-950 p-2 text-sky-400"
-          icon={Envelope}
+          icon={EnvelopeIcon}
           iconSize={20}
         >
           <p>

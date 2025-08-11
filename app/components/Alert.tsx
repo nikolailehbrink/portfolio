@@ -1,21 +1,21 @@
 import {
-  CheckCircle,
-  Info,
-  Lightbulb,
-  Question,
-  Warning,
-  WarningOctagon,
+  CheckCircleIcon,
+  LightbulbIcon,
+  QuestionIcon,
+  WarningIcon,
+  WarningOctagonIcon,
+  InfoIcon,
 } from "@phosphor-icons/react";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const ICONS = {
-  success: CheckCircle,
-  info: Info,
-  warning: Warning,
-  error: WarningOctagon,
-  tip: Lightbulb,
-  question: Question,
+  success: CheckCircleIcon,
+  info: InfoIcon,
+  warning: WarningIcon,
+  error: WarningOctagonIcon,
+  tip: LightbulbIcon,
+  question: QuestionIcon,
 } as const;
 
 type Props = {

@@ -1,7 +1,7 @@
 import type { Project } from "@/data/projects";
 import { Button } from "./ui/button";
 import { Link } from "react-router";
-import { GithubLogo, LinkSimple } from "@phosphor-icons/react";
+import { GithubLogoIcon, LinkSimpleIcon } from "@phosphor-icons/react";
 import { Badge } from "./ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -59,7 +59,7 @@ export default function ProjectTeaser({
             {url ? (
               <Button asChild>
                 <Link to={url} target="_blank" rel="noopener noreferrer">
-                  <LinkSimple weight="duotone" size={20} />
+                  <LinkSimpleIcon weight="duotone" size={20} />
                   Visit
                 </Link>
               </Button>
@@ -72,7 +72,7 @@ export default function ProjectTeaser({
                 className="bg-sky-950 text-sky-400 hover:bg-sky-900"
               >
                 <Link to={github} target="_blank" rel="noopener noreferrer">
-                  <GithubLogo weight="duotone" size={20} />
+                  <GithubLogoIcon weight="duotone" size={20} />
                   <span className="sr-only">Link to GitHub repository</span>
                 </Link>
               </Button>

@@ -2,9 +2,9 @@ import { Form } from "react-router";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
-  ArrowCounterClockwise,
-  PaperPlaneTilt,
-  Pause,
+  ArrowCounterClockwiseIcon,
+  PaperPlaneTiltIcon,
+  PauseIcon,
 } from "@phosphor-icons/react";
 import type { UseChatHelpers } from "@ai-sdk/react";
 
@@ -35,7 +35,7 @@ export default function Actions({
           size="icon"
           onClick={() => reload()}
         >
-          <ArrowCounterClockwise size={24} weight="duotone" />
+          <ArrowCounterClockwiseIcon size={24} weight="duotone" />
         </Button>
       )}
       {status === "ready" ? (
@@ -45,7 +45,7 @@ export default function Actions({
           size="icon"
           disabled={disabled || !input || input.length < 2}
         >
-          <PaperPlaneTilt weight="duotone" size={24} />
+          <PaperPlaneTiltIcon weight="duotone" size={24} />
         </Button>
       ) : status !== "error" ? (
         <Button
@@ -56,7 +56,7 @@ export default function Actions({
           onClick={stop}
           disabled={disabled || status === "submitted"}
         >
-          <Pause size={24} weight="duotone" />
+          <PauseIcon size={24} weight="duotone" />
         </Button>
       ) : null}
     </Form>

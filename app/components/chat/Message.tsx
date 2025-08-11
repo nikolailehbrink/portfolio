@@ -1,6 +1,6 @@
 import type { UIMessage } from "ai";
 import Avatar from "@/components/Avatar";
-import { User } from "@phosphor-icons/react";
+import { UserIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 export default function Message({
@@ -33,7 +33,7 @@ export default function Message({
         )}
       >
         {role === "user" ? (
-          <User size={20} weight="duotone" />
+          <UserIcon size={20} weight="duotone" />
         ) : (
           <Avatar className="rounded-full" />
         )}
