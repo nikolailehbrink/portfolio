@@ -7,12 +7,13 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { z } from "zod/v4";
 import { cn } from "@/lib/utils";
-import type { action } from "@/routes/index";
+import type { action } from "@/routes/api/newsletter/signup";
 import FormMessage from "./FormMessage";
 import FormItem from "./FormItem";
 
 export const schema = z.object({
   email: z.email("Please enter a valid email address."),
+  company: z.string().optional(),
 });
 
 export default function NewsletterForm({
@@ -24,6 +25,7 @@ export default function NewsletterForm({
 }) {
   const { pathname } = useLocation();
   const { Form, data, state } = useFetcher<typeof action>();
+
   const [form, fields] = useForm({
     lastResult: data,
     onValidate({ formData }) {
@@ -64,9 +66,9 @@ export default function NewsletterForm({
         </>
       ) : null}
 
-      <div className="hidden">
+      <div className="group/form-item hidden flex-col gap-2">
         <label>
-          Leave this field empty:
+          Company
           <input type="text" name="company" autoComplete="off" />
         </label>
       </div>

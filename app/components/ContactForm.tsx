@@ -46,6 +46,7 @@ export const schema = z.object({
     })
     .min(10, "Message must be at least 10 characters.")
     .max(500, "Message must be less than 500 characters."),
+  company: z.string().optional(),
 });
 
 export default function ContactForm({ className, ...props }: FormProps) {
@@ -148,6 +149,12 @@ export default function ContactForm({ className, ...props }: FormProps) {
           {fields.message.errors}
         </FormMessage>
       </FormItem>
+      <div className="group/form-item hidden flex-col gap-2">
+        <label>
+          Company
+          <input type="text" name="company" autoComplete="off" />
+        </label>
+      </div>
       {form.errors && form.errors.length > 0 ? (
         <FormMessage
           className="col-span-full items-start rounded-md border border-red-900

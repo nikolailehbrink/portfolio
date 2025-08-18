@@ -1,5 +1,5 @@
 import { createSignedToken } from "@/lib/token";
-import { data, href } from "react-router";
+import { href } from "react-router";
 import NewsletterVerificationEmail, {
   PlainText,
 } from "@/components/emails/newsletter-verification";
@@ -15,22 +15,21 @@ export async function action({ request }: Route.ActionArgs) {
 
   const formData = await request.formData();
 
-  const honeypot = formData.get("company");
-
-  if (typeof honeypot === "string" && honeypot.trim() !== "") {
-    await track("honeypot-triggered", {
-      form: "newsletter-signup",
-      input: honeypot,
-    });
-    return data({ success: true });
-  }
   const submission = parseWithZod(formData, { schema: newsletterFormSchema });
 
   if (submission.status !== "success") {
     return submission.reply();
   }
 
-  const { email } = submission.value;
+  const { email, company: honeypot } = submission.value;
+
+  if (honeypot !== undefined) {
+    await track("honeypot-triggered", {
+      form: "newsletter-signup",
+      input: honeypot,
+    });
+    return submission.reply();
+  }
 
   const { data: contact } = await resend.contacts.get({
     email,

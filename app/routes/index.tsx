@@ -24,6 +24,7 @@ import {
 import { resend } from "@/lib/resend.server";
 import NewsletterForm from "@/components/NewsletterForm";
 import { cn } from "@/lib/utils";
+import { track } from "@vercel/analytics/server";
 
 export async function loader() {
   const posts = await getPosts({ take: 2 });
@@ -39,7 +40,22 @@ export async function action({ request }: Route.ActionArgs) {
     return submission.reply();
   }
 
-  const { email, name, subject, phone, message } = submission.value;
+  const {
+    email,
+    name,
+    subject,
+    phone,
+    message,
+    company: honeypot,
+  } = submission.value;
+
+  if (honeypot !== undefined) {
+    await track("honeypot-triggered", {
+      form: "contact",
+      input: honeypot,
+    });
+    return submission.reply();
+  }
 
   const { error } = await resend.emails.send({
     from: "Kontaktformular <contact-form@nikolailehbr.ink>",
