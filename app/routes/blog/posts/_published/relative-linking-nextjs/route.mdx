@@ -1,0 +1,107 @@
+export const handle = {
+  title: "Relative Links in Next.js: A Shortcut for Nested Routes",
+  publicationDate: "2025-08-25T20:50:00Z",
+  description:
+    "How to use relative links in Next.js <Link> component, with an example showing simpler navigation.",
+  tags: ["Next.js", "Tips and Tricks"],
+  readingTime: 3,
+};
+
+When working on a Next.js project with **deeply nested routes**, I wanted a simple way to navigate “up” the hierarchy without composing the entire path every time.
+
+Normally this wouldn't be much of a problem, but in my case, I had dynamic segments in the URL (like `/tasks/[id]/details/...`), which meant that I had to
+
+- `await{:js}` the `id` param to every page that needed to display links
+- pass down the `id` to every server component that needed to build links
+
+Also not a huge deal, but it felt unnecessary, so I searched for alternatives.
+
+## Relative Paths with `<Link>`
+
+At first, I thought this wasn’t possible since the Next.js docs don’t explicitly cover it. But then I tried:
+
+```tsx
+<Link href="..">Back</Link>
+```
+
+And it worked. It navigated me up two levels, but why?
+
+### Standard HTML Behaviour
+
+Then I realized why there was no documentation for this behaviour: It's actually just [how anchor tags work in HTML](https://www.w3.org/TR/PR-html40-971107/struct/links.html#h-12.4) and since the `<Link>{:tsx}` is a wrapper around an `<a>{:html}` tag, the underlying behavior is the same.
+
+### Relative Links in Action
+
+To demonstrate this, imagine you’re on this URL:
+
+```bash
+https://yourdomain.com/customer/1/details/address
+```
+
+Here’s how different relative links behave:
+
+```tsx // filename="app/customer/[id]/details/address/page.tsx"
+import Link from "next/link";
+
+export default async function Page() {
+  return (
+    <div>
+      {/* Same folder, sibling site → /customer/1/details/billing */}
+      <Link href="billing">Billing</Link>
+
+      {/* Same folder, parent site → /customer/1/details */}
+      <Link href=".">Customer Details</Link>
+
+      {/* One level up → /customer/1 */}
+      <Link href="..">Customer</Link>
+
+      {/* Two levels up → /customer */}
+      <Link href="../..">Customer list</Link>
+    </div>
+  );
+}
+```
+
+## Comparison in practice
+
+Here’s a quick comparison from my project.
+
+**Before (absolute paths):**
+
+```tsx
+export default async function AddressPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+
+  return (
+    <div>
+      <h1>Product Address</h1>
+      {/* ... */}
+      <Link href={`/customer/${id}/details`}>Back to Details</Link>
+      <Link href={`/customer/${id}`}>Back to Product</Link>
+      <Link href="/customer">All customers</Link>
+    </div>
+  );
+}
+```
+
+**After (relative paths):**
+
+```tsx
+export default function AddressPage() {
+  return (
+    <div>
+      <h1>Product Address</h1>
+      {/* ... */}
+      <Link href=".">Back to Details</Link>
+      <Link href="..">Back to Product</Link>
+      <Link href="/customer">All customers</Link>
+    </div>
+  );
+}
+```
+
+What I like is that the links still work, even when the dynamic segment name changes.
