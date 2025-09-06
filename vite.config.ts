@@ -15,7 +15,7 @@ import {
   transformerMetaWordHighlight,
 } from "@shikijs/transformers";
 import { transformerMetaDiff } from "./app/lib/shiki/transformerMetaDiff";
-import { defineConfig } from "vite";
+import { defineConfig, withFilter } from "vite";
 
 export default defineConfig(({ command }) => ({
   server: {
@@ -63,14 +63,17 @@ export default defineConfig(({ command }) => ({
       ],
       providerImportSource: "@mdx-js/react",
     }),
-    svgr({
-      svgrOptions: {
-        plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
-        svgoConfig: {
-          plugins: ["removeDimensions"],
+    withFilter(
+      svgr({
+        svgrOptions: {
+          plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
+          svgoConfig: {
+            plugins: ["removeDimensions"],
+          },
         },
-      },
-    }),
+      }),
+      { load: { id: /\.svg\?react$/ } },
+    ),
     tailwindcss(),
     reactRouter(),
   ],
