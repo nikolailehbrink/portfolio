@@ -1,9 +1,9 @@
-import vanever from "@/assets/images/logos/vanever.webp";
-import moskito from "@/assets/images/logos/moskito-icon.svg";
-import jungundbillig from "@/assets/images/logos/jungundbillig.webp";
-import freelance from "@/assets/images/logos/freelance.webp";
-import hsb from "@/assets/images/logos/hsb-logo.svg";
-import cimdata from "@/assets/images/logos/cimdata-logo.svg";
+import vanever from "@/assets/images/logos/vanever.svg";
+import moskito from "@/assets/images/logos/moskito.svg";
+import jungundbillig from "@/assets/images/logos/jungundbillig.svg";
+import freelance from "@/assets/images/logos/freelance.svg";
+import hsb from "@/assets/images/logos/hsb.svg";
+import cimdata from "@/assets/images/logos/cimdata.svg";
 
 export type WorkExperience = {
   title: string;
