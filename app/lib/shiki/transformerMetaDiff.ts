@@ -64,10 +64,10 @@ interface TransformerMetaLineDiffOptions {
 }
 
 /**
- * Allow using `add=1,3,4-5 remove=9-11` in the code snippet meta to mark added and removed lines.
+ * Allow using `add={1,3,4-5} remove={9-11`} in the code snippet meta to mark added and removed lines.
  *
  * Example:
- * ```js add=1,3,4-5 remove=9-11
+ * ```js add={1,3,4-5} remove={9-11}
  * // Code here
  * ```
  */
@@ -88,8 +88,8 @@ export function transformerMetaDiff(
 
       // Parse add and remove parameters using regex
       // Match until a space or end of string
-      const addMatch = meta.match(/add=([^ }]+)/);
-      const removeMatch = meta.match(/remove=([^ }]+)/);
+      const addMatch = meta.match(/add=\{(\S+)\}/);
+      const removeMatch = meta.match(/remove=\{(\S+)\}/);
 
       // If neither parameter is present, do nothing
       if (!addMatch && !removeMatch) return;

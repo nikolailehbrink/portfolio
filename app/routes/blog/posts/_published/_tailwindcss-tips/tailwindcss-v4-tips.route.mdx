@@ -43,7 +43,7 @@ However with the [release of Tailwind CSS v3.2](https://tailwindcss.com/blog/tai
 
 You can stack responsive modifiers and achieve the same result with only one class selector.
 
-```html remove=1 add=2 showLineNumbers=4 /sm:max-xl:bg-green-500/
+```html remove={1} add={2} showLineNumbers=4 /sm:max-xl:bg-green-500/
 <div class="bg-red-500 sm:bg-green-500 md:bg-red-500">
 <div class="bg-red-500 sm:max-xl:bg-green-500">
   <!-- ... -->
@@ -128,7 +128,7 @@ This centers your container and adds consistent horizontal padding, all by simpl
 
 Now, simply use the `container` class and have the same result, without any further code.
 
-```html /container/ add=2 remove=1
+```html /container/ add={2} remove={1}
 <div class="container mx-auto px-4 sm:px-8 lg:px-16">
 <div class="container">
   <!-- ... -->
@@ -164,7 +164,7 @@ Often, when browsing through tutorials on YouTube or other websites, you'll noti
 
 With the introduction of the `size-*` utilities in [Tailwind CSS v3.4](https://tailwindcss.com/blog/tailwindcss-v3-4#new-size-utilities), setting both dimensions simultaneously has become much more straightforward.
 
-```html remove=1 add=2 /size-12/
+```html remove={1} add={2} /size-12/
 <div class="h-12 w-12 bg-red-500">
 <div class="size-12 bg-red-500">
   <!-- ... -->

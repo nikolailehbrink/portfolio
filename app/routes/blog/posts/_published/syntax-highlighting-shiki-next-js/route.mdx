@@ -26,7 +26,7 @@ For integrating code blocks on this website I was looking for a modern approach 
 
 Let's have a look at what we are going to build today. A code block with syntax highlighting that enables us to also highlight certain lines and even show code diffs. The following code block is an example.
 
-```tsx showLineNumbers remove=23 add=24 {14}
+```tsx showLineNumbers remove={23} add={24} {14}
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -209,7 +209,7 @@ npm i -D @shikijs/transformers
 
 Then import the `transformerNotationHighlight(){:ts}` function:
 
-```tsx add=2,18 filename="app/components/Code.tsx" showLineNumbers
+```tsx add={2,18} filename="app/components/Code.tsx" showLineNumbers
 import { codeToHtml } from "shiki";
 import { transformerNotationHighlight } from "@shikijs/transformers";
 import type { BundledLanguage, BundledTheme } from "shiki";
@@ -266,7 +266,7 @@ If you inspect your code now in the [Developer Tools](https://developer.chrome.c
 
 Now we can target the class with CSS and style it to our liking. I will demonstrate it in a simple way with TailwindCSS and it's [arbitrary values](https://tailwindcss.com/docs/adding-custom-styles#using-arbitrary-values).
 
-```tsx add=4 filename="app/components/Code.tsx" showLineNumbers=19
+```tsx add={4} filename="app/components/Code.tsx" showLineNumbers=19
 // ...
 return (
   <div
@@ -282,7 +282,7 @@ Now your code block should indicate the highlighted line with a blue background.
 
 To add classes for added and removed lines, we follow the same steps as above, but with a different transformer called `transformerNotationDiff(){:ts}`. First import the `transformer`.
 
-```tsx add=4,20 remove=19 filename="app/components/Code.tsx" showLineNumbers
+```tsx add={4,20} remove={19} filename="app/components/Code.tsx" showLineNumbers
 import { codeToHtml } from "shiki";
 import {
   transformerNotationHighlight,
@@ -342,7 +342,7 @@ Besides the highlighting I wanted to add filenames to my code components. That w
 
 So let's add a `filename` prop to our component and some initial styling to see the effect.
 
-```tsx add=4,9,13-20,25 showLineNumbers filename="app/components/Code.tsx"
+```tsx add={4,9,13-20,25} showLineNumbers filename="app/components/Code.tsx"
 // ...
 type Props = {
   // ...
@@ -374,7 +374,7 @@ export default async function Code({
 
 In our `page.tsx` let's add filenames by passing a name to the `filename` prop.
 
-```tsx add=7,10,14 remove=6 showLineNumbers filename="app/page.tsx" showLineNumbers
+```tsx add={7,10,14} remove={6} showLineNumbers filename="app/page.tsx" showLineNumbers
 import Code from "@/components/Code";
 
 export default function Home() {
@@ -449,7 +449,7 @@ Now the code block should have line numbers.
 
 In order to enhance the design of the individual highlighted lines, I added the following styles:
 
-```postcss filename="app/globals.css" showLineNumbers add=5,10-36
+```postcss filename="app/globals.css" showLineNumbers add={5,10-36}
 .shiki {
   counter-reset: step;
   counter-increment: step 0;
@@ -524,7 +524,7 @@ export default async function Code(
 
 Let's switch once again to our main page, remove all three code blocks and add a new one with more than one line of code. Add some comments like `// [!code highlight]{:ts}`, `// [!code ++]{:ts}` or `// [!code --]{:ts}` on different lines to see the styles applied.
 
-```tsx filename="app/page.tsx" remove=6-17 add=18-38 showLineNumbers
+```tsx filename="app/page.tsx" remove={6-17} add={18-38} showLineNumbers
 import Code from "@/components/Code";
 
 export default function Home() {
