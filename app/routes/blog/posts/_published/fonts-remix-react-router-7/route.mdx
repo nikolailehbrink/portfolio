@@ -66,7 +66,7 @@ Let's suppose you bought a font from [MyFonts](https://www.myfonts.com/) or some
 
    Reference the font in your CSS:
 
-   ```css filename="app/app.css" showLineNumbers=7 highlight={2}
+   ```css filename="app/app.css" showLineNumbers=7 {2}
    h1 {
      font-family: "Savate", sans-serif;
    }
@@ -119,7 +119,7 @@ With [Fontsource](https://fontsource.org/) you not only get the benefits of self
 
    Reference the font in your CSS:
 
-   ```css filename="app/app.css" showLineNumbers highlight={2}
+   ```css filename="app/app.css" showLineNumbers {2}
    h1 {
      font-family: "Inter Variable", sans-serif;
      font-weight: 700;
@@ -147,7 +147,7 @@ If you use Tailwind CSS (I am using v4 here), you can use either method above, t
 
 1. **Add the typeface name to your `@theme{:postcss}` configuration**
 
-   ```postcss filename="app/app.css" highlight={5}
+   ```postcss filename="app/app.css" {5}
    @import "tailwindcss";
    /* ... */
 
@@ -160,7 +160,7 @@ If you use Tailwind CSS (I am using v4 here), you can use either method above, t
 
    Use the `font-sans` class or your custom class in your JSX, typically in your Root Layout:
 
-   ```tsx filename="app/root.tsx" highlight={3}
+   ```tsx filename="app/root.tsx" {3}
    export function Layout({ children }: { children: React.ReactNode }) {
      return (
        <html lang="en" className="font-sans">
