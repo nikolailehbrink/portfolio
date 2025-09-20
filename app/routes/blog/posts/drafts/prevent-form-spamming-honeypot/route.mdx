@@ -1,0 +1,111 @@
+import cover from "./form-spam-submissions.webp";
+export const handle = {
+  title: "Prevent AI Bots from spamming your forms with a honeypot",
+  description:
+    "Learn how to implement a honeypot to protect your forms from spam submissions by AI or regular bots.",
+  publicationDate: "2025-09-01",
+  cover,
+  tags: ["Honeypot", "Anti-spam", "React Router 7", "Tips and Tricks"],
+  readingTime: 5,
+};
+
+Almost everybody who has forms on his website has dealt with the same frustration:
+You develop or activate a form on your website and not even after a day you get your first submission. You are hyped but only to find out that some Jamaican Prince revealed to you that you have won the lottery. These spam submissions are pretty common and frustrating and there are several ways around it. Often times people go with captchas that tasks the user to do a certain exercise that proves that he is human. Now while that is possible, I think it lacks UX and the user basically has to do some more work which I find undesirable.
+So the technique I’ve always undergo is implementing a honeypot.
+
+## What is a honeypot in web development?
+
+As the name suggests it is something that lurs the bot into something, which it is expecting but we now know that a bot is filling out a form.
+→ Better explanation.
+
+## How does a honeypot work?
+
+Let’s suppose you have a contact form, where you want a real user to fill out his email-address and the corresponding message, that he wants to send you.
+
+```html filename="index.html"
+<form action="/submit" method="POST">
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="message">Message:</label>
+  <textarea id="message" name="message" required></textarea>
+
+  <button type="submit">Send</button>
+</form>
+```
+
+Now bots or spammer crawl websites for these forms, see them and fill them out and send you a spam submission.
+
+With a honeypot you add one or more irrelevant fields to the form, hide them to the user so he doesn’t fill it out, but the bot sees it as a valid field and will fill it out, and now you know it’s a bot and you can ignore the message.
+
+## How to implement a honeypot?
+
+Taking the same form but this time we add a third field, that is irrelevant for the user, for example “company”. We hide this field with CSS so the user doesn’t see it and can’t fill it out. A bot however will see it and fill it out.
+
+```html filename="index.html" add={8-12}
+<form action="/submit" method="POST">
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="message">Message:</label>
+  <textarea id="message" name="message" required></textarea>
+
+  <!-- Honeypot field, hidden from users but visible to bots -->
+  <div style="display:none;">
+    <label for="company">Company:</label>
+    <input type="text" id="company" name="company">
+  </div>
+
+  <button type="submit">Send</button>
+</form>
+```
+
+Up on validation (best on server-side) we check if this field is filled out, if yes we know it’s a bot and ignore the submission.
+
+```js filename="main.js"
+// Server-side validation (Node.js example)
+app.post("/submit", async (req, res) => {
+  const { email, message, company } = req.body;
+  if (company) {
+    // Handle spam submission
+  }
+  res.send("Form submitted successfully!");
+});
+```
+
+## Things to be aware of
+
+Now, there are some things I’ve learned over time when implementing honeypots. Here are some tips that have been resulting for me in the best results preventing spam submissions by bots:
+
+### Do not return an Error
+
+**This one is important:** When a spam submission is detected, it's important _**NOT**_ to return an error response. Instead, simply ignore the submission and return a success response. This prevents bots from learning that they have been caught and adjusting their behavior accordingly.
+
+```tsx
+export async function action({ request }: Route.ActionArgs) {
+  const formData = await request.formData();
+  const honeypot = formData.get("company");
+
+  if (honeypot !== undefined) {
+    return new Response("Successfully submitted", {
+      status: 200,
+    });
+  }
+}
+```
+
+### Keep the honeypot field name generic
+
+Use a common name like "company" or "website" or a field that is quite normal for the type of form you have but a field you don't need in your case.
+
+### Hide a parent field
+
+Make sure to hide a field, best a `<div>{:html}` up in the document tree using an obscured class like `form-item` and set this to `display: none{:css}`.
+
+```css
+.form-item {
+  display: none;
+}
+```
+
+When hiding a field by simply setting `display: none` on the field itself, bots may be able to detect the honeypot.

@@ -30,7 +30,9 @@ import InterLatin700 from "./inter-latin-700-normal.ttf?arraybuffer";
 
 This syntax is similar to other Vite asset import options, such as `?url` for [explicit URL imports](https://vite.dev/guide/assets.html#explicit-url-imports) or `?raw` for [importing files as strings](https://vite.dev/guide/assets.html#importing-asset-as-string) and made it straightforward to pass font data to `ImageResponse`:
 
-```ts /InterLatin400/ /InterLatin700/ filename="app/routes/api/og-image.ts" showLineNumbers=3
+```tsx /InterLatin400/ /InterLatin700/ filename="app/routes/api/og-image.tsx" showLineNumbers=3
+import { ImageResponse } from "@vercel/og";
+
 export async function loader({ request }: Route.LoaderArgs) {
   // ...
   return new ImageResponse(<div></div>, {
