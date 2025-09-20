@@ -1,7 +1,7 @@
 import courseCertificate from "@/assets/images/projects/course-certificate.webp";
 import secretMessages from "@/assets/images/projects/secret-messages.webp";
 import Flowchart from "@/assets/images/projects/flow-chart.webp";
-import moskito from "@/assets/images/projects/moskito.webp";
+import moskito from "@/assets/images/projects/moskito-website.webp";
 
 export type Project = {
   title: string;
