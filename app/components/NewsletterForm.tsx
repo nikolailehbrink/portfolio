@@ -70,7 +70,12 @@ export default function NewsletterForm({
       <div className="group/form-item hidden flex-col gap-2">
         <label>
           Company
-          <input type="text" name="company" autoComplete="off" />
+          <input
+            type="text"
+            name="company"
+            autoComplete="one-time-code"
+            tabIndex={-1}
+          />
         </label>
       </div>
 
