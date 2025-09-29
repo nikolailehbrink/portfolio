@@ -2,6 +2,7 @@ import cover from "./form-spam-submissions.webp";
 import Alert from "@/components/Alert";
 import honeypotEvents from "./honeypot-events.png";
 import Image from "@/components/ui/image";
+import NewsletterForm from "@/components/NewsletterForm";
 
 export const handle = {
   title: "Prevent AI Bots from spamming your forms with honeypots",
@@ -13,18 +14,20 @@ export const handle = {
   readingTime: 5,
 };
 
-Almost everybody who has forms on his website has dealt with the same frustration:
-You develop or activate a form on your website and not even after a day you get your first submission. You are hyped but only to find out that some Jamaican Prince revealed to you that you have won the lottery. These spam submissions are pretty common and frustrating and there are several ways around it. Often times people go with captchas that tasks the user to do a certain exercise that proves that he is human. Now while that is possible, I think it lacks UX and the user basically has to do some more work which I find undesirable.
-So the technique I’ve always undergo is implementing a honeypot.
+Almost everyone who has a form on their website has faced the same frustration:
+You create or activate a form, and within a day you get your first submission. You’re excited, until you open it and see that some [Nigerian Prince](https://www.expressvpn.com/blog/nigerian-prince-scam/) is telling you you’ve won the lottery.
+
+Spam submissions are extremely common and annoying. To prevent them, many people use [CAPTCHAs](https://www.cloudflare.com/learning/bots/how-captchas-work/), which ask users to solve a small challenge to prove they’re human. While CAPTCHAs work, they hurt the user experience because they add extra effort for visitors, in my opinion.
+
+A much simpler technique is the honeypot. It requires no extra work from real users and is very effective against bots in my experience.
 
 ## What is a honeypot in web development?
 
-As the name suggests it is something that lurs the bot into something, which it is expecting but we now know that a bot is filling out a form.
-→ Better explanation.
+A honeypot is a hidden trap for bots. You add an extra form field that is invisible to human users but visible to bots. Since bots tend to fill out every available field, they will reveal themselves by filling out the hidden one.
 
 ## How does a honeypot work?
 
-Let’s suppose you have a contact form, where you want a real user to fill out his email-address and the corresponding message, that he wants to send you.
+Imagine you have a simple contact form:
 
 ```html filename="index.html"
 <form action="/submit" method="POST">
@@ -38,13 +41,9 @@ Let’s suppose you have a contact form, where you want a real user to fill out 
 </form>
 ```
 
-Now bots or spammer crawl websites for these forms, see them and fill them out and send you a spam submission.
+Bots crawl websites, detect forms like this, and submit spam.
 
-With a honeypot you add one or more irrelevant fields to the form, hide them to the user so he doesn’t fill it out, but the bot sees it as a valid field and will fill it out, and now you know it’s a bot and you can ignore the message.
-
-## How to implement a honeypot?
-
-Taking the same form but this time we add a third field, that is irrelevant for the user, for example "company". We hide this field with CSS so the user doesn’t see it and can’t fill it out. A bot however will see it and fill it out.
+With a honeypot, you add an extra `<input>{:html}` field, something like "company". You hide it with CSS so users never see it. Bots, however, will fill it out, and you can ignore those submissions.
 
 ```html filename="index.html" add={8-12}
 <form action="/submit" method="POST">
@@ -64,7 +63,7 @@ Taking the same form but this time we add a third field, that is irrelevant for 
 </form>
 ```
 
-Up on validation (best on server-side) we check if this field is filled out, if yes we know it’s a bot and ignore the submission.
+Up on validation (best on server-side), you simply check whether the honeypot field has been filled in and ignore the submission if it has.
 
 ```js filename="main.js"
 // Server-side validation (Node.js example)
@@ -77,13 +76,13 @@ app.post("/submit", async (req, res) => {
 });
 ```
 
-## Things to be aware of
+## Best practices for honeypots
 
-Now, there are some things I’ve learned over time when implementing honeypots. Here are some tips that have been resulting for me in the best results preventing spam submissions by bots:
+Here are a few tips that made honeypots effective for me:
 
 ### Do not return an Error
 
-When a spam submission is detected, **it's important** _**NOT**_ to return an error response. Instead, simply ignore the submission and return a success response. This prevents bots from learning that they have been caught and adjusting their behavior accordingly.
+If the honeypot is filled out, do _**not**_ return an error response. Just act as if the submission was successful. This way, bots don’t learn they’ve been caught.
 
 ```tsx
 export async function action({ request }: Route.ActionArgs) {
@@ -98,13 +97,15 @@ export async function action({ request }: Route.ActionArgs) {
 }
 ```
 
-### Keep the honeypot field name generic
+### Use a generic field name
 
-Use a common name like "company" or "website" or a field that is quite normal for the type of form you have but a field you don't need in your case.
+Choose a common field name like "company" or "website", something that looks normal for your form but isn’t actually needed.
 
-### Hide a parent field
+<NewsletterForm />
 
-Make sure to hide a field, best a `<div>{:html}` up in the document tree using an obscured class like `form-item` and set this to `display: none{:css}`.
+### Hide a parent container, not the field itself
+
+Instead of hiding the input directly, place it inside a parent container (e.g., a `<div>{:html}`) and hide that container with an unobtrusive class such as `form-item`.
 
 ```css
 .form-item {
@@ -114,25 +115,24 @@ Make sure to hide a field, best a `<div>{:html}` up in the document tree using a
 
 When hiding a field by simply setting `display: none` on the field itself, bots may be able to detect the honeypot.
 
-### Set `tabIndex` to `-1`
+### Set `tabindex` to `-1`
 
-Setting the `tabIndex` attribute to `-1` on the honeypot input field ensures that it is not focusable via keyboard navigation. This helps prevent users from accidentally interacting with the hidden field, which could lead to confusion or unintended form submissions.
+Set `tabindex="-1"` on the honeypot input so users can’t reach it with the keyboard, which could lead to the honeypot being filled out.
 
 ### Use `autocomplete="one-time-code"`
 
 Setting the `autocomplete` attribute to `"one-time-code"` on the honeypot input field helps prevent browsers from autofilling the field with saved data. This is important because if a browser autofills the honeypot field, it could lead to false positives in spam detection, as legitimate users might inadvertently fill out the hidden field.
 
 <Alert type="question" heading="Why not use autocomplete=off?">
-  While it might seem intuitive to use `autocomplete="off"` to prevent autofill,
-  there were some issues on Chrome for example. Using `"one-time-code"` is a
-  more effective way to ensure that the field remains empty for legitimate users
-  and is [supported by all modern
-  browsers](https://caniuse.com/mdn-html_elements_form_autocomplete_one-time-code).
+  `autocomplete="off"` doesn’t always work reliably, especially in Chrome.
+  `"one-time-code"` is [supported across modern
+  browsers](https://caniuse.com/mdn-html_elements_form_autocomplete_one-time-code)
+  and ensures the honeypot stays empty.
 </Alert>
 
-## Real world example with React Router 7
+## Example: Newsletter signup with React Router 7
 
-The following example is a simplified version of [my newsletter signup form](https://github.com/nikolailehbrink/portfolio/blob/main/app/components/NewsletterForm.tsx) that uses a honeypot to prevent spam submissions.
+Here’s a simplified version of [my own newsletter signup form](https://github.com/nikolailehbrink/portfolio/blob/main/app/components/NewsletterForm.tsx):
 
 ```tsx filename="app/components/NewsletterForm.tsx" highlight={14-24}
 import type { action } from "@/routes/api/newsletter/signup";
@@ -169,6 +169,8 @@ export default function NewsletterForm(props: FormProps) {
 }
 ```
 
+And here’s the server-side action that processes the form submission and checks the honeypot field:
+
 ```ts filename="app/routes/api/newsletter/signup.ts" highlight={10-17}
 import { schema } from "@/components/NewsletterForm";
 import { parseWithZod } from "@conform-to/zod/v4";
@@ -191,11 +193,13 @@ export async function action({ request }: Route.ActionArgs) {
 }
 ```
 
-And here are the results of the honeypot events fired by Vercel Analytics:
+And here are the tracked honeypot events after two months:
 
 <Image
   src={honeypotEvents}
   width={750}
   height={383}
-  caption="Honeypot events fired by Vercel Analytics 2 months after implementing the honeypot on my forms"
+  caption="Honeypot events tracked with Vercel Analytics"
 />
+
+As you can see, the honeypot caught a significant number of spam submissions without inconveniencing real users and I haven’t received a single spam email through this form since implementing it.
