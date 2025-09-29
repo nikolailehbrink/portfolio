@@ -1,11 +1,15 @@
 import cover from "./form-spam-submissions.webp";
+import Alert from "@/components/Alert";
+import honeypotEvents from "./honeypot-events.png";
+import Image from "@/components/ui/image";
+
 export const handle = {
-  title: "Prevent AI Bots from spamming your forms with a honeypot",
+  title: "Prevent AI Bots from spamming your forms with honeypots",
   description:
-    "Learn how to implement a honeypot to protect your forms from spam submissions by AI or regular bots.",
+    "Learn how to implement a honeypot to protect your form from spam submissions by AI or regular bots.",
   publicationDate: "2025-09-01",
   cover,
-  tags: ["Honeypot", "Anti-spam", "React Router 7", "Tips and Tricks"],
+  tags: ["Honeypot", "Anti-Spam", "React Router 7", "Tips and Tricks"],
   readingTime: 5,
 };
 
@@ -40,7 +44,7 @@ With a honeypot you add one or more irrelevant fields to the form, hide them to 
 
 ## How to implement a honeypot?
 
-Taking the same form but this time we add a third field, that is irrelevant for the user, for example “company”. We hide this field with CSS so the user doesn’t see it and can’t fill it out. A bot however will see it and fill it out.
+Taking the same form but this time we add a third field, that is irrelevant for the user, for example "company". We hide this field with CSS so the user doesn’t see it and can’t fill it out. A bot however will see it and fill it out.
 
 ```html filename="index.html" add={8-12}
 <form action="/submit" method="POST">
@@ -79,7 +83,7 @@ Now, there are some things I’ve learned over time when implementing honeypots.
 
 ### Do not return an Error
 
-**This one is important:** When a spam submission is detected, it's important _**NOT**_ to return an error response. Instead, simply ignore the submission and return a success response. This prevents bots from learning that they have been caught and adjusting their behavior accordingly.
+When a spam submission is detected, **it's important** _**NOT**_ to return an error response. Instead, simply ignore the submission and return a success response. This prevents bots from learning that they have been caught and adjusting their behavior accordingly.
 
 ```tsx
 export async function action({ request }: Route.ActionArgs) {
@@ -109,3 +113,89 @@ Make sure to hide a field, best a `<div>{:html}` up in the document tree using a
 ```
 
 When hiding a field by simply setting `display: none` on the field itself, bots may be able to detect the honeypot.
+
+### Set `tabIndex` to `-1`
+
+Setting the `tabIndex` attribute to `-1` on the honeypot input field ensures that it is not focusable via keyboard navigation. This helps prevent users from accidentally interacting with the hidden field, which could lead to confusion or unintended form submissions.
+
+### Use `autocomplete="one-time-code"`
+
+Setting the `autocomplete` attribute to `"one-time-code"` on the honeypot input field helps prevent browsers from autofilling the field with saved data. This is important because if a browser autofills the honeypot field, it could lead to false positives in spam detection, as legitimate users might inadvertently fill out the hidden field.
+
+<Alert type="question" heading="Why not use autocomplete=off?">
+  While it might seem intuitive to use `autocomplete="off"` to prevent autofill,
+  there were some issues on Chrome for example. Using `"one-time-code"` is a
+  more effective way to ensure that the field remains empty for legitimate users
+  and is [supported by all modern
+  browsers](https://caniuse.com/mdn-html_elements_form_autocomplete_one-time-code).
+</Alert>
+
+## Real world example with React Router 7
+
+The following example is a simplified version of [my newsletter signup form](https://github.com/nikolailehbrink/portfolio/blob/main/app/components/NewsletterForm.tsx) that uses a honeypot to prevent spam submissions.
+
+```tsx filename="app/components/NewsletterForm.tsx" highlight={14-24}
+import type { action } from "@/routes/api/newsletter/signup";
+import type { FormProps } from "react-router";
+
+export const schema = z.object({
+  email: z.email("Please enter a valid email address."),
+  company: z.string().optional(),
+});
+
+export default function NewsletterForm(props: FormProps) {
+  const { Form, data } = useFetcher<typeof action>();
+
+  return (
+    <Form method="POST" action="/api/newsletter/signup" {...props}>
+      <div className="group/form-item hidden flex-col gap-2">
+        <label>
+          Company
+          <input
+            type="text"
+            name="company"
+            autoComplete="one-time-code"
+            tabIndex={-1}
+          />
+        </label>
+      </div>
+      <Label>
+        Email
+        <Input placeholder="Enter your email" />
+      </Label>
+      <Button type="submit">Join newsletter</Button>
+    </Form>
+  );
+}
+```
+
+```ts filename="app/routes/api/newsletter/signup.ts" highlight={10-17}
+import { schema } from "@/components/NewsletterForm";
+import { parseWithZod } from "@conform-to/zod/v4";
+import type { Route } from "./+types/signup";
+import { track } from "@vercel/analytics/server";
+
+export async function action({ request }: Route.ActionArgs) {
+  const formData = await request.formData();
+  const submission = parseWithZod(formData, { schema });
+  const { email, company: honeypot } = submission.value;
+
+  if (honeypot !== undefined) {
+    await track("honeypot-triggered", {
+      form: "newsletter-signup",
+      input: honeypot,
+    });
+    return submission.reply();
+  }
+  // Signup functionality goes here...
+}
+```
+
+And here are the results of the honeypot events fired by Vercel Analytics:
+
+<Image
+  src={honeypotEvents}
+  width={750}
+  height={383}
+  caption="Honeypot events fired by Vercel Analytics 2 months after implementing the honeypot on my forms"
+/>
