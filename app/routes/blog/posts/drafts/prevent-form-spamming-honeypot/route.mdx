@@ -84,7 +84,7 @@ Here are a few tips that made honeypots effective for me:
 
 If the honeypot is filled out, do _**not**_ return an error response. Just act as if the submission was successful. This way, bots don’t learn they’ve been caught.
 
-```tsx
+```tsx highlight={6-8}
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
   const honeypot = formData.get("company");
@@ -134,7 +134,7 @@ Setting the `autocomplete` attribute to `"one-time-code"` on the honeypot input 
 
 Here’s a simplified version of [my own newsletter signup form](https://github.com/nikolailehbrink/portfolio/blob/main/app/components/NewsletterForm.tsx):
 
-```tsx filename="app/components/NewsletterForm.tsx" highlight={14-24}
+```tsx filename="app/components/NewsletterForm.tsx" highlight={14-24} showLineNumbers
 import type { action } from "@/routes/api/newsletter/signup";
 import type { FormProps } from "react-router";
 
@@ -171,7 +171,7 @@ export default function NewsletterForm(props: FormProps) {
 
 And here’s the server-side action that processes the form submission and checks the honeypot field:
 
-```ts filename="app/routes/api/newsletter/signup.ts" highlight={10-17}
+```ts filename="app/routes/api/newsletter/signup.ts" highlight={11-17} showLineNumbers
 import { schema } from "@/components/NewsletterForm";
 import { parseWithZod } from "@conform-to/zod/v4";
 import type { Route } from "./+types/signup";
@@ -202,4 +202,4 @@ And here are the tracked honeypot events after two months:
   caption="Honeypot events tracked with Vercel Analytics"
 />
 
-As you can see, the honeypot caught a significant number of spam submissions without inconveniencing real users and I haven’t received a single spam email through this form since implementing it.
+As you can see, the honeypot caught a significant number of spam submissions without inconveniencing real users and I haven’t received _**a single spam email**_ through this form since implementing it.
