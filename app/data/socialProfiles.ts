@@ -1,10 +1,8 @@
-import {
-  DribbbleLogo,
-  GithubLogo,
-  LinkedinLogo,
-  XLogo,
-  type Icon,
-} from "@phosphor-icons/react";
+import type { Icon } from "@phosphor-icons/react";
+import { DribbbleLogoIcon } from "@phosphor-icons/react/dist/ssr/DribbbleLogo";
+import { GithubLogoIcon } from "@phosphor-icons/react/dist/ssr/GithubLogo";
+import { LinkedinLogoIcon } from "@phosphor-icons/react/dist/ssr/LinkedinLogo";
+import { XLogoIcon } from "@phosphor-icons/react/dist/ssr/XLogo";
 
 type SocialProfile = {
   name: string;
@@ -16,21 +14,21 @@ export const SOCIAL_MEDIA_PROFILES = [
   {
     name: "GitHub",
     href: "https://github.com/nikolailehbrink",
-    logo: GithubLogo,
+    logo: GithubLogoIcon,
   },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/nikolailehbrink/",
-    logo: LinkedinLogo,
+    logo: LinkedinLogoIcon,
   },
   {
     name: "X",
     href: "https://x.com/nikolailehbrink",
-    logo: XLogo,
+    logo: XLogoIcon,
   },
   {
     name: "Dribbble",
     href: "https://dribbble.com/nikolailehbrink",
-    logo: DribbbleLogo,
+    logo: DribbbleLogoIcon,
   },
 ] as const satisfies SocialProfile[];

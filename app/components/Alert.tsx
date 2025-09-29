@@ -1,11 +1,9 @@
-import {
-  CheckCircleIcon,
-  LightbulbIcon,
-  QuestionIcon,
-  WarningIcon,
-  WarningOctagonIcon,
-  InfoIcon,
-} from "@phosphor-icons/react";
+import { CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
+import { LightbulbIcon } from "@phosphor-icons/react/dist/ssr/Lightbulb";
+import { QuestionIcon } from "@phosphor-icons/react/dist/ssr/Question";
+import { WarningIcon } from "@phosphor-icons/react/dist/ssr/Warning";
+import { WarningOctagonIcon } from "@phosphor-icons/react/dist/ssr/WarningOctagon";
+import { InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 

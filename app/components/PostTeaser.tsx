@@ -1,9 +1,7 @@
 import type { Post } from "@/lib/posts.server";
-import {
-  CalendarDotsIcon,
-  ClockCountdownIcon,
-  PencilIcon,
-} from "@phosphor-icons/react";
+import { CalendarDotsIcon } from "@phosphor-icons/react/dist/ssr/CalendarDots";
+import { ClockCountdownIcon } from "@phosphor-icons/react/dist/ssr/ClockCountdown";
+import { PencilIcon } from "@phosphor-icons/react/dist/ssr/Pencil";
 import { Link } from "react-router";
 import { Badge } from "./ui/badge";
 import { formatDate } from "@/lib/format";

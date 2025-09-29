@@ -13,14 +13,12 @@ import ProjectTeaser from "@/components/ProjectTeaser";
 import { getPosts } from "@/lib/posts.server";
 import PostTeaser from "@/components/PostTeaser";
 import { Button } from "@/components/ui/button";
-import {
-  ArticleNyTimesIcon,
-  KanbanIcon,
-  MailboxIcon,
-  ProjectorScreenChartIcon,
-  StudentIcon,
-  TextColumnsIcon,
-} from "@phosphor-icons/react";
+import { ArticleNyTimesIcon } from "@phosphor-icons/react/dist/ssr/ArticleNyTimes";
+import { KanbanIcon } from "@phosphor-icons/react/dist/ssr/Kanban";
+import { MailboxIcon } from "@phosphor-icons/react/dist/ssr/Mailbox";
+import { ProjectorScreenChartIcon } from "@phosphor-icons/react/dist/ssr/ProjectorScreenChart";
+import { StudentIcon } from "@phosphor-icons/react/dist/ssr/Student";
+import { TextColumnsIcon } from "@phosphor-icons/react/dist/ssr/TextColumns";
 import { resend } from "@/lib/resend.server";
 import NewsletterForm from "@/components/NewsletterForm";
 import { cn } from "@/lib/utils";

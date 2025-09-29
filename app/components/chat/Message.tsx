@@ -1,6 +1,6 @@
 import type { UIMessage } from "ai";
 import Avatar from "@/components/Avatar";
-import { UserIcon } from "@phosphor-icons/react";
+import { UserIcon } from "@phosphor-icons/react/dist/ssr/User";
 import { cn } from "@/lib/utils";
 
 export default function Message({

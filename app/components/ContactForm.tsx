@@ -7,16 +7,14 @@ import {
 import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
 import { useFetcher, type FormProps } from "react-router";
 import { Label } from "./ui/label";
-import {
-  AtIcon,
-  CheckCircleIcon,
-  CircleNotchIcon,
-  IdentificationBadgeIcon,
-  PaperPlaneTiltIcon,
-  PhoneTransferIcon,
-  TextAlignLeftIcon,
-  TextboxIcon,
-} from "@phosphor-icons/react";
+import { AtIcon } from "@phosphor-icons/react/dist/ssr/At";
+import { CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
+import { CircleNotchIcon } from "@phosphor-icons/react/dist/ssr/CircleNotch";
+import { IdentificationBadgeIcon } from "@phosphor-icons/react/dist/ssr/IdentificationBadge";
+import { PaperPlaneTiltIcon } from "@phosphor-icons/react/dist/ssr/PaperPlaneTilt";
+import { PhoneTransferIcon } from "@phosphor-icons/react/dist/ssr/PhoneTransfer";
+import { TextAlignLeftIcon } from "@phosphor-icons/react/dist/ssr/TextAlignLeft";
+import { TextboxIcon } from "@phosphor-icons/react/dist/ssr/Textbox";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";

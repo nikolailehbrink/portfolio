@@ -1,5 +1,5 @@
 import Message from "./Message";
-import { XIcon } from "@phosphor-icons/react";
+import { XIcon } from "@phosphor-icons/react/dist/ssr/X";
 
 export default function WelcomeMessage({
   showCloseButton,

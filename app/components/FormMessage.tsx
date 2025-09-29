@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
-import { WarningIcon, type Icon } from "@phosphor-icons/react";
+import type { Icon } from "@phosphor-icons/react";
+import { WarningIcon } from "@phosphor-icons/react/dist/ssr/Warning";
 
 export default function FormMessage({
   children,

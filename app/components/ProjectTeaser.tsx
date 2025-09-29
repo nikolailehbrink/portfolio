@@ -1,7 +1,8 @@
 import type { Project } from "@/data/projects";
 import { Button } from "./ui/button";
 import { Link } from "react-router";
-import { GithubLogoIcon, LinkSimpleIcon } from "@phosphor-icons/react";
+import { GithubLogoIcon } from "@phosphor-icons/react/dist/ssr/GithubLogo";
+import { LinkSimpleIcon } from "@phosphor-icons/react/dist/ssr/LinkSimple";
 import { Badge } from "./ui/badge";
 import { cn } from "@/lib/utils";
 

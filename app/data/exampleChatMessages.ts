@@ -1,9 +1,7 @@
-import {
-  BackpackIcon,
-  BarbellIcon,
-  BooksIcon,
-  GraduationCapIcon,
-} from "@phosphor-icons/react";
+import { BackpackIcon } from "@phosphor-icons/react/dist/ssr/Backpack";
+import { BarbellIcon } from "@phosphor-icons/react/dist/ssr/Barbell";
+import { BooksIcon } from "@phosphor-icons/react/dist/ssr/Books";
+import { GraduationCapIcon } from "@phosphor-icons/react/dist/ssr/GraduationCap";
 
 export const EXAMPLE_MESSAGES = [
   {

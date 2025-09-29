@@ -1,10 +1,8 @@
 import { Link } from "react-router";
-import {
-  GithubLogoIcon,
-  LinkedinLogoIcon,
-  XLogoIcon,
-  YoutubeLogoIcon,
-} from "@phosphor-icons/react";
+import { GithubLogoIcon } from "@phosphor-icons/react/dist/ssr/GithubLogo";
+import { LinkedinLogoIcon } from "@phosphor-icons/react/dist/ssr/LinkedinLogo";
+import { XLogoIcon } from "@phosphor-icons/react/dist/ssr/XLogo";
+import { YoutubeLogoIcon } from "@phosphor-icons/react/dist/ssr/YoutubeLogo";
 
 const SOCIAL_MEDIA_PLATFORMS = {
   GitHub: {

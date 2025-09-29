@@ -1,10 +1,8 @@
 import type { TypedRoute } from "@/types/href";
-import {
-  ArticleNyTimesIcon,
-  ChatsCircleIcon,
-  HouseLineIcon,
-  type Icon,
-} from "@phosphor-icons/react";
+import type { Icon } from "@phosphor-icons/react";
+import { ArticleNyTimesIcon } from "@phosphor-icons/react/dist/ssr/ArticleNyTimes";
+import { ChatsCircleIcon } from "@phosphor-icons/react/dist/ssr/ChatsCircle";
+import { HouseLineIcon } from "@phosphor-icons/react/dist/ssr/HouseLine";
 
 type NavigationLink = {
   name: string;

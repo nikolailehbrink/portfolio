@@ -1,4 +1,5 @@
-import { FileCodeIcon, FolderSimpleIcon } from "@phosphor-icons/react";
+import { FileCodeIcon } from "@phosphor-icons/react/dist/ssr/FileCode";
+import { FolderSimpleIcon } from "@phosphor-icons/react/dist/ssr/FolderSimple";
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { LANGUAGE_FILE_ICONS } from "@/lib/shiki/fileIcons";
 import { cn } from "@/lib/utils";

@@ -1,11 +1,9 @@
 import { Form } from "react-router";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowCounterClockwiseIcon,
-  PaperPlaneTiltIcon,
-  PauseIcon,
-} from "@phosphor-icons/react";
+import { ArrowCounterClockwiseIcon } from "@phosphor-icons/react/dist/ssr/ArrowCounterClockwise";
+import { PaperPlaneTiltIcon } from "@phosphor-icons/react/dist/ssr/PaperPlaneTilt";
+import { PauseIcon } from "@phosphor-icons/react/dist/ssr/Pause";
 import type { UseChatHelpers } from "@ai-sdk/react";
 
 export default function Actions({

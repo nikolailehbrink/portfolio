@@ -13,7 +13,8 @@ import Avatar from "@/components/Avatar";
 import { SOCIAL_MEDIA_PROFILES } from "@/data/socialProfiles";
 import { track } from "@vercel/analytics/react";
 import { formatDate } from "@/lib/format";
-import { ListNumbersIcon, PencilIcon } from "@phosphor-icons/react";
+import { ListNumbersIcon } from "@phosphor-icons/react/dist/ssr/ListNumbers";
+import { PencilIcon } from "@phosphor-icons/react/dist/ssr/Pencil";
 import TableOfContents from "@/components/TableOfContents";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import {
