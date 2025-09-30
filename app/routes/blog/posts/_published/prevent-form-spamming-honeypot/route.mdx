@@ -21,11 +21,7 @@ Spam submissions are extremely common and annoying. To prevent them, many people
 
 A much simpler technique is the honeypot. It requires no extra work from real users and is very effective against bots in my experience.
 
-## What is a honeypot in web development?
-
-A honeypot is a hidden trap for bots. You add an extra form field that is invisible to human users but visible to bots. Since bots tend to fill out every available field, they will reveal themselves by filling out the hidden one.
-
-## How does a honeypot work?
+## How honeypots work
 
 Imagine you have a simple contact form:
 
@@ -43,7 +39,8 @@ Imagine you have a simple contact form:
 
 Bots crawl websites, detect forms like this, and submit spam.
 
-With a honeypot, you add an extra `<input>{:html}` field, something like "company". You hide it with CSS so users never see it. Bots, however, will fill it out, and you can ignore those submissions.
+With a honeypot, you add a hidden `<input>{:html}` field, so real users don’t notice it.  
+Bots usually fill it in, letting you filter out those submissions.
 
 ```html filename="index.html" add={8-12}
 <form action="/submit" method="POST">
@@ -78,7 +75,7 @@ app.post("/submit", async (req, res) => {
 
 ## Best practices for honeypots
 
-Here are a few tips that made honeypots effective for me:
+Here are a few tips that made my honeypots effective:
 
 ### Do not return an Error
 
@@ -99,7 +96,7 @@ export async function action({ request }: Route.ActionArgs) {
 
 ### Use a generic field name
 
-Choose a common field name like "company" or "website", something that looks normal for your form but isn’t actually needed.
+Choose a common field name like _"company"_ or _"website"_, something that looks normal for your type of form but isn’t actually needed.
 
 <NewsletterForm />
 
