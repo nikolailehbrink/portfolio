@@ -1,0 +1,531 @@
+import Image from "@/components/ui/image";
+import CodeBlock from "@/components/CodeBlock";
+
+export const handle = {
+  title: "Building a GDPR-Compliant Newsletter with Resend and React Email",
+  description:
+    "Learn how to implement a secure, legally compliant newsletter subscription system using double opt-in verification, honeypot protection, and modern React tooling.",
+  publicationDate: "2025-01-28T08:00:00Z",
+  tags: ["GDPR", "Newsletter", "Resend", "React Email", "Privacy"],
+  readingTime: 8,
+};
+
+Building a newsletter is a cornerstone of modern web applications, but getting it right requires more than just collecting email addresses. With privacy regulations like GDPR, you need to ensure your implementation is legally compliant while maintaining excellent user experience.
+
+In this guide, we'll build a complete GDPR-compliant newsletter system using [Resend](https://resend.com) for email delivery and [React Email](https://react.email) for beautiful email templates.
+
+## What GDPR Means for Newsletter Subscriptions
+
+The General Data Protection Regulation (GDPR) fundamentally changed how we handle email subscriptions in Europe. For newsletters, the most critical requirement is **explicit consent**.
+
+Here's what this means in practice:
+
+**Double Opt-in is Essential**: Simply entering an email address into a form isn't enough. The user must actively confirm their subscription through a verification email. This ensures that:
+
+- Only the actual email owner can subscribe
+- Consent is documented and provable
+- You're protected against accidental or malicious signups
+
+**Clear Communication**: Users must understand exactly what they're signing up for, how their data will be used, and how they can unsubscribe.
+
+**Data Minimization**: Only collect data you actually need. For a basic newsletter, this typically means just the email address.
+
+The technical implementation we'll build addresses these requirements through:
+
+- A double opt-in verification flow
+- Secure token-based email confirmation
+- Protection against bot submissions
+- Clear user communication throughout the process
+
+## Technical Implementation
+
+Let's dive into building a production-ready newsletter system. Our implementation uses:
+
+- **React Router 7** for the web framework
+- **Resend** for email delivery and contact management
+- **React Email** for beautiful email templates
+- **Conform** for form validation
+- **Zod** for schema validation
+
+### 1. Setting Up the Newsletter Form
+
+First, let's create a newsletter signup form with proper validation and bot protection:
+
+```tsx filename="app/components/NewsletterForm.tsx"
+import { getFormProps, getInputProps, useForm } from "@conform-to/react";
+import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
+import { href, useFetcher, useLocation, type FormProps } from "react-router";
+import { z } from "zod/v4";
+
+export const schema = z.object({
+  email: z.email("Please enter a valid email address."),
+  company: z.string().optional(), // Honeypot field
+});
+
+export default function NewsletterForm({
+  showText = true,
+}: {
+  showText?: boolean;
+}) {
+  const { pathname } = useLocation();
+  const { Form, data, state } = useFetcher<typeof action>();
+
+  const [form, fields] = useForm({
+    lastResult: data,
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema });
+    },
+    constraint: getZodConstraint(schema),
+    shouldRevalidate: "onInput",
+    id: `newsletter-signup-form-${pathname}`,
+  });
+
+  const isLoading = state !== "idle";
+  const sendSuccessfully = data?.status === "success";
+
+  return (
+    <Form
+      method="POST"
+      action={href("/api/newsletter/signup")}
+      {...getFormProps(form)}
+    >
+      {/* Honeypot field - hidden from users but visible to bots */}
+      <div className="group/form-item hidden flex-col gap-2">
+        <label>
+          Company
+          <input
+            type="text"
+            name="company"
+            autoComplete="one-time-code"
+            tabIndex={-1}
+          />
+        </label>
+      </div>
+
+      <div className="flex gap-2">
+        <input
+          {...getInputProps(fields.email, { type: "email" })}
+          placeholder="Enter your email"
+          required
+        />
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Sending..." : "Join newsletter"}
+        </button>
+      </div>
+
+      {/* Success message */}
+      {!isLoading && sendSuccessfully && (
+        <p className="text-green-600">
+          <strong>Almost there!</strong> Look for a verification email in your
+          inbox - and don't forget to check your spam folder.
+        </p>
+      )}
+    </Form>
+  );
+}
+```
+
+Key features of this form:
+
+**Client-side validation**: Using Conform with Zod for immediate feedback
+**Honeypot protection**: The hidden "company" field catches simple bots
+**Accessible design**: Proper labels, error handling, and loading states
+**Progressive enhancement**: Works without JavaScript
+
+### 2. Secure Token Generation
+
+For GDPR compliance, we need to verify email ownership. Let's create a secure token system:
+
+```ts filename="app/lib/token.ts"
+import { createHmac } from "crypto";
+
+const NEWSLETTER_SECRET = process.env.NEWSLETTER_SECRET;
+
+export function createSignedToken(email: string, expiresInSeconds = 86400) {
+  if (!NEWSLETTER_SECRET) {
+    throw new Error("Token secret is not defined");
+  }
+
+  const expiresAt = Math.floor(Date.now() / 1000) + expiresInSeconds;
+  const payload = `${email}.${expiresAt}`;
+
+  const signature = createHmac("sha256", NEWSLETTER_SECRET)
+    .update(payload)
+    .digest("base64url");
+
+  const emailEncoded = Buffer.from(email).toString("base64url");
+
+  return `${emailEncoded}.${signature}.${expiresAt}`;
+}
+
+export function verifySignedToken(token: string): string | null {
+  if (!NEWSLETTER_SECRET) {
+    throw new Error("Token secret is not defined");
+  }
+
+  try {
+    const [emailEncoded, signature, expiresAtStr] = token.split(".");
+    if (!emailEncoded || !signature || !expiresAtStr) return null;
+
+    const email = Buffer.from(emailEncoded, "base64url").toString("utf8");
+    const expiresAt = parseInt(expiresAtStr, 10);
+
+    // Check if token is expired
+    if (Date.now() / 1000 > expiresAt) return null;
+
+    // Verify signature
+    const payload = `${email}.${expiresAt}`;
+    const expectedSig = createHmac("sha256", NEWSLETTER_SECRET)
+      .update(payload)
+      .digest("base64url");
+
+    if (expectedSig !== signature) return null;
+    return email;
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    return null;
+  }
+}
+```
+
+This token system provides:
+
+**Security**: HMAC-based signatures prevent tampering
+**Time-limited**: Tokens expire after 24 hours
+**Tamper-proof**: Any modification invalidates the token
+**URL-safe**: Base64URL encoding for clean URLs
+
+### 3. Processing Newsletter Signups
+
+Now let's handle the form submission and send verification emails:
+
+```ts filename="app/routes/api/newsletter/signup.ts"
+import { createSignedToken } from "@/lib/token";
+import { href } from "react-router";
+import NewsletterVerificationEmail, {
+  PlainText,
+} from "@/components/emails/newsletter-verification";
+import { schema as newsletterFormSchema } from "@/components/NewsletterForm";
+import { parseWithZod } from "@conform-to/zod/v4";
+import type { Route } from "./+types/signup";
+import { track } from "@vercel/analytics/server";
+import { resend } from "@/lib/resend.server";
+
+export async function action({ request }: Route.ActionArgs) {
+  const { headers, url } = request;
+  const { origin } = new URL(url);
+
+  const formData = await request.formData();
+  const submission = parseWithZod(formData, { schema: newsletterFormSchema });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  const { email, company: honeypot } = submission.value;
+
+  // Check honeypot field for bot detection
+  if (honeypot !== undefined && honeypot !== "") {
+    await track("honeypot-triggered", {
+      form: "newsletter-signup",
+      input: honeypot,
+    });
+    // Return success to avoid revealing the honeypot
+    return submission.reply();
+  }
+
+  // Check if email is already subscribed
+  const { data: contact } = await resend.contacts.get({
+    email,
+    audienceId: "your-audience-id",
+  });
+
+  if (contact) {
+    return submission.reply({
+      formErrors: ["You are already subscribed to the newsletter."],
+    });
+  }
+
+  // Generate verification token
+  const token = createSignedToken(email);
+  const confirmationLink = `${origin}${href("/api/newsletter/verification")}?token=${token}`;
+
+  // Send verification email
+  const { error } = await resend.emails.send({
+    from: "Your Name <newsletter@yourdomain.com>",
+    to: [import.meta.env.DEV ? "delivered@resend.dev" : email],
+    subject: "Confirm your newsletter subscription",
+    tags: [{ name: "category", value: "newsletter-form" }],
+    text: PlainText({ confirmationLink }),
+    react: NewsletterVerificationEmail({ confirmationLink }),
+  });
+
+  if (error) {
+    console.error("Error sending confirmation email:", error);
+    return submission.reply({
+      formErrors: [
+        "There was an error sending the confirmation email. Please try again later.",
+      ],
+    });
+  }
+
+  // Track successful signup attempt
+  await track("newsletter-signup", {
+    email,
+    path: headers.get("referer")
+      ? new URL(headers.get("referer")!).pathname
+      : null,
+  });
+
+  return submission.reply({ resetForm: true });
+}
+```
+
+This implementation includes:
+
+**Duplicate protection**: Checks if email is already subscribed
+**Bot detection**: Honeypot field validation
+**Error handling**: Graceful failure modes
+**Analytics**: Track signup attempts for insights
+**Development mode**: Safe testing with Resend's test addresses
+
+### 4. Beautiful Email Templates with React Email
+
+Create professional verification emails using React Email:
+
+```tsx filename="app/components/emails/newsletter-verification.tsx"
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Html,
+  Preview,
+  Section,
+  Text,
+  Tailwind,
+} from "@react-email/components";
+
+type NewsletterVerificationProps = {
+  confirmationLink: string;
+};
+
+export function PlainText({ confirmationLink }: NewsletterVerificationProps) {
+  return `Hi there,
+
+Thanks for signing up for my newsletter.
+
+Please confirm your subscription by clicking the link below:
+${confirmationLink}
+
+This link expires in 24 hours. If you didn't request this, you can ignore this email.
+
+— Your Name`;
+}
+
+const NewsletterVerificationEmail = ({
+  confirmationLink,
+}: NewsletterVerificationProps) => {
+  return (
+    <Html lang="en" dir="ltr">
+      <Tailwind>
+        <Head />
+        <Preview>
+          Please confirm your email to complete your newsletter subscription
+        </Preview>
+        <Body className="bg-neutral-950 font-sans text-neutral-300">
+          <Container className="mx-auto max-w-[600px] rounded-[8px] bg-neutral-900 p-[40px] shadow-sm">
+            <Section>
+              <Text className="mb-[24px] text-[16px] leading-[24px]">
+                Hi there,
+              </Text>
+
+              <Text className="mb-[24px] text-[16px] leading-[24px]">
+                Thanks for signing up for my newsletter. To complete your
+                subscription, please confirm your email address by clicking the
+                button below:
+              </Text>
+
+              <Section className="mb-[24px]">
+                <Button
+                  href={confirmationLink}
+                  className="rounded-lg bg-sky-950 px-5 py-3 text-center text-[14px] font-semibold text-sky-400 no-underline hover:bg-sky-600 hover:text-sky-50"
+                >
+                  Confirm Email
+                </Button>
+              </Section>
+
+              <Text className="mb-[12px] text-[14px] leading-[20px] text-neutral-400">
+                If the button above doesn't work, you can copy and paste this
+                link into your browser:
+              </Text>
+
+              <Text
+                className="mb-[12px] text-[14px] leading-[20px] text-sky-600"
+                style={{
+                  wordBreak: "break-all",
+                  overflowWrap: "break-word",
+                }}
+              >
+                {confirmationLink}
+              </Text>
+
+              <Text className="mb-[12px] text-[14px] leading-[20px] text-neutral-400">
+                This link will expire in 24 hours. If you didn't request this
+                subscription, you can ignore this message.
+              </Text>
+
+              <Text className="mb-[8px] text-[16px] leading-[24px] text-neutral-300">
+                — Your Name
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export default NewsletterVerificationEmail;
+```
+
+The email template includes:
+
+**Both HTML and plain text**: Ensuring compatibility across all email clients
+**Clear call-to-action**: Prominent confirmation button
+**Fallback link**: Manual copy-paste option for accessibility
+**Professional styling**: Consistent with your brand
+**GDPR transparency**: Clear expiration and privacy information
+
+### 5. Handling Email Verification
+
+Complete the flow by processing verification clicks:
+
+```ts filename="app/routes/api/newsletter/verification.ts"
+import { verifySignedToken } from "@/lib/token";
+import { resend } from "@/lib/resend.server";
+import type { Route } from "./+types/verification";
+import { redirect } from "react-router";
+import { track } from "@vercel/analytics/server";
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const url = new URL(request.url);
+  const token = url.searchParams.get("token");
+
+  if (!token) {
+    throw new Response("Missing verification token", { status: 400 });
+  }
+
+  const email = verifySignedToken(token);
+
+  if (!email) {
+    throw new Response("Invalid or expired verification token", {
+      status: 400,
+    });
+  }
+
+  try {
+    // Add contact to newsletter audience
+    await resend.contacts.create({
+      email,
+      audienceId: "your-audience-id",
+    });
+
+    // Track successful verification
+    await track("newsletter-verified", { email });
+
+    // Redirect to success page
+    return redirect("/?newsletter=verified");
+  } catch (error) {
+    console.error("Error adding contact to audience:", error);
+    throw new Response("Failed to complete subscription", { status: 500 });
+  }
+}
+```
+
+## Security Considerations
+
+A production newsletter system requires multiple layers of protection:
+
+### Rate Limiting
+
+Implement rate limiting to prevent abuse:
+
+```ts
+// Consider using a rate limiting service or Redis-based solution
+const rateLimiter = new Map();
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const windowMs = 15 * 60 * 1000; // 15 minutes
+  const maxRequests = 5;
+
+  if (!rateLimiter.has(ip)) {
+    rateLimiter.set(ip, { count: 1, resetTime: now + windowMs });
+    return true;
+  }
+
+  const bucket = rateLimiter.get(ip);
+  if (now > bucket.resetTime) {
+    bucket.count = 1;
+    bucket.resetTime = now + windowMs;
+    return true;
+  }
+
+  if (bucket.count >= maxRequests) {
+    return false;
+  }
+
+  bucket.count++;
+  return true;
+}
+```
+
+### Enhanced Bot Protection
+
+Beyond honeypots, consider additional measures:
+
+**CAPTCHA Integration**: Use services like Cloudflare Turnstile or Google reCAPTCHA for sophisticated bot detection.
+
+**Header Validation**: Check for suspicious patterns in user agents, referrers, and other request headers.
+
+**Timing Analysis**: Flag submissions that happen too quickly after page load.
+
+### Data Protection
+
+**Environment Variables**: Store all secrets securely:
+
+```bash filename=".env"
+NEWSLETTER_SECRET=your-super-secret-signing-key
+RESEND_API_KEY=your-resend-api-key
+```
+
+**Input Sanitization**: Always sanitize and validate user inputs:
+
+```ts
+import DOMPurify from "isomorphic-dompurify";
+
+const sanitizedEmail = DOMPurify.sanitize(email.trim().toLowerCase());
+```
+
+## Monitoring and Analytics
+
+Track key metrics to understand your newsletter performance:
+
+**Signup Conversion**: Monitor form abandonment rates
+**Verification Rates**: Track how many users complete the double opt-in
+**Error Patterns**: Watch for unusual error spikes that might indicate attacks
+**Geographic Patterns**: Identify suspicious activity from unusual locations
+
+## Conclusion
+
+Building a GDPR-compliant newsletter requires careful attention to both technical implementation and legal requirements. The double opt-in flow we've built provides:
+
+- **Legal Compliance**: Meets GDPR requirements for explicit consent
+- **Security**: Multiple layers of bot and abuse protection
+- **User Experience**: Clear communication and professional presentation
+- **Reliability**: Robust error handling and monitoring
+
+By combining Resend's powerful email infrastructure with React Email's beautiful templates and proper form validation, you can create a newsletter system that's both compliant and delightful to use.
+
+Remember to regularly review your implementation, monitor for suspicious activity, and keep your dependencies updated. A well-built newsletter system is an investment that pays dividends in user engagement and legal peace of mind.
