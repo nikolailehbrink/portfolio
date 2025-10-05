@@ -96,7 +96,7 @@ export async function getBlogCategories() {
       name: category,
       slug: slugify(category),
     }));
-  return [...categoryList];
+  return categoryList;
 }
 
 export async function getNextPost(url: string) {
