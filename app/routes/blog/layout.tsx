@@ -54,6 +54,8 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
       publicationDate,
       readingTime,
       modificationDate,
+      showComments,
+      showRelatedPosts,
     },
     nextPost,
     formattedPublicationDate,
@@ -246,23 +248,25 @@ export default function PostLayout({ loaderData }: Route.ComponentProps) {
         ) : null}
       </div>
 
-      <div className="flex justify-center *:max-w-6xl">
-        <Giscus
-          id="comments"
-          repo="nikolailehbrink/portfolio"
-          repoId="R_kgDOLDU6NA"
-          category="Announcements"
-          categoryId="DIC_kwDOLDU6NM4CrKfK"
-          mapping="pathname"
-          reactionsEnabled="1"
-          emitMetadata="0"
-          inputPosition="bottom"
-          theme="noborder_gray"
-          lang="en"
-          loading="lazy"
-        />
-      </div>
-      {nextPost && (
+      {showComments && (
+        <div className="flex justify-center *:max-w-6xl">
+          <Giscus
+            id="comments"
+            repo="nikolailehbrink/portfolio"
+            repoId="R_kgDOLDU6NA"
+            category="Announcements"
+            categoryId="DIC_kwDOLDU6NM4CrKfK"
+            mapping="pathname"
+            reactionsEnabled="1"
+            emitMetadata="0"
+            inputPosition="bottom"
+            theme="noborder_gray"
+            lang="en"
+            loading="lazy"
+          />
+        </div>
+      )}
+      {showRelatedPosts && nextPost && (
         <footer className="flex flex-col items-end">
           <div
             className="flex flex-col rounded-lg border bg-neutral-900 p-4

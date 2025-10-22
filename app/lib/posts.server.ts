@@ -3,10 +3,10 @@ import { isDraft, slugify } from "./utils";
 import type { Toc } from "@stefanprobst/rehype-extract-toc";
 
 const postHandleSchema = z.object({
-  title: z.string().min(30, {
+  title: z.string().min(5, {
     message: "Title must be at least 30 characters long.",
   }),
-  description: z.string().min(60, {
+  description: z.string().min(20, {
     message: "Description must be at least 60 characters long.",
   }),
   publicationDate: z.coerce.date(),
@@ -16,6 +16,8 @@ const postHandleSchema = z.object({
   tags: z.array(z.string()).optional(),
   cover: z.string().optional(),
   modificationDate: z.coerce.date().optional(),
+  showComments: z.boolean().optional().default(true),
+  showRelatedPosts: z.boolean().optional().default(true),
 });
 
 const postModules = import.meta.glob<{
@@ -43,6 +45,8 @@ export async function getPosts(options?: {
         slug: `/${slug}`,
         metadata,
         isDraft: isDraft(slug),
+        showComments: metadata.showComments,
+        showRelatedPosts: metadata.showRelatedPosts,
         tableOfContents,
       };
     },
