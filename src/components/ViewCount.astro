@@ -1,0 +1,34 @@
+---
+import { actions } from "astro:actions";
+import { EyeIcon } from "@phosphor-icons/react/dist/ssr/Eye";
+import { locale } from "@/consts";
+
+type Props =
+  | { getAll: true }
+  | { getAll?: false; pathname: string; increment?: false }
+  // To avoid duplicate requests on safari https://github.com/withastro/astro/issues/13922#issuecomment-3027539962
+  | { getAll?: false; pathname: string; increment?: true; usePost: string };
+
+const props = Astro.props;
+
+let views: number | null | undefined = null;
+
+if (props.getAll) {
+  const { data } = await Astro.callAction(actions.pageViews.getAll, {});
+  views = data;
+} else {
+  const { pathname, increment = true } = props;
+  const { data } = await Astro.callAction(
+    increment ? actions.pageViews.increment : actions.pageViews.get,
+    { pathname },
+  );
+  views = data;
+}
+
+const count = views ?? 0;
+---
+
+<div class="flex items-center gap-1 text-sm">
+  <EyeIcon weight="duotone" size={16} />
+  <p>{count.toLocaleString(locale)}</p>
+</div>

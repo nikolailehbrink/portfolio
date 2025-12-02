@@ -1,0 +1,36 @@
+---
+export const prerender = false;
+
+import { AI_CHAT_MESSAGE_LIMIT } from "@/consts";
+import ChatComponent from "@/components/react/chat/Chat.tsx";
+import BaseHead from "@/components/BaseHead.astro";
+import RootLayout from "@/layouts/RootLayout.astro";
+import ogImage from "@/assets/og/chat.webp?url";
+
+const messageCount = Astro.cookies.get("message_count")?.number() ?? 0;
+const messageCountResetTimestamp = Astro.cookies
+  .get("message_reset_at")
+  ?.number();
+const messageCountResetDate = messageCountResetTimestamp
+  ? new Date(messageCountResetTimestamp)
+  : undefined;
+const disableChat = messageCount >= AI_CHAT_MESSAGE_LIMIT;
+
+const description =
+  "Chat with my personal AI assistant, which is well versed in many aspects of my life.";
+const title = "Personal AI Chat";
+---
+
+<RootLayout>
+  <BaseHead
+    title={title}
+    description={description}
+    image={ogImage}
+    slot="head"
+  />
+  <ChatComponent
+    isChatDisabled={disableChat}
+    messageCountResetDate={messageCountResetDate}
+    client:load
+  />
+</RootLayout>

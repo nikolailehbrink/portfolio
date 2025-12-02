@@ -1,0 +1,24 @@
+---
+import type { MarkdownLayoutProps } from "astro";
+import RootLayout from "./RootLayout.astro";
+import BaseHead from "@/components/BaseHead.astro";
+
+type Props = MarkdownLayoutProps<{
+  // Define frontmatter props here
+  title: string;
+  description: string;
+}>;
+// 1. The frontmatter prop gives access to frontmatter and other data
+const { frontmatter } = Astro.props;
+---
+
+<RootLayout {...frontmatter}>
+  <BaseHead
+    title={frontmatter.title}
+    description={frontmatter.description}
+    slot="head"
+  />
+  <article class="prose prose-neutral dark:prose-invert">
+    <slot />
+  </article>
+</RootLayout>

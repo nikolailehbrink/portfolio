@@ -1,0 +1,14 @@
+---
+import { THEME_COLOR } from "@/consts";
+import { MuxPlayer } from "@mux/mux-player-astro";
+import type { MuxPlayerProps } from "node_modules/@mux/mux-player-astro/src/types";
+
+type Props = MuxPlayerProps;
+
+const props = Astro.props;
+---
+
+<!-- TODO: Handle aspect-ratio unified; Individual aspect-ratios can be obtained in MUX Dashboard -->
+<div class="flex overflow-hidden rounded-md">
+  <MuxPlayer accentColor={THEME_COLOR} {...props} />
+</div>

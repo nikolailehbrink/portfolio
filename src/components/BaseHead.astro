@@ -1,0 +1,51 @@
+---
+import type { ImageMetadata } from "astro";
+
+import FallbackImage from "@/assets/og/home.webp";
+import { SITE_TITLE } from "@/consts";
+
+type Props = {
+  title: string;
+  description: string;
+  image?: ImageMetadata | string;
+};
+
+const { title, description, image = FallbackImage } = Astro.props;
+const { pathname, origin } = Astro.url;
+
+const isHomePage = pathname === "/";
+
+const ogImageURL = new URL(
+  typeof image === "string" ? image : image.src,
+  origin,
+).href;
+
+const separator = "|";
+const titleWithTemplate = isHomePage
+  ? SITE_TITLE
+  : `${title} ${separator} ${SITE_TITLE}`;
+---
+
+<!-- Primary Meta Tags -->
+<title>{titleWithTemplate}</title>
+<meta name="title" content={titleWithTemplate} />
+<meta name="description" content={description} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:site_name" content="Nikolai Lehbrink" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={ogImageURL} />
+<meta property="twitter:site" content="@nikolailehbrink" />
+<meta property="twitter:creator" content="@nikolailehbrink" />
+
+<slot />

@@ -1,0 +1,27 @@
+---
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
+import TocItem from "./TocItem.astro";
+import type { TocEntry } from "@/lib/posts";
+
+type Props = {
+  headings: Array<TocEntry>;
+} & HTMLAttributes<"nav">;
+
+const { headings, class: className, ...props } = Astro.props;
+---
+
+<nav class={cn("p-6 pb-4", className)} {...props}>
+  <p class="mb-2 text-2xl font-bold text-foreground sm:text-xl">
+    Table of Contents
+  </p>
+  <ol
+    class="prose prose-neutral dark:prose-invert prose-a:block
+      prose-a:leading-snug prose-a:text-muted-foreground prose-a:no-underline
+      prose-a:hover:text-foreground prose-a:hover:decoration-sky-500
+      sm:prose-a:text-sm prose-ol:my-2 prose-ol:list-none prose-ol:pl-6
+      prose-li:my-2 prose-li:px-0"
+  >
+    {headings.map((entry) => <TocItem {...entry} />)}
+  </ol>
+</nav>

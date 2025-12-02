@@ -1,0 +1,81 @@
+---
+import { formatDate } from "@/lib/format";
+import { cn } from "@/lib/utils";
+import type { CollectionEntry } from "astro:content";
+import type { HTMLAttributes } from "astro/types";
+import { Badge, badgeVariants } from "./react/ui/badge";
+import { PencilIcon } from "@phosphor-icons/react/dist/ssr/Pencil";
+import { CalendarDotsIcon } from "@phosphor-icons/react/dist/ssr/CalendarDots";
+import { ClockCountdownIcon } from "@phosphor-icons/react/dist/ssr/ClockCountdown";
+
+type Props = HTMLAttributes<"li"> & {
+  post: CollectionEntry<"blog">["data"] & {
+    readingTime: number;
+    slug: string;
+  };
+};
+
+const {
+  post: { title, description, publicationDate, readingTime, draft, slug },
+  class: className,
+  ...props
+} = Astro.props;
+
+const DATE_TIME_FORMAT_OPTIONS = {
+  year: "numeric",
+  day: "2-digit",
+  month: "short",
+} satisfies Intl.DateTimeFormatOptions;
+
+const formattedPublicationDate = formatDate(
+  publicationDate,
+  DATE_TIME_FORMAT_OPTIONS,
+);
+---
+
+<li
+  class={cn(
+    `group relative flex flex-col rounded-lg border bg-neutral-900 offset-border
+    transition-colors hover:bg-neutral-800`,
+    className,
+  )}
+  {...props}
+>
+  <a class="absolute inset-0 z-20" href={`/blog/${slug}`} data-astro-prefetch>
+    <span class="sr-only">Link to article</span>
+  </a>
+  <div
+    class="z-10 flex flex-col gap-3 rounded-lg border-neutral-700 p-4
+      hover:bg-neutral-800"
+  >
+    <div class="flex gap-2 text-xs text-muted-foreground">
+      {
+        draft && (
+          <Badge className="dark:bg-orange-500/20 dark:text-orange-400">
+            <PencilIcon size={16} weight="duotone" />
+            Draft
+          </Badge>
+        )
+      }
+      <time
+        class={cn(badgeVariants(), "dark:bg-sky-500/20 dark:text-sky-400")}
+        datetime={publicationDate.toISOString()}
+      >
+        <CalendarDotsIcon size={16} weight="duotone" />
+        {formattedPublicationDate}
+      </time>
+      {
+        readingTime > 0 ? (
+          <Badge variant="secondary" className="group-hover:bg-neutral-700">
+            <ClockCountdownIcon size={16} weight="duotone" />
+            {readingTime} min read
+          </Badge>
+        ) : null
+      }
+    </div>
+    <h2 class="text-xl font-bold">{title}</h2>
+    <p class="line-clamp-2 text-sm text-muted-foreground">
+      {description}
+    </p>
+  </div>
+</li>

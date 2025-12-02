@@ -1,16 +1,32 @@
-/** @type {import("prettier").Config} */
-const functions = ["cn", "clsx", "cva", "tw"];
+const functions = ["cn", "clsx", "cva", "tw", "autolinkHeadings"];
+
+/** @type {import('prettier').Config & import('prettier-plugin-tailwindcss').PluginOptions} */
 export default {
   tailwindFunctions: functions,
   tailwindAttributes: ["tw"],
   customFunctions: functions,
-  tailwindStylesheet: "./app/app.css",
-  endingPosition: "absolute-with-indent",
+  tailwindStylesheet: "./src/styles/global.css",
+  endingPosition: "absolute",
   plugins: [
+    "prettier-plugin-astro",
     // https://www.nikolailehbr.ink/blog/tailwind-css-tips#Automatic-wrapping-of-long-class-names
     "prettier-plugin-tailwindcss",
     "prettier-plugin-classnames",
     "prettier-plugin-merge",
+  ],
+  overrides: [
+    {
+      files: "*.astro",
+      options: {
+        parser: "astro",
+      },
+    },
+    {
+      files: "*svg",
+      options: {
+        parser: "html",
+      },
+    },
   ],
   semi: true,
   tabWidth: 2,

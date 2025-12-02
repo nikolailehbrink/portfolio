@@ -1,0 +1,72 @@
+---
+import { CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
+import { LightbulbIcon } from "@phosphor-icons/react/dist/ssr/Lightbulb";
+import { QuestionIcon } from "@phosphor-icons/react/dist/ssr/Question";
+import { WarningIcon } from "@phosphor-icons/react/dist/ssr/Warning";
+import { WarningOctagonIcon } from "@phosphor-icons/react/dist/ssr/WarningOctagon";
+import { InfoIcon } from "@phosphor-icons/react/dist/ssr/Info";
+import { cva } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = {
+  title?: string;
+  type?: keyof typeof ICONS;
+} & HTMLAttributes<"div">;
+
+const ICONS = {
+  success: CheckCircleIcon,
+  info: InfoIcon,
+  warning: WarningIcon,
+  error: WarningOctagonIcon,
+  tip: LightbulbIcon,
+  question: QuestionIcon,
+} as const;
+
+const alert = cva(
+  `not-prose z-20 mt-8 flex flex-col items-start gap-2 rounded-xl bg-neutral-900
+  bg-linear-160 to-50% p-4 ring ring-black/10 ring-inset md:-ml-8 lg:-ml-12
+  dark:ring-white/10 [li>div]:mx-0 [li>div]:mt-2 [li>div]:mb-3`,
+  {
+    variants: {
+      type: {
+        success:
+          "from-green-200 text-green-950 dark:from-green-950 dark:text-green-50",
+        info: "from-sky-200 text-sky-950 dark:from-sky-950 dark:text-sky-50",
+        warning: [
+          `from-orange-200 text-orange-950 dark:from-orange-950
+          dark:text-orange-50`,
+        ],
+        error: "from-red-200 text-red-950 dark:from-red-950 dark:text-red-50",
+        tip: [
+          `from-yellow-200 text-yellow-950 dark:from-yellow-950
+          dark:text-yellow-50`,
+        ],
+        question:
+          "from-neutral-200 dark:from-neutral-800 dark:text-neutral-100",
+      },
+    },
+    defaultVariants: {
+      type: "info",
+    },
+  },
+);
+
+const { type = "info", title, class: className, ...props } = Astro.props;
+
+const Icon = ICONS[type];
+const sentenceCaseType = type.charAt(0).toUpperCase() + type.slice(1);
+---
+
+<div role="note" class={cn(alert({ type }), className)} {...props}>
+  <div class="flex items-center gap-1.5">
+    <div class="relative">
+      <div class="absolute inset-1 opacity-50 blur-md"></div>
+      <Icon weight="duotone" size={24} />
+    </div>
+    <header class="font-bold">{title || sentenceCaseType}</header>
+  </div>
+  <div class="flex flex-col gap-2 [&_a]:underline [&_a]:underline-offset-2">
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,257 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import RootLayout from "./RootLayout.astro";
+import type { ReadingTime } from "@/lib/readingTime";
+import type { TocEntry } from "@/lib/posts";
+import { formatDate } from "@/lib/format";
+import { cn, slugify } from "@/lib/utils";
+import Avatar from "@/components/Avatar.astro";
+import { SOCIAL_LINKS } from "@/data/socials";
+import { Badge, badgeVariants } from "@/components/react/ui/badge";
+import { PencilIcon } from "@phosphor-icons/react/dist/ssr/Pencil";
+import TableOfContents from "@/components/TableOfContents.astro";
+import ViewCount from "@/components/ViewCount.astro";
+import Skeleton from "@/components/Skeleton.astro";
+import Schema from "@/components/Schema.astro";
+import { getEntries } from "astro:content";
+
+type Props = CollectionEntry<"blog">["data"] & {
+  readingTime: ReadingTime;
+  headings: Array<TocEntry>;
+};
+
+const {
+  title,
+  description,
+  publicationDate,
+  modificationDate,
+  cover,
+  readingTime,
+  tags,
+  draft,
+  headings,
+  authors: authorsReferences,
+  showComments,
+} = Astro.props;
+
+const authors = await getEntries(authorsReferences);
+
+const { pathname, origin, href } = Astro.url;
+
+const formattedPublicationDate = formatDate(publicationDate);
+const formattedModificationDate = modificationDate
+  ? formatDate(modificationDate)
+  : null;
+const coverImageURL = new URL(cover ? cover.src : `${pathname}/og.png`, origin)
+  .href;
+---
+
+<RootLayout>
+  <BaseHead
+    title={title}
+    description={description}
+    image={coverImageURL}
+    slot="head"
+  >
+    <meta property="article:author" content={authors[0].data.name} />
+    <meta
+      property="article:published_time"
+      content={publicationDate.toISOString()}
+    />
+    {
+      modificationDate && (
+        <meta
+          property="article:modified_time"
+          content={modificationDate.toISOString()}
+        />
+      )
+    }
+    {tags?.map((tag) => <meta property="article:tag" content={tag} />)}
+    <Schema
+      item={{
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: title,
+        description,
+        datePublished: publicationDate.toISOString(),
+        dateModified: modificationDate?.toISOString(),
+        image: coverImageURL,
+        mainEntityOfPage: href,
+        publisher: {
+          "@type": "Person",
+          name: "Nikolai Lehbrink",
+        },
+        author: {
+          "@type": "Person",
+          name: authors[0].data.name,
+        },
+        keywords: tags?.join(", "),
+      }}
+    />
+  </BaseHead>
+  <article class="flex w-full flex-col gap-12">
+    <header
+      class={cn(
+        "mx-auto prose w-full prose-neutral dark:prose-invert",
+        cover !== undefined ? "sm:text-center" : "",
+      )}
+    >
+      <h1 class="leading-tight">
+        {title}
+      </h1>
+      <div class="not-prose inline-flex flex-wrap items-center gap-2">
+        <div class="inline-flex items-center gap-2 text-sm">
+          <Avatar loading="eager" class="size-10 rounded-full" />
+          <div class="space-y-1">
+            <p>Nikolai Lehbrink</p>
+            <div class="flex items-center gap-2">
+              {
+                SOCIAL_LINKS.map(({ href, logo: Logo, name }) => {
+                  return (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      class="text-muted-foreground hover:text-primary"
+                    >
+                      <span class="sr-only">Link to {name} profile</span>
+                      <Logo weight="duotone" size={20} />
+                    </a>
+                  );
+                })
+              }
+            </div>
+          </div>
+        </div>
+        <span>•</span>
+        <div class="inline-flex gap-2 text-sm">
+          <time datetime={publicationDate.toISOString()}>
+            {formattedPublicationDate}
+          </time>
+          {
+            readingTime > 0 ? (
+              <>
+                <span>•</span>
+                <span>{readingTime} min read</span>
+              </>
+            ) : null
+          }
+        </div>
+        {
+          draft ? (
+            <Badge className="dark:bg-orange-500/20 dark:text-orange-400">
+              <PencilIcon size={16} weight="duotone" />
+              Draft
+            </Badge>
+          ) : null
+        }
+        <span>•</span>
+        <ViewCount server:defer pathname={pathname} usePost={" ".repeat(2048)}>
+          <Skeleton slot="fallback" class="h-5 w-8" />
+        </ViewCount>
+      </div>
+      <p class="text-muted-foreground">
+        {description}
+      </p>
+      {
+        tags && tags.length > 0 ? (
+          <div class="inline-flex flex-wrap gap-2">
+            {tags.map((tag) => {
+              return (
+                <a
+                  class={cn(
+                    badgeVariants({ variant: "secondary" }),
+                    "no-underline",
+                  )}
+                  href={`/blog?tag=${slugify(tag)}`}
+                  data-astro-prefetch
+                >
+                  {tag}
+                </a>
+              );
+            })}
+          </div>
+        ) : null
+      }
+    </header>
+
+    {
+      cover && (
+        <div class="relative mx-auto aspect-video w-full max-w-[1200px] overflow-hidden rounded-2xl sm:border sm:p-2">
+          <Image
+            src={cover}
+            loading="eager"
+            alt="Blurry background of Post Thumbnail"
+            class="absolute aspect-video size-full object-cover blur-3xl"
+          />
+          <Image
+            src={cover}
+            loading="eager"
+            alt="Post Thumbnail"
+            class="relative aspect-video size-full rounded-xl object-cover sm:border"
+          />
+        </div>
+      )
+    }
+
+    <div
+      class="relative grid grid-cols-1 items-start justify-end gap-8
+        md:grid-cols-[1fr_auto_1fr]"
+    >
+      <section
+        class="prose prose-neutral md:col-start-2 dark:prose-invert
+          prose-a:decoration-sky-500 prose-a:underline-offset-4"
+      >
+        {
+          modificationDate ? (
+            <time
+              class={cn(
+                badgeVariants({ variant: "secondary" }),
+                "bg-sky-500/20 text-sky-400",
+              )}
+              datetime={modificationDate.toISOString()}
+            >
+              Last updated: {formattedModificationDate}
+            </time>
+          ) : null
+        }
+        <slot />
+      </section>
+      {
+        headings.length > 0 && (
+          <TableOfContents
+            class={`rounded-xl border bg-neutral-900 bg-linear-to-b shadow-xl offset-border max-xl:order-first md:col-start-2 xl:sticky xl:top-16 xl:col-start-3 xl:max-h-[calc(100dvh_-_--spacing(24))] xl:max-w-xs xl:overflow-y-auto`}
+            headings={headings}
+          />
+        )
+      }
+    </div>
+
+    {
+      showComments ? (
+        <div id="comments" class="flex justify-center *:max-w-6xl">
+          <script
+            is:inline
+            src="https://giscus.app/client.js"
+            data-repo="nikolailehbrink/portfolio"
+            data-repo-id="R_kgDOLDU6NA"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOLDU6NM4CrKfK"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="noborder_gray"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async
+          />
+        </div>
+      ) : null
+    }
+  </article>
+</RootLayout>

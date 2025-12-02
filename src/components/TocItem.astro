@@ -1,0 +1,20 @@
+---
+import type { TocEntry } from "@/lib/posts";
+
+type Props = TocEntry;
+
+const { text, slug, children } = Astro.props;
+---
+
+<li>
+  <a href={`#${slug}`}>{text}</a>
+  {
+    children && children.length > 0 && (
+      <ol>
+        {children.map((entry) => (
+          <Astro.self {...entry} />
+        ))}
+      </ol>
+    )
+  }
+</li>

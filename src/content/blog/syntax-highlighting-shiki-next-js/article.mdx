@@ -1,0 +1,578 @@
+---
+title: "Modern Syntax Highlighting with Shiki in Next.js 14"
+description: "Learn how to implement Shiki for modern and performant syntax highlighting in your React and Next.js projects with this comprehensive step-by-step guide."
+publicationDate: "2024-02-04"
+modificationDate: "2025-06-07"
+tags: ["Next.js", "Shiki", "Syntax highlighting", "Tailwind CSS"]
+cover: "./shiki-syntax-highlighting.webp"
+---
+
+import Alert from "@/components/Alert.astro";
+import ProfileBadge from "@/components/ProfileBadge.astro";
+import NewsletterForm from "@/components/react/NewsletterForm";
+
+For integrating code blocks on this website I was looking for a modern approach to syntax highlighting and came across
+[Shiki](https://shiki.style/), a pretty new syntax highlighter created by <ProfileBadge handle="octref" platform="GitHub">Pine Wu</ProfileBadge> and maintained and rewritten by <ProfileBadge handle="antfu" platform="GitHub">Anthony Fu</ProfileBadge>. It is used by big companies like [Vercel](https://vercel.com/) for their [Next.js](https://nextjs.org/docs) docs or [Astro](https://astro.build/) for their [syntax highlighting](https://docs.astro.build/en/guides/syntax-highlighting/). As I couldn't find a guide myself for the app router of Next.js 13 and above, I thought I'll write one by myself.
+
+<Alert type="warning">
+  I released a redesign of my website and the code block that you see may differ
+  from the one created in this tutorial.
+</Alert>
+
+## What we build
+
+Let's have a look at what we are going to build today. A code block with syntax highlighting that enables us to also highlight certain lines and even show code diffs. The following code block is an example.
+
+```tsx showLineNumbers remove={23} add={24} highlight={14}
+"use client";
+
+import { useRouter } from "next/navigation";
+import ArrowCircleLeft from "@/assets/icons/unicons/arrow-circle-left.svg";
+import { cn } from "@/lib/utils";
+
+export default function GoBackButton({
+  className,
+  text = "Go back",
+}: {
+  className?: string;
+  text?: string;
+}) {
+  const router = useRouter();
+  return (
+    <button
+      onClick={() => router.back()}
+      className={cn(
+        "group/back inline-flex justify-start gap-2 justify-self-start",
+        className,
+      )}
+    >
+      <ArrowCircleRight className="size-6" />
+      <ArrowCircleLeft className="size-6" />
+      <span className="group-hover/back:underline group-hover/back:underline-offset-4">
+        {text}
+      </span>
+    </button>
+  );
+}
+```
+
+## The final code
+
+If you are just interested in the final outcome, you can find the code for this blog post in my repository <ProfileBadge platform="GitHub" handle="nikolailehbrink/shiki-next">nikolailehbrink/shiki-next</ProfileBadge>.
+
+<Alert type="tip">
+  I also added the "Copy to Clipboard" functionality in this repository, which I
+  am not going to talk about in this blog post because I felt it was out of
+  scope.
+</Alert>
+
+## Why Shiki?
+
+Choosing Shiki for syntax highlighting in React and especially Next.js apps can be a smart move for many reasons. First, the syntax highlighter is based on TextMate grammars, the same system used by Visual Studio Code, ensuring accurate and visually appealing code highlighting. More importantly for the performance of our website, Shiki renders highlighted code ahead of time. This means no extra JavaScript is shipped to the client for syntax highlighting, aligning with Next.js's push for [server components](https://nextjs.org/docs/app/building-your-application/rendering/server-components) and minimal client-side JavaScript.
+
+<Alert type="question" title="What is the benefit of using Shiki?">
+  Faster load times, improved SEO, and a seamless developer experience without
+  sacrificing the quality of our code's presentation.
+</Alert>
+
+## Project setup
+
+The easiest way to get started with Next.js is by using [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). This CLI tool enables you to quickly start building a new Next.js application, with everything set up for you.
+
+```sh
+npx create-next-app@latest
+```
+
+### Install Shiki
+
+In your projects folder, open the terminal and add Shiki as a [dev dependency](https://github.com/npm/npm/blob/2e3776bf5676bc24fec6239a3420f377fe98acde/doc/files/package.json.md#devdependencies) with the following command:
+
+```sh
+npm install -D shiki
+```
+
+## Create the code component
+
+<NewsletterForm />
+
+Now that we have installed everything we can integrate Shiki. So let's create a new folder called `components` in which we create a new file called `Code.tsx` which will be our code server component. Let's add a basic structure for this component.
+
+```tsx filename="app/components/Code.tsx" showLineNumbers
+export default function Code() {
+  return <div>Code</div>;
+}
+```
+
+### Integrate Shiki
+
+In order to make the syntax highlighting work, we have to use the `codeToHtml(){:tsx}` function that Shiki provides. Because of the asynchronous nature of this function we have to refactor the code to make the component an `async function{:js}`. Then call the `codeToHtml(){:tsx}` function with the code that should be formatted, the `lang` and the `theme` as an argument. Lastly we set the inner HTML of the `<div>{:html}` to the rendered HTML from Shiki with `<div dangerouslySetInnerHTML>{:html}`:
+
+```tsx filename="app/components/Code.tsx" showLineNumbers
+import { codeToHtml } from "shiki";
+
+export default async function Code() {
+  const html = await codeToHtml("const a = 1 + 3", {
+    lang: "javascript",
+    theme: "nord",
+  });
+
+  return <div dangerouslySetInnerHTML={{ __html: html }}></div>;
+}
+```
+
+### Display component
+
+Now open your root page, delete all of it's initial content and add the code component to the page.
+
+```tsx filename="app/page.tsx" showLineNumbers
+import Code from "@/components/Code";
+
+export default function Home() {
+  return (
+    <>
+      <Code />
+    </>
+  );
+}
+```
+
+When running the development server (typically on `localhost:3000`), we see a code block with syntax highlighting applied, which is rendered on the server.
+
+**Pretty cool and easy right?**
+
+### Make component reusable
+
+But we don't stop there, because right now everything is hard-coded and that's not the purpose of this tutorial. So let's extend our component to take the `code`, the language (`lang`) and the `theme` as `props`.
+
+```tsx filename="app/components/Code.tsx" showLineNumbers
+import { codeToHtml } from "shiki";
+import type { BundledLanguage, BundledTheme } from "shiki"; // Import the types from Shiki
+
+type Props = {
+  code: string;
+  lang?: BundledLanguage;
+  theme?: BundledTheme;
+};
+
+export default async function Code({
+  code,
+  lang = "javascript",
+  theme = "nord",
+}: Props) {
+  const html = await codeToHtml(code, {
+    lang,
+    theme,
+  });
+
+  return <div dangerouslySetInnerHTML={{ __html: html }}></div>;
+}
+```
+
+Then inside our main page we can call the `<Code />{:tsx}` component and pass down the to code that should be highlighted as a prop. Also note that thanks to TypeScript we now have autosuggestions by the editor for the `lang` and `theme` props.
+
+```tsx filename="app/page.tsx" showLineNumbers
+import Code from "@/components/Code";
+
+export default function Home() {
+  return (
+    <>
+      <Code code="let a = 1 + 4" />
+      <Code code="console.log('Hello, world!')" lang="typescript" />
+      <Code
+        code={`fn main() { println!("Hello, world!"); }`}
+        lang="rust"
+        theme="github-dark"
+      />
+    </>
+  );
+}
+```
+
+When opening the page you should see three blocks with different syntax highlighting applied.
+
+## Enhancing the component
+
+The basic functionality is done, now let's add some enhancements to our code block.
+
+### Highlighting Specific Lines
+
+One thing that I definitely didn't want to miss out on, was an implementation of line highlighting. Shiki has a few [transformers](https://shiki.style/packages/transformers) that let us easily set this up.
+
+First, install the common transformers package for Shiki:
+
+```sh
+npm i -D @shikijs/transformers
+```
+
+Then import the `transformerNotationHighlight(){:ts}` function:
+
+```tsx add={2,18} filename="app/components/Code.tsx" showLineNumbers
+import { codeToHtml } from "shiki";
+import { transformerNotationHighlight } from "@shikijs/transformers";
+import type { BundledLanguage, BundledTheme } from "shiki";
+
+type Props = {
+  code: string;
+  lang?: BundledLanguage;
+  theme?: BundledTheme;
+};
+export default async function Code({
+  code,
+  lang = "javascript",
+  theme = "nord",
+}: Props) {
+  const html = await codeToHtml(code, {
+    lang,
+    theme,
+    transformers: [transformerNotationHighlight()],
+  });
+
+  return <div dangerouslySetInnerHTML={{ __html: html }}></div>;
+}
+```
+
+Add a comment like `// [!code highlight]{:ts}` in the `code` prop to add a `highlighted` class to the rendered HTML.
+
+```tsx highlight={9} filename="app/page.tsx" showLineNumbers
+import Code from "@/components/Code";
+
+export default function Home() {
+  return (
+    <>
+      <Code code="let a = 1 + 4" />
+      <Code code="console.log('Hello, world!')" lang="typescript" />
+      <Code
+        code={`fn main() { println!("Hello, world!"); } // [!code highlight]`}
+        lang="rust"
+        theme="github-dark"
+      />
+    </>
+  );
+}
+```
+
+If you inspect your code now in the [Developer Tools](https://developer.chrome.com/docs/devtools) you can see that the `highlighted` class was added to that specific `<span>{:html}` element:
+
+```html highlight={1,3} /has-highlighted/ /highlighted/
+<pre class="shiki github-dark has-highlighted" style="..." tabindex="0">
+  <code>
+    <span class="line highlighted">...</span>
+  </code>
+</pre>
+```
+
+Now we can target the class with CSS and style it to our liking. I will demonstrate it in a simple way with TailwindCSS and it's [arbitrary values](https://tailwindcss.com/docs/adding-custom-styles#using-arbitrary-values).
+
+```tsx add={4} filename="app/components/Code.tsx" showLineNumbers=20
+// ...
+return (
+  <div
+    className="[&_.highlighted]:bg-blue-700"
+    dangerouslySetInnerHTML={{ __html: html }}
+  ></div>
+);
+```
+
+Now your code block should indicate the highlighted line with a blue background.
+
+### Showing Code Changes
+
+To add classes for added and removed lines, we follow the same steps as above, but with a different transformer called `transformerNotationDiff(){:ts}`. First import the `transformer`.
+
+```tsx add={4,20} remove={19} filename="app/components/Code.tsx" showLineNumbers
+import { codeToHtml } from "shiki";
+import {
+  transformerNotationHighlight,
+  transformerNotationDiff,
+} from "@shikijs/transformers";
+import type { BundledLanguage, BundledTheme } from "shiki";
+
+type Props = {
+  code: string;
+  lang?: BundledLanguage;
+  theme?: BundledTheme;
+};
+export default async function Code({
+  code,
+  lang = "javascript",
+  theme = "nord",
+}: Props) {
+  // ...
+  transformers: [transformerNotationHighlight()],
+  transformers: [transformerNotationHighlight(), transformerNotationDiff()],
+  // ...
+}
+```
+
+Then add the `// [!code ++]{:ts}` comment for added lines and a respective `// [!code --]{:ts}` comment for removed lines to your `code` prop.
+
+```tsx /[!code --]/ /[!code ++]/ showLineNumbers
+import Code from "@/components/Code";
+
+export default function Home() {
+  return (
+    <>
+      <Code code="let a = 1 + 4 // [!code --]" />
+      <Code
+        code="console.log('Hello, world!') // [!code ++]"
+        lang="typescript"
+      />
+    </>
+  );
+}
+```
+
+This again adds the `diff remove` and `diff add` classes on the rendered HTML that we can use for styling the component later.
+
+```html {1,3-4} /has-diff/ /diff remove/ /diff add/
+<pre class="shiki nord has-diff" style="..." tabindex="0">
+    <code>
+        <span class="line diff remove">...</span>
+        <span class="line diff add">...</span>
+    </code>
+</pre>
+```
+
+### Including Filenames
+
+Besides the highlighting I wanted to add filenames to my code components. That way the reader always knows to which file the given code belongs to.
+
+So let's add a `filename` prop to our component and some initial styling to see the effect.
+
+```tsx add={4,9,13-20,25} showLineNumbers filename="app/components/Code.tsx"
+// ...
+type Props = {
+  // ...
+  filename?: string;
+};
+
+export default async function Code({
+  // ...
+  filename,
+}: Props) {
+  // ...
+  return (
+    <div>
+      <div className="bg-neutral-800">
+        {filename && (
+          <div className="inline-flex bg-neutral-900 px-4 py-2 text-sm">
+            {filename}
+          </div>
+        )}
+      </div>
+      <div
+        className="[&_.highlighted]:bg-blue-700"
+        dangerouslySetInnerHTML={{ __html: html }}
+      ></div>
+    </div>
+  );
+}
+```
+
+In our `page.tsx` let's add filenames by passing a name to the `filename` prop.
+
+```tsx add={7,10,14} remove={6} showLineNumbers filename="app/page.tsx" showLineNumbers
+import Code from "@/components/Code";
+
+export default function Home() {
+  return (
+    <>
+      <Code code="let a = 1 + 4" />
+      <Code code="let a = 1 + 4" filename="index.js" />
+      <Code
+        // ...
+        filename="index.ts"
+      />
+      <Code
+        // ...
+        filename="main.rs"
+      />
+    </>
+  );
+}
+```
+
+Now we should see the filenames on top of the code block.
+
+## Customizing appearance
+
+We have all the functionality implemented, so we can move over to the fun part and style our code block.
+
+### Integrate Line Numbers
+
+One common thing to integrate in a code block are line numbers, making the component visually more appealing while also giving the reader a reference for specific lines in the code.
+
+<Alert type="info">
+
+In [Issue #3 from Shiki](https://github.com/shikijs/shiki/issues/3) this was discussed and a user called <ProfileBadge platform='GitHub' handle='alexpeattie'>Alex Peattie</ProfileBadge> presented a pretty awesome [CSS solution to line numbers in Shiki](https://github.com/shikijs/shiki/issues/3#issuecomment-830564854).
+
+</Alert>
+
+I refactored the code from the solution to TailwindCSS utility classes in `app/globals.css`.
+
+```postcss filename="app/globals.css"
+.shiki { // class assigned by Shiki
+  counter-reset: step;
+  counter-increment: step 0;
+  .line {
+    &::before {
+      counter-increment: step;
+      @apply mr-6 inline-block w-4 border-transparent text-right text-neutral-600 content-[counter(step)];
+    }
+  }
+}
+```
+
+To make the nested css work, we have to add the `tailwindcss/nesting` in our `postcss.config.js`.
+
+<Alert type="tip">
+  You don't have to install the plugin as it already comes packed with
+  TailwindCSS which was preinstalled via `create-next-app`.
+</Alert>
+
+```js filename="postcss.config.js" showLineNumbers
+module.exports = {
+  plugins: {
+    "tailwindcss/nesting": {},
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+```
+
+Now the code block should have line numbers.
+
+### Styling Highlights and Diffs
+
+In order to enhance the design of the individual highlighted lines, I added the following styles:
+
+```postcss filename="app/globals.css" showLineNumbers add={5,10-36}
+.shiki {
+  counter-reset: step;
+  counter-increment: step 0;
+  .line {
+    @apply border-l-4 border-transparent;
+    &::before {
+      counter-increment: step;
+      @apply mr-6 inline-block w-4 border-transparent text-right text-neutral-600 content-[counter(step)];
+    }
+    &.highlighted,
+    &.diff {
+      @apply -mr-5 -ml-4 inline-block w-[calc(100%+(theme(spacing.5)+theme(spacing.4)))] pr-5 pl-4;
+    }
+    &.highlighted {
+      @apply border-neutral-500 bg-neutral-800;
+    }
+    &.diff {
+      &.add,
+      &.remove {
+        span:first-child::before {
+          @apply -ml-4 inline-flex w-4;
+        }
+      }
+      &.add {
+        @apply border-blue-500 bg-blue-500/25 before:text-blue-500;
+        span:first-child::before {
+          @apply text-blue-500 content-["+"];
+        }
+      }
+      &.remove {
+        @apply border-orange-500 bg-orange-500/30 opacity-70 *:!text-neutral-400 before:text-orange-500;
+        span:first-child::before {
+          @apply text-orange-500 content-["-"];
+        }
+      }
+    }
+  }
+}
+```
+
+### Final Touch
+
+Lastly, I added some styles to make the whole component more visually appealing and added a background gradient.
+
+```tsx filename="app/components/Code.tsx" showLineNumbers
+// ...
+
+export default async function Code(
+  {
+    // ...
+  }: Props,
+) {
+  // ...
+
+  return (
+    <div className="max-w-xl rounded-lg bg-gradient-to-r from-sky-200 to-sky-400 p-4 !pr-0 md:p-8 lg:p-12 [&>pre]:rounded-none">
+      <div className="overflow-hidden rounded-s-lg">
+        <div className="flex items-center justify-between bg-gradient-to-r from-neutral-900 to-neutral-800 py-2 pr-4 pl-2 text-sm">
+          <span className="-mb-[calc(0.5rem+2px)] rounded-t-lg border-2 border-white/5 border-b-neutral-700 bg-neutral-800 px-4 py-2">
+            {filename}
+          </span>
+        </div>
+        <div
+          className="border-t-2 border-neutral-700 text-sm [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&>pre]:overflow-x-auto [&>pre]:!bg-neutral-900 [&>pre]:py-3 [&>pre]:pr-5 [&>pre]:pl-4 [&>pre]:leading-snug"
+          dangerouslySetInnerHTML={{ __html: html }}
+        ></div>
+      </div>
+    </div>
+  );
+}
+```
+
+Let's switch once again to our main page, remove all three code blocks and add a new one with more than one line of code. Add some comments like `// [!code highlight]{:ts}`, `// [!code ++]{:ts}` or `// [!code --]{:ts}` on different lines to see the styles applied.
+
+```tsx filename="app/page.tsx" remove={6-17} add={18-38} showLineNumbers
+import Code from "@/components/Code";
+
+export default function Home() {
+  return (
+    <>
+      <Code code="let a = 1 + 4" filename="index.js" />
+      <Code
+        code="console.log('Hello, world!')"
+        lang="typescript"
+        filename="index.ts"
+      />
+      <Code
+        code={`fn main() { println!("Hello, world!"); }`}
+        lang="rust"
+        theme="github-dark"
+        filename="main.rs"
+      />
+      <Code
+        code={`return (// [!code ++]
+          <div className="rounded-lg bg-gradient-to-r from-sky-300 to-sky-500 p-4 !pr-0 md:p-8 lg:p-12 [&>pre]:rounded-none max-w-xl">// [!code --]
+            <div className="overflow-hidden rounded-s-lg">// [!code highlight]
+              <div className="flex items-center justify-between bg-gradient-to-r from-neutral-900 to-neutral-800 py-2 pl-2 pr-4 text-sm">
+                <span className="-mb-[calc(0.5rem+2px)] rounded-t-lg border-2 border-white/5 border-b-neutral-700 bg-neutral-800 px-4 py-2 ">
+                  {filename}
+                </span>
+              </div>
+              <div
+                className="border-t-2 border-neutral-700 text-sm [&>pre]:overflow-x-auto [&>pre]:!bg-neutral-900 [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full"
+                dangerouslySetInnerHTML={{ __html: html }}
+              ></div>
+            </div>
+          </div>
+        );
+            `}
+        lang="tsx"
+        theme="ayu-dark"
+        filename="app/page.tsx"
+      />
+      ;
+    </>
+  );
+}
+```
+
+You should now see the final code block.
+
+## Bonus: Copy to clipboard functionality
+
+I also incorporated a "Copy to Clipboard" button into the code components on this site. If you're interested in how to implement this feature, you can check out the complete code on <ProfileBadge platform="GitHub" handle="nikolailehbrink/shiki-next">nikolailehbrink/shiki-next</ProfileBadge>.
+
+<Alert type="tip">
+  The commits in the repository chronologically represent the steps outlined in
+  this tutorial.
+</Alert>

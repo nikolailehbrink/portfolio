@@ -1,0 +1,79 @@
+---
+import "@fontsource-variable/inter";
+import interLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import BaseHead from "@/components/BaseHead.astro";
+import { SITE_DESCRIPTION, SITE_TITLE, THEME_COLOR } from "@/consts";
+import Analytics from "@vercel/analytics/astro";
+import "../styles/global.css";
+import Navbar from "@/components/Navbar.astro";
+import Footer from "@/components/Footer.astro";
+
+const { pathname } = Astro.url;
+const isChatPage = pathname.startsWith("/chat");
+const isHomePage = pathname === "/";
+
+const canonicalURL = new URL(pathname, Astro.site);
+---
+
+<html
+  lang="en"
+  class="dark scroll-pt-20 scroll-smooth bg-white text-pretty scheme-light
+    dark:bg-neutral-950 dark:text-neutral-400 dark:scheme-dark"
+>
+  <head>
+    <!-- Global Metadata -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content={THEME_COLOR} />
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={SITE_TITLE}
+      href={new URL("rss.xml", Astro.site)}
+    />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Font preloads -->
+    <link
+      rel="preload"
+      href={interLatin}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <slot name="head">
+      <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    </slot>
+
+    <!-- Vercel Analytics -->
+    <!-- Has to come last, because otherwise it would trigger the next tags coming in the body..?! The fuck: https://stackoverflow.com/questions/21643740/head-tags-are-appearing-inside-body  -->
+    <Analytics />
+  </head>
+  <body class="font-sans">
+    <div
+      class:list={[
+        "flex flex-col bg-background text-foreground",
+        !isChatPage ? "min-h-dvh" : "h-dvh",
+        isChatPage || isHomePage ? "pattern-neutral-400/5" : undefined,
+      ]}
+    >
+      <Navbar />
+      <main
+        class:list={[
+          "container flex grow justify-center",
+          isChatPage ? "overflow-hidden max-sm:pr-0" : "py-8 sm:py-12",
+        ]}
+      >
+        <slot />
+      </main>
+      <Footer class:list={isChatPage ? "max-sm:hidden" : undefined} />
+    </div>
+  </body>
+</html>
