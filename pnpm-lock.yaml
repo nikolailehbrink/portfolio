@@ -9,131 +9,131 @@ importers:
   .:
     dependencies:
       '@ai-sdk/openai':
-        specifier: ^2.0.24
+        specifier: 2.0.24
         version: 2.0.24(zod@4.1.11)
       '@ai-sdk/react':
-        specifier: ^2.0.34
+        specifier: 2.0.34
         version: 2.0.34(react@19.1.1)(zod@4.1.11)
       '@astrojs/check':
-        specifier: ^0.9.5
+        specifier: 0.9.5
         version: 0.9.5(prettier-plugin-astro@0.14.1)(prettier@3.6.2)(typescript@5.9.3)
       '@astrojs/db':
-        specifier: ^0.18.0
+        specifier: 0.18.0
         version: 0.18.0(@opentelemetry/api@1.9.0)
       '@astrojs/markdown-remark':
-        specifier: ^6.3.8
+        specifier: 6.3.8
         version: 6.3.8
       '@astrojs/mdx':
-        specifier: ^4.3.6
+        specifier: 4.3.6
         version: 4.3.6(astro@5.14.1(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))
       '@astrojs/node':
-        specifier: ^9.4.4
+        specifier: 9.4.4
         version: 9.4.4(astro@5.14.1(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))
       '@astrojs/react':
-        specifier: ^4.4.0
+        specifier: 4.4.0
         version: 4.4.0(@types/node@24.9.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(jiti@2.6.1)(lightningcss@1.30.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(terser@5.44.0)(yaml@2.8.1)
       '@astrojs/rss':
-        specifier: ^4.0.12
+        specifier: 4.0.12
         version: 4.0.12
       '@astrojs/sitemap':
-        specifier: ^3.6.0
+        specifier: 3.6.0
         version: 3.6.0
       '@astrojs/vercel':
-        specifier: ^8.2.8
+        specifier: 8.2.8
         version: 8.2.8(astro@5.14.1(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(rollup@4.50.0)
       '@conform-to/react':
-        specifier: ^1.11.0
+        specifier: 1.11.0
         version: 1.11.0(react@19.1.1)
       '@conform-to/zod':
-        specifier: ^1.11.0
+        specifier: 1.11.0
         version: 1.11.0(zod@4.1.11)
       '@fontsource-variable/inter':
-        specifier: ^5.2.6
+        specifier: 5.2.6
         version: 5.2.6
       '@llamaindex/vercel':
-        specifier: ^0.1.22
+        specifier: 0.1.22
         version: 0.1.22(@llamaindex/core@0.6.22)(ai@5.0.76(zod@4.1.11))
       '@mux/mux-player-astro':
-        specifier: ^3.9.0
+        specifier: 3.9.0
         version: 3.9.0(astro@5.14.1(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(react@19.1.1)
       '@phosphor-icons/react':
-        specifier: ^2.1.10
+        specifier: 2.1.10
         version: 2.1.10(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-label':
-        specifier: ^2.1.7
+        specifier: 2.1.7
         version: 2.1.7(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-slot':
-        specifier: ^1.2.3
+        specifier: 1.2.3
         version: 1.2.3(@types/react@19.1.12)(react@19.1.1)
       '@react-email/components':
         specifier: 0.5.5
         version: 0.5.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@tailwindcss/typography':
-        specifier: ^0.5.19
+        specifier: 0.5.19
         version: 0.5.19(tailwindcss@4.1.13)
       '@tailwindcss/vite':
-        specifier: ^4.1.13
+        specifier: 4.1.13
         version: 4.1.13(vite@6.3.6(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))
       '@types/react':
-        specifier: ^19.1.12
+        specifier: 19.1.12
         version: 19.1.12
       '@types/react-dom':
-        specifier: ^19.1.9
+        specifier: 19.1.9
         version: 19.1.9(@types/react@19.1.12)
       '@vercel/analytics':
-        specifier: ^1.5.0
+        specifier: 1.5.0
         version: 1.5.0(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
       '@vercel/og':
-        specifier: ^0.8.5
+        specifier: 0.8.5
         version: 0.8.5
       ai:
-        specifier: ^5.0.76
+        specifier: 5.0.76
         version: 5.0.76(zod@4.1.11)
       astro:
-        specifier: ^5.14.1
+        specifier: 5.14.1
         version: 5.14.1(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1)
       class-variance-authority:
-        specifier: ^0.7.1
+        specifier: 0.7.1
         version: 0.7.1
       clsx:
-        specifier: ^2.1.1
+        specifier: 2.1.1
         version: 2.1.1
       llama-cloud-services:
-        specifier: ^0.3.9
+        specifier: 0.3.9
         version: 0.3.9(@llamaindex/core@0.6.22)(@llamaindex/env@0.1.30)(@llamaindex/workflow-core@1.3.3(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(p-retry@6.2.1)(zod@4.1.11))
       react:
-        specifier: ^19.1.1
+        specifier: 19.1.1
         version: 19.1.1
       react-dom:
-        specifier: ^19.1.1
+        specifier: 19.1.1
         version: 19.1.1(react@19.1.1)
       react-medium-image-zoom:
         specifier: 5.4.0
         version: 5.4.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       rehype-autolink-headings:
-        specifier: ^7.1.0
+        specifier: 7.1.0
         version: 7.1.0
       resend:
-        specifier: ^6.1.2
+        specifier: 6.1.2
         version: 6.1.2(@react-email/render@1.3.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       sharp:
-        specifier: ^0.34.4
+        specifier: 0.34.4
         version: 0.34.4
       tailwind-merge:
-        specifier: ^3.3.1
+        specifier: 3.3.1
         version: 3.3.1
       tailwindcss:
-        specifier: ^4.1.13
+        specifier: 4.1.13
         version: 4.1.13
       zod:
-        specifier: ^4.1.11
+        specifier: 4.1.11
         version: 4.1.11
     devDependencies:
       '@commitlint/config-conventional':
-        specifier: ^20.0.0
+        specifier: 20.0.0
         version: 20.0.0
       '@commitlint/types':
-        specifier: ^20.0.0
+        specifier: 20.0.0
         version: 20.0.0
       '@eslint/compat':
         specifier: 1.4.0
@@ -145,10 +145,10 @@ importers:
         specifier: 4.2.12
         version: 4.2.12(@opentelemetry/api@1.9.0)(postcss@8.5.6)
       '@types/node':
-        specifier: ^24.9.1
+        specifier: 24.9.1
         version: 24.9.1
       '@typescript-eslint/parser':
-        specifier: ^8.46.2
+        specifier: 8.46.2
         version: 8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3)
       eslint:
         specifier: 9.38.0
@@ -166,55 +166,55 @@ importers:
         specifier: 7.0.1
         version: 7.0.1(eslint@9.38.0(jiti@2.6.1))
       globals:
-        specifier: ^16.4.0
+        specifier: 16.4.0
         version: 16.4.0
       husky:
-        specifier: ^9.1.7
+        specifier: 9.1.7
         version: 9.1.7
       knip:
         specifier: 5.70.0
         version: 5.70.0(@types/node@24.9.1)(typescript@5.9.3)
       lint-staged:
-        specifier: ^16.2.6
+        specifier: 16.2.6
         version: 16.2.6
       prettier:
-        specifier: ^3.6.2
+        specifier: 3.6.2
         version: 3.6.2
       prettier-plugin-astro:
-        specifier: ^0.14.1
+        specifier: 0.14.1
         version: 0.14.1
       prettier-plugin-classnames:
-        specifier: ^0.8.2
+        specifier: 0.8.2
         version: 0.8.2(prettier-plugin-astro@0.14.1)(prettier@3.6.2)
       prettier-plugin-merge:
-        specifier: ^0.8.0
+        specifier: 0.8.0
         version: 0.8.0(prettier@3.6.2)
       prettier-plugin-tailwindcss:
-        specifier: ^0.6.14
+        specifier: 0.6.14
         version: 0.6.14(prettier-plugin-astro@0.14.1)(prettier@3.6.2)
       react-email:
         specifier: 4.2.12
         version: 4.2.12
       schema-dts:
-        specifier: ^1.1.5
+        specifier: 1.1.5
         version: 1.1.5
       shiki:
         specifier: 3.13.0
         version: 3.13.0
       tw-animate-css:
-        specifier: ^1.3.8
+        specifier: 1.3.8
         version: 1.3.8
       typescript:
-        specifier: ^5.9.3
+        specifier: 5.9.3
         version: 5.9.3
       typescript-eslint:
         specifier: 8.46.2
         version: 8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3)
       vite-plugin-arraybuffer:
-        specifier: ^0.1.1
+        specifier: 0.1.1
         version: 0.1.1
       vitest:
-        specifier: ^3.2.4
+        specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)
 
 packages:
@@ -4248,10 +4248,6 @@ packages:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
-  jiti@2.5.1:
-    resolution: {integrity: sha512-twQoecYPiVA5K/h6SxtORw/Bs3ar+mLUtoPSc7iMXzQzK8d7eJ/R09wmTwAjiamETn1cXYPGfNnu7DMoHgu12w==}
-    hasBin: true
-
   jiti@2.6.1:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
@@ -5656,15 +5652,12 @@ packages:
   sitemap@8.0.0:
     resolution: {integrity: sha512-+AbdxhM9kJsHtruUF39bwS/B0Fytw6Fr1o4ZAIAEqA6cke2xcoO2GleBw9Zw7nRzILVEgz7zBM5GiTJjie1G9A==}
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    deprecated: 'SECURITY: Multiple vulnerabilities fixed in 8.0.1 (XML injection, path traversal, command injection, protocol injection). Upgrade immediately: npm install sitemap@8.0.1'
     hasBin: true
 
   slice-ansi@7.1.2:
     resolution: {integrity: sha512-iOBWFgUX7caIZiuutICxVgX1SdxwAVFFKwt1EvMYYec/NWO5meOJ6K5uQxhrYBdQJne4KxiqZc+KptFOWFSI9w==}
     engines: {node: '>=18'}
-
-  smol-toml@1.4.2:
-    resolution: {integrity: sha512-rInDH6lCNiEyn3+hH8KVGFdbjc099j47+OSgbMrfDYX1CmXLfdKd7qi6IfcWj2wFxvSVkuI46M+wPGYfEOEj6g==}
-    engines: {node: '>= 18'}
 
   smol-toml@1.5.2:
     resolution: {integrity: sha512-QlaZEqcAH3/RtNyet1IPIYPsEWAaYyXXv1Krsi+1L/QHppjX4Ifm8MQsBISz9vE8cHicIq3clogsheili5vhaQ==}
@@ -5937,10 +5930,6 @@ packages:
 
   tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
-
-  tinyglobby@0.2.14:
-    resolution: {integrity: sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ==}
-    engines: {node: '>=12.0.0'}
 
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
@@ -6771,7 +6760,7 @@ snapshots:
       hast-util-from-html: 2.0.3
       hast-util-to-text: 4.0.2
       import-meta-resolve: 4.2.0
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       mdast-util-definitions: 6.0.0
       rehype-raw: 7.0.0
       rehype-stringify: 10.0.1
@@ -6780,7 +6769,7 @@ snapshots:
       remark-rehype: 11.1.2
       remark-smartypants: 3.0.2
       shiki: 3.13.0
-      smol-toml: 1.4.2
+      smol-toml: 1.5.2
       unified: 11.0.5
       unist-util-remove-position: 5.0.0
       unist-util-visit: 5.0.0
@@ -6797,7 +6786,7 @@ snapshots:
       hast-util-from-html: 2.0.3
       hast-util-to-text: 4.0.2
       import-meta-resolve: 4.2.0
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       mdast-util-definitions: 6.0.0
       rehype-raw: 7.0.0
       rehype-stringify: 10.0.1
@@ -6806,7 +6795,7 @@ snapshots:
       remark-rehype: 11.1.2
       remark-smartypants: 3.0.2
       shiki: 3.13.0
-      smol-toml: 1.4.2
+      smol-toml: 1.5.2
       unified: 11.0.5
       unist-util-remove-position: 5.0.0
       unist-util-visit: 5.0.0
@@ -7713,7 +7702,7 @@ snapshots:
   '@mapbox/node-pre-gyp@2.0.0':
     dependencies:
       consola: 3.4.2
-      detect-libc: 2.0.4
+      detect-libc: 2.1.2
       https-proxy-agent: 7.0.6
       node-fetch: 2.7.0
       nopt: 8.1.0
@@ -8613,7 +8602,7 @@ snapshots:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       enhanced-resolve: 5.18.3
-      jiti: 2.5.1
+      jiti: 2.6.1
       lightningcss: 1.30.1
       magic-string: 0.30.18
       source-map-js: 1.2.1
@@ -8657,7 +8646,7 @@ snapshots:
 
   '@tailwindcss/oxide@4.1.13':
     dependencies:
-      detect-libc: 2.0.4
+      detect-libc: 2.1.2
       tar: 7.4.3
     optionalDependencies:
       '@tailwindcss/oxide-android-arm64': 4.1.13
@@ -9372,7 +9361,7 @@ snapshots:
       html-escaper: 3.0.3
       http-cache-semantics: 4.2.0
       import-meta-resolve: 4.2.0
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       kleur: 4.1.5
       magic-string: 0.30.18
       magicast: 0.3.5
@@ -9386,9 +9375,9 @@ snapshots:
       rehype: 13.0.2
       semver: 7.7.2
       shiki: 3.13.0
-      smol-toml: 1.4.2
+      smol-toml: 1.5.2
       tinyexec: 0.3.2
-      tinyglobby: 0.2.14
+      tinyglobby: 0.2.15
       tsconfck: 3.1.6(typescript@5.9.3)
       ultrahtml: 1.6.0
       unifont: 0.5.2
@@ -11017,8 +11006,6 @@ snapshots:
 
   jiti@2.4.2: {}
 
-  jiti@2.5.1: {}
-
   jiti@2.6.1: {}
 
   js-base64@3.7.8: {}
@@ -11151,7 +11138,7 @@ snapshots:
 
   lightningcss@1.30.1:
     dependencies:
-      detect-libc: 2.0.4
+      detect-libc: 2.1.2
     optionalDependencies:
       lightningcss-darwin-arm64: 1.30.1
       lightningcss-darwin-x64: 1.30.1
@@ -12865,8 +12852,6 @@ snapshots:
       ansi-styles: 6.2.1
       is-fullwidth-code-point: 5.1.0
 
-  smol-toml@1.4.2: {}
-
   smol-toml@1.5.2: {}
 
   socket.io-adapter@2.5.5:
@@ -13198,11 +13183,6 @@ snapshots:
 
   tinyexec@0.3.2: {}
 
-  tinyglobby@0.2.14:
-    dependencies:
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
-
   tinyglobby@0.2.15:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
@@ -13504,7 +13484,7 @@ snapshots:
       picomatch: 4.0.3
       postcss: 8.5.6
       rollup: 4.50.0
-      tinyglobby: 0.2.14
+      tinyglobby: 0.2.15
     optionalDependencies:
       '@types/node': 24.9.1
       fsevents: 2.3.3
