@@ -1,0 +1,298 @@
+---
+title: "Sending thousands of Emails with Deno and Postmark"
+description: "Learn how we efficiently send over 37k notification emails with detailed logging and error handling."
+publicationDate: "2025-06-06"
+tags: ["Deno", "Postmark", "Email", "TypeScript"]
+---
+
+import ProfileBadge from "@/components/ProfileBadge.astro";
+import Alert from "@/components/Alert.astro";
+import NewsletterForm from "@/components/react/NewsletterForm";
+
+Recently, we needed to send over 37k emails to our users. This task required a reliable, efficient solution that
+could handle batch processing while maintaining detailed logs for
+troubleshooting. We chose to build our solution using [Deno](https://deno.land/)
+and [Postmark](https://postmarkapp.com/), which proved to be quite an excellent
+combination for this task.
+
+In this article, I'll walk through our implementation, highlighting Deno's unique features and how we leveraged Postmark's batch email capabilities to successfully deliver all those emails in almost no time and with no issues.
+
+## Why Deno?
+
+Deno is a modern runtime for JavaScript and TypeScript created by <ProfileBadge platform="GitHub" handle="ry">Ryan Dahl</ProfileBadge>, the original creator of Node.js. At the end of last year, I watched their [Deno 2 Announcement Video](https://www.youtube.com/watch?v=d35SlRgVxT8) and really wanted to try it out. I saw this as the perfect opportunity.
+
+Here is what makes Deno great:
+
+1. **Native TypeScript support** without configuration
+2. **Enhanced security** with explicit permissions
+3. **Modern JavaScript features** out of the box
+4. **Simplified dependency management** without a `package.json`
+5. **Built-in utilities** for common tasks like file operations
+
+## The Implementation
+
+Here's the script we used to send our emails:
+
+```typescript filename="emails/main.ts" showLineNumbers
+import postmark from "npm:postmark";
+import users from "./users.json" with { type: "json" };
+
+const SERVER_API_TOKEN = Deno.env.get("POSTMARK_SERVER_API_TOKEN");
+
+if (SERVER_API_TOKEN === undefined) {
+  throw new Error("POSTMARK_SERVER_API_TOKEN environment variable is required");
+}
+
+// https://postmarkapp.com/developer/user-guide/send-email-with-api/batch-emails
+const MAX_BATCH_SIZE = 500;
+
+const TEMPLATE_ID = 123456789;
+
+const client = new postmark.ServerClient(SERVER_API_TOKEN);
+
+// I think there is no way to add an attachment to a template in Postmark, so we have to send the attachment with the email
+const pdf = Deno.readFileSync("./data-privacy-note.pdf");
+const pdfBase64 = btoa(String.fromCharCode(...pdf));
+
+let counter = 1;
+while (users.length > 0) {
+  const userBatch = users.splice(0, MAX_BATCH_SIZE);
+  const emails = userBatch.map((user) => ({
+    TemplateModel: {},
+    TemplateId: TEMPLATE_ID,
+    From: "example@test.com",
+    To: user.email,
+    // "broadcast" works as well, but it appears as a mail from a mailing/newsletter
+    // list, together with an "unsubscribe" link that gets automatically injected.
+    // I would choose the "Default Transactional Stream" from your Postmark server here, id = "outbound" if you send out one time emails
+    MessageStream: "outbound",
+    TrackOpens: true,
+    Attachments: [
+      {
+        Name: "data-privacy-note.pdf",
+        Content: pdfBase64,
+        ContentType: "application/pdf",
+        ContentID: "data-privacy-note",
+      },
+    ],
+  }));
+  try {
+    const responses = await client.sendEmailBatchWithTemplates(emails);
+    // Log all responses
+    await Deno.writeTextFile(
+      "logs.txt",
+      responses.map((response) => JSON.stringify(response)).join("\n") + "\n",
+      {
+        append: true,
+      },
+    );
+    for (const response of responses) {
+      // Check if response is unsuccessful, see Response section in https://postmarkapp.com/developer/api/email-api#send-batch-emails
+      if (response.ErrorCode !== 0) {
+        // Log unsuccessful responses to a separate file for easier debugging
+        await Deno.writeTextFile(
+          "unsuccessful.txt",
+          JSON.stringify(response) + "\n",
+          {
+            append: true,
+          },
+        );
+      }
+    }
+  } catch (error) {
+    console.error(`Error sending in batch ${counter}:`, error);
+  }
+  console.info(`Finished batch ${counter++}`);
+}
+```
+
+Now, let's break down the key components and Deno-specific features.
+
+<NewsletterForm />
+
+## Deno Features Showcase
+
+### Native TypeScript Support
+
+One of Deno's standout features is its native TypeScript support. Unlike Node.js, which requires additional setup with tools like <ProfileBadge handle="TypeStrong/ts-node" platform="GitHub">ts-node</ProfileBadge> or <ProfileBadge handle="privatenumber/tsx" platform="GitHub">tsx</ProfileBadge>, Deno runs TypeScript files directly. This allowed us to write our script in TypeScript without any configuration or build steps.
+
+### Environment Variables with `Deno.env.get`
+
+Deno provides a clean API for accessing environment variables:
+
+```typescript showLineNumbers=4
+const SERVER_API_TOKEN = Deno.env.get("POSTMARK_SERVER_API_TOKEN");
+
+if (SERVER_API_TOKEN === undefined) {
+  throw new Error("POSTMARK_SERVER_API_TOKEN environment variable is required");
+}
+```
+
+<Alert type="info">
+  The `get(){:ts}` method returns `undefined{:ts}` if the variable doesn't exist, allowing
+  for clear error handling. We used this to ensure our Postmark API token was
+  properly configured before attempting to send any emails.
+</Alert>
+
+### Native JSON Imports
+
+Deno supports importing JSON files directly with the `with { type: "json" }{:js}` syntax:
+
+```typescript showLineNumbers=2
+import users from "./users.json" with { type: "json" };
+```
+
+This approach eliminates the need for `fs.readFileSync(){:js}` and `JSON.parse(){:js}` calls that would be required in Node.js.
+
+As a result our user data was loaded directly as an object.
+
+### File Operations for Logging
+
+Deno provides straightforward [APIs for file operations](https://docs.deno.com/api/deno/file-system). We used these to implement a robust logging system:
+
+```typescript showLineNumbers=46
+await Deno.writeTextFile(
+  "logs.txt",
+  responses.map((response) => JSON.stringify(response)).join("\n") + "\n",
+  {
+    append: true,
+  },
+);
+```
+
+The `Deno.writeTextFile(){:ts}` function made it easy to append log entries to our log files. We maintained two log files:
+
+- `logs.txt` for all email sending responses
+- `unsuccessful.txt` for failed email attempts
+
+This dual logging approach turned out pretty valuable for monitoring the progress and quickly identifying issues.
+
+### Binary File Handling
+
+Deno also made it simple to read binary files, which we needed for attaching a PDF to our emails:
+
+```typescript showLineNumbers=18
+const pdf = Deno.readFileSync("./data-privacy-note.pdf");
+const pdfBase64 = btoa(String.fromCharCode(...pdf));
+```
+
+The `Deno.readFileSync(){:ts}` function returns a `Uint8Array{:js}`, which we convert to a base64 string using Deno's built-in `btoa(){:ts}` function, as required by the Postmark API.
+
+## Postmark Integration
+
+[Postmark](https://postmarkapp.com/) is a transactional email service known for its reliability and deliverability. We chose it for this project because of its:
+
+1. Batch email sending capabilities
+2. Email templates
+3. Delivery tracking
+4. Robust API
+
+### The Postmark Node.js Library
+
+We imported the <ProfileBadge platform="GitHub" handle={"ActiveCampaign/postmark.js"}>Postmark Node.js Library</ProfileBadge> using Deno's npm compatibility:
+
+```typescript showLineNumbers
+import postmark from "npm:postmark";
+```
+
+<Alert type="tip">
+  The <code>npm:</code> prefix is a Deno feature that allows [importing npm
+  packages](https://docs.deno.com/runtime/fundamentals/node/) directly without a `package.json` file or `npm install{:shell}` step. The package is downloaded and cached on first use.
+</Alert>
+
+### Batch Email Sending
+
+Postmark's API allows sending up to 500 emails in a single batch request, which we leveraged to efficiently process all of our emails:
+
+```typescript
+const MAX_BATCH_SIZE = 500;
+
+// ...
+
+while (users.length > 0) {
+  const userBatch = users.splice(0, MAX_BATCH_SIZE);
+  // ...
+  const responses = await client.sendEmailBatchWithTemplates(emails);
+  // ...
+}
+```
+
+This approach significantly reduced the number of API calls needed and improved the overall efficiency of our script.
+
+### Email Templates
+
+We used Postmark's template feature to maintain consistent email content:
+
+```typescript
+// Get the template ID from the Postmark dashboard
+const TEMPLATE_ID = 123456789;
+
+// ...
+
+const emails = userBatch.map((user) => ({
+  TemplateModel: {},
+  TemplateId: TEMPLATE_ID,
+  // ...
+}));
+```
+
+The template contained our email content, while our script focused on the delivery logic.
+
+## Implementation Details
+
+### Error Handling and Logging
+
+Our script included comprehensive error handling and logging:
+
+```typescript showLineNumbers=43
+try {
+  const responses = await client.sendEmailBatchWithTemplates(emails);
+  // Log all responses
+  await Deno.writeTextFile(
+    "logs.txt",
+    responses.map((response) => JSON.stringify(response)).join("\n") + "\n",
+    {
+      append: true,
+    },
+  );
+  for (const response of responses) {
+    // Check if response is unsuccessful
+    if (response.ErrorCode !== 0) {
+      // Log unsuccessful responses to a separate file
+      await Deno.writeTextFile(
+        "unsuccessful.txt",
+        JSON.stringify(response) + "\n",
+        {
+          append: true,
+        },
+      );
+    }
+  }
+} catch (error) {
+  console.error(`Error sending in batch ${counter}:`, error);
+}
+```
+
+This approach gave us:
+
+- A complete record of all API responses
+- A separate log of failed emails for easier troubleshooting
+- Console output for batch completion tracking
+
+## Results and Lessons Learned
+
+Our email campaign was successful:
+
+- **37k+ emails sent** in total
+- **Only ~200 unsuccessful deliveries** (less than 0.6% failure rate)
+- All failures were due to invalid email addresses or other bounce factors concerning the email adress
+
+The script completed its task without any issues, and the detailed logs gave us confidence that the emails were delivered as expected.
+
+## Conclusion
+
+For large-scale email sending tasks, the combination of Deno and Postmark offers a powerful, developer-friendly solution. Deno's modern features like native TypeScript support, straightforward file operations, and simplified dependency management made our implementation clean and maintainable. Postmark's reliable API and batch sending capabilities ensured efficient delivery.
+
+If you're facing a similar challenge, consider this approach. The script we've shared can be adapted for various email campaigns, and the patterns we've demonstrated—batching, logging, and error handling—are applicable to many high-volume processing tasks.
+
+Have you used Deno for production tasks? Or do you have experience with other email sending solutions? I'd love to hear about your experiences in the comments!

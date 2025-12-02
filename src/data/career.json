@@ -1,0 +1,54 @@
+{
+  "vanever": {
+    "title": "Vanever (prev. Off Campers)",
+    "description": "Full Stack Engineer",
+    "startDate": "2024-06-08",
+    "logo": "@/assets/career/vanever.svg",
+    "website": "https://vanever.com",
+    "type": "work"
+  },
+  "freelance-work": {
+    "title": "Freelance Work",
+    "description": "Web Developer & Designer",
+    "startDate": "2021-10-01",
+    "logo": "@/assets/career/freelance.svg",
+    "website": "https://nikolailehbr.ink",
+    "type": "work"
+  },
+  "moskito": {
+    "title": "moskito",
+    "description": "Web Developer, Full Stack Developer",
+    "startDate": "2022-01-01",
+    "endDate": "2023-08-31",
+    "logo": "@/assets/career/moskito.svg",
+    "website": "https://moskito.de",
+    "type": "work"
+  },
+  "jungundbillig": {
+    "title": "Jung&Billig",
+    "description": "Wordpress Developer, Web Developer, Ecommerce Developer",
+    "startDate": "2020-04-01",
+    "endDate": "2021-05-01",
+    "logo": "@/assets/career/jungundbillig.svg",
+    "website": "https://jungundbillig.de",
+    "type": "work"
+  },
+  "cimdata": {
+    "title": "Specialized Training in React",
+    "description": "Intensive program with practical projects using React, Next.js and TypeScript.",
+    "startDate": "2023-11-01",
+    "endDate": "2024-01-31",
+    "logo": "@/assets/career/cimdata.svg",
+    "website": "https://www.cimdata.de/",
+    "type": "education"
+  },
+  "hsb": {
+    "title": "B.Sc. Media Computer Science",
+    "description": "Application and practice-oriented program with international focus.",
+    "startDate": "2017-10-01",
+    "endDate": "2021-07-31",
+    "logo": "@/assets/career/hsb.svg",
+    "website": "https://www.hs-bremen.de/studieren/studiengang/internationaler-studiengang-medieninformatik-b-sc/",
+    "type": "education"
+  }
+}

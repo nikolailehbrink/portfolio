@@ -1,0 +1,61 @@
+---
+import { formatDate } from "@/lib/format";
+import { cn } from "@/lib/utils";
+import type { CollectionEntry } from "astro:content";
+
+type Props = CollectionEntry<"career">["data"];
+
+const {
+  title,
+  description,
+  startDate,
+  endDate,
+  logo: Logo,
+  website,
+} = Astro.props;
+
+const DATE_TIME_FORMAT_OPTIONS = {
+  year: "numeric",
+  month: "long",
+} satisfies Intl.DateTimeFormatOptions;
+
+const formattedStartDate = formatDate(startDate, DATE_TIME_FORMAT_OPTIONS);
+const formattedEndDate = endDate
+  ? formatDate(endDate, DATE_TIME_FORMAT_OPTIONS)
+  : "Present";
+---
+
+<div
+  class="flex items-start gap-2 overflow-clip rounded-xl border bg-neutral-900
+    p-4 offset-border transition-colors"
+>
+  <a
+    href={website}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Company Logo"
+    class="relative h-fit shrink-0 rounded-full border bg-neutral-800 p-1"
+  >
+    <Logo
+      width="40"
+      height="40"
+      class="absolute inset-0 size-full rounded-full blur-2xl"
+    />
+    <Logo width="40" height="40" class="relative size-10 rounded-full" />
+    <span class="sr-only">Link to {website}</span>
+  </a>
+
+  <div class="flex grow flex-col gap-0.5">
+    <div class="flex flex-wrap-reverse items-center justify-between gap-1">
+      <h3 class="font-bold">{title}</h3>
+      <p
+        class={cn("text-xs text-muted-foreground", !endDate && "text-sky-400")}
+      >
+        {formattedStartDate} - {formattedEndDate}
+      </p>
+    </div>
+    <p class="text-sm text-muted-foreground" title={description}>
+      {description}
+    </p>
+  </div>
+</div>

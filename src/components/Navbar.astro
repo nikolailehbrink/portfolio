@@ -1,0 +1,25 @@
+---
+import { NAVIGATION_LINKS } from "@/data/navigation";
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
+import HeaderLink from "./HeaderLink.astro";
+
+type Props = HTMLAttributes<"nav">;
+const { class: className, ...props } = Astro.props;
+---
+
+<nav
+  class={cn(
+    `sticky top-0 z-50 container flex justify-center bg-linear-to-b
+    from-background to-transparent p-4`,
+    className,
+  )}
+  {...props}
+>
+  <menu
+    class="flex items-center gap-1 rounded-xl border border-muted
+      bg-background/75 p-1 shadow-lg backdrop-blur-xl"
+  >
+    {NAVIGATION_LINKS.map((link) => <HeaderLink {...link} />)}
+  </menu>
+</nav>

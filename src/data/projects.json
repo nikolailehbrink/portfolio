@@ -1,0 +1,29 @@
+{
+  "online-course-certificate": {
+    "title": "Online course certificate",
+    "description": "Course certificate for learntypescript.online",
+    "image": "../assets/projects/course-certificate.webp",
+    "tags": ["Design"]
+  },
+  "react-data-flow": {
+    "title": "React Data Flow",
+    "description": "Interactive flowchart for react-tutorial.app",
+    "image": "../assets/projects/flow-chart.webp",
+    "tags": ["Design"]
+  },
+  "secret-messages": {
+    "title": "secretmessag.es",
+    "description": "Secret message generator",
+    "image": "../assets/projects/secret-messages.webp",
+    "link": "https://secretmessag.es",
+    "github": "https://github.com/nikolailehbrink/secret-messages",
+    "tags": ["Web Application", "Design"]
+  },
+  "moskito-wesbite": {
+    "title": "moskito.de",
+    "description": "Agency website",
+    "image": "../assets/projects/moskito-website.webp",
+    "link": "https://moskito.de",
+    "tags": ["Website", "Design"]
+  }
+}

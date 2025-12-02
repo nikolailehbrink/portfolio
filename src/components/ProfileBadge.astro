@@ -1,0 +1,47 @@
+---
+import { GithubLogoIcon } from "@phosphor-icons/react/dist/ssr/GithubLogo";
+import { LinkedinLogoIcon } from "@phosphor-icons/react/dist/ssr/LinkedinLogo";
+import { XLogoIcon } from "@phosphor-icons/react/dist/ssr/XLogo";
+import { YoutubeLogoIcon } from "@phosphor-icons/react/dist/ssr/YoutubeLogo";
+import type { HTMLAttributes } from "astro/types";
+
+const SOCIAL_MEDIA_PLATFORMS = {
+  GitHub: {
+    profileUrl: "https://github.com",
+    logo: GithubLogoIcon,
+  },
+  X: {
+    profileUrl: "https://x.com",
+    logo: XLogoIcon,
+  },
+  LinkedIn: {
+    profileUrl: "https://linkedin.com/in/",
+    logo: LinkedinLogoIcon,
+  },
+  YouTube: {
+    profileUrl: "https://www.youtube.com/@",
+    logo: YoutubeLogoIcon,
+  },
+} as const;
+
+type Props = HTMLAttributes<"a"> & {
+  platform: keyof typeof SOCIAL_MEDIA_PLATFORMS;
+  handle: string;
+};
+
+const { handle, platform, ...props } = Astro.props;
+const { profileUrl, logo: Logo } = SOCIAL_MEDIA_PLATFORMS[platform];
+---
+
+<a
+  {...props}
+  href={`${profileUrl}/${handle}`}
+  target="_blank"
+  class="inline-flex items-center gap-1 rounded-md border border-neutral-800
+    bg-neutral-900 px-1.5 py-0.5 align-bottom text-sm no-underline
+    hover:border-neutral-700 hover:bg-neutral-800"
+  rel="noreferrer"
+>
+  <Logo size={20} weight="duotone" />
+  <slot />
+</a>

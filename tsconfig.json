@@ -1,37 +1,18 @@
 {
-  "include": [
-    "**/*",
-    "**/.server/**/*",
-    "**/.client/**/*",
-    ".react-router/types/**/*"
-  ],
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": [
-      "vite/client",
-      "vite-plugin-svgr/client",
-      "vite-plugin-arraybuffer/types"
-    ],
-    "target": "ES2022",
-    "module": "ES2022",
-    "moduleResolution": "bundler",
+    "types": ["vite-plugin-arraybuffer/types"],
+    "strictNullChecks": true,
     "jsx": "react-jsx",
-    "rootDirs": [".", "./.react-router/types"],
+    "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/*"]
-    },
-    "esModuleInterop": true,
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    // https://github.com/aleclarson/vite-tsconfig-paths?tab=readme-ov-file#%EF%B8%8F-non-typescript-modules-need-special-configuration
-    "allowJs": true
+      "@/*": ["./src/*"]
+    }
   },
   "mdx": {
-    // Enable strict type checking in MDX files.
     "checkMdx": true
   }
 }

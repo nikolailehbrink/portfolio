@@ -1,0 +1,141 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import RootLayout from "@/layouts/RootLayout.astro";
+import { getBlogTags, getPosts } from "@/lib/posts";
+import NewsletterForm from "@/components/react/NewsletterForm";
+import PostTeaser from "@/components/PostTeaser.astro";
+import { track } from "@vercel/analytics/server";
+import { badgeVariants } from "@/components/react/ui/badge";
+import { cn } from "@/lib/utils";
+import Schema from "@/components/Schema.astro";
+import { getEntries } from "astro:content";
+import type { BlogPosting } from "schema-dts";
+
+export const prerender = false;
+
+const title = "Blog | Nikolai Lehbrink";
+const description =
+  "A collection of my thoughts, ideas and experiences. I write about various topics, including web development, technology and personal topics.";
+
+const { searchParams, href } = Astro.url;
+const tag = searchParams.get("tag");
+
+const tags = await getBlogTags();
+const filteredTag = tags.find(({ slug }) => slug === tag);
+
+const posts = await getPosts({ tag: filteredTag?.name });
+
+const schemaPosts = await Promise.all(
+  posts.map(async ({ data, id: slug }) => {
+    const authors = await getEntries(data.authors);
+
+    return {
+      "@type": "BlogPosting",
+      mainEntityOfPage: `${href}/${slug}`,
+      headline: data.title,
+      description: data.description,
+      datePublished: data.publicationDate.toISOString(),
+      dateModified: data.modificationDate?.toISOString(),
+      author: {
+        "@type": "Person",
+        name: authors[0].data.name,
+      },
+      url: `${href}/${slug}`,
+      keywords: data.tags?.join(", "),
+    } satisfies BlogPosting;
+  }),
+);
+
+if (filteredTag) {
+  await track("blog-tag-filtered", { tag: filteredTag.name });
+}
+const hasFilteredTag = filteredTag !== undefined;
+---
+
+<RootLayout>
+  <BaseHead title="Blog" description={description} slot="head">
+    <Schema
+      item={{
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        name: title,
+        description,
+        publisher: {
+          "@type": "Person",
+          name: "Nikolai Lehbrink",
+        },
+        blogPost: schemaPosts,
+      }}
+    />
+  </BaseHead>
+  <div class="flex flex-col gap-4 sm:items-center">
+    <h1 class="text-3xl font-bold sm:text-center sm:text-4xl">Blog</h1>
+    <p class="max-w-prose text-muted-foreground sm:text-center">
+      {description}
+    </p>
+    <NewsletterForm client:load showText={false} className="max-w-2xl" />
+    <div
+      class="relative mt-4 grid max-w-xl overflow-hidden rounded-lg border
+        border-border bg-neutral-900 offset-border"
+    >
+      <div
+        class="absolute inset-y-0 right-0 w-2 rounded-e-lg bg-linear-to-r
+          from-transparent to-neutral-900"
+      >
+      </div>
+      <form class="flex snap-x snap-mandatory gap-2 overflow-x-auto p-2">
+        <a
+          href="/blog"
+          class={cn(
+            "cursor-pointer snap-end scroll-mr-2",
+            badgeVariants({
+              variant: hasFilteredTag ? "secondary" : "default",
+            }),
+          )}
+          data-astro-prefetch>All</a
+        >
+        {
+          tags.map(({ name, slug }) => {
+            const isActive = filteredTag?.slug === slug;
+            return (
+              <button
+                {...(!isActive ? { name: "tag", value: slug } : {})}
+                class={cn(
+                  "cursor-pointer snap-end scroll-mr-2",
+                  badgeVariants({
+                    variant: isActive ? "default" : "secondary",
+                  }),
+                )}
+                type="submit"
+              >
+                {name}
+              </button>
+            );
+          })
+        }
+      </form>
+    </div>
+    <ul
+      class="mt-2 grid grid-cols-1 gap-4 rounded-md md:grid-cols-2 lg:max-w-5xl"
+    >
+      {
+        posts.length > 0 ? (
+          posts.map(({ data, id, readingTime }) => (
+            <PostTeaser
+              post={{
+                ...data,
+                slug: id,
+                readingTime,
+              }}
+            />
+          ))
+        ) : (
+          <p class="col-span-2 rounded-lg bg-neutral-900 p-4 py-3 text-center text-muted-foreground">
+            No posts were found {filteredTag ? `for ${filteredTag.name}.` : "."}{" "}
+            <br />
+          </p>
+        )
+      }
+    </ul>
+  </div>
+</RootLayout>

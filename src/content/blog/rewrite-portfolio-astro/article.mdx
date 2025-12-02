@@ -1,0 +1,27 @@
+---
+title: "I rewrote my portfolio - again"
+description: "How I migrated my portfolio website from React Router 7 to Astro for better performance and DX"
+publicationDate: "2025-12-01T20:50:00Z"
+draft: true
+tags: ["Astro", "Migration", "Portfolio"]
+---
+
+Why again a rewrite?
+
+I knew MDX is the way to go, since I migrated away from a CMS to React Router 7 and MDX. However nice the things you can do with MDX, writing blog articles wasn't fun either because with RR7 the MDX eexperience was pretty bad. Hot reloading didn't work and instead always threw an error (link issue from github).
+That meant reloading the whole page and scrolling down to the content that I was editing again, after every change...
+
+- Reading time
+- Dev server startup (phosphor icons) and build time
+- Image component
+- rss Feed
+- Add view counter (with server island and astro db)
+- Way better experience of writing
+
+in the process I also:
+
+- upgraded to vercel ai sdk v5 and enhanced the ai chatbot, fixed the time you have to wait until you can message again
+- unified and enhanced shiki transformers and cleaned up my code blocks
+- Center my socials perfectly on my footer (link reddit comment here)
+- Added capability to zoom blog images like a lightbox
+- Added pre-push and pre-commit hooks with commitlint, husky and lint-staged

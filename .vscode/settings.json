@@ -3,5 +3,14 @@
     ["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(((?:[^()]|\\([^()]*\\))*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
-  "tailwindCSS.classAttributes": ["class", "className", "tw"]
+  "tailwindCSS.classAttributes": ["class", "className", "tw"],
+  "tailwindCSS.classFunctions": ["cn", "clsx", "cva", "tw", "autolinkHeadings"],
+  "files.associations": {
+    "*.css": "tailwindcss",
+    "*.svg": "html"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

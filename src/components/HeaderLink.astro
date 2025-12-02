@@ -1,0 +1,31 @@
+---
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
+import type { NavigationLink } from "@/data/navigation";
+
+type Props = Omit<HTMLAttributes<"a">, "href"> & NavigationLink;
+
+const { class: className, path, icon: Icon, label, ...props } = Astro.props;
+
+const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
+const subpath = pathname.match(/[^/]+/g);
+const isActive = path === pathname || path === "/" + (subpath?.[0] || "");
+---
+
+<a
+  href={path}
+  class={cn(
+    `flex gap-1 rounded-lg border px-3 py-1 transition-colors
+    active:inset-shadow-xs sm:text-sm`,
+    isActive
+      ? "border-neutral-700 bg-neutral-800 text-neutral-200"
+      : `border-muted bg-neutral-900 text-muted-foreground
+        hover:border-neutral-700 hover:bg-neutral-800 max-sm:px-2`,
+    className,
+  )}
+  {...props}
+  data-astro-prefetch
+>
+  <Icon className="size-6 sm:size-5" weight="duotone" />
+  <span class={!isActive ? "max-sm:sr-only" : ""}>{label}</span>
+</a>

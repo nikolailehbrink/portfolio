@@ -1,0 +1,16 @@
+---
+import { cn } from "@/lib/utils";
+import { Image, type LocalImageProps } from "astro:assets";
+import avatar from "@/assets/avatar.webp";
+type Props = Omit<LocalImageProps, "alt" | "src" | "title">;
+const { class: className, ...props } = Astro.props;
+---
+
+<Image
+  {...props}
+  class={cn("object-cover", className)}
+  alt="Avatar"
+  title="Profile image"
+  src={avatar}
+  fetchpriority="high"
+/>

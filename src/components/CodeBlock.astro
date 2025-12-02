@@ -1,0 +1,59 @@
+---
+import { FileCodeIcon } from "@phosphor-icons/react/dist/ssr/FileCode";
+import { LANGUAGE_FILE_ICONS } from "@/lib/shiki/fileIcons";
+import { cn } from "@/lib/utils";
+import type { HTMLAttributes } from "astro/types";
+import CopyToClipBoardButton from "@/components/react/CopyToClipboardButton";
+import FileName from "./FileName.astro";
+
+type Props = HTMLAttributes<"pre"> & {
+  "data-code": string;
+  "data-language": string;
+  "data-filename"?: string;
+  "data-no-copy"?: boolean;
+};
+
+const {
+  "data-code": code,
+  "data-language": language,
+  "data-filename": filename,
+  "data-no-copy": noCopy,
+  class: className,
+  ...props
+} = Astro.props;
+
+const filePaths = filename ? filename.split("/") : [];
+const LanguageIcon = language
+  ? (LANGUAGE_FILE_ICONS.get(language) ?? FileCodeIcon)
+  : FileCodeIcon;
+---
+
+<figure class="group/code-block rounded-xl offset-border">
+  {
+    filePaths.length > 0 ? (
+      <figcaption class="flex items-center justify-between rounded-t-xl bg-neutral-800 px-3 py-2 text-xs text-neutral-400">
+        <div class="flex items-center gap-x-0.5">
+          {filePaths.map((name, index) => {
+            const isLast = index === filePaths.length - 1;
+            return <FileName name={name} isLast={isLast} />;
+          })}
+        </div>
+        <LanguageIcon weight="duotone" size={20} />
+      </figcaption>
+    ) : null
+  }
+  <div class="relative">
+    <pre
+      class={cn(
+        "not-prose",
+        {
+          "mt-0 rounded-t-none": filename,
+        },
+        className,
+      )}
+      {...props}>
+      <slot />
+    </pre>
+    {code && !noCopy ? <CopyToClipBoardButton client:load code={code} /> : null}
+  </div>
+</figure>

@@ -1,0 +1,14 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+const { href } = Astro.props;
+const isExternalLink = href?.toString().startsWith("http");
+---
+
+<a
+  href={href}
+  target={isExternalLink ? "_blank" : "_self"}
+  rel={isExternalLink ? "noreferrer" : "noopener"}
+  data-astro-prefetch><slot /></a
+>
