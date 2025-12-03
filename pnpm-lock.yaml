@@ -13,7 +13,7 @@ importers:
         version: 2.0.24(zod@4.1.11)
       '@ai-sdk/react':
         specifier: 2.0.34
-        version: 2.0.34(react@19.1.1)(zod@4.1.11)
+        version: 2.0.34(react@19.1.2)(zod@4.1.11)
       '@astrojs/check':
         specifier: 0.9.6
         version: 0.9.6(prettier-plugin-astro@0.14.1)(prettier@3.6.2)(typescript@5.9.3)
@@ -31,7 +31,7 @@ importers:
         version: 9.5.1(astro@5.16.3(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))
       '@astrojs/react':
         specifier: 4.4.2
-        version: 4.4.2(@types/node@24.9.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(jiti@2.6.1)(lightningcss@1.30.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(terser@5.44.0)(yaml@2.8.1)
+        version: 4.4.2(@types/node@24.9.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(jiti@2.6.1)(lightningcss@1.30.1)(react-dom@19.1.2(react@19.1.2))(react@19.1.2)(terser@5.44.0)(yaml@2.8.1)
       '@astrojs/rss':
         specifier: 4.0.14
         version: 4.0.14
@@ -40,10 +40,10 @@ importers:
         version: 3.6.0
       '@astrojs/vercel':
         specifier: 9.0.2
-        version: 9.0.2(astro@5.16.3(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(rollup@4.50.0)
+        version: 9.0.2(astro@5.16.3(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2))(react@19.1.2)(rollup@4.50.0)
       '@conform-to/react':
         specifier: 1.11.0
-        version: 1.11.0(react@19.1.1)
+        version: 1.11.0(react@19.1.2)
       '@conform-to/zod':
         specifier: 1.11.0
         version: 1.11.0(zod@4.1.11)
@@ -55,19 +55,19 @@ importers:
         version: 0.1.22(@llamaindex/core@0.6.22)(ai@5.0.76(zod@4.1.11))
       '@mux/mux-player-astro':
         specifier: 3.9.0
-        version: 3.9.0(astro@5.16.3(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(react@19.1.1)
+        version: 3.9.0(astro@5.16.3(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(react@19.1.2)
       '@phosphor-icons/react':
         specifier: 2.1.10
-        version: 2.1.10(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 2.1.10(react-dom@19.1.2(react@19.1.2))(react@19.1.2)
       '@radix-ui/react-label':
         specifier: 2.1.7
-        version: 2.1.7(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 2.1.7(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.2(react@19.1.2))(react@19.1.2)
       '@radix-ui/react-slot':
         specifier: 1.2.3
-        version: 1.2.3(@types/react@19.1.12)(react@19.1.1)
+        version: 1.2.3(@types/react@19.1.12)(react@19.1.2)
       '@react-email/components':
         specifier: 0.5.5
-        version: 0.5.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 0.5.5(react-dom@19.1.2(react@19.1.2))(react@19.1.2)
       '@tailwindcss/typography':
         specifier: 0.5.19
         version: 0.5.19(tailwindcss@4.1.13)
@@ -82,7 +82,7 @@ importers:
         version: 19.1.9(@types/react@19.1.12)
       '@vercel/analytics':
         specifier: 1.5.0
-        version: 1.5.0(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
+        version: 1.5.0(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2))(react@19.1.2)
       '@vercel/og':
         specifier: 0.8.5
         version: 0.8.5
@@ -100,22 +100,22 @@ importers:
         version: 2.1.1
       llama-cloud-services:
         specifier: 0.3.9
-        version: 0.3.9(@llamaindex/core@0.6.22)(@llamaindex/env@0.1.30)(@llamaindex/workflow-core@1.3.3(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(p-retry@6.2.1)(zod@4.1.11))
+        version: 0.3.9(@llamaindex/core@0.6.22)(@llamaindex/env@0.1.30)(@llamaindex/workflow-core@1.3.3(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2))(p-retry@6.2.1)(zod@4.1.11))
       react:
-        specifier: 19.1.1
-        version: 19.1.1
+        specifier: 19.1.2
+        version: 19.1.2
       react-dom:
-        specifier: 19.1.1
-        version: 19.1.1(react@19.1.1)
+        specifier: 19.1.2
+        version: 19.1.2(react@19.1.2)
       react-medium-image-zoom:
         specifier: 5.4.0
-        version: 5.4.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 5.4.0(react-dom@19.1.2(react@19.1.2))(react@19.1.2)
       rehype-autolink-headings:
         specifier: 7.1.0
         version: 7.1.0
       resend:
         specifier: 6.1.2
-        version: 6.1.2(@react-email/render@1.3.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
+        version: 6.1.2(@react-email/render@1.3.1(react-dom@19.1.2(react@19.1.2))(react@19.1.2))
       sharp:
         specifier: 0.34.4
         version: 0.34.4
@@ -5357,10 +5357,10 @@ packages:
     peerDependencies:
       react: ^19.0.0
 
-  react-dom@19.1.1:
-    resolution: {integrity: sha512-Dlq/5LAZgF0Gaz6yiqZCf6VCcZs1ghAJyrsu84Q/GT0gV+mCxbfmKNoGRKBYMJ8IEdGPqu49YWXD02GCknEDkw==}
+  react-dom@19.1.2:
+    resolution: {integrity: sha512-dEoydsCp50i7kS1xHOmPXq4zQYoGWedUsvqv9H6zdif2r7yLHygyfP9qou71TulRN0d6ng9EbRVsQhSqfUc19g==}
     peerDependencies:
-      react: ^19.1.1
+      react: ^19.1.2
 
   react-email@4.2.12:
     resolution: {integrity: sha512-Cp6nYAG9uL4//X/96wDSKxGqVTXsaRMuD1ub0G0iBcfTqLel4VVre3kicq7RraplDuj+ATlqSZu47d7P2ULP5w==}
@@ -5417,8 +5417,8 @@ packages:
     resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
     engines: {node: '>=0.10.0'}
 
-  react@19.1.1:
-    resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
+  react@19.1.2:
+    resolution: {integrity: sha512-MdWVitvLbQULD+4DP8GYjZUrepGW7d+GQkNVqJEzNxE+e9WIa4egVFE/RDfVb1u9u/Jw7dNMmPB4IqxzbFYJ0w==}
     engines: {node: '>=0.10.0'}
 
   read-cache@1.0.0:
@@ -6764,12 +6764,12 @@ snapshots:
     dependencies:
       json-schema: 0.4.0
 
-  '@ai-sdk/react@2.0.34(react@19.1.1)(zod@4.1.11)':
+  '@ai-sdk/react@2.0.34(react@19.1.2)(zod@4.1.11)':
     dependencies:
       '@ai-sdk/provider-utils': 3.0.8(zod@4.1.11)
       ai: 5.0.34(zod@4.1.11)
-      react: 19.1.1
-      swr: 2.3.6(react@19.1.1)
+      react: 19.1.2
+      swr: 2.3.6(react@19.1.2)
       throttleit: 2.1.0
     optionalDependencies:
       zod: 4.1.11
@@ -6923,13 +6923,13 @@ snapshots:
     dependencies:
       prismjs: 1.30.0
 
-  '@astrojs/react@4.4.2(@types/node@24.9.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(jiti@2.6.1)(lightningcss@1.30.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(terser@5.44.0)(yaml@2.8.1)':
+  '@astrojs/react@4.4.2(@types/node@24.9.1)(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(jiti@2.6.1)(lightningcss@1.30.1)(react-dom@19.1.2(react@19.1.2))(react@19.1.2)(terser@5.44.0)(yaml@2.8.1)':
     dependencies:
       '@types/react': 19.1.12
       '@types/react-dom': 19.1.9(@types/react@19.1.12)
       '@vitejs/plugin-react': 4.7.0(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1))
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
+      react: 19.1.2
+      react-dom: 19.1.2(react@19.1.2)
       ultrahtml: 1.6.0
       vite: 6.4.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(yaml@2.8.1)
     transitivePeerDependencies:
@@ -6969,10 +6969,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/vercel@9.0.2(astro@5.16.3(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(rollup@4.50.0)':
+  '@astrojs/vercel@9.0.2(astro@5.16.3(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2))(react@19.1.2)(rollup@4.50.0)':
     dependencies:
       '@astrojs/internal-helpers': 0.7.5
-      '@vercel/analytics': 1.5.0(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
+      '@vercel/analytics': 1.5.0(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2))(react@19.1.2)
       '@vercel/functions': 2.2.13
       '@vercel/nft': 0.30.4(rollup@4.50.0)
       '@vercel/routing-utils': 5.3.0
@@ -7199,10 +7199,10 @@ snapshots:
 
   '@conform-to/dom@1.11.0': {}
 
-  '@conform-to/react@1.11.0(react@19.1.1)':
+  '@conform-to/react@1.11.0(react@19.1.2)':
     dependencies:
       '@conform-to/dom': 1.11.0
-      react: 19.1.1
+      react: 19.1.2
 
   '@conform-to/zod@1.11.0(zod@4.1.11)':
     dependencies:
@@ -7780,9 +7780,9 @@ snapshots:
       '@llamaindex/core': 0.6.22
       ai: 5.0.76(zod@4.1.11)
 
-  '@llamaindex/workflow-core@1.3.3(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(p-retry@6.2.1)(zod@4.1.11)':
+  '@llamaindex/workflow-core@1.3.3(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2))(p-retry@6.2.1)(zod@4.1.11)':
     optionalDependencies:
-      next: 15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      next: 15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2)
       p-retry: 6.2.1
       zod: 4.1.11
 
@@ -7840,20 +7840,20 @@ snapshots:
     dependencies:
       mux-embed: 5.9.0
 
-  '@mux/mux-player-astro@3.9.0(astro@5.16.3(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(react@19.1.1)':
+  '@mux/mux-player-astro@3.9.0(astro@5.16.3(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))(react@19.1.2)':
     dependencies:
-      '@mux/mux-player': 3.9.0(react@19.1.1)
+      '@mux/mux-player': 3.9.0(react@19.1.2)
       '@mux/playback-core': 0.31.3
       astro: 5.16.3(@types/node@24.9.1)(@vercel/functions@2.2.13)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.50.0)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1)
     transitivePeerDependencies:
       - react
 
-  '@mux/mux-player@3.9.0(react@19.1.1)':
+  '@mux/mux-player@3.9.0(react@19.1.2)':
     dependencies:
       '@mux/mux-video': 0.28.0
       '@mux/playback-core': 0.31.3
-      media-chrome: 4.16.0(react@19.1.1)
-      player.style: 0.3.0(react@19.1.1)
+      media-chrome: 4.16.0(react@19.1.2)
+      player.style: 0.3.0(react@19.1.2)
     transitivePeerDependencies:
       - react
 
@@ -7980,10 +7980,10 @@ snapshots:
   '@oxc-resolver/binding-win32-x64-msvc@11.13.2':
     optional: true
 
-  '@phosphor-icons/react@2.1.10(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@phosphor-icons/react@2.1.10(react-dom@19.1.2(react@19.1.2))(react@19.1.2)':
     dependencies:
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
+      react: 19.1.2
+      react-dom: 19.1.2(react@19.1.2)
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -8037,9 +8037,9 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.10
 
-  '@radix-ui/react-compose-refs@1.1.2(@types/react@19.1.12)(react@19.1.1)':
+  '@radix-ui/react-compose-refs@1.1.2(@types/react@19.1.12)(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
     optionalDependencies:
       '@types/react': 19.1.12
 
@@ -8107,11 +8107,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.10
 
-  '@radix-ui/react-label@2.1.7(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@radix-ui/react-label@2.1.7(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.2(react@19.1.2))(react@19.1.2)':
     dependencies:
-      '@radix-ui/react-primitive': 2.1.3(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
+      '@radix-ui/react-primitive': 2.1.3(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.2(react@19.1.2))(react@19.1.2)
+      react: 19.1.2
+      react-dom: 19.1.2(react@19.1.2)
     optionalDependencies:
       '@types/react': 19.1.12
       '@types/react-dom': 19.1.9(@types/react@19.1.12)
@@ -8212,11 +8212,11 @@ snapshots:
       '@types/react': 19.0.10
       '@types/react-dom': 19.0.4(@types/react@19.0.10)
 
-  '@radix-ui/react-primitive@2.1.3(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@radix-ui/react-primitive@2.1.3(@types/react-dom@19.1.9(@types/react@19.1.12))(@types/react@19.1.12)(react-dom@19.1.2(react@19.1.2))(react@19.1.2)':
     dependencies:
-      '@radix-ui/react-slot': 1.2.3(@types/react@19.1.12)(react@19.1.1)
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
+      '@radix-ui/react-slot': 1.2.3(@types/react@19.1.12)(react@19.1.2)
+      react: 19.1.2
+      react-dom: 19.1.2(react@19.1.2)
     optionalDependencies:
       '@types/react': 19.1.12
       '@types/react-dom': 19.1.9(@types/react@19.1.12)
@@ -8245,10 +8245,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.10
 
-  '@radix-ui/react-slot@1.2.3(@types/react@19.1.12)(react@19.1.1)':
+  '@radix-ui/react-slot@1.2.3(@types/react@19.1.12)(react@19.1.2)':
     dependencies:
-      '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.1.12)(react@19.1.1)
-      react: 19.1.1
+      '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.1.12)(react@19.1.2)
+      react: 19.1.2
     optionalDependencies:
       '@types/react': 19.1.12
 
@@ -8373,89 +8373,89 @@ snapshots:
 
   '@radix-ui/rect@1.1.1': {}
 
-  '@react-email/body@0.1.0(react@19.1.1)':
+  '@react-email/body@0.1.0(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/button@0.2.0(react@19.1.1)':
+  '@react-email/button@0.2.0(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/code-block@0.1.0(react@19.1.1)':
+  '@react-email/code-block@0.1.0(react@19.1.2)':
     dependencies:
       prismjs: 1.30.0
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/code-inline@0.0.5(react@19.1.1)':
+  '@react-email/code-inline@0.0.5(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/column@0.0.13(react@19.1.1)':
+  '@react-email/column@0.0.13(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/components@0.5.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@react-email/components@0.5.5(react-dom@19.1.2(react@19.1.2))(react@19.1.2)':
     dependencies:
-      '@react-email/body': 0.1.0(react@19.1.1)
-      '@react-email/button': 0.2.0(react@19.1.1)
-      '@react-email/code-block': 0.1.0(react@19.1.1)
-      '@react-email/code-inline': 0.0.5(react@19.1.1)
-      '@react-email/column': 0.0.13(react@19.1.1)
-      '@react-email/container': 0.0.15(react@19.1.1)
-      '@react-email/font': 0.0.9(react@19.1.1)
-      '@react-email/head': 0.0.12(react@19.1.1)
-      '@react-email/heading': 0.0.15(react@19.1.1)
-      '@react-email/hr': 0.0.11(react@19.1.1)
-      '@react-email/html': 0.0.11(react@19.1.1)
-      '@react-email/img': 0.0.11(react@19.1.1)
-      '@react-email/link': 0.0.12(react@19.1.1)
-      '@react-email/markdown': 0.0.15(react@19.1.1)
-      '@react-email/preview': 0.0.13(react@19.1.1)
-      '@react-email/render': 1.3.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      '@react-email/row': 0.0.12(react@19.1.1)
-      '@react-email/section': 0.0.16(react@19.1.1)
-      '@react-email/tailwind': 1.2.2(react@19.1.1)
-      '@react-email/text': 0.1.5(react@19.1.1)
-      react: 19.1.1
+      '@react-email/body': 0.1.0(react@19.1.2)
+      '@react-email/button': 0.2.0(react@19.1.2)
+      '@react-email/code-block': 0.1.0(react@19.1.2)
+      '@react-email/code-inline': 0.0.5(react@19.1.2)
+      '@react-email/column': 0.0.13(react@19.1.2)
+      '@react-email/container': 0.0.15(react@19.1.2)
+      '@react-email/font': 0.0.9(react@19.1.2)
+      '@react-email/head': 0.0.12(react@19.1.2)
+      '@react-email/heading': 0.0.15(react@19.1.2)
+      '@react-email/hr': 0.0.11(react@19.1.2)
+      '@react-email/html': 0.0.11(react@19.1.2)
+      '@react-email/img': 0.0.11(react@19.1.2)
+      '@react-email/link': 0.0.12(react@19.1.2)
+      '@react-email/markdown': 0.0.15(react@19.1.2)
+      '@react-email/preview': 0.0.13(react@19.1.2)
+      '@react-email/render': 1.3.1(react-dom@19.1.2(react@19.1.2))(react@19.1.2)
+      '@react-email/row': 0.0.12(react@19.1.2)
+      '@react-email/section': 0.0.16(react@19.1.2)
+      '@react-email/tailwind': 1.2.2(react@19.1.2)
+      '@react-email/text': 0.1.5(react@19.1.2)
+      react: 19.1.2
     transitivePeerDependencies:
       - react-dom
 
-  '@react-email/container@0.0.15(react@19.1.1)':
+  '@react-email/container@0.0.15(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/font@0.0.9(react@19.1.1)':
+  '@react-email/font@0.0.9(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/head@0.0.12(react@19.1.1)':
+  '@react-email/head@0.0.12(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/heading@0.0.15(react@19.1.1)':
+  '@react-email/heading@0.0.15(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/hr@0.0.11(react@19.1.1)':
+  '@react-email/hr@0.0.11(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/html@0.0.11(react@19.1.1)':
+  '@react-email/html@0.0.11(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/img@0.0.11(react@19.1.1)':
+  '@react-email/img@0.0.11(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/link@0.0.12(react@19.1.1)':
+  '@react-email/link@0.0.12(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/markdown@0.0.15(react@19.1.1)':
+  '@react-email/markdown@0.0.15(react@19.1.2)':
     dependencies:
-      md-to-react-email: 5.0.5(react@19.1.1)
-      react: 19.1.1
+      md-to-react-email: 5.0.5(react@19.1.2)
+      react: 19.1.2
 
   '@react-email/preview-server@4.2.12(@opentelemetry/api@1.9.0)(postcss@8.5.6)':
     dependencies:
@@ -8516,33 +8516,33 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@react-email/preview@0.0.13(react@19.1.1)':
+  '@react-email/preview@0.0.13(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/render@1.3.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@react-email/render@1.3.1(react-dom@19.1.2(react@19.1.2))(react@19.1.2)':
     dependencies:
       html-to-text: 9.0.5
       prettier: 3.6.2
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
+      react: 19.1.2
+      react-dom: 19.1.2(react@19.1.2)
       react-promise-suspense: 0.3.4
 
-  '@react-email/row@0.0.12(react@19.1.1)':
+  '@react-email/row@0.0.12(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/section@0.0.16(react@19.1.1)':
+  '@react-email/section@0.0.16(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/tailwind@1.2.2(react@19.1.1)':
+  '@react-email/tailwind@1.2.2(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
-  '@react-email/text@0.1.5(react@19.1.1)':
+  '@react-email/text@0.1.5(react@19.1.2)':
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
   '@resvg/resvg-wasm@2.4.0': {}
 
@@ -9041,10 +9041,10 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@vercel/analytics@1.5.0(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)':
+  '@vercel/analytics@1.5.0(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2))(react@19.1.2)':
     optionalDependencies:
-      next: 15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      react: 19.1.1
+      next: 15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2)
+      react: 19.1.2
 
   '@vercel/functions@2.2.13':
     dependencies:
@@ -9701,9 +9701,9 @@ snapshots:
 
   ccount@2.0.1: {}
 
-  ce-la-react@0.3.2(react@19.1.1):
+  ce-la-react@0.3.2(react@19.1.2):
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
   chai@5.3.3:
     dependencies:
@@ -11326,11 +11326,11 @@ snapshots:
       rfdc: 1.4.1
       wrap-ansi: 9.0.0
 
-  llama-cloud-services@0.3.9(@llamaindex/core@0.6.22)(@llamaindex/env@0.1.30)(@llamaindex/workflow-core@1.3.3(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(p-retry@6.2.1)(zod@4.1.11)):
+  llama-cloud-services@0.3.9(@llamaindex/core@0.6.22)(@llamaindex/env@0.1.30)(@llamaindex/workflow-core@1.3.3(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2))(p-retry@6.2.1)(zod@4.1.11)):
     dependencies:
       '@llamaindex/core': 0.6.22
       '@llamaindex/env': 0.1.30
-      '@llamaindex/workflow-core': 1.3.3(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(p-retry@6.2.1)(zod@4.1.11)
+      '@llamaindex/workflow-core': 1.3.3(next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2))(p-retry@6.2.1)(zod@4.1.11)
       ajv: 8.17.1
       file-type: 21.0.0
       p-retry: 6.2.1
@@ -11411,10 +11411,10 @@ snapshots:
 
   math-intrinsics@1.1.0: {}
 
-  md-to-react-email@5.0.5(react@19.1.1):
+  md-to-react-email@5.0.5(react@19.1.2):
     dependencies:
       marked: 7.0.4
-      react: 19.1.1
+      react: 19.1.2
 
   mdast-util-definitions@6.0.0:
     dependencies:
@@ -11589,15 +11589,15 @@ snapshots:
 
   mdn-data@2.12.2: {}
 
-  media-chrome@4.14.0(react@19.1.1):
+  media-chrome@4.14.0(react@19.1.2):
     dependencies:
-      ce-la-react: 0.3.2(react@19.1.1)
+      ce-la-react: 0.3.2(react@19.1.2)
     transitivePeerDependencies:
       - react
 
-  media-chrome@4.16.0(react@19.1.1):
+  media-chrome@4.16.0(react@19.1.2):
     dependencies:
-      ce-la-react: 0.3.2(react@19.1.1)
+      ce-la-react: 0.3.2(react@19.1.2)
     transitivePeerDependencies:
       - react
 
@@ -11974,15 +11974,15 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  next@15.5.2(@babel/core@7.28.4)(@opentelemetry/api@1.9.0)(react-dom@19.1.2(react@19.1.2))(react@19.1.2):
     dependencies:
       '@next/env': 15.5.2
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001741
       postcss: 8.4.31
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
-      styled-jsx: 5.1.6(@babel/core@7.28.4)(react@19.1.1)
+      react: 19.1.2
+      react-dom: 19.1.2(react@19.1.2)
+      styled-jsx: 5.1.6(@babel/core@7.28.4)(react@19.1.2)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.5.2
       '@next/swc-darwin-x64': 15.5.2
@@ -12307,9 +12307,9 @@ snapshots:
       exsolve: 1.0.7
       pathe: 2.0.3
 
-  player.style@0.3.0(react@19.1.1):
+  player.style@0.3.0(react@19.1.2):
     dependencies:
-      media-chrome: 4.14.0(react@19.1.1)
+      media-chrome: 4.14.0(react@19.1.2)
     transitivePeerDependencies:
       - react
 
@@ -12440,9 +12440,9 @@ snapshots:
       react: 19.0.0
       scheduler: 0.25.0
 
-  react-dom@19.1.1(react@19.1.1):
+  react-dom@19.1.2(react@19.1.2):
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
       scheduler: 0.26.0
 
   react-email@4.2.12:
@@ -12470,10 +12470,10 @@ snapshots:
 
   react-is@16.13.1: {}
 
-  react-medium-image-zoom@5.4.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  react-medium-image-zoom@5.4.0(react-dom@19.1.2(react@19.1.2))(react@19.1.2):
     dependencies:
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
+      react: 19.1.2
+      react-dom: 19.1.2(react@19.1.2)
 
   react-promise-suspense@0.3.4:
     dependencies:
@@ -12510,7 +12510,7 @@ snapshots:
 
   react@19.0.0: {}
 
-  react@19.1.1: {}
+  react@19.1.2: {}
 
   read-cache@1.0.0:
     dependencies:
@@ -12685,9 +12685,9 @@ snapshots:
 
   require-from-string@2.0.2: {}
 
-  resend@6.1.2(@react-email/render@1.3.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)):
+  resend@6.1.2(@react-email/render@1.3.1(react-dom@19.1.2(react@19.1.2))(react@19.1.2)):
     optionalDependencies:
-      '@react-email/render': 1.3.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@react-email/render': 1.3.1(react-dom@19.1.2(react@19.1.2))(react@19.1.2)
 
   resolve-from@4.0.0: {}
 
@@ -13236,10 +13236,10 @@ snapshots:
     optionalDependencies:
       '@babel/core': 7.26.10
 
-  styled-jsx@5.1.6(@babel/core@7.28.4)(react@19.1.1):
+  styled-jsx@5.1.6(@babel/core@7.28.4)(react@19.1.2):
     dependencies:
       client-only: 0.0.1
-      react: 19.1.1
+      react: 19.1.2
     optionalDependencies:
       '@babel/core': 7.28.4
     optional: true
@@ -13278,11 +13278,11 @@ snapshots:
       picocolors: 1.1.1
       sax: 1.4.1
 
-  swr@2.3.6(react@19.1.1):
+  swr@2.3.6(react@19.1.2):
     dependencies:
       dequal: 2.0.3
-      react: 19.1.1
-      use-sync-external-store: 1.5.0(react@19.1.1)
+      react: 19.1.2
+      use-sync-external-store: 1.5.0(react@19.1.2)
 
   synckit@0.11.11:
     dependencies:
@@ -13623,9 +13623,9 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.10
 
-  use-sync-external-store@1.5.0(react@19.1.1):
+  use-sync-external-store@1.5.0(react@19.1.2):
     dependencies:
-      react: 19.1.1
+      react: 19.1.2
 
   util-deprecate@1.0.2: {}
 
