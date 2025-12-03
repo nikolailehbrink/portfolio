@@ -1,23 +1,18 @@
 ---
+import ErrorPageLayout from "@/layouts/ErrorPageLayout.astro";
+
 export const prerender = false;
+
 const { searchParams } = Astro.url;
 const alreadySubscribed = searchParams.has("alreadySubscribed");
+
+const title = alreadySubscribed
+  ? "You are already subscribed!"
+  : "Thank you for subscribing!";
+
+const description = `I promise to only send you relevant updates and content about once a
+      month. If you ever change your mind, you can unsubscribe at any time from
+      each email.`;
 ---
 
-<div
-  class="-mt-24 flex max-w-prose flex-col gap-2 self-center rounded-lg
-    bg-neutral-900 p-4 offset-border"
->
-  <h1 class="text-xl font-bold">
-    {
-      alreadySubscribed
-        ? "You are already subscribed to the newsletter!"
-        : "Thank you for subscribing to the newsletter!"
-    }
-  </h1>
-  <p class="text-muted-foreground">
-    I promise to only send you relevant updates and content about once a month.
-    If you ever change your mind, you can unsubscribe at any time from each
-    email.
-  </p>
-</div>
+<ErrorPageLayout title={title} description={description} />
