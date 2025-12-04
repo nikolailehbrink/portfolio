@@ -250,7 +250,7 @@ function processLine(
 }
 
 /**
- * Allow using `word="foo"` or `word="foo,bar"` or `word="foo:1,3"` in the code snippet meta to highlight specific words.
+ * Allow using `word="foo"` or `word="foo,bar"` or `word="foo:1+3"` in the code snippet meta to highlight specific words.
  *
  * Examples:
  * ```js word="console"
