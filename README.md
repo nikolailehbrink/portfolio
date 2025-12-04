@@ -3,7 +3,7 @@
 Source code for my personal portfolio website. The site showcases my projects and gives an insight into my background, my passion for web development and design, and the technologies I work with.
 
 <a href="https://www.nikolailehbr.ink">
-  <img alt="Personal portfolio website of Nikolai Lehbrink" src="https://github.com/nikolailehbrink/portfolio/blob/main/app/og-image.webp">
+  <img alt="Personal portfolio website of Nikolai Lehbrink" src="src/assets/og/home.webp">
 </a>
 
 ## ✨ Features
