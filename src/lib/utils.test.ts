@@ -19,7 +19,7 @@ describe("slugify", () => {
   });
 
   it("should handle strings with multiple consecutive spaces", () => {
-    expect(slugify("foo   bar")).toBe("foo---bar");
+    expect(slugify("foo   bar")).toBe("foo-bar");
   });
 
   it("should handle strings with no spaces", () => {

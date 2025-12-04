@@ -9,8 +9,7 @@ import NewsletterVerificationEmail, {
 } from "@/components/react/emails/newsletter-verification";
 import { z } from "astro:schema";
 import { db, eq, sql, ViewCount } from "astro:db";
-
-const AUDIENCE_ID = "1a231b09-a625-43c1-9cc2-5d8f34972bdb";
+import { RESEND_NEWSLETTER_AUDIENCE_ID } from "@/consts";
 
 export const server = {
   newsletter: defineAction({
@@ -48,7 +47,7 @@ export const server = {
 
       const { data: contact } = await resend.contacts.get({
         email,
-        audienceId: AUDIENCE_ID,
+        audienceId: RESEND_NEWSLETTER_AUDIENCE_ID,
       });
 
       if (contact) {

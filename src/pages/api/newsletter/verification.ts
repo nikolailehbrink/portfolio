@@ -1,10 +1,9 @@
 import { verifySignedToken } from "@/lib/token";
 import { resend } from "@/lib/resend";
 import type { APIRoute } from "astro";
+import { RESEND_NEWSLETTER_AUDIENCE_ID } from "@/consts";
 
 export const prerender = false;
-
-const AUDIENCE_ID = "1a231b09-a625-43c1-9cc2-5d8f34972bdb";
 
 export const GET: APIRoute = async ({ redirect, url }) => {
   const { searchParams } = url;
@@ -24,7 +23,7 @@ export const GET: APIRoute = async ({ redirect, url }) => {
     // Check if the contact already exists
     const { data } = await resend.contacts.get({
       email,
-      audienceId: AUDIENCE_ID,
+      audienceId: RESEND_NEWSLETTER_AUDIENCE_ID,
     });
 
     if (data) {
@@ -33,7 +32,7 @@ export const GET: APIRoute = async ({ redirect, url }) => {
 
     const { error } = await resend.contacts.create({
       email,
-      audienceId: AUDIENCE_ID,
+      audienceId: RESEND_NEWSLETTER_AUDIENCE_ID,
     });
 
     if (error) {
