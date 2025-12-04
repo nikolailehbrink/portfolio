@@ -9,6 +9,7 @@ import NewsletterVerificationEmail, {
 } from "@/components/react/emails/newsletter-verification";
 import { z } from "astro:schema";
 import { db, eq, sql, ViewCount } from "astro:db";
+import { RESEND_NEWSLETTER_AUDIENCE_ID } from "@/consts";
 
 export const server = {
   newsletter: defineAction({
@@ -46,7 +47,7 @@ export const server = {
 
       const { data: contact } = await resend.contacts.get({
         email,
-        audienceId: "1a231b09-a625-43c1-9cc2-5d8f34972bdb",
+        audienceId: RESEND_NEWSLETTER_AUDIENCE_ID,
       });
 
       if (contact) {
@@ -93,15 +94,12 @@ export const server = {
         };
       }
 
-      let referrer = headers.get("referer");
-
-      if (referrer) {
-        referrer = new URL(referrer).pathname;
-      }
+      const referrer = headers.get("referer");
+      const referrerPath = referrer ? new URL(referrer).pathname : null;
 
       await track("newsletter-signup", {
         email,
-        path: referrer,
+        path: referrerPath,
       });
 
       return {
