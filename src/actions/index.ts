@@ -10,6 +10,8 @@ import NewsletterVerificationEmail, {
 import { z } from "astro:schema";
 import { db, eq, sql, ViewCount } from "astro:db";
 
+const AUDIENCE_ID = "1a231b09-a625-43c1-9cc2-5d8f34972bdb";
+
 export const server = {
   newsletter: defineAction({
     accept: "form",
@@ -46,7 +48,7 @@ export const server = {
 
       const { data: contact } = await resend.contacts.get({
         email,
-        audienceId: "1a231b09-a625-43c1-9cc2-5d8f34972bdb",
+        audienceId: AUDIENCE_ID,
       });
 
       if (contact) {
@@ -93,15 +95,12 @@ export const server = {
         };
       }
 
-      let referrer = headers.get("referer");
-
-      if (referrer) {
-        referrer = new URL(referrer).pathname;
-      }
+      const referrer = headers.get("referer");
+      const referrerPath = referrer ? new URL(referrer).pathname : null;
 
       await track("newsletter-signup", {
         email,
-        path: referrer,
+        path: referrerPath,
       });
 
       return {

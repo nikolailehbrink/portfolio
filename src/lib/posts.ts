@@ -22,13 +22,10 @@ export async function getPosts(options?: {
     posts = posts.filter((post) => post.data.tags?.includes(tag));
   }
 
-  if (posts.length > 1) {
-    posts = posts.sort((a, b) => {
-      return (
-        b.data.publicationDate.getTime() - a.data.publicationDate.getTime()
-      );
-    });
-  }
+  posts = posts.sort(
+    (a, b) =>
+      b.data.publicationDate.getTime() - a.data.publicationDate.getTime(),
+  );
 
   if (take && take > 0) {
     posts = posts.slice(0, take);
