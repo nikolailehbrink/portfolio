@@ -4,6 +4,8 @@ import type { APIRoute } from "astro";
 
 export const prerender = false;
 
+const AUDIENCE_ID = "1a231b09-a625-43c1-9cc2-5d8f34972bdb";
+
 export const GET: APIRoute = async ({ redirect, url }) => {
   const { searchParams } = url;
   const token = searchParams.get("token");
@@ -22,7 +24,7 @@ export const GET: APIRoute = async ({ redirect, url }) => {
     // Check if the contact already exists
     const { data } = await resend.contacts.get({
       email,
-      audienceId: "1a231b09-a625-43c1-9cc2-5d8f34972bdb",
+      audienceId: AUDIENCE_ID,
     });
 
     if (data) {
@@ -31,7 +33,7 @@ export const GET: APIRoute = async ({ redirect, url }) => {
 
     const { error } = await resend.contacts.create({
       email,
-      audienceId: "1a231b09-a625-43c1-9cc2-5d8f34972bdb",
+      audienceId: AUDIENCE_ID,
     });
 
     if (error) {

@@ -64,23 +64,19 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const newMessageCount = messageCount ? messageCount + 1 : 1;
     const messageLimitReached = newMessageCount >= AI_CHAT_MESSAGE_LIMIT;
 
-    cookies.set("message_count", String(newMessageCount), {
+    const cookieOptions = {
       maxAge: SECONDS_TO_CHAT_AGAIN,
       httpOnly: true,
       secure: import.meta.env.PROD,
-      sameSite: "lax",
+      sameSite: "lax" as const,
       path: "/",
-    });
+    };
+
+    cookies.set("message_count", String(newMessageCount), cookieOptions);
 
     const resetAt = Date.now() + SECONDS_TO_CHAT_AGAIN * 1000;
     if (messageLimitReached) {
-      cookies.set("message_reset_at", String(resetAt), {
-        maxAge: SECONDS_TO_CHAT_AGAIN,
-        httpOnly: true,
-        secure: import.meta.env.PROD,
-        sameSite: "lax",
-        path: "/",
-      });
+      cookies.set("message_reset_at", String(resetAt), cookieOptions);
     }
 
     const stream = createUIMessageStream<MyUIMessage>({

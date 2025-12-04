@@ -3,7 +3,7 @@ export function estimateReadingTime(text?: string) {
     return 0;
   }
   const wordsPerMinute = 200; // Average reading speed
-  const words = text?.trim().split(/\s+/).length;
+  const words = text.trim().split(/\s+/).length;
   return Math.ceil(words / wordsPerMinute);
 }
 
