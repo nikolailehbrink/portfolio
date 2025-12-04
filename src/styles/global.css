@@ -197,6 +197,9 @@
         @apply border-neutral-400 bg-neutral-800;
       }
     }
+    .word-highlight {
+      @apply rounded-md bg-blue-500/20 px-1 py-0.5 ring-1 ring-blue-500/40;
+    }
     &.show-line-numbers {
       counter-reset: step;
       counter-increment: step var(--starting-line-number, 0);
