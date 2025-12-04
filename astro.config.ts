@@ -18,6 +18,7 @@ import {
 } from "./src/lib/shiki/transformerMeta";
 import { transformerCodeBlock } from "./src/lib/shiki/transformerCodeBlock";
 import { transformerLineNumbers } from "./src/lib/shiki/transformerLineNumbers";
+import { transformerMetaWordHighlight } from "./src/lib/shiki/transformerMetaWordHighlight";
 
 const PRODUCTION_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 
@@ -53,6 +54,7 @@ export default defineConfig({
         transformerLineNumbers(),
         transformerMetaDiff(),
         transformerMetaHighlight(),
+        transformerMetaWordHighlight(),
         transformerCodeBlock(),
       ],
     },
