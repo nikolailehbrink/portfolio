@@ -10,3 +10,6 @@ export const SECONDS_TO_CHAT_AGAIN = import.meta.env.PROD
 export const locale = "en-US";
 
 export const THEME_COLOR = "#0ea5e9";
+
+export const RESEND_NEWSLETTER_AUDIENCE_ID =
+  "1a231b09-a625-43c1-9cc2-5d8f34972bdb";
