@@ -5,7 +5,9 @@ export function useScrollToBottom<T extends HTMLDivElement>() {
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     const observer = new MutationObserver(() => {
       container.scrollTop = container.scrollHeight;

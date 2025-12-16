@@ -28,14 +28,24 @@ const baseConfig = defineConfig({
   rules: {
     "@typescript-eslint/array-type": ["error", { default: "generic" }],
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        caughtErrorsIgnorePattern: "^_",
+      },
+    ],
     "object-shorthand": ["error", "always"],
     "no-useless-rename": "error",
     "no-console": ["warn", { allow: ["warn", "error", "info"] }],
+    eqeqeq: ["error", "always"],
+    curly: ["error", "all"],
   },
 });
 
 const reactConfig = defineConfig({
-  files: ["**/*.tsx"],
+  files: ["**/*.tsx", "**/*.jsx"],
   extends: [
     reactHooks.configs.flat.recommended,
     react.configs.flat.recommended,
@@ -53,12 +63,22 @@ const reactConfig = defineConfig({
       {
         rule: "^(is|has|show|as)[A-Z]([A-Za-z0-9]?)+",
         message:
-          'Boolean prop names should start with "is" or "has" followed by a capital letter.',
+          'Boolean prop names should start with "is", "has", "show", or "as" followed by a capital letter.',
       },
     ],
     "react/button-has-type": "error",
+    "react/self-closing-comp": ["error", { component: true, html: true }],
+    "react/jsx-curly-brace-presence": [
+      "error",
+      { props: "never", children: "never" },
+    ],
   },
   settings: { react: { version: "detect" } },
+});
+
+const jsxA11yConfig = defineConfig({
+  files: ["**/*.tsx", "**/*.jsx"],
+  ...jsxA11y.flatConfigs.recommended,
 });
 
 export default defineConfig(
@@ -66,5 +86,5 @@ export default defineConfig(
   baseConfig,
   ...astro.configs.recommended,
   reactConfig,
-  jsxA11y.flatConfigs.recommended,
+  jsxA11yConfig,
 );

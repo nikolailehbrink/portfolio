@@ -23,16 +23,22 @@ export function createSignedToken(email: string, expiresInSeconds = 86400) {
 export function verifySignedToken(token: string): string | null {
   try {
     const [emailEncoded, signature, expiresAtStr] = token.split(".");
-    if (!emailEncoded || !signature || !expiresAtStr) return null;
+    if (!emailEncoded || !signature || !expiresAtStr) {
+      return null;
+    }
 
     const email = Buffer.from(emailEncoded, "base64url").toString("utf8");
     const expiresAt = parseInt(expiresAtStr, 10);
-    if (Date.now() / 1000 > expiresAt) return null;
+    if (Date.now() / 1000 > expiresAt) {
+      return null;
+    }
 
     const payload = `${email}.${expiresAt}`;
     const expectedSig = createHmacSignature(payload);
 
-    if (expectedSig !== signature) return null;
+    if (expectedSig !== signature) {
+      return null;
+    }
     return email;
   } catch (error) {
     console.error("Error verifying token:", error);

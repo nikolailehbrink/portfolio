@@ -12,7 +12,9 @@ const CLASSES = {
  * Returns an array of line numbers (1-indexed)
  */
 function parseLineNumbers(lineNumbersStr: string): Array<number> {
-  if (!lineNumbersStr) return [];
+  if (!lineNumbersStr) {
+    return [];
+  }
 
   const result: Array<number> = [];
 
@@ -29,15 +31,21 @@ function parseLineNumbers(lineNumbersStr: string): Array<number> {
         .map((n) => parseInt(n.trim(), 10));
 
       // Validate range
-      if (isNaN(start) || isNaN(end)) continue;
+      if (isNaN(start) || isNaN(end)) {
+        continue;
+      }
 
       // Add all numbers in the range
-      for (let i = start; i <= end; i++) result.push(i);
+      for (let i = start; i <= end; i++) {
+        result.push(i);
+      }
     }
     // Single line number
     else {
       const num = parseInt(trimmedPart, 10);
-      if (!isNaN(num)) result.push(num);
+      if (!isNaN(num)) {
+        result.push(num);
+      }
     }
   }
 
@@ -85,12 +93,16 @@ function transformerMetaDiff(
     name: "transformerMetaDiff",
     code(node) {
       const meta = this.options.meta?.__raw;
-      if (!meta) return;
+      if (!meta) {
+        return;
+      }
 
       const addMatch = meta.match(/add=\{(\S+)\}/);
       const removeMatch = meta.match(/remove=\{(\S+)\}/);
 
-      if (!addMatch && !removeMatch) return;
+      if (!addMatch && !removeMatch) {
+        return;
+      }
 
       this.addClassToHast(this.pre, hasDiffClassName);
 
@@ -145,10 +157,14 @@ function transformerMetaHighlight(
     name: "transformerMetaHighlight",
     code(node) {
       const meta = this.options.meta?.__raw;
-      if (!meta) return;
+      if (!meta) {
+        return;
+      }
 
       const highlightMatch = meta.match(/highlight=\{([^}]+)\}/);
-      if (!highlightMatch) return;
+      if (!highlightMatch) {
+        return;
+      }
 
       const highlightLines = parseLineNumbers(highlightMatch[1]);
       const lines = node.children.filter((node) => node.type === "element");

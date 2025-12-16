@@ -11,12 +11,12 @@ export default function LoadingMessage() {
         <div
           className="size-1.5 animate-pulse rounded-full bg-neutral-300
             delay-300 [animation-delay:-0.3s]"
-        ></div>
+        />
         <div
           className="size-1.5 animate-pulse rounded-full bg-neutral-300
             [animation-delay:-0.15s]"
-        ></div>
-        <div className="size-1.5 animate-pulse rounded-full bg-neutral-300"></div>
+        />
+        <div className="size-1.5 animate-pulse rounded-full bg-neutral-300" />
       </div>
     </Message>
   );
