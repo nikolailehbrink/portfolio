@@ -1,40 +1,39 @@
 ---
 title: "Redirecting off-campers.com to vanever.com"
-description: "How we handled a massive domain migration with Caddy, automated checks, and Google Search Console."
+description: "How we handled our domain migration to preserve organic traffic, with automated checks verifying redirects for 240+ URLs."
 publicationDate: "2025-12-18T12:00:00Z"
 tags: ["Migration", "Caddy", "Automation", "SEO"]
+cover: "./redirect-off-campers-vanever-cover.png"
 draft: true
 ---
 
 import Alert from "@/components/Alert.astro";
 
-At the beginning of the year, Vanever took over Off-Campers and with it a small portion of the team, the website and proprietary software solutions that had been developed over the previous years.
+At the beginning of the year, Vanever acquired Off-Campers, including a small part of the team, the website, and the proprietary software developed over the years.
 
-Immediately after the takeover, we had two websites with different booking systems behind them and quickly realized that we needed to switch to one booking system in the background. So, within a few weeks, we relaunched the Vanever website on the Off-Campers booking system and gave it the distinctive “Off” brand design.
+Immediately after the takeover, we had two websites running on different booking systems. We quickly realized we needed to consolidate them in order to reduce complexity and provide a unified user experience. Within a few weeks, we relaunched the Vanever website on the Off-Campers backend system and applied the distinctive “Off” brand design.
 
-We made our internal tools multi-tenant capable so that we still only had one code base, meaning that changes to it applied directly to both websites. Nevertheless, we still had to manage two separate Content-Management-Systems, which sometimes meant significantly more work (especially for the marketing team).
-
-Although our [ad spend](https://www.adjust.com/glossary/ad-spend/) was only directed at the vanever.com site, organic traffic on the off-campers.com site was significantly higher. This was, of course, due to the considerably higher brand awareness, but also because the off-campers.com site had [the camping blog](https://vanever.com/de/blog) that many people still visit and that we didn't want to simply duplicate on the Vanever site.
+We updated our internal tools to be multi-tenant, allowing us to maintain a single codebase where changes applied to both websites. However, we still had to manage two separate Content Management Systems, which created extra work, especially for the marketing team.
 
 ## Why the redirect?
 
-In the middle of the year, we reevaluated whether we should operate two websites. Since hardly any organic bookings were coming in via off-campers.com anymore, and in order to minimize maintenance costs and strengthen the Vanever brand, we decided to only operate the Vanever site and to redirect the Off-Campers one to it.
+Mid-year, we reevaluated the need for two websites. Since [off-campers.com](https://off-campers.com) was generating few organic bookings, we decided to sunset the domain and redirect traffic to [vanever.com](https://vanever.com). This consolidation should minimize maintenance costs and strengthen the Vanever brand.
 
 ## Planning the redirect
 
-With the help of an external service provider, the marketing team created a pretty big spreadsheet, sorting all Off-Campers pages by importance. Pages that were no longer needed or were out of date were filtered out. These URLs were then mapped to the new URLs that were to be uploaded to the Vanever site. The redirect gave us the opportunity to simplify long and complicated URL slugs, so these were also included. (For example: `/blog/showering-while-camping-possibilities-sustainability-and-co` should redirect to `/blog/showering-while-camping`)
+With help from an external provider, the marketing team created a comprehensive spreadsheet, prioritizing all Off-Campers pages. Obsolete or unnecessary pages were filtered out, and the remaining URLs were mapped to their new counterparts on the Vanever site. We also took the opportunity to simplify long, complicated URL slugs. For example, `/blog/showering-while-camping-possibilities-sustainability-and-co` became `/blog/showering-while-camping`.
 
 ![Spreadsheet of URLs to be redirected](./redirect-list.png)
 
-Once the list of nearly 240 URLs was complete, it was our job in the tech team to carry out the redirect.
+Once the list of nearly 240 URLs was finalized, it was up to us to implement the redirects.
 
-## Implementing the redirect
+## The redirect
 
 ### Testing the URLs
 
-Before implementing the redirects, we wanted to ensure that all the URLs from the redirect list were actually reachable. This actually came up during Code Review, where a coworker mentioned, verifying the URLs with a [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/HEAD) request to check for any 404 errors, would be a good idea.
+Before implementing the redirects, we wanted to ensure all target URLs were reachable. During a code review, a coworker suggested verifying the URLs with a [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/HEAD) request to catch any 404 errors.
 
-With the following script, we figured out about 15 broken URLS that needed to be fixed which we then sent back to marketing for review:
+Using the following script, we identified about 15 broken URLs and sent them back to marketing for review:
 
 ```ts filename="index.ts"
 import { appendFile } from "node:fs/promises";
@@ -54,9 +53,9 @@ for (const site of new Set([...germanSites, ...englishSites])) {
 
 ### Implementing the redirect list
 
-With the help of the redirect list, we were able to use a simple formula to copy all redirects in the correct format directly from the spreadsheet and paste them into our Caddyfile.
+Using the redirect list, we applied a simple formula to format the redirects, allowing us to copy them directly from the spreadsheet into our [Caddyfile](https://caddyserver.com/docs/caddyfile). This is the configuration file for the [Caddy web server](https://caddyserver.com/).
 
-For the actual redirects and our webserver, we use [Caddy](https://caddyserver.com/). Here is how one redirect would look like:
+Here is what a single redirect looks like:
 
 ```bash filename="Caddyfile.prod"
 redir /de/b2b-events https://vanever.com/de/kooperationen 301
@@ -64,7 +63,7 @@ redir /de/b2b-events https://vanever.com/de/kooperationen 301
 
 ### Configuring dynamic pages
 
-We also had to handle some dynamic pages specifically, the booking adjustment page. These pages are created dynamically with a random token and needed to be redirected to the new domain while preserving the exact URL structure.
+We also had to handle dynamic pages, specifically for booking adjustments. These pages are generated with a random token and needed to be redirected to the new domain while preserving the exact URL structure.
 
 ```txt filename="Caddyfile.prod"
 @booking_adjustment {
@@ -74,6 +73,8 @@ We also had to handle some dynamic pages specifically, the booking adjustment pa
 redir @booking_adjustment https://vanever.com{uri}
 ```
 
+For example, a request to `https://off-campers.com/en/booking-adjustment/abc123` would be redirected to `https://vanever.com/en/booking-adjustment/abc123`.
+
 <Alert type="info">
   `{uri}` is a Caddy placeholder that represents the entire original request
   URI, including the path and query string. This ensures that when redirecting,
@@ -82,14 +83,14 @@ redir @booking_adjustment https://vanever.com{uri}
 
 ### Deploying the changes
 
-After implementing all the redirects in the Caddyfile, we deployed the changes to our production environment. We tested out a few redirects manually to ensure everything was working as expected.
+After adding the redirects to the Caddyfile, we deployed the changes to production and manually tested a few to ensure everything was working as expected.
 
 ## The "Unindexed" Problem
 
-Because of the way we duplicated the CMS back in January, we knew there were a lot of sites that were set to "noindex" in the vanever CMS. To catch these, we wrote a script to search for unindexed sites after the migration.
+Because of how we duplicated the CMS in the beginning of the year, we knew many pages were set to "noindex" in the Vanever CMS. To catch these, we wrote a script to identify unindexed pages after the migration.
 
-We iterated through our list of German and English sites, checking for the `noindex` meta tag.  
-We could have also done that in the CMS, but since there were a lot of different page types and collections involved, we decided to do it this way.
+We iterated through our list of German and English URLs, checking for the `noindex` meta tag.  
+We could have checked this in the CMS, but given the variety of page types and collections, a script was more efficient.
 
 ```ts
 import { appendFile } from "node:fs/promises";
@@ -114,21 +115,19 @@ for (const site of new Set([...germanSites, ...englishSites])) {
   if (headTag.includes(`<meta name="robots" content="noindex"/>`)) {
     await appendFile("non-indexed.txt", `${site}\n`);
   }
-
-  await new Promise((resolve) => setTimeout(resolve, 1000));
 }
 ```
 
-We found a few pages that needed manual adjustment and activated the indexing accordingly.
+We found a few pages that required manual adjustment and enabled indexing for them.
 
 ## Telling Google
 
-Now all that remained was to let Google know about the redirect. This was easy to do using the [“Change of Address”](https://support.google.com/webmasters/answer/9370220?hl=en) tool.
+All that remained was to inform Google about the redirect. This was easily done using the [“Change of Address”](https://support.google.com/webmasters/answer/9370220?hl=en) tool.
 
 ![Google Search shows redirect](./search-console-redirect.png)
 
 ## Conclusion
 
-After two weeks of monitoring, we can say that everything is working pretty good. Google has already processed most of the redirects, and the indexed pages for `off-campers.com` are steadily decreasing while those for `vanever.com` are spiking.
+After two weeks of monitoring the redirect, we observed a significant increase in organic traffic to Vanever and a corresponding drop in traffic to Off-Campers, indicating that the redirect was successful.
 
 ![Traffic spike for https://vanever.com in Google Search Console after redirect](./traffic-spike-vanever.png)
