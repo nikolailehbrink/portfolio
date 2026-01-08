@@ -1,19 +1,18 @@
 ---
 title: "Redirecting off-campers.com to vanever.com"
 description: "How we handled our domain migration to preserve organic traffic, with automated checks verifying redirects for 240+ URLs."
-publicationDate: "2025-12-18T12:00:00Z"
+publicationDate: "2026-01-08T12:00:00Z"
 tags: ["Domain Redirect", "Caddy", "Automation", "SEO", "Search Console"]
 cover: "./redirect-off-campers-vanever-cover.png"
-draft: true
 ---
 
 import Alert from "@/components/Alert.astro";
 
-At the beginning of the year, Vanever acquired Off-Campers, including a small part of the team, the website, and the proprietary software developed over the years.
+At the beginning of 2025, Vanever acquired Off Campers, including a small part of the team, the website, and the proprietary software developed over the years.
 
-Immediately after the takeover, we had two websites running on different booking systems. We quickly realized we needed to consolidate them in order to reduce complexity and provide a unified user experience. Within a few weeks, we relaunched the Vanever website on the Off-Campers backend system and applied the distinctive “Off” brand design.
+Immediately after the takeover, we had two websites running on different booking systems. We quickly realized we needed to consolidate them in order to reduce complexity and provide a unified user experience. Within a few weeks, we relaunched the Vanever website on the Off Campers backend system and applied the distinctive “Off” brand design.
 
-We updated our internal tools to be multi-tenant, allowing us to maintain a single codebase where changes applied to both websites. However, we still had to manage two separate Content Management Systems, which created extra work, especially for the marketing team.
+We updated our internal tools to be [multi-tenant](https://www.ibm.com/think/topics/multi-tenant), allowing us to maintain a single codebase where changes applied to both websites. However, we still had to manage two separate Content Management Systems, which created extra work, especially for the marketing team.
 
 ## Why the redirect?
 
@@ -21,7 +20,7 @@ Mid-year, we reevaluated the need for two websites. Since [off-campers.com](http
 
 ## Planning the redirect
 
-With help from an external provider, the marketing team created a comprehensive spreadsheet, prioritizing all Off-Campers pages. Obsolete or unnecessary pages were filtered out, and the remaining URLs were mapped to their new counterparts on the Vanever site. We also took the opportunity to simplify long, complicated URL slugs. For example, `/blog/showering-while-camping-possibilities-sustainability-and-co` became `/blog/showering-while-camping`.
+With help from an external provider, the marketing team created a comprehensive spreadsheet, prioritizing all Off Campers pages. Obsolete or unnecessary pages were filtered out, and the remaining URLs were mapped to their new counterparts on the Vanever site. We also took the opportunity to simplify long, complicated URL slugs. For example, `/blog/showering-while-camping-possibilities-sustainability-and-co` became `/blog/showering-while-camping`.
 
 ![Spreadsheet of URLs to be redirected](./redirect-list.png)
 
@@ -53,7 +52,7 @@ for (const site of new Set([...germanSites, ...englishSites])) {
 
 ### Implementing the redirect list
 
-Using the redirect list, we applied a simple formula to format the redirects, allowing us to copy them directly from the spreadsheet into our [Caddyfile](https://caddyserver.com/docs/caddyfile). This is the configuration file for the [Caddy web server](https://caddyserver.com/).
+Using the redirect list, we applied a simple formula to format the redirects, allowing us to copy them directly from the spreadsheet into our [Caddyfile](https://caddyserver.com/docs/caddyfile). This is the configuration file for [Caddy](https://caddyserver.com/) which we use as our web server.
 
 Here is what a single redirect looks like:
 
@@ -90,7 +89,7 @@ After adding the redirects to the Caddyfile, we deployed the changes to producti
 Because of how we duplicated the CMS in the beginning of the year, we knew many pages were set to "noindex" in the Vanever CMS. To catch these, we wrote a script to identify unindexed pages after the migration.
 
 We iterated through our list of German and English URLs, checking for the `noindex` meta tag.  
-We could have checked this in the CMS, but given the variety of page types and collections, a script was more efficient.
+We could have checked this in the CMS, but given the variety of page types and collections, we found a script was more efficient.
 
 ```ts
 import { appendFile } from "node:fs/promises";
@@ -122,12 +121,12 @@ We found a few pages that required manual adjustment and enabled indexing for th
 
 ## Telling Google
 
-All that remained was to inform Google about the redirect. This was easily done using the [“Change of Address”](https://support.google.com/webmasters/answer/9370220?hl=en) tool.
+All that remained was to inform Google about the redirect. This was easily done using the [“Change of Address”](https://support.google.com/webmasters/answer/9370220?hl=en) tool, which is part of Google Search Console.
 
 ![Google Search shows redirect](./search-console-redirect.png)
 
-## Conclusion
+## Results
 
-After two weeks of monitoring the redirect, we observed a significant increase in organic traffic to Vanever and a corresponding drop in traffic to Off-Campers, indicating that the redirect was successful.
+After several weeks of monitoring the redirect, we observed a significant increase in organic traffic to Vanever and a corresponding drop in traffic to Off Campers, indicating that the redirect was successful.
 
 ![Traffic spike for https://vanever.com in Google Search Console after redirect](./traffic-spike-vanever.png)
