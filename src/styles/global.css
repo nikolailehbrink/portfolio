@@ -185,7 +185,16 @@
     @apply border-border outline-ring/50;
   }
 
-  /* Shiki */
+  /* Shiki dual theme */
+  .dark .astro-code,
+  .dark .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+
   pre.astro-code {
     @apply grid rounded-xl border border-border bg-card! px-4 py-2.5 text-sm;
     code {

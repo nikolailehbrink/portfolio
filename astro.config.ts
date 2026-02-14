@@ -48,7 +48,10 @@ export default defineConfig({
         }),
     ],
     shikiConfig: {
-      theme: "dark-plus",
+      themes: {
+        light: "github-light",
+        dark: "dark-plus",
+      },
       transformers: [
         transformerLineNumbers(),
         transformerMetaDiff(),
