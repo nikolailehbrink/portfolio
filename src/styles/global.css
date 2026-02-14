@@ -38,7 +38,7 @@
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  --card: oklch(0.97 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -143,7 +143,7 @@
 }
 
 :not(pre) > code {
-  @apply rounded-md border border-neutral-700 bg-muted px-1.5 py-0.5 font-normal before:content-none after:content-none;
+  @apply rounded-md border border-border bg-muted px-1.5 py-0.5 font-normal before:content-none after:content-none;
 }
 
 @utility offset-border {
@@ -187,14 +187,14 @@
 
   /* Shiki */
   pre.astro-code {
-    @apply grid rounded-xl border border-neutral-800 bg-neutral-900! px-4 py-2.5 text-sm;
+    @apply grid rounded-xl border border-border bg-card! px-4 py-2.5 text-sm;
     code {
       @apply flex flex-col;
     }
     .line {
       @apply -ml-4 inline-flex min-w-[calc(100%_+_--spacing(8))] border-l-2 border-transparent pl-3;
       &.highlight:not(.add):not(.remove) {
-        @apply border-neutral-400 bg-neutral-800;
+        @apply border-muted-foreground bg-muted;
       }
     }
     &.show-line-numbers {

@@ -12,7 +12,7 @@ const currentYear = new Date().getFullYear();
 
 <footer
   class={cn(
-    "relative border-1 border-neutral-800 bg-neutral-900 p-3 text-sm md:p-2",
+    "relative border-1 border-border bg-card p-3 text-sm md:p-2",
     className,
   )}
   {...props}
@@ -26,9 +26,7 @@ const currentYear = new Date().getFullYear();
       <span class="text-muted-foreground"> - </span>
       Nikolai Lehbrink
     </p>
-    <nav
-      class="rounded-full border border-neutral-700 bg-neutral-800 px-2 py-1.5"
-    >
+    <nav class="rounded-full border border-border bg-muted px-2 py-1.5">
       <menu class="flex gap-2">
         {
           SOCIAL_LINKS.map(({ href, name, logo: Logo }) => (

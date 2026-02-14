@@ -46,8 +46,7 @@ export default function Chat({
   return (
     <div
       className="mt-1 mb-4 flex max-w-5xl grow flex-col gap-2 overflow-hidden
-        sm:rounded-xl sm:border sm:bg-neutral-900 sm:py-4 sm:pl-4
-        sm:offset-border"
+        sm:rounded-xl sm:border sm:bg-card sm:py-4 sm:pl-4 sm:offset-border"
     >
       <Body
         messages={messages}

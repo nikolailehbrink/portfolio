@@ -28,7 +28,7 @@ export default function Message({
           `sticky top-0 flex size-[38px] shrink-0 overflow-hidden rounded-full
           border`,
           {
-            "items-center justify-center border-neutral-700 bg-neutral-800":
+            "items-center justify-center border-border bg-muted":
               role === "user",
           },
         )}
@@ -57,9 +57,7 @@ function MessageBubble({
     <div
       className={cn(
         "max-w-prose rounded-xl border px-3 py-1.5",
-        role === "user"
-          ? "border-neutral-700 bg-neutral-800"
-          : "bg-neutral-900 sm:bg-background",
+        role === "user" ? "border-border bg-muted" : "bg-card sm:bg-background",
         className,
       )}
     >

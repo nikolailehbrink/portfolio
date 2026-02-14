@@ -76,11 +76,11 @@ const hasFilteredTag = filteredTag !== undefined;
     <NewsletterForm client:load showText={false} className="max-w-2xl" />
     <div
       class="relative mt-4 grid max-w-xl overflow-hidden rounded-lg border
-        border-border bg-neutral-900 offset-border"
+        border-border bg-card offset-border"
     >
       <div
         class="absolute inset-y-0 right-0 w-2 rounded-e-lg bg-linear-to-r
-          from-transparent to-neutral-900"
+          from-transparent to-card"
       >
       </div>
       <form class="flex snap-x snap-mandatory gap-2 overflow-x-auto p-2">
@@ -130,7 +130,7 @@ const hasFilteredTag = filteredTag !== undefined;
             />
           ))
         ) : (
-          <p class="col-span-2 rounded-lg bg-neutral-900 p-4 py-3 text-center text-muted-foreground">
+          <p class="col-span-2 rounded-lg bg-card p-4 py-3 text-center text-muted-foreground">
             No posts were found {filteredTag ? `for ${filteredTag.name}.` : "."}{" "}
             <br />
           </p>

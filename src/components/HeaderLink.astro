@@ -18,9 +18,9 @@ const isActive = path === pathname || path === "/" + (subpath?.[0] || "");
     `flex gap-1 rounded-lg border px-3 py-1 transition-colors
     active:inset-shadow-xs sm:text-sm`,
     isActive
-      ? "border-neutral-700 bg-neutral-800 text-neutral-200"
-      : `border-muted bg-neutral-900 text-muted-foreground
-        hover:border-neutral-700 hover:bg-neutral-800 max-sm:px-2`,
+      ? "border-border bg-muted text-foreground"
+      : `border-transparent bg-transparent text-muted-foreground
+        hover:border-border hover:bg-muted max-sm:px-2`,
     className,
   )}
   {...props}

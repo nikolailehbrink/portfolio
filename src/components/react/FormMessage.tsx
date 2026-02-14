@@ -18,7 +18,10 @@ export default function FormMessage({
   }
   return (
     <div
-      className={cn("flex items-center gap-1 text-sm text-red-400", className)}
+      className={cn(
+        "flex items-center gap-1 text-sm text-red-600 dark:text-red-400",
+        className,
+      )}
       {...props}
     >
       <Icon size={iconSize} weight="duotone" className="shrink-0" />

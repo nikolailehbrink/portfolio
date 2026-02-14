@@ -13,7 +13,7 @@ export default function ExampleMessage({
     <Button
       variant="secondary"
       size="sm"
-      className="border border-neutral-700 bg-neutral-800 hover:text-foreground
+      className="border border-border bg-muted hover:text-foreground
         sm:text-muted-foreground"
       onClick={() => setInput(message)}
     >

@@ -24,7 +24,7 @@ const ICONS = {
 } as const;
 
 const alert = cva(
-  `not-prose z-20 mt-8 flex flex-col items-start gap-2 rounded-xl bg-neutral-900
+  `not-prose z-20 mt-8 flex flex-col items-start gap-2 rounded-xl bg-card
   bg-linear-160 to-50% p-4 ring ring-black/10 ring-inset md:-ml-8 lg:-ml-12
   dark:ring-white/10 [li>div]:mx-0 [li>div]:mt-2 [li>div]:mb-3`,
   {
@@ -42,8 +42,8 @@ const alert = cva(
           `from-yellow-200 text-yellow-950 dark:from-yellow-950
           dark:text-yellow-50`,
         ],
-        question:
-          "from-neutral-200 dark:from-neutral-800 dark:text-neutral-100",
+        question: `from-neutral-200 text-neutral-800 dark:from-neutral-800
+        dark:text-neutral-100`,
       },
     },
     defaultVariants: {

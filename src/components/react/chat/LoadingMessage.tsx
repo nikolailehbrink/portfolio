@@ -9,14 +9,14 @@ export default function LoadingMessage() {
       <div className="flex h-6 items-center gap-[3px]">
         <span className="sr-only">Loading...</span>
         <div
-          className="size-1.5 animate-pulse rounded-full bg-neutral-300
+          className="size-1.5 animate-pulse rounded-full bg-muted-foreground
             delay-300 [animation-delay:-0.3s]"
         />
         <div
-          className="size-1.5 animate-pulse rounded-full bg-neutral-300
+          className="size-1.5 animate-pulse rounded-full bg-muted-foreground
             [animation-delay:-0.15s]"
         />
-        <div className="size-1.5 animate-pulse rounded-full bg-neutral-300" />
+        <div className="size-1.5 animate-pulse rounded-full bg-muted-foreground" />
       </div>
     </Message>
   );

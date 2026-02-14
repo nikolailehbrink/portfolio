@@ -14,8 +14,9 @@ function Label({
         group-data-[disabled=true]:pointer-events-none
         group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed
         peer-disabled:opacity-50
-        group-has-[:required]/form-item:after:text-red-400
-        group-has-[:required]/form-item:after:content-["*"]`,
+        group-has-[:required]/form-item:after:text-red-600
+        group-has-[:required]/form-item:after:content-["*"]
+        group-has-[:required]/form-item:after:dark:text-red-400`,
         className,
       )}
       {...props}

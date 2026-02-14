@@ -48,8 +48,8 @@ export default function ContactForm({
   return (
     <form
       className={cn(
-        `inline-grid w-full grid-cols-1 gap-4 rounded-xl border bg-neutral-900
-        p-4 offset-border @lg:grid-cols-2`,
+        `inline-grid w-full grid-cols-1 gap-4 rounded-xl border bg-card p-4
+        offset-border @lg:grid-cols-2`,
         className,
       )}
       {...props}
@@ -133,8 +133,8 @@ export default function ContactForm({
       </div>
       {form.errors && form.errors.length > 0 ? (
         <FormMessage
-          className="col-span-full items-start rounded-md border border-red-900
-            bg-red-950 p-2"
+          className="col-span-full items-start rounded-md border border-red-200
+            bg-red-50 p-2 dark:border-red-900 dark:bg-red-950"
           iconSize={20}
         >
           {form.errors.map((error, index) => (
@@ -144,8 +144,9 @@ export default function ContactForm({
       ) : null}
       {sendSuccessfully && (
         <FormMessage
-          className="col-span-full items-start rounded-md border border-sky-900
-            bg-sky-950 p-2 text-sky-400"
+          className="col-span-full items-start rounded-md border border-sky-200
+            bg-sky-50 p-2 text-sky-600 dark:border-sky-900 dark:bg-sky-950
+            dark:text-sky-400"
           icon={CheckCircleIcon}
           iconSize={20}
         >

@@ -23,7 +23,7 @@ export default function WelcomeMessage({
           onClick={() => setShowWelcomeMessage(false)}
           aria-label="Close note"
           className="absolute top-0 right-0 cursor-pointer rounded-se-xl
-            rounded-es-xl border bg-neutral-900 p-1.5 hover:bg-neutral-800"
+            rounded-es-xl border bg-card p-1.5 hover:bg-muted"
         >
           <XIcon size={16} weight="bold" />
         </button>

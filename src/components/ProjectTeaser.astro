@@ -25,7 +25,7 @@ const {
 <div
   class={cn(
     `relative row-span-4 flex flex-col justify-start gap-2 overflow-hidden
-    rounded-xl bg-neutral-900 p-4 offset-border lg:last:col-start-3
+    rounded-xl bg-card p-4 offset-border lg:last:col-start-3
     lg:last:row-start-2`,
     className,
   )}
@@ -34,14 +34,16 @@ const {
   <div class="absolute top-2 right-2 z-10 flex items-center gap-2 text-xs">
     {
       tags.map((tag) => (
-        <Badge className="bg-sky-950 text-sky-400">{tag}</Badge>
+        <Badge className="bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-400">
+          {tag}
+        </Badge>
       ))
     }
   </div>
   <div class="relative transition-[filter_color] duration-300">
     <div
       class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent
-        to-neutral-900 to-95%"
+        to-card to-95%"
     >
     </div>
     <Image
