@@ -1,0 +1,68 @@
+---
+import { SunIcon } from "@phosphor-icons/react/dist/ssr/Sun";
+import { MoonIcon } from "@phosphor-icons/react/dist/ssr/Moon";
+import { MonitorIcon } from "@phosphor-icons/react/dist/ssr/Monitor";
+---
+
+<button
+  id="themeToggle"
+  aria-label="Toggle theme"
+  class="flex cursor-pointer items-center rounded-lg border border-transparent
+    p-1.5 text-muted-foreground transition-colors hover:border-border
+    hover:bg-muted hover:text-foreground sm:p-1"
+>
+  <SunIcon
+    className="theme-icon size-6 sm:size-5"
+    data-theme="light"
+    weight="duotone"
+  />
+  <MoonIcon
+    className="theme-icon size-6 sm:size-5"
+    data-theme="dark"
+    weight="duotone"
+  />
+  <MonitorIcon
+    className="theme-icon size-6 sm:size-5"
+    data-theme="system"
+    weight="duotone"
+  />
+</button>
+
+<style>
+  .theme-icon {
+    display: none;
+  }
+  :global([data-theme="system"]) .theme-icon[data-theme="system"] {
+    display: block;
+  }
+  :global([data-theme="light"]) .theme-icon[data-theme="light"] {
+    display: block;
+  }
+  :global([data-theme="dark"]) .theme-icon[data-theme="dark"] {
+    display: block;
+  }
+</style>
+
+<script is:inline>
+  document.getElementById("themeToggle")?.addEventListener("click", () => {
+    // Cycle: system → light → dark → system
+    if (!("theme" in localStorage)) {
+      localStorage.theme = "light";
+    } else if (localStorage.theme === "light") {
+      localStorage.theme = "dark";
+    } else {
+      localStorage.removeItem("theme");
+    }
+
+    document.documentElement.classList.toggle(
+      "dark",
+      localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches),
+    );
+    document.documentElement.setAttribute(
+      "data-theme",
+      "theme" in localStorage ? localStorage.theme : "system",
+    );
+  });
+</script>

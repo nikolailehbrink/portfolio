@@ -17,10 +17,21 @@ const canonicalURL = new URL(pathname, Astro.site);
 
 <html
   lang="en"
-  class="dark scroll-pt-20 scroll-smooth bg-white text-pretty scheme-light
-    dark:bg-neutral-950 dark:text-neutral-400 dark:scheme-dark"
+  class="scroll-pt-20 scroll-smooth text-pretty scheme-light dark:scheme-dark"
 >
   <head>
+    <script is:inline>
+      document.documentElement.classList.toggle(
+        "dark",
+        localStorage.theme === "dark" ||
+          (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches),
+      );
+      document.documentElement.setAttribute(
+        "data-theme",
+        "theme" in localStorage ? localStorage.theme : "system",
+      );
+    </script>
     <!-- Global Metadata -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />

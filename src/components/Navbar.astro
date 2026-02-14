@@ -3,6 +3,7 @@ import { NAVIGATION_LINKS } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import type { HTMLAttributes } from "astro/types";
 import HeaderLink from "./HeaderLink.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 
 type Props = HTMLAttributes<"nav">;
 const { class: className, ...props } = Astro.props;
@@ -21,5 +22,6 @@ const { class: className, ...props } = Astro.props;
       bg-background/75 p-1 shadow-lg backdrop-blur-xl"
   >
     {NAVIGATION_LINKS.map((link) => <HeaderLink {...link} />)}
+    <ThemeToggle />
   </menu>
 </nav>
