@@ -20,6 +20,8 @@ Your context window is a finite resource. Think of it like RAM — once it's ful
 
 Run `/context` at any point to see how much of your token budget is consumed. You might be surprised how quickly it fills up, especially with [MCP](https://modelcontextprotocol.io/) servers registered. Each server's tool definitions consume tokens just by being registered, regardless of whether you actually use them.
 
+![The /context command showing a breakdown of token usage by category](./context-command.png)
+
 ### Clear between tasks
 
 The `/clear` command wipes your conversational history entirely. Your `CLAUDE.md` instructions and file access are preserved — only the chat history is gone. I use this between distinct tasks to start fresh.
@@ -28,9 +30,15 @@ The `/clear` command wipes your conversational history entirely. Your `CLAUDE.md
 
 If you're deep into a session and don't want to lose the thread, `/compact` offers a middle ground. It summarizes your conversation to free up space. I've found that manually running this at around 70-80% capacity gives better summaries than letting it auto-compact at the limit.
 
-<Alert type="tip">
-  Keep an eye on `/context` during longer sessions. If you're past 80% and the
-  responses start feeling less focused, it's time to `/compact` or `/clear`.
+<Alert type="info">
+  With `/compact` Claude reads through your entire conversation and generates a
+  condensed summary, then replaces all prior messages with that summary in the
+  session file stored at `~/.claude/projects/`. The original messages are still
+  preserved in the session transcript, but Claude only sees the summary going
+  forward. Auto-compact triggers the same process automatically when you're
+  about to hit the context limit — but at that point there's less room for a
+  thorough summary, which is why compacting manually earlier tends to work
+  better.
 </Alert>
 
 ## The CLAUDE.md power move
@@ -282,7 +290,40 @@ Now running `/deploy staging` triggers the full workflow.
 
 ## MCP servers
 
-The [Model Context Protocol](https://modelcontextprotocol.io/) lets you connect Claude to external services — GitHub, Sentry, Slack, your database, and more.
+The [Model Context Protocol](https://modelcontextprotocol.io/) lets you connect Claude to external services — GitHub, Sentry, Slack, your database, and more. It's powerful, but it comes with a cost you should be aware of.
+
+### Mind the context cost
+
+Every MCP server you register loads its tool definitions — names, descriptions, parameter schemas — into your context window on every request, even if you never use those tools. Users have reported [setups consuming 55-66k tokens](https://github.com/anthropics/claude-code/issues/3406) just from tool definitions, eating up a third of the available context window.
+
+Claude Code does have a mitigation for this called **Tool Search**, which automatically kicks in when MCP tool definitions would consume more than 10% of your context. Instead of preloading everything, it lazy-loads tools on demand. But even with Tool Search, it's worth being intentional about which servers you actually need.
+
+### When to prefer CLI over MCP
+
+For some tools, using the CLI directly through a skill produces better results at lower cost. A great example is [Playwright](https://playwright.dev/). The [Playwright MCP](https://github.com/microsoft/playwright-mcp) sends the full page structure (the accessibility tree) to the LLM on every single request. For large pages, that means a massive chunk of your context window gets consumed with every interaction. The [Playwright CLI](https://playwright.dev/docs/test-cli), on the other hand, stores the accessibility tree locally. Claude runs CLI commands against it without ever needing to ingest the entire page. The result is faster responses, lower costs, and no issues with large or complex pages.
+
+The catch is that LLMs may not be trained on every CLI's specific flags and syntax. That's where skills come in. You can write a skill that teaches Claude how to use a CLI correctly, preventing hallucinated commands and wasted tokens:
+
+```yaml filename=".claude/skills/playwright/SKILL.md"
+---
+name: playwright
+description: Use when testing web pages or generating Playwright tests
+---
+
+Use the Playwright CLI to interact with web pages.
+
+Available commands:
+- `npx playwright test` — run all tests
+- `npx playwright test --ui` — open interactive UI mode
+- `npx playwright codegen <url>` — generate tests by recording actions
+- `npx playwright show-report` — view the HTML test report
+```
+
+The general rule: if a tool works well as a CLI and doesn't need to stream large amounts of data into the context window, prefer the CLI with a skill over an MCP server.
+
+### Adding MCP servers
+
+When you do need MCP, setup is straightforward:
 
 ```bash
 # Add GitHub integration
@@ -297,11 +338,46 @@ claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
 
 Use `--scope project` to share the configuration with your team via `.mcp.json`, or `--scope user` to keep it personal.
 
-<Alert type="warning">
-  Each MCP server's tool definitions consume context tokens just by being
-  registered. If you notice your context filling up fast, run `/context` and
-  audit what's loaded. Some servers consume 8-30% of your available budget.
+## Frontend design
+
+If you've ever asked an AI to build UI, you know the result can feel generic. Claude Code handles frontend work surprisingly well, but the quality depends heavily on the context you give it.
+
+### Let your design system do the work
+
+The best results I've gotten are when the project already has a well-defined design system in place — a [Tailwind CSS](https://tailwindcss.com/) config with custom colors, spacing, and typography, a set of reusable components, or a library like [shadcn/ui](https://ui.shadcn.com/). When Claude sees existing patterns in your codebase, it adapts to them. It picks up your color tokens, your component APIs, your layout conventions, and applies them consistently.
+
+This is where your `CLAUDE.md` can help a lot. Document the design foundations explicitly:
+
+```md filename="CLAUDE.md"
+## Design System
+
+- Use Tailwind CSS for all styling
+- Colors are defined as CSS variables in `app.css` (e.g. `--color-primary`)
+- Use components from `src/components/ui/` (Button, Input, Card, etc.)
+- Follow the existing spacing scale, do not use arbitrary values
+- Dark mode is supported via the `dark:` variant
+```
+
+The more established your design system is, the less Claude has to guess — and the more its output will look like it belongs in your project.
+
+<Alert type="tip">
+  If you're starting a new project without a design system, consider setting up
+  [shadcn/ui](https://ui.shadcn.com/) or a similar component library first.
+  Claude Code will immediately pick up on the patterns and produce much more
+  consistent results.
 </Alert>
+
+### The `/frontend-design` skill
+
+For cases where you don't have an existing design system or you're building something from scratch, Claude Code ships with a built-in `/frontend-design` skill. It's specifically designed to produce polished, production-grade interfaces that avoid the typical "AI-generated" look.
+
+Just invoke it when asking Claude to build UI:
+
+```
+/frontend-design Create a pricing page with three tiers
+```
+
+It works well for landing pages, standalone components, or prototypes where you need something that looks good without setting up a full design system first.
 
 ## Git worktrees
 
@@ -313,7 +389,7 @@ claude --worktree feature-auth
 
 This creates an isolated copy of your repo on a new branch. You can run multiple Claude instances simultaneously — one per feature — without conflicts. Worktrees clean up automatically when you exit, or you can keep them and merge later.
 
-The `/batch` command uses this internally. When you run something like `/batch migrate src/ from CommonJS to ES modules`, it splits the work across 5-30 parallel worktrees automatically.
+The new `/batch` command uses this internally. When you run something like `/batch migrate src/ from CommonJS to ES modules`, it splits the work across 5-30 parallel worktrees automatically.
 
 ## Keyboard shortcuts worth knowing
 
