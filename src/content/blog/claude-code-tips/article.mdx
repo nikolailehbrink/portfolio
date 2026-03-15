@@ -23,7 +23,7 @@ If you've ever asked an AI to build UI by itself, you probably know that the res
 
 ### Let your design system do the work
 
-The best results I've gotten are when the project already has a well-defined design system in place — a [Tailwind CSS](https://tailwindcss.com/) config with custom colors, spacing, and typography, a set of reusable components, or a library like [shadcn/ui](https://ui.shadcn.com/). When Claude sees existing patterns in your codebase, it adapts to them. It picks up your color tokens, your component APIs, your layout conventions, and applies them consistently.
+The best results I've gotten are when the project already has a well-defined design system in place, for example a [Tailwind CSS](https://tailwindcss.com/) config with custom colors, spacing, and typography, a set of reusable components, or a library like [shadcn/ui](https://ui.shadcn.com/). When Claude sees existing patterns in your codebase, it adapts to them. It picks up your color tokens, your component APIs, your layout conventions, and applies them consistently.
 
 This is where your `CLAUDE.md` can help a lot. Document the design foundations explicitly:
 
@@ -40,17 +40,11 @@ This is where your `CLAUDE.md` can help a lot. Document the design foundations e
 The more established your design system is, the less Claude has to guess — and the more its output will look like it belongs in your project.
 
 <Alert type="tip">
-  If you're starting a new project without a design system, consider using my{" "}
-  <a
-    href="https://github.com/nikolailehbrink/llm-stack"
-    target="_blank"
-    rel="noopener"
-  >
-    LLM Stack
-  </a>{" "}
-  full-stack starter template, which is optimized for agentic development. It
-  gives you a polished set of components, a design system and next-gen tooling,
-  handling Authentication, Database, and more.
+  If you're starting a new project without a design system, consider using my
+  [LLM Stack](https://github.com/nikolailehbrink/llm-stack) full-stack starter
+  template, which is optimized for agentic development. It gives you a polished
+  set of components, a design system and next-gen tooling, handling
+  Authentication, Database, and more.
 </Alert>
 
 ### The `/frontend-design` skill
@@ -178,6 +172,75 @@ Claude Code ships with a bunch of built-in slash commands and CLI flags that are
   from installed plugins and custom skills.
 </Alert>
 
+## Setting up your CLAUDE.md
+
+Your `CLAUDE.md` file is a persistent system prompt that survives the `/clear` command. It's the single most effective way to make Claude Code understand your project.
+
+### Start with `/init`
+
+If you don't have a `CLAUDE.md` yet, run `/init` and Claude will analyze your codebase and generate one for you. It picks up your project structure, build commands, linting setup, and conventions automatically. It's a solid starting point that you can then refine over time.
+
+### Keep it lean
+
+Over time, your `CLAUDE.md` becomes a focused set of corrections rather than a bloated knowledge base. Aim for around [200 lines at most](https://code.claude.com/docs/en/memory#my-claude-md-is-too-large).
+
+<Alert type="tip">
+  You can use [Mermaid](https://mermaid.js.org/) diagrams instead of prose for
+  architecture documentation in your `CLAUDE.md`. LLMs consume diagram syntax
+  efficiently while conveying complex architecture in hundreds rather than
+  thousands of tokens.
+</Alert>
+
+Don't try to document everything. Instead, document what Claude gets wrong. Each time you notice a mistake or an unwanted pattern, add a rule.
+
+```md filename="CLAUDE.md" add={2}
+- Do NOT introduce new MUI Joy UI usage where there is already a shadcn alternative
+- Install new shadcn components with the `base-ui` variant and not from `radix-ui`
+```
+
+### Layer your configuration
+
+Claude Code loads `CLAUDE.md` files from multiple locations, with the most specific taking priority:
+
+- `~/.claude/CLAUDE.md` — global rules across all projects
+- `project/CLAUDE.md` — project-specific, shared with your team via git
+- `project/apps/frontend/CLAUDE.md` — subproject-specific, ideal for frontend/backend splits
+
+### Reference external docs with `@`
+
+You can pull in other files using the `@path` syntax.
+
+#### Importing AGENTS.md into CLAUDE.md
+
+If you're not only using Claude Code but also other AI coding tools like [Codex](https://github.com/openai/codex) or [Cursor](https://cursor.com/) (which mostly rely on `AGENTS.md`), you can keep all your rules in `AGENTS.md` and just point your `CLAUDE.md` to it:
+
+```md filename="CLAUDE.md"
+# CLAUDE.md
+
+All rules and conventions are maintained in `AGENTS.md`.
+This file only exists to import those rules into Claude Code's context.
+
+@AGENTS.md
+```
+
+This way you maintain a single source of truth that works across all your AI coding tools.
+
+To verify that the referenced files are actually loaded, run `/context` and check the "Memory files" section - you should see both your `CLAUDE.md` and the imported file listed with their token counts:
+
+![The /context command showing CLAUDE.md and AGENTS.md loaded as memory files](./context-memory-files.png)
+
+### Include validation commands
+
+Giving Claude a feedback loop improves the quality of the final result significantly. Instead of writing code and hoping it works, Claude can catch its own mistakes.
+
+```md filename="CLAUDE.md"
+## Validation
+
+- Run `npm run typecheck` after editing any `.ts` file
+- Run `npm run lint` after modifying components
+- Run `npm run test` before considering a task complete
+```
+
 ## Context management
 
 Starting with the foundamentals: Your context window is a finite resource. Think of it like RAM — once it's full, performance degrades. Managing it well is probably the single most impactful habit you can build.
@@ -211,53 +274,6 @@ If you're deep into a session and don't want to lose the thread, `/compact` offe
   automatically when you're about to hit the context limit — but at that point
   there's less room for a thorough summary, which is why compacting manually
   earlier tends to work better.
-</Alert>
-
-## The CLAUDE.md power move
-
-Your `CLAUDE.md` file is a persistent system prompt that survives `/clear`. It's the single most effective way to make Claude Code understand your project.
-
-### Keep it lean
-
-Don't try to document everything. Instead, document what Claude gets wrong. Each time you notice a mistake or an unwanted pattern, add a rule. Over time, your `CLAUDE.md` becomes a focused set of corrections rather than a bloated knowledge base. Aim for around 2,500 tokens at most.
-
-### Layer your configuration
-
-Claude Code loads `CLAUDE.md` files from multiple locations, with the most specific taking priority:
-
-- `~/.claude/CLAUDE.md` — global rules across all projects
-- `.claude/CLAUDE.md` — project-specific, shared with your team via git
-- Parent directories are also checked, so monorepo setups work naturally
-
-For projects with distinct areas, you can use `.claude/rules/` with path-specific rule files:
-
-```
-.claude/rules/
-├── frontend/
-│   └── RULES.md    # "Use Tailwind CSS, prefer named exports"
-└── backend/
-    └── RULES.md    # "Use Zod for validation, return proper HTTP status codes"
-```
-
-### Include validation commands
-
-This is the tip that had the biggest impact on output quality for me. Tell Claude how to verify its own work:
-
-```md filename="CLAUDE.md"
-## Validation
-
-- Run `npm run typecheck` after editing any `.ts` file
-- Run `npm run lint` after modifying components
-- Run `npm run test` before considering a task complete
-```
-
-Giving Claude a feedback loop improves the quality of the final result significantly. Instead of writing code and hoping it works, Claude can catch its own mistakes.
-
-<Alert type="info">
-  You can also use [Mermaid](https://mermaid.js.org/) diagrams instead of prose
-  for architecture documentation in your `CLAUDE.md`. LLMs consume diagram
-  syntax efficiently while conveying complex architecture in hundreds rather
-  than thousands of tokens.
 </Alert>
 
 ## Permission modes
