@@ -83,7 +83,7 @@
     "eslint-plugin-react-hooks": "7.0.1",
     "globals": "16.4.0",
     "husky": "9.1.7",
-    "knip": "5.70.0",
+    "knip": "5.86.0",
     "lint-staged": "16.2.6",
     "prettier": "3.6.2",
     "prettier-plugin-astro": "0.14.1",
