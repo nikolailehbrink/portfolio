@@ -4,23 +4,30 @@ description: "Looking for ways to get more out of Claude Code? Discover tips fro
 publicationDate: "2026-03-01T12:00:00Z"
 draft: true
 tags: ["Claude Code", "AI", "Tips and Tricks", "CLI"]
+cover: "./claude-code-tips.webp"
 ---
 
 import Alert from "@/components/Alert.astro";
 
-Over the past months, Claude Code has become my go-to tool for day-to-day development. Whether I'm building new features, debugging issues, or refactoring existing code, it has genuinely changed the way I work. Along the way, I've picked up a few tips and tricks that I'd like to share.
+Over the past months, Claude Code has become my go-to tool for day-to-day development. Whether I'm building new features, debugging issues, or refactoring existing code, it has genuinely changed the way I work and likely yours as well. Along the way, I've picked up a few tips and tricks that I'd like to share.
 
 This post covers everything from foundational setup to more advanced workflows like hooks, subagents, and custom skills.
 
 ## Context management
 
-Your context window is a finite resource. Think of it like RAM — once it's full, performance degrades. Managing it well is probably the single most impactful habit you can build.
+Starting with the foundamentals: Your context window is a finite resource. Think of it like RAM — once it's full, performance degrades. Managing it well is probably the single most impactful habit you can build.
 
 ### Check your usage
 
-Run `/context` at any point to see how much of your token budget is consumed. You might be surprised how quickly it fills up, especially with [MCP](https://modelcontextprotocol.io/) servers registered. Each server's tool definitions consume tokens just by being registered, regardless of whether you actually use them.
+Run `/context` at any point to see how much of your token budget is consumed. You might be surprised how quickly it fills up.
 
 ![The /context command showing a breakdown of token usage by category](./context-command.png)
+
+<Alert type="info">
+
+Each [MCP](https://modelcontextprotocol.io/) server's tool definitions consume tokens just by being registered, regardless of whether you actually use them.
+
+</Alert>
 
 ### Clear between tasks
 
@@ -31,14 +38,14 @@ The `/clear` command wipes your conversational history entirely. Your `CLAUDE.md
 If you're deep into a session and don't want to lose the thread, `/compact` offers a middle ground. It summarizes your conversation to free up space. I've found that manually running this at around 70-80% capacity gives better summaries than letting it auto-compact at the limit.
 
 <Alert type="info">
-  With `/compact` Claude reads through your entire conversation and generates a
-  condensed summary, then replaces all prior messages with that summary in the
-  session file stored at `~/.claude/projects/`. The original messages are still
-  preserved in the session transcript, but Claude only sees the summary going
-  forward. Auto-compact triggers the same process automatically when you're
-  about to hit the context limit — but at that point there's less room for a
-  thorough summary, which is why compacting manually earlier tends to work
-  better.
+  With `/compact` Claude Code reads through your entire conversation and
+  generates a condensed summary, then replaces all prior messages with that
+  summary in the session file stored at `~/.claude/projects/`. The original
+  messages are still preserved in the session transcript, but Claude only sees
+  the summary going forward. Auto-compact triggers the same process
+  automatically when you're about to hit the context limit — but at that point
+  there's less room for a thorough summary, which is why compacting manually
+  earlier tends to work better.
 </Alert>
 
 ## The CLAUDE.md power move
@@ -288,6 +295,10 @@ Now running `/deploy staging` triggers the full workflow.
   output directly into the prompt.
 </Alert>
 
+## Insights
+
+/insights is crazy
+
 ## MCP servers
 
 The [Model Context Protocol](https://modelcontextprotocol.io/) lets you connect Claude to external services — GitHub, Sentry, Slack, your database, and more. It's powerful, but it comes with a cost you should be aware of.
@@ -340,7 +351,7 @@ Use `--scope project` to share the configuration with your team via `.mcp.json`,
 
 ## Frontend design
 
-If you've ever asked an AI to build UI, you know the result can feel generic. Claude Code handles frontend work surprisingly well, but the quality depends heavily on the context you give it.
+If you've ever asked an AI to build UI by itself, you probably know that the result can feel - lets say ... generic. Claude Code handles frontend work surprisingly well, but the quality depends heavily on the context you give it.
 
 ### Let your design system do the work
 
