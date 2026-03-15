@@ -1,3 +1,5 @@
+// TODO: Remove patches/astro.patch once the server island fix is released.
+// Tracks: https://github.com/withastro/astro/pull/15888
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
