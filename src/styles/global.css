@@ -1,9 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* TODO: Test if it really works */
-@source not "../content/blog/**/*.mdx";
-
 @plugin "@tailwindcss/typography";
 
 /* https://fontsource.org/fonts/inter/install */

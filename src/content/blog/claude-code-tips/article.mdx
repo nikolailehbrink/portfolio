@@ -8,10 +8,175 @@ cover: "./claude-code-tips.webp"
 ---
 
 import Alert from "@/components/Alert.astro";
+import NewBadge from "./NewBadge";
+import MustTryBadge from "./MustTryBadge";
 
 Over the past months, Claude Code has become my go-to tool for day-to-day development. Whether I'm building new features, debugging issues, or refactoring existing code, it has genuinely changed the way I work and likely yours as well. Along the way, I've picked up a few tips and tricks that I'd like to share.
 
 This post covers everything from foundational setup to more advanced workflows like hooks, subagents, and custom skills.
+
+## Frontend design
+
+First let's talk about frontend since that's where probably most people are stuck.
+
+If you've ever asked an AI to build UI by itself, you probably know that the result can feel - lets say ... generic. Claude Code handles frontend work surprisingly well, but the quality depends heavily on the context you give it.
+
+### Let your design system do the work
+
+The best results I've gotten are when the project already has a well-defined design system in place — a [Tailwind CSS](https://tailwindcss.com/) config with custom colors, spacing, and typography, a set of reusable components, or a library like [shadcn/ui](https://ui.shadcn.com/). When Claude sees existing patterns in your codebase, it adapts to them. It picks up your color tokens, your component APIs, your layout conventions, and applies them consistently.
+
+This is where your `CLAUDE.md` can help a lot. Document the design foundations explicitly:
+
+```md filename="CLAUDE.md"
+## Design System
+
+- Use Tailwind CSS for all styling
+- Colors are defined as CSS variables in `app.css` (e.g. `--color-primary`)
+- Use components from `src/components/ui/` (Button, Input, Card, etc.)
+- Follow the existing spacing scale, do not use arbitrary values
+- Dark mode is supported via the `dark:` variant
+```
+
+The more established your design system is, the less Claude has to guess — and the more its output will look like it belongs in your project.
+
+<Alert type="tip">
+  If you're starting a new project without a design system, consider using my{" "}
+  <a
+    href="https://github.com/nikolailehbrink/llm-stack"
+    target="_blank"
+    rel="noopener"
+  >
+    LLM Stack
+  </a>{" "}
+  full-stack starter template, which is optimized for agentic development. It
+  gives you a polished set of components, a design system and next-gen tooling,
+  handling Authentication, Database, and more.
+</Alert>
+
+### The `/frontend-design` skill
+
+For cases where you don't have an existing design system or you're building something from scratch, Claude Code ships with a built-in `/frontend-design` skill. It's specifically designed to produce polished, production-grade interfaces that avoid the typical "AI-generated" look.
+
+Just invoke it when asking Claude to build UI:
+
+```
+/frontend-design Create a pricing page with three tiers
+```
+
+It works well for landing pages, standalone components, or prototypes where you need something that looks good without setting up a full design system first.
+
+## Useful commands
+
+Claude Code ships with a bunch of built-in slash commands and CLI flags that are easy to overlook. Here are the ones I use the most:
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`/batch`</td>
+      <td>
+        <NewBadge /> Splits a large-scale change across parallel worktrees, each
+        opening its own PR ![The /batch command being used to migrate legacy
+        NestJS code to tRPC](./batch-command.png)
+      </td>
+    </tr>
+    <tr>
+      <td>`/btw`</td>
+      <td>
+        <NewBadge /> Ask a quick side question without polluting the
+        conversation history - runs with full context but no tool access
+      </td>
+    </tr>
+    <tr>
+      <td>`/clear`</td>
+      <td>
+        Wipes conversation history but keeps your `CLAUDE.md` and file access
+        intact
+      </td>
+    </tr>
+    <tr>
+      <td>`/compact`</td>
+      <td>
+        Summarizes the conversation to free up context without losing the thread
+      </td>
+    </tr>
+    <tr>
+      <td>`/context`</td>
+      <td>
+        Shows a visual breakdown of your token usage - great for spotting what's
+        eating your context ![The /context command showing a breakdown of token
+        usage by category](./context-command.png)
+      </td>
+    </tr>
+    <tr>
+      <td>`/fork`</td>
+      <td>
+        Creates a copy of the current conversation so you can explore an
+        alternative path ![The /fork command creating a copy of the conversation
+        to explore a different direction](./fork-command.png)
+      </td>
+    </tr>
+    <tr>
+      <td>`/insights`</td>
+      <td>
+        <MustTryBadge /> Generates an HTML report analyzing your usage patterns
+        across all sessions. This one is a hidden gem - it breaks down what
+        you're doing well, where you're losing time, and gives you concrete
+        suggestions to improve. I was genuinely surprised by how much I learned
+        about my own workflow ![The /insights command generating a shareable
+        HTML report](./insights-command.png) ![The insights HTML report showing
+        highlights from your Claude Code sessions](./insights-report.png)
+      </td>
+    </tr>
+    <tr>
+      <td>`/rename`</td>
+      <td>
+        Names your current session so you can find it later with `/resume`.
+        Without an argument it auto-generates a name, but I prefer naming
+        sessions manually - the auto-generated names only consider recent
+        context and can end up too vague ![The /rename command auto-generating a
+        session name and then being called with a custom
+        name](./rename-command.png)
+      </td>
+    </tr>
+    <tr>
+      <td>`/resume`</td>
+      <td>
+        Resume a previous session by ID or name, or open an interactive picker
+      </td>
+    </tr>
+    <tr>
+      <td>`/review`</td>
+      <td>
+        <NewBadge /> Runs a code review on the current branch's changes
+      </td>
+    </tr>
+    <tr>
+      <td>`/security-review`</td>
+      <td>
+        <NewBadge /> Analyzes your pending changes for security vulnerabilities
+        like injection, auth issues, and data exposure
+      </td>
+    </tr>
+    <tr>
+      <td>`/simplify`</td>
+      <td>
+        <NewBadge /> Reviews your changed code for reuse, quality, and
+        efficiency, then fixes what it finds
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Alert type="tip">
+  You can run `/help` at any time to see all available commands, including ones
+  from installed plugins and custom skills.
+</Alert>
 
 ## Context management
 
@@ -295,10 +460,6 @@ Now running `/deploy staging` triggers the full workflow.
   output directly into the prompt.
 </Alert>
 
-## Insights
-
-/insights is crazy
-
 ## MCP servers
 
 The [Model Context Protocol](https://modelcontextprotocol.io/) lets you connect Claude to external services — GitHub, Sentry, Slack, your database, and more. It's powerful, but it comes with a cost you should be aware of.
@@ -348,47 +509,6 @@ claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
 ```
 
 Use `--scope project` to share the configuration with your team via `.mcp.json`, or `--scope user` to keep it personal.
-
-## Frontend design
-
-If you've ever asked an AI to build UI by itself, you probably know that the result can feel - lets say ... generic. Claude Code handles frontend work surprisingly well, but the quality depends heavily on the context you give it.
-
-### Let your design system do the work
-
-The best results I've gotten are when the project already has a well-defined design system in place — a [Tailwind CSS](https://tailwindcss.com/) config with custom colors, spacing, and typography, a set of reusable components, or a library like [shadcn/ui](https://ui.shadcn.com/). When Claude sees existing patterns in your codebase, it adapts to them. It picks up your color tokens, your component APIs, your layout conventions, and applies them consistently.
-
-This is where your `CLAUDE.md` can help a lot. Document the design foundations explicitly:
-
-```md filename="CLAUDE.md"
-## Design System
-
-- Use Tailwind CSS for all styling
-- Colors are defined as CSS variables in `app.css` (e.g. `--color-primary`)
-- Use components from `src/components/ui/` (Button, Input, Card, etc.)
-- Follow the existing spacing scale, do not use arbitrary values
-- Dark mode is supported via the `dark:` variant
-```
-
-The more established your design system is, the less Claude has to guess — and the more its output will look like it belongs in your project.
-
-<Alert type="tip">
-  If you're starting a new project without a design system, consider setting up
-  [shadcn/ui](https://ui.shadcn.com/) or a similar component library first.
-  Claude Code will immediately pick up on the patterns and produce much more
-  consistent results.
-</Alert>
-
-### The `/frontend-design` skill
-
-For cases where you don't have an existing design system or you're building something from scratch, Claude Code ships with a built-in `/frontend-design` skill. It's specifically designed to produce polished, production-grade interfaces that avoid the typical "AI-generated" look.
-
-Just invoke it when asking Claude to build UI:
-
-```
-/frontend-design Create a pricing page with three tiers
-```
-
-It works well for landing pages, standalone components, or prototypes where you need something that looks good without setting up a full design system first.
 
 ## Git worktrees
 
