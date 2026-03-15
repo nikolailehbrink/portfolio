@@ -7,7 +7,7 @@ import { defineAction } from "astro:actions";
 import NewsletterVerificationEmail, {
   PlainText,
 } from "@/components/react/emails/newsletter-verification";
-import { z } from "astro:schema";
+import { z } from "astro/zod";
 import { db, eq, sql, ViewCount } from "astro:db";
 import { RESEND_NEWSLETTER_AUDIENCE_ID } from "@/consts";
 
