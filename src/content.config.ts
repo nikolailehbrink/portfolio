@@ -1,6 +1,7 @@
-import { defineCollection, reference, z } from "astro:content";
+import { defineCollection, reference } from "astro:content";
 import { file, glob } from "astro/loaders";
 import { slugify } from "./lib/utils";
+import { z } from "astro/zod";
 
 const blog = defineCollection({
   // Load Markdown and MDX files in the `src/content/blog/` directory.
@@ -33,10 +34,12 @@ const blog = defineCollection({
         cover: image().optional(),
         tags: z.array(z.string().min(1)).optional(),
         showComments: z.boolean().default(true),
-        authors: z
-          .array(reference("authors"))
-          .min(1)
-          .default(["nikolailehbrink"]),
+        authors: z.array(reference("authors")).default([
+          {
+            collection: "authors",
+            id: "nikolailehbrink",
+          },
+        ]),
       })
       .strict(),
 });
@@ -48,23 +51,20 @@ const authors = defineCollection({
       .object({
         name: z.string(),
         image: image().optional(),
-        email: z.string().email().optional(),
+        email: z.email().optional(),
         x: z
-          .string()
           .url()
           .refine((arg) => arg.includes("x.com"), {
             message: "URL must contain x.com",
           })
           .optional(),
         github: z
-          .string()
           .url()
           .refine((arg) => arg.includes("github.com"), {
             message: "URL must contain github.com",
           })
           .optional(),
         linkedin: z
-          .string()
           .url()
           .refine((arg) => arg.includes("linkedin.com"), {
             message: "URL must contain linkedin.com",
@@ -84,7 +84,7 @@ const career = defineCollection({
         startDate: z.coerce.date(),
         endDate: z.coerce.date().optional(),
         logo: image(),
-        website: z.string().url().optional(),
+        website: z.url().optional(),
         type: z.enum(["work", "education"]),
       })
       .strict(),
@@ -99,7 +99,7 @@ const projects = defineCollection({
         description: z.string(),
         image: image(),
         link: z.string().url().optional(),
-        github: z.string().url().optional(),
+        github: z.url().optional(),
         tags: z.array(z.string().min(1)),
       })
       .strict(),
