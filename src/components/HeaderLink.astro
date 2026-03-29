@@ -15,12 +15,11 @@ const isActive = path === pathname || path === "/" + (subpath?.[0] || "");
 <a
   href={path}
   class={cn(
-    `flex gap-1 rounded-lg border px-3 py-1 transition-colors
-    active:inset-shadow-xs sm:text-sm`,
+    "flex gap-1 rounded-lg border px-3 py-1 active:inset-shadow-xs sm:text-sm",
     isActive
       ? "border-border bg-muted text-foreground"
-      : `border-transparent bg-transparent text-muted-foreground
-        hover:border-border hover:bg-muted max-sm:px-2`,
+      : `border-border/75 bg-neutral-50 text-muted-foreground
+        hover:border-border hover:bg-muted max-sm:px-2 dark:bg-neutral-900`,
     className,
   )}
   {...props}

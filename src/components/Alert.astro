@@ -30,19 +30,20 @@ const alert = cva(
   {
     variants: {
       type: {
-        success:
-          "from-green-200 text-green-950 dark:from-green-950 dark:text-green-50",
-        info: "from-sky-200 text-sky-950 dark:from-sky-950 dark:text-sky-50",
+        success: `from-green-100 text-green-950 dark:from-green-900/75
+        dark:text-green-50`,
+        info: "from-sky-100 text-sky-950 dark:from-sky-900/75 dark:text-sky-50",
         warning: [
-          `from-orange-200 text-orange-950 dark:from-orange-950
+          `from-orange-100 text-orange-950 dark:from-orange-900/75
           dark:text-orange-50`,
         ],
-        error: "from-red-200 text-red-950 dark:from-red-950 dark:text-red-50",
+        error:
+          "from-red-100 text-red-950 dark:from-red-900/75 dark:text-red-50",
         tip: [
-          `from-yellow-200 text-yellow-950 dark:from-yellow-950
+          `from-yellow-100 text-yellow-950 dark:from-yellow-900/75
           dark:text-yellow-50`,
         ],
-        question: `from-neutral-200 text-neutral-800 dark:from-neutral-800
+        question: `from-neutral-100 text-neutral-800 dark:from-neutral-900/75
         dark:text-neutral-100`,
       },
     },

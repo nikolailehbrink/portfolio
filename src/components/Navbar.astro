@@ -11,7 +11,7 @@ const { class: className, ...props } = Astro.props;
 
 <nav
   class={cn(
-    `sticky top-0 z-50 container flex justify-center bg-linear-to-b
+    `sticky top-0 z-50 container flex justify-center gap-1 bg-linear-to-b
     from-background to-transparent p-4`,
     className,
   )}
@@ -19,9 +19,14 @@ const { class: className, ...props } = Astro.props;
 >
   <menu
     class="flex items-center gap-1 rounded-xl border border-muted
-      bg-background/75 p-1 shadow-lg backdrop-blur-xl"
+      bg-background/75 p-1 backdrop-blur-xl"
   >
     {NAVIGATION_LINKS.map((link) => <HeaderLink {...link} />)}
-    <ThemeToggle />
   </menu>
+  <div
+    class="flex items-center gap-1 rounded-xl border border-muted
+      bg-background/75 p-1 backdrop-blur-xl"
+  >
+    <ThemeToggle />
+  </div>
 </nav>

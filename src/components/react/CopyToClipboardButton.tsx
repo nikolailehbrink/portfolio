@@ -9,10 +9,10 @@ export default function CopyToClipboardButton({ code }: { code: string }) {
     <button
       type="button"
       className={cn(
-        `absolute top-2 right-2 rounded-md bg-muted p-2 py-1.5 text-right
+        `absolute top-2 right-2 rounded-md bg-background p-2 py-1.5 text-right
         font-sans text-xs text-muted-foreground opacity-0 shadow-sm
         transition-all group-hover/code-block:opacity-100 focus:opacity-100
-        active:bg-accent`,
+        active:bg-accent dark:bg-muted`,
         {
           "cursor-pointer hover:text-foreground": idle,
         },
