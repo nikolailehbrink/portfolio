@@ -19,6 +19,7 @@ import PHP from "@/assets/skills/php.svg";
 import Payload from "@/assets/skills/payload.svg";
 import Sanity from "@/assets/skills/sanity.svg";
 import Wordpress from "@/assets/skills/wordpress.svg";
+import Claude from "@/assets/skills/claude.svg";
 
 export const SKILLS = {
   Frontend: [
@@ -119,6 +120,11 @@ export const SKILLS = {
       name: "VS Code",
       logo: VisualStudioCode,
       url: "https://code.visualstudio.com",
+    },
+    {
+      name: "Claude Code",
+      logo: Claude,
+      url: "https://claude.com/product/claude-code",
     },
     {
       name: "Vite",
