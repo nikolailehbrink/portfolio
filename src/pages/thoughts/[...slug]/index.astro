@@ -1,0 +1,66 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import BaseHead from "@/components/BaseHead.astro";
+import RootLayout from "@/layouts/RootLayout.astro";
+import { formatDate } from "@/lib/format";
+import Avatar from "@/components/Avatar.astro";
+import { SOCIAL_LINKS } from "@/data/socials";
+
+export async function getStaticPaths() {
+  const thoughts = await getCollection("thoughts");
+  return thoughts.map((thought) => ({
+    params: { slug: thought.id },
+    props: thought,
+  }));
+}
+type Props = CollectionEntry<"thoughts">;
+
+const thought = Astro.props;
+const { Content } = await render(thought);
+const { title, description, publicationDate } = thought.data;
+const formattedPublicationDate = formatDate(publicationDate);
+---
+
+<RootLayout>
+  <BaseHead title={title} description={description} slot="head" />
+  <article class="flex w-full flex-col gap-12">
+    <header class="mx-auto prose w-full prose-neutral dark:prose-invert">
+      <h1 class="leading-tight">{title}</h1>
+      <div class="not-prose inline-flex flex-wrap items-center gap-2">
+        <div class="inline-flex items-center gap-2 text-sm">
+          <Avatar loading="eager" class="size-10 rounded-full" />
+          <div class="space-y-1">
+            <p>Nikolai Lehbrink</p>
+            <div class="flex items-center gap-2">
+              {
+                SOCIAL_LINKS.map(({ href, logo: Logo, name }) => (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    class="text-muted-foreground hover:text-primary"
+                  >
+                    <span class="sr-only">Link to {name} profile</span>
+                    <Logo weight="duotone" size={20} />
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+        <span>•</span>
+        <time class="text-sm" datetime={publicationDate.toISOString()}>
+          {formattedPublicationDate}
+        </time>
+      </div>
+      <p class="text-muted-foreground">{description}</p>
+    </header>
+
+    <section
+      class="mx-auto prose prose-neutral dark:prose-invert
+        prose-a:decoration-sky-500 prose-a:underline-offset-4"
+    >
+      <Content />
+    </section>
+  </article>
+</RootLayout>

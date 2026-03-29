@@ -105,4 +105,21 @@ const projects = defineCollection({
       .strict(),
 });
 
-export const collections = { blog, authors, career, projects };
+const thoughts = defineCollection({
+  loader: glob({
+    base: "./src/content/thoughts",
+    pattern: "**/thought.mdx",
+    generateId({ entry }) {
+      return entry.split("/")[0];
+    },
+  }),
+  schema: z
+    .object({
+      title: z.string(),
+      description: z.string(),
+      publicationDate: z.coerce.date(),
+    })
+    .strict(),
+});
+
+export const collections = { blog, authors, career, projects, thoughts };

@@ -1,0 +1,46 @@
+---
+import BaseHead from "@/components/BaseHead.astro";
+import RootLayout from "@/layouts/RootLayout.astro";
+import { formatDate } from "@/lib/format";
+import { getCollection } from "astro:content";
+
+const thoughts = (await getCollection("thoughts")).sort(
+  (a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf(),
+);
+
+const description = "Personal reflections, letters, and things on my mind.";
+---
+
+<RootLayout>
+  <BaseHead title="Thoughts" description={description} slot="head" />
+  <div class="flex w-full max-w-2xl flex-col gap-4 sm:items-center">
+    <h1 class="text-3xl font-bold sm:text-center sm:text-4xl">Thoughts</h1>
+    <p class="max-w-prose text-muted-foreground sm:text-center">
+      {description}
+    </p>
+    <ul class="mt-2 flex w-full flex-col gap-2 self-stretch">
+      {
+        thoughts.map(({ data, id }) => (
+          <li>
+            <a
+              href={`/thoughts/${id}`}
+              class="flex flex-col rounded-lg bg-card p-3 offset-border transition-colors hover:bg-muted"
+              data-astro-prefetch
+            >
+              <div class="flex items-baseline justify-between gap-4">
+                <h2 class="font-semibold">{data.title}</h2>
+                <time
+                  datetime={data.publicationDate.toISOString()}
+                  class="shrink-0 text-xs text-muted-foreground"
+                >
+                  {formatDate(data.publicationDate)}
+                </time>
+              </div>
+              <p class="text-sm text-muted-foreground">{data.description}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</RootLayout>

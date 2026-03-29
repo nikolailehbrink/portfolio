@@ -66,6 +66,7 @@ export default defineConfig({
   site,
   redirects: {
     "/blog/tailwind-css-tips": "/blog/tailwindcss-v3-tips",
+    "/blog/dear-danya": "/thoughts/dear-danya",
   },
   integrations: [
     mdx({
