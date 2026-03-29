@@ -200,7 +200,7 @@
       @apply flex flex-col;
     }
     .line {
-      @apply -ml-4 inline-flex min-w-[calc(100%_+_--spacing(8))] border-l-2 border-transparent pl-3;
+      @apply -ml-4 inline-flex min-h-[1lh] min-w-[calc(100%_+_--spacing(8))] border-l-2 border-transparent pl-3;
       &.highlight:not(.add):not(.remove) {
         @apply border-muted-foreground bg-muted;
       }
