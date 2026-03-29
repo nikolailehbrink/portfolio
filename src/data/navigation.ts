@@ -1,7 +1,8 @@
 import type { Icon } from "@phosphor-icons/react";
 import { HouseLineIcon } from "@phosphor-icons/react/dist/ssr/HouseLine";
 import { ArticleNyTimesIcon } from "@phosphor-icons/react/dist/ssr/ArticleNyTimes";
-import { ChatsCircleIcon } from "@phosphor-icons/react/dist/ssr/ChatsCircle";
+import { BrainIcon } from "@phosphor-icons/react/dist/ssr/Brain";
+import { NotebookIcon } from "@phosphor-icons/react/dist/ssr/Notebook";
 
 export type NavigationLink = {
   label: string;
@@ -21,8 +22,13 @@ export const NAVIGATION_LINKS = [
     icon: ArticleNyTimesIcon,
   },
   {
-    label: "AI Chat",
+    label: "Chat",
     path: "/chat",
-    icon: ChatsCircleIcon,
+    icon: BrainIcon,
+  },
+  {
+    label: "Thoughts",
+    path: "/thoughts",
+    icon: NotebookIcon,
   },
 ] as const satisfies Array<NavigationLink>;
