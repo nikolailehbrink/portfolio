@@ -53,6 +53,7 @@ const coverImageURL = new URL(cover ? cover.src : `${pathname}/og.png`, origin)
     title={title}
     description={description}
     image={coverImageURL}
+    ogType="article"
     slot="head"
   >
     <meta property="article:author" content={authors[0].data.name} />
@@ -183,12 +184,13 @@ const coverImageURL = new URL(cover ? cover.src : `${pathname}/og.png`, origin)
           <Image
             src={cover}
             loading="eager"
-            alt="Blurry background of Post Thumbnail"
+            alt=""
             class="absolute aspect-video size-full object-cover blur-3xl"
           />
           <Image
             src={cover}
             loading="eager"
+            fetchpriority="high"
             alt="Post Thumbnail"
             class="relative aspect-video size-full rounded-xl object-cover sm:border"
           />

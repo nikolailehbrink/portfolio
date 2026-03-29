@@ -54,6 +54,10 @@ const LanguageIcon = language
       {...props}>
       <slot />
     </pre>
-    {code && !noCopy ? <CopyToClipBoardButton client:load code={code} /> : null}
+    {
+      code && !noCopy ? (
+        <CopyToClipBoardButton client:visible code={code} />
+      ) : null
+    }
   </div>
 </figure>

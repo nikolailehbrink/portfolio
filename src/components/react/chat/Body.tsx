@@ -32,6 +32,7 @@ export default function Body({
   return (
     <div
       ref={containerRef}
+      aria-live="polite"
       className="flex grow flex-col gap-4 overflow-y-auto pr-4"
     >
       {/* Don't show if user starts new chat with Message Limit hit */}

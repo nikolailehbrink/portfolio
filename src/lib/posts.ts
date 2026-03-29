@@ -35,7 +35,9 @@ export async function getPosts(options?: {
 }
 
 export async function getBlogTags() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", ({ data }) =>
+    import.meta.env.PROD ? data.draft !== true : true,
+  );
   const tags = new Set<string>();
   posts.forEach(({ data }) => {
     data.tags?.forEach((tag) => tags.add(tag));

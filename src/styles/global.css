@@ -177,7 +177,6 @@
     transparent 50%
   );
   background-size: 10px 10px;
-  background-attachment: fixed;
 }
 
 @layer base {

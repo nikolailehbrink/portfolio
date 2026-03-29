@@ -145,6 +145,7 @@ const item = {
                   ? "sm:duration-1000 sm:slide-in-from-bottom-35"
                   : "",
               )}
+              loading={index < 2 ? "eager" : "lazy"}
               {...project.data}
             />
           ))

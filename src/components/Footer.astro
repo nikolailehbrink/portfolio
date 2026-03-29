@@ -26,7 +26,10 @@ const currentYear = new Date().getFullYear();
       <span class="text-muted-foreground"> - </span>
       Nikolai Lehbrink
     </p>
-    <nav class="rounded-full border border-border bg-muted px-2 py-1.5">
+    <nav
+      aria-label="Social links"
+      class="rounded-full border border-border bg-muted px-2 py-1.5"
+    >
       <menu class="flex gap-2">
         {
           SOCIAL_LINKS.map(({ href, name, logo: Logo }) => (
@@ -37,14 +40,13 @@ const currentYear = new Date().getFullYear();
               aria-label={name}
               class="text-muted-foreground hover:text-foreground"
             >
-              <span class="sr-only">Link to {name} profile</span>
               <Logo size={20} weight="duotone" />
             </a>
           ))
         }
       </menu>
     </nav>
-    <nav class="flex flex-1 justify-end">
+    <nav aria-label="Legal" class="flex flex-1 justify-end">
       <menu class="flex gap-2">
         {
           LEGAL_PAGES.map(({ href, name }) => (

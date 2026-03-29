@@ -8,7 +8,10 @@ import { Image } from "astro:assets";
 import type { HTMLAttributes } from "astro/types";
 import { buttonVariants } from "./react/ui/button";
 
-type Props = CollectionEntry<"projects">["data"] & HTMLAttributes<"div">;
+type Props = CollectionEntry<"projects">["data"] &
+  HTMLAttributes<"div"> & {
+    loading?: "eager" | "lazy";
+  };
 
 const {
   tags,
@@ -17,6 +20,7 @@ const {
   title,
   github,
   link,
+  loading,
   class: className,
   ...props
 } = Astro.props;
@@ -50,7 +54,7 @@ const {
       src={image}
       alt={title}
       width={700}
-      loading="eager"
+      loading={loading}
       class="aspect-[4/3] rounded-lg object-cover"
     />
   </div>
