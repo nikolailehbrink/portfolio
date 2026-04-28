@@ -10,46 +10,34 @@ cover: "./claude-code-tips.webp"
 import Alert from "@/components/Alert.astro";
 import NewBadge from "./NewBadge";
 import MustTryBadge from "./MustTryBadge";
+import RepoCard from "./RepoCard.astro";
 
 Over the past months, Claude Code has become my go-to tool for day-to-day development. Whether I'm building new features, debugging issues, or refactoring existing code, it has genuinely changed the way I work and likely yours as well. Along the way, I've picked up a few tips and tricks that I'd like to share.
 
-This post covers everything from foundational setup to more advanced workflows like hooks, subagents, and custom skills.
-
 ## Frontend design
 
-First let's talk about frontend since that's where probably most people are stuck.
+This is probably the area where most people still struggle to get good results, so let's cover it first.
 
-If you've ever asked an AI to build UI by itself, you probably know that the result can feel - lets say ... generic. Claude Code handles frontend work surprisingly well, but the quality depends heavily on the context you give it.
+If you've ever asked an AI to build UI, you know the results tend to look... let's say, generic. In my opinion, Claude handles frontend surprisingly well, but the quality depends on the context you give it.
 
 ### Let your design system do the work
 
-The best results I've gotten are when the project already has a well-defined design system in place, for example a [Tailwind CSS](https://tailwindcss.com/) config with custom colors, spacing, and typography, a set of reusable components, or a library like [shadcn/ui](https://ui.shadcn.com/). When Claude sees existing patterns in your codebase, it adapts to them. It picks up your color tokens, your component APIs, your layout conventions, and applies them consistently.
+The best results I've gotten are when the project already has a well-defined design system, e.g. a [Tailwind CSS](https://tailwindcss.com/) config with custom tokens, reusable components, or a library like [shadcn/ui](https://ui.shadcn.com/). Claude picks up your color tokens, component APIs, and layout conventions and applies them consistently. In my experience, you don't even need to reference the design system in your `CLAUDE.md` - just having code that follows it is enough for Claude to learn the style.
 
-This is where your `CLAUDE.md` can help a lot. Document the design foundations explicitly:
+![The dashboard of my LLM Stack starter template, vibe-coded by Claude following the existing design system](./llm-stack-dashboard.png)
 
-```md filename="CLAUDE.md"
-## Design System
+Both the dashboard above and the repo card below were entirely one-shotted vibe-coded by Claude following the design system in place.
 
-- Use Tailwind CSS for all styling
-- Colors are defined as CSS variables in `app.css` (e.g. `--color-primary`)
-- Use components from `src/components/ui/` (Button, Input, Card, etc.)
-- Follow the existing spacing scale, do not use arbitrary values
-- Dark mode is supported via the `dark:` variant
-```
-
-The more established your design system is, the less Claude has to guess — and the more its output will look like it belongs in your project.
-
-<Alert type="tip">
-  If you're starting a new project without a design system, consider using my
-  [LLM Stack](https://github.com/nikolailehbrink/llm-stack) full-stack starter
-  template, which is optimized for agentic development. It gives you a polished
-  set of components, a design system and next-gen tooling, handling
-  Authentication, Database, and more.
-</Alert>
+<RepoCard
+  repo="nikolailehbrink/llm-stack"
+  title="LLM Stack"
+  description="Looking for a good starting point with a design system already in place? LLM Stack is a full-stack starter template optimized for agentic development, with next-gen tooling, polished components, authentication, database, and more."
+  demo="https://llm-stack.nikolailehbr.ink"
+/>
 
 ### The `/frontend-design` skill
 
-For cases where you don't have an existing design system or you're building something from scratch, Claude Code ships with a built-in `/frontend-design` skill. It's specifically designed to produce polished, production-grade interfaces that avoid the typical "AI-generated" look.
+For cases where you don't have an existing design system or you're building something from scratch, Claude Code ships with a built-in [`/frontend-design`](https://skills.sh/anthropics/skills/frontend-design) skill. It's specifically designed to produce polished, production-grade interfaces that avoid the generic look.
 
 Just invoke it when asking Claude to build UI:
 
@@ -57,7 +45,76 @@ Just invoke it when asking Claude to build UI:
 /frontend-design Create a pricing page with three tiers
 ```
 
-It works well for landing pages, standalone components, or prototypes where you need something that looks good without setting up a full design system first.
+I think it works well for landing pages, standalone components, or prototypes where you need something that looks decent out of the box.
+
+### Telling Claude what NOT to do
+
+Generally, telling an LLM what _not_ to do is seen as bad practice. But for frontend design, it seems like the opposite. Without direction, Claude defaults to the Inter font, purple gradients ([thanks @adamwathan](https://x.com/adamwathan/status/1953510802159219096)) and white backgrounds.  
+Anthropic calls this ["distributional convergence"](https://claude.com/blog/improving-frontend-design-through-skills), where the model gravitates toward the most common patterns in its training data.
+
+Telling Claude _"Don't use Inter or system fonts. Avoid purple gradients. Skip card grid layouts."_ forces it away from these defaults and should produce better output.
+
+<Alert type="tip">
+  You can try to pair that with a reference style - _"Take inspiration from
+  Japanese minimalism"_ or _"Think editorial magazine layout"_. Anthropic covers
+  this in detail in their [Prompting for Frontend
+  Aesthetics](https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics)
+  cookbook.
+</Alert>
+
+## Context management
+
+This section might become obsolete in a couple of months for most users, especially with Claude now [defaulting to a million tokens of context](https://claude.com/blog/1m-context-ga) when you use Opus or Sonnet 4.6, but I still keep it in here, because I think context engineering is always a useful skill to have when working with LLMs, and understanding how to manage your context window effectively can still lead to better results and more efficient interactions.
+
+### Check your usage
+
+First of all, you can run `/context` at any point to see how much of your token budget is consumed.
+
+![The /context command showing a breakdown of token usage by category](./context-command.png)
+
+If you have MCP servers installed, you will see that even though you're not actively using those tools, their definitions are still taking up a chunk of your context window. That doesn't mean you shouldn't use them, but it's good to be aware that this is the case.
+
+### Clear between tasks
+
+My probably most used command is `/new` (alias for `/clear`). It wipes the conversational history entirely, so that you can start from scratch with a clean context window. Your `CLAUDE.md` instructions and file access are preserved but the chat history is gone.
+
+### Compact long sessions
+
+If you're deep into a session and don't want to lose the thread, `/compact` offers a middle ground. It summarizes your conversation to free up space. I've found that manually running this at around 70-80% capacity gives better summaries than letting it auto-compact at the limit.
+
+<Alert type="info">
+  With `/compact` Claude Code reads through your entire conversation and
+  generates a condensed summary, then replaces all prior messages with that
+  summary in the session file stored at `~/.claude/projects/`. The original
+  messages are still preserved in the session transcript, but Claude only sees
+  the summary going forward. Auto-compact triggers the same process
+  automatically when you're about to hit the context limit — but at that point
+  there's less room for a thorough summary, which is why compacting manually
+  earlier tends to work better.
+</Alert>
+
+### Recite your objectives
+
+During long sessions, Claude can lose track of the original goal - a phenomenon sometimes called "context drift." The fix is simple: periodically re-state what you're trying to achieve. Something like "Remember, the goal is to refactor the auth middleware to use JWT" is enough to pull Claude back on track. This is especially useful after a `/compact`, where some nuance from earlier in the conversation may have been lost in the summary.
+
+### Context Mode plugin
+
+If you want to take context management to the next level, check out the [Context Mode](https://github.com/mksglu/context-mode) plugin. It solves a fundamental problem: every tool call dumps its raw output into your context window. A single Playwright snapshot costs 56 KB. Twenty GitHub issues cost 59 KB. After 30 minutes, a huge chunk of your context is gone.
+
+Context Mode works by running data-heavy operations in a sandboxed subprocess. The raw data - screenshots, API responses, log files, git history - never enters your context window. Only a compact summary does. In their benchmarks, 315 KB of raw output becomes 5.4 KB - a 98% reduction.
+
+Install it as a Claude Code plugin:
+
+```bash
+/plugin marketplace add mksglu/context-mode
+/plugin install context-mode@context-mode
+```
+
+It also tracks your session state in a local SQLite database, so when the conversation compacts, Claude can pick up exactly where it left off instead of forgetting what files it was editing or what tasks were in progress.
+
+## Parallel development
+
+##
 
 ## Useful commands
 
@@ -164,6 +221,14 @@ Claude Code ships with a bunch of built-in slash commands and CLI flags that are
         efficiency, then fixes what it finds
       </td>
     </tr>
+    <tr>
+      <td>`/voice`</td>
+      <td>
+        <NewBadge /> Enables voice mode - hold `Space` to record and dictate
+        your prompts instead of typing. You can switch the dictation language in
+        `/config`
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -241,40 +306,27 @@ Giving Claude a feedback loop improves the quality of the final result significa
 - Run `npm run test` before considering a task complete
 ```
 
-## Context management
+## Debugging tips
 
-Starting with the foundamentals: Your context window is a finite resource. Think of it like RAM — once it's full, performance degrades. Managing it well is probably the single most impactful habit you can build.
+### Paste screenshots instead of describing bugs
 
-### Check your usage
+This one surprised me by how effective it is. When you're debugging a UI issue, paste a screenshot directly into Claude Code with `Ctrl+V`. Visual context dramatically improves problem diagnosis - instead of trying to describe "the button is misaligned" or "the modal looks broken," you just show it.
 
-Run `/context` at any point to see how much of your token budget is consumed. You might be surprised how quickly it fills up.
+A real example from this project: I noticed that empty lines in code blocks were collapsing to zero height. Instead of explaining the issue, I pasted a screenshot showing the broken rendering. Claude used the Chrome DevTools MCP to inspect the element, saw that the `.line` element had no content and therefore no height, and added a single `min-h-[1lh]` fix:
 
-![The /context command showing a breakdown of token usage by category](./context-command.png)
+```css filename="src/styles/global.css" add={2}
+.line {
+  @apply min-h-[1lh];
+}
+```
 
-<Alert type="info">
+Screenshot in, one-line fix out. I've made it a habit to screenshot first, describe second.
 
-Each [MCP](https://modelcontextprotocol.io/) server's tool definitions consume tokens just by being registered, regardless of whether you actually use them.
+### Use Chrome DevTools MCP for live inspection
 
-</Alert>
+The [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp) is a game changer for debugging. It connects Claude directly to your browser, so it can read console errors, inspect the DOM, check network requests, and run Lighthouse audits - all without you copy-pasting anything.
 
-### Clear between tasks
-
-The `/clear` command wipes your conversational history entirely. Your `CLAUDE.md` instructions and file access are preserved — only the chat history is gone. I use this between distinct tasks to start fresh.
-
-### Compact long sessions
-
-If you're deep into a session and don't want to lose the thread, `/compact` offers a middle ground. It summarizes your conversation to free up space. I've found that manually running this at around 70-80% capacity gives better summaries than letting it auto-compact at the limit.
-
-<Alert type="info">
-  With `/compact` Claude Code reads through your entire conversation and
-  generates a condensed summary, then replaces all prior messages with that
-  summary in the session file stored at `~/.claude/projects/`. The original
-  messages are still preserved in the session transcript, but Claude only sees
-  the summary going forward. Auto-compact triggers the same process
-  automatically when you're about to hit the context limit — but at that point
-  there's less room for a thorough summary, which is why compacting manually
-  earlier tends to work better.
-</Alert>
+Where it really shines is console errors. You know those runtime errors or warnings that pop up in DevTools while you're developing? Instead of copying the stack trace and pasting it into Claude, you just let the MCP server pick them up automatically. Claude sees the error, traces it back to the source, and fixes it. It turns a multi-step debugging workflow into something that basically happens on its own. It can also run Lighthouse audits and act on the results - things like improving your [LCP](https://web.dev/articles/lcp), fixing accessibility issues, or addressing other [Core Web Vitals](https://web.dev/articles/vitals) flags that Chrome surfaces.
 
 ## Permission modes
 
@@ -476,21 +528,35 @@ Now running `/deploy staging` triggers the full workflow.
   output directly into the prompt.
 </Alert>
 
-## MCP servers
+### Community skills
 
-The [Model Context Protocol](https://modelcontextprotocol.io/) lets you connect Claude to external services — GitHub, Sentry, Slack, your database, and more. It's powerful, but it comes with a cost you should be aware of.
+You don't have to write every skill from scratch. [skills.sh](https://skills.sh/) is a community registry where developers share ready-made skills you can browse and install. It's a great starting point if you want to see what's possible or grab something that fits your workflow without reinventing the wheel.
 
-### Mind the context cost
+![The skills.sh website showing the open agent skills ecosystem with a leaderboard of popular skills](./skills-sh.png)
 
-Every MCP server you register loads its tool definitions — names, descriptions, parameter schemas — into your context window on every request, even if you never use those tools. Users have reported [setups consuming 55-66k tokens](https://github.com/anthropics/claude-code/issues/3406) just from tool definitions, eating up a third of the available context window.
+## CLI over MCP
 
-Claude Code does have a mitigation for this called **Tool Search**, which automatically kicks in when MCP tool definitions would consume more than 10% of your context. Instead of preloading everything, it lazy-loads tools on demand. But even with Tool Search, it's worth being intentional about which servers you actually need.
+This one is maybe arguable, but I'd consider reaching for a tool's CLI before installing its MCP server. Here's my reasoning.
 
-### When to prefer CLI over MCP
+### MCP tools consume context passively
 
-For some tools, using the CLI directly through a skill produces better results at lower cost. A great example is [Playwright](https://playwright.dev/). The [Playwright MCP](https://github.com/microsoft/playwright-mcp) sends the full page structure (the accessibility tree) to the LLM on every single request. For large pages, that means a massive chunk of your context window gets consumed with every interaction. The [Playwright CLI](https://playwright.dev/docs/test-cli), on the other hand, stores the accessibility tree locally. Claude runs CLI commands against it without ever needing to ingest the entire page. The result is faster responses, lower costs, and no issues with large or complex pages.
+Every MCP server you register loads its tool definitions - names, descriptions, parameter schemas - into your context window on every request, even if you never use those tools. Users have reported [setups consuming 55-66k tokens](https://github.com/anthropics/claude-code/issues/3406) just from tool definitions, eating up a third of the available context window. You can see this yourself by running `/context`:
 
-The catch is that LLMs may not be trained on every CLI's specific flags and syntax. That's where skills come in. You can write a skill that teaches Claude how to use a CLI correctly, preventing hallucinated commands and wasted tokens:
+![The /context command showing a breakdown of token usage by category](./context-command.png)
+
+With the latest Claude Code release supporting a million tokens of context, this is less of a dealbreaker than it used to be - you're unlikely to run out of context just from tool definitions. But it still adds up, especially if you're running multiple MCP servers. Less noise in the context means better responses.
+
+### Use a CLI with a dedicated skill
+
+Many tools you'd reach for an MCP server for already have a solid CLI. The [GitHub CLI](https://cli.github.com/), [GitLab CLI](https://gitlab.com/gitlab-org/cli), [Obsidian CLI](https://github.com/Yakitrak/obsidian-cli), [Playwright CLI](https://playwright.dev/docs/test-cli) - these are all purpose-built, well-documented, and don't bloat your context window.
+
+The catch is that LLMs might not be fully trained on every CLI's specific flags and syntax, especially newer ones like Playwright. That's where skills come in. You can write a skill that teaches Claude how to use a CLI correctly, preventing hallucinated commands and wasted tokens.
+
+### Example: Playwright
+
+[Playwright](https://playwright.dev/) is a good example of where CLI beats MCP. The [Playwright MCP](https://github.com/microsoft/playwright-mcp) sends the full page structure (the accessibility tree) to the LLM on every single request. For large pages, that means a massive chunk of your context window gets consumed with every interaction. The Playwright CLI, on the other hand, stores the accessibility tree locally. Claude runs CLI commands against it without ever needing to ingest the entire page. The result is faster responses, lower costs, and no issues with large or complex pages.
+
+Pair it with a skill so Claude knows the available commands:
 
 ```yaml filename=".claude/skills/playwright/SKILL.md"
 ---
@@ -507,11 +573,26 @@ Available commands:
 - `npx playwright show-report` — view the HTML test report
 ```
 
-The general rule: if a tool works well as a CLI and doesn't need to stream large amounts of data into the context window, prefer the CLI with a skill over an MCP server.
+The general rule: if a tool works well as a CLI, prefer the CLI with a skill over an MCP server - especially for tools that would otherwise stream large amounts of data into your context window.
+
+## MCP servers
+
+The [Model Context Protocol](https://modelcontextprotocol.io/) lets you connect Claude to external services - GitHub, Sentry, Slack, your database, and more. MCP really shines for tools that don't have a good CLI alternative.
+
+### When MCP is the right choice
+
+Some tools genuinely need MCP because there's no CLI equivalent or the CLI can't provide the same level of integration:
+
+- **[Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp)** - lets Claude inspect the browser directly: read console logs, inspect network requests, take screenshots, and run Lighthouse audits. There's no CLI that gives you this kind of live browser access.
+- **[Linear](https://linear.app/)** - project management tools like Linear don't have a full-featured CLI. With the [Linear MCP](https://github.com/linear/linear-mcp), Claude can create issues, update statuses, and query your backlog directly.
+- **[Sentry](https://sentry.io/)** - error tracking dashboards have no CLI equivalent for browsing error details, stack traces, and trends.
+- **[Notion](https://notion.so/)** - reading and updating docs, wikis, and databases in Notion only works through its API, which MCP wraps nicely.
+
+The pattern: if a tool is primarily a web app with an API but no CLI, MCP is the way to go.
 
 ### Adding MCP servers
 
-When you do need MCP, setup is straightforward:
+Setup is straightforward:
 
 ```bash
 # Add GitHub integration

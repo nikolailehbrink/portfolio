@@ -1,0 +1,61 @@
+---
+import { GithubLogoIcon } from "@phosphor-icons/react/dist/ssr/GithubLogo";
+import { StarIcon } from "@phosphor-icons/react/dist/ssr/Star";
+import { ArrowSquareOutIcon } from "@phosphor-icons/react/dist/ssr/ArrowSquareOut";
+import { buttonVariants } from "@/components/react/ui/button";
+
+type Props = {
+  repo: string;
+  title: string;
+  description: string;
+  demo?: string;
+};
+
+const { repo, title, description, demo } = Astro.props;
+const repoUrl = `https://github.com/${repo}`;
+---
+
+<div
+  class="not-prose flex flex-col gap-4 rounded-xl border border-neutral-800
+    bg-neutral-900 p-5 transition-colors"
+>
+  <div class="flex items-start justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div
+        class="flex size-10 shrink-0 items-center justify-center rounded-lg
+          bg-neutral-800"
+      >
+        <GithubLogoIcon size={24} weight="duotone" />
+      </div>
+      <div>
+        <h4 class="text-sm font-bold">{title}</h4>
+        <p class="text-xs text-muted-foreground">{repo}</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      {
+        demo && (
+          <a
+            href={demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={buttonVariants({ variant: "secondary", size: "sm" })}
+          >
+            <ArrowSquareOutIcon weight="duotone" size={16} />
+            View Demo
+          </a>
+        )
+      }
+      <a
+        href={repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={buttonVariants({ size: "sm" })}
+      >
+        <StarIcon weight="duotone" size={16} />
+        GitHub
+      </a>
+    </div>
+  </div>
+  <p class="text-sm text-muted-foreground">{description}</p>
+</div>
