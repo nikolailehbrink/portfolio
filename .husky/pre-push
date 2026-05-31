@@ -1,1 +1,4 @@
-pnpm test && pnpm knip && pnpm lint
+set -e
+pnpm test
+pnpm knip
+pnpm lint
