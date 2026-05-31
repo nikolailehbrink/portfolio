@@ -128,7 +128,7 @@ Key patterns:
 - `h2` (`##`) for main sections, `h3` (`###`) for subsections - these populate the table of contents
 - Start with a brief intro (no heading) that sets context and motivation
 - End naturally, often with a short closing thought or invitation for feedback - not a heavy "conclusion" section
-- Include a `<NewsletterForm />` component roughly halfway through the post
+- Include a `<NewsletterForm client:visible />` component roughly halfway through the post
 
 ### MDX Components
 
@@ -144,7 +144,7 @@ import Video from "@/components/Video.astro";
 ```
 
 - `<Alert>` - for tips, warnings, info boxes, and questions. Types: `tip`, `warning`, `info`, `question`. Use `title` prop for custom headings.
-- `<NewsletterForm />` - placed once per post, usually between sections around the middle
+- `<NewsletterForm client:visible />` - placed once per post, usually between sections around the middle. The `client:visible` directive is required so React hydrates the form; without it, the form falls back to a native POST that 405s on static blog pages
 - `<ProfileBadge>` - for linking to GitHub repos/profiles inline
 - `<Video>` - for Mux-hosted video embeds
 

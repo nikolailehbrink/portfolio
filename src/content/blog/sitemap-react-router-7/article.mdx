@@ -60,7 +60,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 
 ### What’s happening here?
 
-<NewsletterForm />
+<NewsletterForm client:visible />
 
 1.  Dynamically import `virtual:react-router/server-build` to get your route definitions.
     <Alert type="info">
