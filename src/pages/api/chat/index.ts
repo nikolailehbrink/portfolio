@@ -9,7 +9,19 @@ import {
 } from "ai";
 import { track } from "@vercel/analytics/server";
 import type { APIRoute } from "astro";
-import { AI_CHAT_MESSAGE_LIMIT, SECONDS_TO_CHAT_AGAIN } from "@/consts";
+import { z } from "astro/zod";
+import {
+  AI_CHAT_MESSAGE_LIMIT,
+  MAX_CHAT_INPUT_CHARS,
+  MAX_CHAT_MESSAGES,
+  SECONDS_TO_CHAT_AGAIN,
+} from "@/consts";
+
+// Validate the shape and size of the incoming body before doing any (billed)
+// LLM work. The endpoint is public, so this is the first line of abuse defense.
+const chatRequestSchema = z.object({
+  messages: z.array(z.unknown()).min(1).max(MAX_CHAT_MESSAGES),
+});
 
 export const maxDuration = 30;
 export const prerender = false;
@@ -30,7 +42,24 @@ export type DataParts = {
 export type MyUIMessage = UIMessage<never, DataParts>;
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-  const { messages }: { messages: Array<MyUIMessage> } = await request.json();
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return new Response("Invalid JSON body", { status: 400 });
+  }
+
+  const parsed = chatRequestSchema.safeParse(body);
+  if (!parsed.success) {
+    return new Response("Invalid request body", { status: 400 });
+  }
+
+  // Cap the raw payload size to limit token cost / abuse on this public endpoint.
+  if (JSON.stringify(parsed.data.messages).length > MAX_CHAT_INPUT_CHARS) {
+    return new Response("Message payload too large", { status: 413 });
+  }
+
+  const messages = parsed.data.messages as Array<MyUIMessage>;
   const messageCount = cookies.get("message_count")?.number();
   await track("submit-ai-message");
 

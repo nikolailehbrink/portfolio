@@ -35,6 +35,8 @@ const canonicalURL = new URL(pathname, Astro.site);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content={THEME_COLOR} />
 
@@ -67,6 +69,14 @@ const canonicalURL = new URL(pathname, Astro.site);
     <Analytics />
   </head>
   <body class="font-sans">
+    <a
+      href="#main-content"
+      class="sr-only rounded-md bg-card px-4 py-2 text-foreground offset-border
+        focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50
+        focus:border"
+    >
+      Skip to content
+    </a>
     <div
       class:list={[
         "flex flex-col bg-background text-foreground",
@@ -76,6 +86,7 @@ const canonicalURL = new URL(pathname, Astro.site);
     >
       <Navbar />
       <main
+        id="main-content"
         class:list={[
           "container flex grow justify-center",
           isChatPage ? "overflow-hidden max-sm:pr-0" : "py-8 sm:py-12",

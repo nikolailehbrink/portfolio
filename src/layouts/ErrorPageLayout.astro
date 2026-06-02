@@ -13,7 +13,7 @@ const { title, description } = Astro.props;
 ---
 
 <RootLayout>
-  <BaseHead title={title} description={description} slot="head" />
+  <BaseHead title={title} description={description} noindex slot="head" />
   <div
     class="flex max-w-prose flex-col items-start justify-center gap-4
       sm:items-center sm:text-center"

@@ -9,6 +9,7 @@ type Props = {
   description: string;
   image?: ImageMetadata | string;
   ogType?: "website" | "article";
+  noindex?: boolean;
 };
 
 const {
@@ -16,6 +17,7 @@ const {
   description,
   image = FallbackImage,
   ogType = "website",
+  noindex = false,
 } = Astro.props;
 const { pathname, origin } = Astro.url;
 
@@ -35,6 +37,7 @@ const titleWithTemplate = isHomePage
 <!-- Primary Meta Tags -->
 <title>{titleWithTemplate}</title>
 <meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, follow" />}
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />

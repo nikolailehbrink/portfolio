@@ -142,7 +142,9 @@ const coverImageURL = new URL(cover ? cover.src : `${pathname}/og.png`, origin)
         </div>
         {
           draft ? (
-            <Badge className="bg-orange-500/20 text-orange-600 dark:text-orange-400">
+            <Badge
+              className="bg-orange-500/20 text-orange-600 dark:text-orange-400"
+            >
               <PencilIcon size={16} weight="duotone" />
               Draft
             </Badge>
@@ -180,11 +182,15 @@ const coverImageURL = new URL(cover ? cover.src : `${pathname}/og.png`, origin)
 
     {
       cover && (
-        <div class="relative mx-auto aspect-video w-full max-w-[1200px] overflow-hidden rounded-2xl sm:border sm:p-2">
+        <div
+          class="relative mx-auto aspect-video w-full max-w-[1200px]
+            overflow-hidden rounded-2xl sm:border sm:p-2"
+        >
           <Image
             src={cover}
             loading="eager"
-            quality="high"
+            width={32}
+            quality="low"
             alt=""
             class="absolute aspect-video size-full object-cover blur-3xl"
           />
@@ -194,7 +200,8 @@ const coverImageURL = new URL(cover ? cover.src : `${pathname}/og.png`, origin)
             fetchpriority="high"
             quality="high"
             alt="Post Thumbnail"
-            class="relative aspect-video size-full rounded-xl object-cover sm:border"
+            class="relative aspect-video size-full rounded-xl object-cover
+              sm:border"
           />
         </div>
       )
@@ -226,7 +233,10 @@ const coverImageURL = new URL(cover ? cover.src : `${pathname}/og.png`, origin)
       {
         headings.length > 0 && (
           <TableOfContents
-            class={`rounded-xl border bg-card bg-linear-to-b shadow-sm offset-border max-xl:order-first md:col-start-2 xl:sticky xl:top-16 xl:col-start-3 xl:max-h-[calc(100dvh_-_--spacing(24))] xl:max-w-xs xl:overflow-y-auto`}
+            class={`rounded-xl border bg-card bg-linear-to-b shadow-sm
+              offset-border max-xl:order-first md:col-start-2 xl:sticky
+              xl:top-16 xl:col-start-3 xl:max-h-[calc(100dvh_-_--spacing(24))]
+              xl:max-w-xs xl:overflow-y-auto`}
             headings={headings}
           />
         )
