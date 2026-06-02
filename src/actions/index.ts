@@ -41,7 +41,7 @@ export const server = {
           input: honeypot,
         });
         return {
-          result: report(submission),
+          result: report(submission, { reset: true }),
         };
       }
 
@@ -103,7 +103,7 @@ export const server = {
       });
 
       return {
-        result: report(submission),
+        result: report(submission, { reset: true }),
         success: true,
       };
     },
@@ -139,7 +139,9 @@ export const server = {
           input: honeypot,
         });
         return {
-          result: report(submission),
+          result: report(submission, {
+            reset: true,
+          }),
         };
       }
 
@@ -184,7 +186,7 @@ export const server = {
       }
 
       return {
-        result: report(submission),
+        result: report(submission, { reset: true }),
         success: true,
       };
     },

@@ -73,7 +73,10 @@ const reactConfig = defineConfig({
       { props: "never", children: "never" },
     ],
   },
-  settings: { react: { version: "detect" } },
+  // Pin the React version instead of "detect": eslint-plugin-react@7.37.5's
+  // version detection calls `context.getFilename()`, which ESLint 10 removed,
+  // and crashes under "detect". Remove once the plugin supports ESLint 10.
+  settings: { react: { version: "19.2" } },
 });
 
 const jsxA11yConfig = defineConfig({

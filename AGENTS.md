@@ -157,7 +157,6 @@ Fenced code blocks support these meta options:
 - `showLineNumbers=8` - starts numbering at line 8
 - `highlight={6-8}` or `{1,3}` - highlights specific lines
 - `add={8-12}` / `remove={3-5}` - diff-style green/red highlighting
-- `/pattern/` - inline regex highlighting within code
 - Language after triple backticks (e.g. ` ```tsx `, ` ```bash `, ` ```json `)
 
 ## Adapter

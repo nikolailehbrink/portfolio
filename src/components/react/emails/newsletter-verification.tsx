@@ -8,7 +8,7 @@ import {
   Section,
   Text,
   Tailwind,
-} from "@react-email/components";
+} from "react-email";
 
 type NewsletterVerificationProps = {
   confirmationLink: string;
@@ -35,21 +35,19 @@ const NewsletterVerificationEmail = ({
         </Preview>
         <Body className="bg-neutral-950 font-sans text-neutral-300">
           <Container
-            className="mx-auto max-w-[600px] rounded-[8px] bg-neutral-900
-              p-[40px] shadow-sm"
+            className="mx-auto max-w-150 rounded-xl bg-neutral-900 p-10
+              shadow-sm"
           >
             <Section>
-              <Text className="mb-[24px] text-[16px] leading-[24px]">
-                Hi there,
-              </Text>
+              <Text className="mb-6 text-[16px] leading-6">Hi there,</Text>
 
-              <Text className="mb-[24px] text-[16px] leading-[24px]">
+              <Text className="mb-6 text-[16px] leading-6">
                 Thanks for signing up for my newsletter. To complete your
                 subscription, please confirm your email address by clicking the
                 button below:
               </Text>
 
-              <Section className="mb-[24px]">
+              <Section className="mb-6">
                 <Button
                   href={confirmationLink}
                   className="rounded-lg bg-sky-950 px-5 py-3 text-center
@@ -60,16 +58,13 @@ const NewsletterVerificationEmail = ({
                 </Button>
               </Section>
 
-              <Text
-                className="mb-[12px] text-[14px] leading-[20px]
-                  text-neutral-400"
-              >
+              <Text className="mb-3 text-[14px] leading-5 text-neutral-400">
                 If the button above doesn’t work, you can copy and paste this
                 link into your browser:
               </Text>
 
               <Text
-                className="mb-[12px] text-[14px] leading-[20px] text-sky-600"
+                className="mb-3 text-[14px] leading-5 text-sky-600"
                 style={{
                   wordBreak: "break-all",
                   overflowWrap: "break-word",
@@ -79,17 +74,12 @@ const NewsletterVerificationEmail = ({
                 {confirmationLink}
               </Text>
 
-              <Text
-                className="mb-[12px] text-[14px] leading-[20px]
-                  text-neutral-400"
-              >
+              <Text className="mb-3 text-[14px] leading-5 text-neutral-400">
                 This link will expire in 24 hours. If you didn’t request this
                 subscription, you can ignore this message.
               </Text>
 
-              <Text
-                className="mb-[8px] text-[16px] leading-[24px] text-neutral-300"
-              >
+              <Text className="mb-2 text-[16px] leading-6 text-neutral-300">
                 — Nikolai Lehbrink
               </Text>
             </Section>

@@ -9,7 +9,7 @@ import tailwindcss from "@tailwindcss/vite";
 import arraybuffer from "vite-plugin-arraybuffer";
 
 // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
-import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 import {
@@ -27,26 +27,28 @@ const site = PRODUCTION_URL
 
 export default defineConfig({
   markdown: {
-    rehypePlugins: [
-      rehypeHeadingIds,
-      () =>
-        rehypeAutolinkHeadings({
-          // Has to be inside the heading, because the font-size for the anchor adjusts to the heading
-          behavior: "prepend",
-          content: {
-            type: "text",
-            value: "#",
-          },
-          properties: {
-            class: `not-prose px-1 transition-opacity select-none
-              group-target:opacity-100 focus:opacity-100 max-sm:hidden
-              sm:absolute sm:-translate-x-full sm:opacity-0
-              sm:group-hover:opacity-100`,
-            "aria-label": "Link to this heading",
-          },
-          headingProperties: { class: "group relative text-balance" },
-        }),
-    ],
+    processor: unified({
+      rehypePlugins: [
+        rehypeHeadingIds,
+        () =>
+          rehypeAutolinkHeadings({
+            // Has to be inside the heading, because the font-size for the anchor adjusts to the heading
+            behavior: "prepend",
+            content: {
+              type: "text",
+              value: "#",
+            },
+            properties: {
+              class: `not-prose px-1 transition-opacity select-none
+                group-target:opacity-100 focus:opacity-100 max-sm:hidden
+                sm:absolute sm:-translate-x-full sm:opacity-0
+                sm:group-hover:opacity-100`,
+              "aria-label": "Link to this heading",
+            },
+            headingProperties: { class: "group relative text-balance" },
+          }),
+      ],
+    }),
     shikiConfig: {
       themes: {
         light: "github-light",

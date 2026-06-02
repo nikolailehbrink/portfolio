@@ -98,7 +98,7 @@ const projects = defineCollection({
         title: z.string(),
         description: z.string(),
         image: image(),
-        link: z.string().url().optional(),
+        link: z.url().optional(),
         github: z.url().optional(),
         tags: z.array(z.string().min(1)),
       })

@@ -1,6 +1,6 @@
-import { getInputProps } from "@conform-to/react";
 import { useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4/future";
+import { getInputProps } from "@/lib/conform";
 import { Label } from "./ui/label";
 import { CircleNotchIcon } from "@phosphor-icons/react/dist/ssr/CircleNotch";
 import { EnvelopeIcon } from "@phosphor-icons/react/dist/ssr/Envelope";
@@ -25,14 +25,13 @@ export default function NewsletterForm({
     withState(actions.newsletter),
     null,
   );
-  const { form, fields } = useForm({
+  const { form, fields } = useForm(newsletterFormSchema, {
     lastResult: state?.data?.result,
     constraint: getZodConstraint(newsletterFormSchema),
     // Validate field once user leaves the field
     shouldValidate: "onBlur",
     // Then, revalidate field as user types again
     shouldRevalidate: "onInput",
-    schema: newsletterFormSchema,
   });
 
   const sendSuccessfully = state?.data?.success;

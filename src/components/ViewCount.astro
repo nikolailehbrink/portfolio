@@ -11,7 +11,7 @@ type Props =
 
 const props = Astro.props;
 
-let views: number | null | undefined = null;
+let views: number | null | undefined;
 
 if (props.getAll) {
   const { data } = await Astro.callAction(actions.pageViews.getAll, {});

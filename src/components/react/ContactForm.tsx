@@ -1,5 +1,5 @@
 import { useForm } from "@conform-to/react/future";
-import { getInputProps, getTextareaProps } from "@conform-to/react";
+import { getInputProps, getTextareaProps } from "@/lib/conform";
 import { Label } from "./ui/label";
 import { AtIcon } from "@phosphor-icons/react/dist/ssr/At";
 import { CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
@@ -29,13 +29,12 @@ export default function ContactForm({
     withState(actions.contact),
     null,
   );
-  const { form, fields } = useForm({
+  const { form, fields } = useForm(contactFormSchema, {
     // This not only syncs the error from the server
     // But is also used as the default value of the form
     // in case the document is reloaded for progressive enhancement
     lastResult: state?.data?.result,
     constraint: getZodConstraint(contactFormSchema),
-    schema: contactFormSchema,
     // Validate field once user leaves the field
     shouldValidate: "onBlur",
     // Then, revalidate field as user types again

@@ -41,7 +41,7 @@ export const GET: APIRoute = async ({ redirect, url }) => {
     }
   } catch (error) {
     console.error("Error verifying token:", error);
-    throw new Error("Error verifying token");
+    throw new Error("Error verifying token", { cause: error });
   }
   return redirect("/newsletter/confirmation");
 };

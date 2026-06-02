@@ -4,7 +4,7 @@ import ExampleMessage from "@/components/react/chat/ExampleMessage";
 import { EXAMPLE_MESSAGES } from "@/data/example-chat-messages";
 import type { DataParts, MyUIMessage } from "@/pages/api/chat";
 import { useChat } from "@ai-sdk/react";
-import { useState, type FormEvent } from "react";
+import { useState, type SyntheticEvent } from "react";
 
 export default function Chat({
   isChatDisabled,
@@ -33,7 +33,7 @@ export default function Chat({
       },
     });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (disabled || !input.trim()) {
       return;
