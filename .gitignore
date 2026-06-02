@@ -27,5 +27,6 @@ pnpm-debug.log*
 .env*.local
 
 # claude
-.claude/
+# Track shared skills/commands/settings, ignore only personal local settings
+.claude/settings.local.json
 .env*
