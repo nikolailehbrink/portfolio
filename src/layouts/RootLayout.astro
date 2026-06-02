@@ -6,8 +6,10 @@ import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 import Navbar from "@/components/Navbar.astro";
 import Footer from "@/components/Footer.astro";
+import Schema from "@/components/Schema.astro";
+import { personSchema, websiteSchema } from "@/lib/schema";
 
-const { pathname } = Astro.url;
+const { pathname, origin } = Astro.url;
 const isChatPage = pathname.startsWith("/chat");
 const isHomePage = pathname === "/";
 
@@ -59,6 +61,12 @@ const canonicalURL = new URL(pathname, Astro.site);
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
+
+    <!-- Site-wide entity graph (Person + WebSite), referenced by `@id` from
+         page-level schemas like BlogPosting so search engines and LLMs can
+         connect every page to a single author/site entity. -->
+    <Schema item={personSchema(origin)} />
+    <Schema item={websiteSchema(origin)} />
 
     <slot name="head">
       <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />

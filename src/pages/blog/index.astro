@@ -8,6 +8,7 @@ import { track } from "@vercel/analytics/server";
 import { badgeVariants } from "@/components/react/ui/badge";
 import { cn } from "@/lib/utils";
 import Schema from "@/components/Schema.astro";
+import { breadcrumbSchema, personRef, websiteRef } from "@/lib/schema";
 import { getEntries } from "astro:content";
 import type { BlogPosting } from "schema-dts";
 
@@ -17,7 +18,7 @@ const title = "Blog | Nikolai Lehbrink";
 const description =
   "A collection of my thoughts, ideas and experiences. I write about various topics, including web development, technology and personal topics.";
 
-const { searchParams, href } = Astro.url;
+const { searchParams, origin } = Astro.url;
 const tag = searchParams.get("tag");
 
 const tags = await getBlogTags();
@@ -28,19 +29,25 @@ const posts = await getPosts({ tag: filteredTag?.name });
 const schemaPosts = await Promise.all(
   posts.map(async ({ data, id: slug }) => {
     const authors = await getEntries(data.authors);
+    const postUrl = `${origin}/blog/${slug}`;
 
     return {
       "@type": "BlogPosting",
-      mainEntityOfPage: `${href}/${slug}`,
+      // Same `@id` as the actual post page, so the two references resolve to a
+      // single entity in the knowledge graph rather than duplicating it.
+      "@id": `${postUrl}#article`,
+      url: postUrl,
+      mainEntityOfPage: { "@id": postUrl },
       headline: data.title,
       description: data.description,
       datePublished: data.publicationDate.toISOString(),
-      dateModified: data.modificationDate?.toISOString(),
-      author: {
-        "@type": "Person",
-        name: authors[0].data.name,
-      },
-      url: `${href}/${slug}`,
+      dateModified: (
+        data.modificationDate ?? data.publicationDate
+      ).toISOString(),
+      author:
+        authors[0].id === "nikolailehbrink"
+          ? personRef(origin)
+          : { "@type": "Person", name: authors[0].data.name },
       keywords: data.tags?.join(", "),
     } satisfies BlogPosting;
   }),
@@ -58,14 +65,21 @@ const hasFilteredTag = filteredTag !== undefined;
       item={{
         "@context": "https://schema.org",
         "@type": "Blog",
+        "@id": `${origin}/blog#blog`,
+        url: `${origin}/blog`,
         name: title,
         description,
-        publisher: {
-          "@type": "Person",
-          name: "Nikolai Lehbrink",
-        },
+        inLanguage: "en",
+        isPartOf: websiteRef(origin),
+        publisher: personRef(origin),
         blogPost: schemaPosts,
       }}
+    />
+    <Schema
+      item={breadcrumbSchema(origin, [
+        { name: "Home", url: "/" },
+        { name: "Blog", url: "/blog" },
+      ])}
     />
   </BaseHead>
   <div class="flex flex-col gap-4 sm:items-center">
@@ -130,7 +144,10 @@ const hasFilteredTag = filteredTag !== undefined;
             />
           ))
         ) : (
-          <p class="col-span-2 rounded-lg bg-card p-4 py-3 text-center text-muted-foreground">
+          <p
+            class="col-span-2 rounded-lg bg-card p-4 py-3 text-center
+              text-muted-foreground"
+          >
             No posts were found {filteredTag ? `for ${filteredTag.name}.` : "."}{" "}
             <br />
           </p>

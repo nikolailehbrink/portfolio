@@ -19,9 +19,6 @@ import PostTeaser from "@/components/PostTeaser.astro";
 import { getPosts } from "@/lib/posts";
 import BaseHead from "@/components/BaseHead.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
-import Schema from "@/components/Schema.astro";
-import { SOCIAL_LINKS } from "@/data/socials";
-import type { Person, WithContext } from "schema-dts";
 
 const [career, projects, posts] = await Promise.all([
   getCollection("career"),
@@ -33,25 +30,10 @@ const workExperiences = career.filter((item) => item.data.type === "work");
 const educationExperiences = career.filter(
   (item) => item.data.type === "education",
 );
-
-const item = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  url: Astro.site?.href ?? Astro.url.href,
-  name: SITE_TITLE,
-  description: SITE_DESCRIPTION,
-  sameAs: SOCIAL_LINKS.map(({ href }) => href),
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: "mail@nikolailehbr.ink",
-  },
-} satisfies WithContext<Person>;
 ---
 
 <RootLayout>
-  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} slot="head">
-    <Schema item={item} />
-  </BaseHead>
+  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} slot="head" />
   <div class="flex flex-col items-start gap-8 sm:items-center sm:gap-16">
     <div
       class="relative flex animate-in items-center justify-center duration-1000
@@ -171,7 +153,11 @@ const item = {
                   <PostTeaser post={{ ...data, slug: id, readingTime }} />
                 ))}
               </ul>
-              <div class="absolute -inset-x-[3px] -bottom-[3px] z-30 flex justify-center rounded-xl bg-linear-to-b from-transparent to-background pt-12 pb-4">
+              <div
+                class="absolute -inset-x-[3px] -bottom-[3px] z-30 flex
+                  justify-center rounded-xl bg-linear-to-b from-transparent
+                  to-background pt-12 pb-4"
+              >
                 <a class={buttonVariants()} href="/blog" data-astro-prefetch>
                   <TextColumnsIcon size={24} weight="duotone" />
                   View all posts
@@ -199,12 +185,21 @@ const item = {
           {
             Object.entries(SKILLS).map(([category, skillSet]) => {
               return (
-                <div class="flex flex-col gap-1 overflow-x-hidden rounded-lg border bg-background shadow-md offset-border">
-                  <ul class="relative flex snap-x snap-mandatory gap-4 overflow-x-auto border-b bg-card p-4 shadow">
+                <div
+                  class="flex flex-col gap-1 overflow-x-hidden rounded-lg border
+                    bg-background shadow-md offset-border"
+                >
+                  <ul
+                    class="relative flex snap-x snap-mandatory gap-4
+                      overflow-x-auto border-b bg-card p-4 shadow"
+                  >
                     {skillSet.map(({ name, logo: Logo, url }) => (
                       <li class="snap-start scroll-mx-4">
                         <a
-                          class="flex flex-col items-center gap-2 text-xs whitespace-nowrap text-muted-foreground grayscale-100 transition-[filter_color] duration-300 hover:text-foreground hover:grayscale-0"
+                          class="flex flex-col items-center gap-2 text-xs
+                            whitespace-nowrap text-muted-foreground
+                            grayscale-100 transition-[filter_color] duration-300
+                            hover:text-foreground hover:grayscale-0"
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -215,7 +210,10 @@ const item = {
                       </li>
                     ))}
                   </ul>
-                  <h3 class="py-0.5 pb-1.5 text-center text-sm text-muted-foreground">
+                  <h3
+                    class="py-0.5 pb-1.5 text-center text-sm
+                      text-muted-foreground"
+                  >
                     {category}
                   </h3>
                 </div>

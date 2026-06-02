@@ -15,6 +15,7 @@ import TableOfContents from "@/components/TableOfContents.astro";
 import ViewCount from "@/components/ViewCount.astro";
 import Skeleton from "@/components/Skeleton.astro";
 import Schema from "@/components/Schema.astro";
+import { breadcrumbSchema, personRef, websiteRef } from "@/lib/schema";
 import { getEntries } from "astro:content";
 
 type Props = CollectionEntry<"blog">["data"] & {
@@ -46,6 +47,23 @@ const formattedModificationDate = modificationDate
   : null;
 const coverImageURL = new URL(cover ? cover.src : `${pathname}/og.png`, origin)
   .href;
+
+// Reference the shared Person entity when the post is written by the site owner,
+// otherwise inline a Person for the guest author.
+const primaryAuthor = authors[0];
+const authorNode =
+  primaryAuthor.id === "nikolailehbrink"
+    ? personRef(origin)
+    : { "@type": "Person" as const, name: primaryAuthor.data.name };
+
+// Google's Article rich result wants an ImageObject with dimensions; cover
+// images carry their own, the generated OG fallback is always 1200x630.
+const articleImage = {
+  "@type": "ImageObject" as const,
+  url: coverImageURL,
+  width: `${cover?.width ?? 1200}`,
+  height: `${cover?.height ?? 630}`,
+};
 ---
 
 <RootLayout>
@@ -74,22 +92,26 @@ const coverImageURL = new URL(cover ? cover.src : `${pathname}/og.png`, origin)
       item={{
         "@context": "https://schema.org",
         "@type": "BlogPosting",
+        "@id": `${href}#article`,
         headline: title,
         description,
         datePublished: publicationDate.toISOString(),
-        dateModified: modificationDate?.toISOString(),
-        image: coverImageURL,
-        mainEntityOfPage: href,
-        publisher: {
-          "@type": "Person",
-          name: "Nikolai Lehbrink",
-        },
-        author: {
-          "@type": "Person",
-          name: authors[0].data.name,
-        },
+        dateModified: (modificationDate ?? publicationDate).toISOString(),
+        image: articleImage,
+        mainEntityOfPage: { "@id": href },
+        isPartOf: websiteRef(origin),
+        inLanguage: "en",
+        author: authorNode,
+        publisher: personRef(origin),
         keywords: tags?.join(", "),
       }}
+    />
+    <Schema
+      item={breadcrumbSchema(origin, [
+        { name: "Home", url: "/" },
+        { name: "Blog", url: "/blog" },
+        { name: title, url: pathname },
+      ])}
     />
   </BaseHead>
   <article class="flex w-full flex-col gap-12">
