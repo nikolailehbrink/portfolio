@@ -18,6 +18,7 @@
     "check": "astro check",
     "dev": "astro dev",
     "dev:email": "email dev --dir src/components/react/emails",
+    "devtools": "devtools",
     "format": "prettier --write .",
     "knip": "knip",
     "lint": "eslint",
@@ -28,6 +29,7 @@
     "preview": "dotenv astro preview"
   },
   "dependencies": {
+    "@ai-sdk/devtools": "0.0.18",
     "@ai-sdk/gateway": "3.0.122",
     "@ai-sdk/react": "3.0.196",
     "@astrojs/check": "0.9.9",
