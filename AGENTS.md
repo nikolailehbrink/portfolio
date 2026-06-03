@@ -1,8 +1,4 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Project Overview
+# AGENTS.md
 
 Personal portfolio website (https://www.nikolailehbr.ink/) built with Astro 6, React 19, TypeScript, and Tailwind CSS v4. Features a blog with MDX, an AI chatbot (LLamaIndex + Vercel AI SDK + OpenAI), newsletter system (Resend), and view counting (Astro DB).
 
@@ -29,12 +25,10 @@ Personal portfolio website (https://www.nikolailehbr.ink/) built with Astro 6, R
 
 Content collections defined in `src/content.config.ts` with Zod schemas:
 
-- **blog** — MDX files in `src/content/blog/`, glob loader with custom slug generation. Folders prefixed with `_` use the file name as slug; otherwise the folder name is the slug.
+- **blog** — MDX files in `src/content/blog/`, glob loader.
 - **authors** — JSON file at `src/data/authors.json`, referenced by blog posts
 - **career** — JSON file at `src/data/career.json` (work/education entries)
 - **projects** — JSON file at `src/data/projects.json`
-
-Blog posts have: title, description, draft flag, publicationDate, optional modificationDate, cover image, tags, authors (defaults to nikolailehbrink), showComments.
 
 ### Layouts & Pages
 
