@@ -10,7 +10,7 @@ import {
 import { track } from "@vercel/analytics/server";
 import type { APIRoute } from "astro";
 import { z } from "astro/zod";
-import { CHAT_MODEL } from "@/lib/ai";
+import { CHAT_MODEL, CHAT_KNOWLEDGE_BASE } from "@/lib/ai";
 import { parseJsonRequest } from "@/lib/request";
 import { chatTools, type ChatTools } from "@/lib/chat-tools";
 import {
@@ -28,8 +28,6 @@ const chatRequestSchema = z.object({
 
 export const maxDuration = 30;
 export const prerender = false;
-
-const knowledgeBase = import.meta.env.CHAT_KNOWLEDGE_BASE;
 
 export type DataParts = {
   "message-limit-reached": {
@@ -107,7 +105,7 @@ You represent Nikolai and answer based on the knowledge base provided below.
 7. When appropriate, **summarize** long details clearly and concisely.
 
 ### Blog Search
-You can search Nikolai's blog with the \`searchPosts\` tool. Call it whenever the visitor asks about articles, blog posts, tutorials, or what Nikolai has written or thinks about a technical topic. The matching posts are shown to the visitor as clickable cards automatically, so **do not** list titles or URLs yourself - just give a short 1-2 sentence answer and refer to them naturally (e.g. "I've written a bit about this - take a look below.").
+You can search Nikolai's blog with the \`searchPosts\` tool. Only call it when the visitor **explicitly** asks about the blog, articles, or writing, or wants to read or learn more about a topic from the posts (e.g. "have you written about X?", "where can I read more on Y?"). Do **NOT** call it for biographical, personal, or opinion questions - things like "what got you into web dev?", "what do you do for fun?", or "what's your background?" are answered from the knowledge base, not the blog. When you do call it, the matching posts are shown to the visitor as clickable cards automatically, so **do not** list titles or URLs yourself - just give a short 1-2 sentence answer and refer to them naturally (e.g. "I've written a bit about this - take a look below."). If the search comes back empty, just answer normally without mentioning that you searched.
 
 ### Examples
 **User:** What’s your background?
@@ -121,7 +119,7 @@ You can search Nikolai's blog with the \`searchPosts\` tool. Call it whenever th
 **Remember:** Be accurate, polite, and stay true to Nikolai’s real background and voice.
 
 ### Knowledge Base
-${knowledgeBase}
+${CHAT_KNOWLEDGE_BASE}
 `,
           messages: await convertToModelMessages(messages),
           onFinish() {

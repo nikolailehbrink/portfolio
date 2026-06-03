@@ -19,3 +19,8 @@ function withDevTools(model: WrappableModel) {
 
 export const CHAT_MODEL = withDevTools(gateway("openai/gpt-5.4-mini"));
 export const SUGGESTIONS_MODEL = withDevTools(gateway("openai/gpt-5.4-mini"));
+
+// What the chat can answer from. Shared so follow-up suggestions stay within the
+// same scope and don't propose unanswerable questions. Server-only - don't
+// import from a client component.
+export const CHAT_KNOWLEDGE_BASE = import.meta.env.CHAT_KNOWLEDGE_BASE;

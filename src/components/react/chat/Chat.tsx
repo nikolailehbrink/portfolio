@@ -9,7 +9,7 @@ import type { DataParts, MyUIMessage } from "@/pages/api/chat";
 import { suggestionsSchema } from "@/lib/suggestions-schema";
 import { experimental_useObject as useObject, useChat } from "@ai-sdk/react";
 import { ChatTeardropDotsIcon } from "@phosphor-icons/react/dist/ssr/ChatTeardropDots";
-import { useState, type SyntheticEvent } from "react";
+import { useRef, useState, type SyntheticEvent } from "react";
 
 export default function Chat({
   isChatDisabled,
@@ -23,6 +23,8 @@ export default function Chat({
   const [resetDate, setResetDate] = useState<Date | undefined>(
     messageCountResetDate,
   );
+  // The last question asked, sent to the suggestions endpoint for context.
+  const lastQuestionRef = useRef("");
 
   const {
     object: suggestions,
@@ -53,13 +55,13 @@ export default function Chat({
         if (message.role !== "assistant") {
           return;
         }
-        const text = message.parts
+        const reply = message.parts
           .filter((part) => part.type === "text")
           .map((part) => part.text)
           .join("\n")
           .trim();
-        if (text) {
-          generateSuggestions({ text });
+        if (reply) {
+          generateSuggestions({ reply, question: lastQuestionRef.current });
         }
       },
     });
@@ -70,6 +72,7 @@ export default function Chat({
     }
     // Drop stale follow-ups so they don't linger over the next reply.
     clearSuggestions();
+    lastQuestionRef.current = text;
     sendMessage({ text });
     setInput("");
   };

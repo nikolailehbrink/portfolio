@@ -5,6 +5,8 @@ import { z } from "zod";
 export const suggestionsSchema = z.object({
   questions: z
     .array(z.string())
-    .length(3)
-    .describe("Three short follow-up questions from the visitor's perspective"),
+    .max(3)
+    .describe(
+      "Up to 3 short follow-up questions from the visitor's perspective - only ones answerable from the knowledge base or blog. Fewer is fine; omit any that aren't grounded.",
+    ),
 });

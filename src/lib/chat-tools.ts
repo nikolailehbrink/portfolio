@@ -5,7 +5,7 @@ import { getPosts } from "./posts";
 export const chatTools = {
   searchPosts: tool({
     description:
-      "Search Nikolai's blog posts by topic or keyword. Use this whenever the visitor asks about articles, blog posts, tutorials, or what Nikolai has written or thinks about a technical topic.",
+      "Search Nikolai's blog posts by topic or keyword. Only use this when the visitor explicitly asks about his blog, articles, or writing, or wants to read more about a topic from his posts. Do NOT use it for biographical, personal, or opinion questions (e.g. 'what got you into web dev?') - answer those from the knowledge base.",
     inputSchema: z.object({
       query: z
         .string()
@@ -34,8 +34,9 @@ export const chatTools = {
         .sort((a, b) => b.score - a.score)
         .map(({ post }) => post);
 
-      // Always return something so the model can still point readers to content.
-      const results = (scored.length > 0 ? scored : posts).slice(0, 4);
+      // Only return real matches - never fall back to recent posts, or an
+      // off-topic query would surface irrelevant cards.
+      const results = scored.slice(0, 4);
 
       return results.map(({ data, id }) => ({
         title: data.title,
