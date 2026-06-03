@@ -11,6 +11,7 @@ import Schema from "@/components/Schema.astro";
 import { breadcrumbSchema, personRef, websiteRef } from "@/lib/schema";
 import { getEntries } from "astro:content";
 import type { BlogPosting } from "schema-dts";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
 
 export const prerender = false;
 
@@ -88,8 +89,27 @@ const hasFilteredTag = filteredTag !== undefined;
       {description}
     </p>
     <NewsletterForm client:visible showText={false} className="max-w-2xl" />
+    <div class="relative mt-4 w-full max-w-xl">
+      <MagnifyingGlassIcon
+        size={20}
+        weight="duotone"
+        className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2
+          text-muted-foreground"
+      />
+      <input
+        id="blog-search"
+        type="search"
+        autocomplete="off"
+        placeholder="Search posts..."
+        aria-label="Search blog posts"
+        class="w-full rounded-lg border border-border bg-card py-2 pr-3 pl-10
+          text-sm offset-border placeholder:text-muted-foreground
+          focus-visible:border-ring focus-visible:ring-2
+          focus-visible:ring-ring/50 focus-visible:outline-none"
+      />
+    </div>
     <div
-      class="relative mt-4 grid max-w-xl overflow-hidden rounded-lg border
+      class="relative grid max-w-xl overflow-hidden rounded-lg border
         border-border bg-card offset-border"
     >
       <div
@@ -130,6 +150,7 @@ const hasFilteredTag = filteredTag !== undefined;
       </form>
     </div>
     <ul
+      id="blog-list"
       class="mt-2 grid grid-cols-1 gap-4 rounded-md md:grid-cols-2 lg:max-w-5xl"
     >
       {
@@ -154,5 +175,37 @@ const hasFilteredTag = filteredTag !== undefined;
         )
       }
     </ul>
+    <p
+      id="blog-search-empty"
+      class="hidden rounded-lg bg-card p-4 py-3 text-center
+        text-muted-foreground"
+    >
+      No posts match your search.
+    </p>
   </div>
 </RootLayout>
+
+<script>
+  const input = document.getElementById(
+    "blog-search",
+  ) as HTMLInputElement | null;
+  const list = document.getElementById("blog-list");
+  const empty = document.getElementById("blog-search-empty");
+
+  input?.addEventListener("input", () => {
+    const terms = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    let visibleCount = 0;
+
+    list?.querySelectorAll<HTMLElement>("[data-search]").forEach((item) => {
+      const haystack = item.dataset.search ?? "";
+      const isMatch = terms.every((term) => haystack.includes(term));
+      item.classList.toggle("hidden", !isMatch);
+      if (isMatch) {
+        visibleCount++;
+      }
+    });
+
+    // Only surface the empty state while actively searching.
+    empty?.classList.toggle("hidden", terms.length === 0 || visibleCount > 0);
+  });
+</script>

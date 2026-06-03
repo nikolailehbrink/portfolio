@@ -16,10 +16,15 @@ type Props = HTMLAttributes<"li"> & {
 };
 
 const {
-  post: { title, description, publicationDate, readingTime, draft, slug },
+  post: { title, description, publicationDate, readingTime, draft, slug, tags },
   class: className,
   ...props
 } = Astro.props;
+
+// Lowercased haystack consumed by the inline blog search on /blog.
+const searchIndex = [title, description, ...(tags ?? [])]
+  .join(" ")
+  .toLowerCase();
 
 const DATE_TIME_FORMAT_OPTIONS = {
   year: "numeric",
@@ -34,6 +39,7 @@ const formattedPublicationDate = formatDate(
 ---
 
 <li
+  data-search={searchIndex}
   class={cn(
     `group relative flex flex-col rounded-lg border bg-card offset-border
     transition-colors hover:bg-muted`,
@@ -50,7 +56,9 @@ const formattedPublicationDate = formatDate(
     <div class="flex gap-2 text-xs text-muted-foreground">
       {
         draft && (
-          <Badge className="bg-orange-500/20 text-orange-600 dark:text-orange-400">
+          <Badge
+            className="bg-orange-500/20 text-orange-600 dark:text-orange-400"
+          >
             <PencilIcon size={16} weight="duotone" />
             Draft
           </Badge>
