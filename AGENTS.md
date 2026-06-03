@@ -62,6 +62,7 @@ Astro DB (SQLite) with a `ViewCount` table, configured in `db/config.ts`, seeded
 - Path alias: `@/*` maps to `./src/*`
 - Use `type` keyword for TypeScript type definitions (not `interface`)
 - Use `Array<T>` generic syntax (not `T[]`)
+- Derive types from their source of truth instead of hand-writing a duplicate that can be inferred - e.g. `z.infer<typeof schema>` from a Zod schema, `Awaited<ReturnType<…>>` from a function, or a tool's inferred output (`ChatTools["searchPosts"]["output"]`). A manually retyped shape silently drifts when the source changes.
 - Boolean props must start with `is`, `has`, `show`, or `as`
 - Self-closing components and HTML elements enforced
 - Strict equality (`===`) required, curly braces required for all blocks
