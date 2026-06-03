@@ -71,7 +71,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
     </Alert>
 2.  The `generateRemixSitemap()` helper function takes your route definitions and creates a valid sitemap.
     <Alert type="info">
-      Because the package is build for Remix v2, the function automatically
+      Because the package is built for Remix v2, the function automatically
       looks for routes in `virtual:remix/server-build`, but with React Router 7,
       the correct module would be `virtual:react-router/server-build`. That’s
       why we have to import the `routes` in the previous step by hand. I already
