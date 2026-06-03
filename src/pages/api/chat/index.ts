@@ -1,15 +1,18 @@
-import { createGateway } from "@ai-sdk/gateway";
 import {
   convertToModelMessages,
   createUIMessageStream,
   createUIMessageStreamResponse,
   smoothStream,
+  stepCountIs,
   streamText,
   type UIMessage,
 } from "ai";
 import { track } from "@vercel/analytics/server";
 import type { APIRoute } from "astro";
 import { z } from "astro/zod";
+import { CHAT_MODEL } from "@/lib/ai";
+import { parseJsonRequest } from "@/lib/request";
+import { chatTools, type ChatTools } from "@/lib/chat-tools";
 import {
   AI_CHAT_MESSAGE_LIMIT,
   MAX_CHAT_INPUT_CHARS,
@@ -26,10 +29,6 @@ const chatRequestSchema = z.object({
 export const maxDuration = 30;
 export const prerender = false;
 
-const gateway = createGateway({
-  apiKey: import.meta.env.AI_GATEWAY_API_KEY,
-});
-
 const knowledgeBase = import.meta.env.CHAT_KNOWLEDGE_BASE;
 
 export type DataParts = {
@@ -39,19 +38,12 @@ export type DataParts = {
   };
 };
 
-export type MyUIMessage = UIMessage<never, DataParts>;
+export type MyUIMessage = UIMessage<never, DataParts, ChatTools>;
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return new Response("Invalid JSON body", { status: 400 });
-  }
-
-  const parsed = chatRequestSchema.safeParse(body);
-  if (!parsed.success) {
-    return new Response("Invalid request body", { status: 400 });
+  const parsed = await parseJsonRequest(request, chatRequestSchema);
+  if (parsed.response) {
+    return parsed.response;
   }
 
   // Cap the raw payload size to limit token cost / abuse on this public endpoint.
@@ -93,7 +85,10 @@ export const POST: APIRoute = async ({ request, cookies }) => {
             console.error("Error:", error);
           },
           experimental_transform: smoothStream(),
-          model: gateway("openai/gpt-5.4-mini"),
+          model: CHAT_MODEL,
+          tools: chatTools,
+          // Allow one tool call followed by a final text answer.
+          stopWhen: stepCountIs(3),
           system: `You are an AI assistant for the personal website of **Nikolai Lehbrink**.
 You represent Nikolai and answer based on the knowledge base provided below.
 
@@ -110,6 +105,9 @@ You represent Nikolai and answer based on the knowledge base provided below.
    - Is it phrased in Nikolai’s tone?
 6. For multi-turn chats, **maintain continuity** and consistent personality.
 7. When appropriate, **summarize** long details clearly and concisely.
+
+### Blog Search
+You can search Nikolai's blog with the \`searchPosts\` tool. Call it whenever the visitor asks about articles, blog posts, tutorials, or what Nikolai has written or thinks about a technical topic. The matching posts are shown to the visitor as clickable cards automatically, so **do not** list titles or URLs yourself - just give a short 1-2 sentence answer and refer to them naturally (e.g. "I've written a bit about this - take a look below.").
 
 ### Examples
 **User:** What’s your background?

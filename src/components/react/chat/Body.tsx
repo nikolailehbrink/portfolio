@@ -15,6 +15,7 @@ import WelcomeMessage from "./WelcomeMessage";
 import Message from "./Message";
 import ErrorMessage from "./ErrorMessage";
 import LimitHitMessage from "./LimitHitMessage";
+import PostResults from "./PostResults";
 import type { MyUIMessage } from "@/pages/api/chat";
 
 export default function Body({
@@ -44,14 +45,26 @@ export default function Body({
       ) : null}
       {messages.map(({ id, role, parts }, index) => (
         <Message key={id} role={role}>
-          {parts.map((part) => {
+          {parts.map((part, partIndex) => {
             switch (part.type) {
               case "text":
                 return part.text;
+              case "tool-searchPosts":
+                if (part.state === "output-available") {
+                  return <PostResults key={partIndex} posts={part.output} />;
+                }
+                return (
+                  <span key={partIndex} className="animate-pulse italic">
+                    Searching the blog...
+                  </span>
+                );
             }
           })}
           {role === "assistant" &&
-            !parts.some((p) => p.type === "text" && p.text) && (
+            !parts.some(
+              (p) =>
+                (p.type === "text" && p.text) || p.type.startsWith("tool-"),
+            ) && (
               <span className="animate-pulse italic">
                 {thinkingMessages[index % thinkingMessages.length]}
               </span>
