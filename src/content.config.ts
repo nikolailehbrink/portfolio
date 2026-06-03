@@ -1,6 +1,6 @@
 import { defineCollection, reference } from "astro:content";
 import { file, glob } from "astro/loaders";
-import { slugify } from "./lib/utils";
+import { generateBlogId } from "./lib/utils";
 import { z } from "astro/zod";
 
 const blog = defineCollection({
@@ -8,19 +8,8 @@ const blog = defineCollection({
   loader: glob({
     base: "./src/content/blog",
     pattern: "**/*.{md,mdx}",
-    generateId({ entry }) {
-      // TODO: This function needs enhancement and tests. Having two articles in one folder without a "_" results in unexpected id generation etc.
-      let slug = entry;
-      const lastFolderIndex = entry.lastIndexOf("/");
-      if (lastFolderIndex !== -1) {
-        slug = entry.substring(0, lastFolderIndex);
-        if (slug.includes("_")) {
-          slug = entry.substring(lastFolderIndex + 1);
-        }
-      }
-      const extension = entry.substring(entry.lastIndexOf("."));
-      return slugify(slug.replace(extension, ""));
-    },
+    // TODO: This function needs enhancement and tests. Having two articles in one folder without a "_" results in unexpected id generation etc.
+    generateId: ({ entry }) => generateBlogId(entry),
   }),
   // Type-check frontmatter using a schema
   schema: ({ image }) =>

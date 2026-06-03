@@ -18,8 +18,12 @@ import {
 } from "./src/lib/shiki/transformerMeta";
 import { transformerCodeBlock } from "./src/lib/shiki/transformerCodeBlock";
 import { transformerLineNumbers } from "./src/lib/shiki/transformerLineNumbers";
+import { getLastmodMap } from "./src/lib/sitemap";
 
 const PRODUCTION_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+
+// Built once and reused for every sitemap entry rather than per call.
+const lastmodMap = getLastmodMap();
 
 const site = PRODUCTION_URL
   ? new URL(`https://${PRODUCTION_URL}`).href
@@ -76,6 +80,14 @@ export default defineConfig({
     }),
     sitemap({
       filter: (page) => !page.includes("/newsletter/"),
+      serialize(item) {
+        const pathname = new URL(item.url).pathname.replace(/\/$/, "");
+        const lastmod = lastmodMap.get(pathname);
+        if (lastmod) {
+          item.lastmod = lastmod;
+        }
+        return item;
+      },
     }),
     react(),
     db(),
