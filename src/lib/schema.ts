@@ -1,4 +1,10 @@
-import type { BreadcrumbList, Person, WebSite, WithContext } from "schema-dts";
+import type {
+  BreadcrumbList,
+  Person,
+  ProfilePage,
+  WebSite,
+  WithContext,
+} from "schema-dts";
 import avatar from "@/assets/avatar.webp";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
 import { SOCIAL_LINKS } from "@/data/socials";
@@ -56,6 +62,25 @@ export function websiteSchema(origin: string): WithContext<WebSite> {
     description: SITE_DESCRIPTION,
     inLanguage: "en",
     publisher: personRef(origin),
+  };
+}
+
+/**
+ * ProfilePage wraps the homepage as the canonical "about the author" page,
+ * the format Google recommends for personal/creator sites. `mainEntity` points
+ * back at the shared Person node so the page and the person stay one entity.
+ */
+export function profilePageSchema(origin: string): WithContext<ProfilePage> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": new URL("/#profilepage", origin).href,
+    url: new URL("/", origin).href,
+    name: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    inLanguage: "en",
+    isPartOf: websiteRef(origin),
+    mainEntity: personRef(origin),
   };
 }
 

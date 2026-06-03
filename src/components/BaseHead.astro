@@ -8,6 +8,7 @@ type Props = {
   title: string;
   description: string;
   image?: ImageMetadata | string;
+  imageAlt?: string;
   ogType?: "website" | "article";
   noindex?: boolean;
 };
@@ -16,6 +17,7 @@ const {
   title,
   description,
   image = FallbackImage,
+  imageAlt,
   ogType = "website",
   noindex = false,
 } = Astro.props;
@@ -28,6 +30,21 @@ const ogImageURL = new URL(
   origin,
 ).href;
 
+// Large image previews in Google Search and Discover are opt-in via robots;
+// without this tag Google may only show a thumbnail (or nothing) for posts.
+const robots = noindex
+  ? "noindex, follow"
+  : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+
+// Dimensions only known for bundled images; blog covers/OG fallbacks arrive as
+// a string URL, so we skip width/height there rather than guess wrong values.
+const ogImageDimensions =
+  typeof image === "string"
+    ? null
+    : { width: image.width, height: image.height };
+
+const ogImageAlt = imageAlt ?? title;
+
 const separator = "|";
 const titleWithTemplate = isHomePage
   ? SITE_TITLE
@@ -37,7 +54,7 @@ const titleWithTemplate = isHomePage
 <!-- Primary Meta Tags -->
 <title>{titleWithTemplate}</title>
 <meta name="description" content={description} />
-{noindex && <meta name="robots" content="noindex, follow" />}
+<meta name="robots" content={robots} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />
@@ -46,6 +63,18 @@ const titleWithTemplate = isHomePage
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImageURL} />
+<meta property="og:image:alt" content={ogImageAlt} />
+{
+  ogImageDimensions && (
+    <>
+      <meta property="og:image:width" content={`${ogImageDimensions.width}`} />
+      <meta
+        property="og:image:height"
+        content={`${ogImageDimensions.height}`}
+      />
+    </>
+  )
+}
 <meta property="og:site_name" content="Nikolai Lehbrink" />
 
 <!-- Twitter -->
@@ -54,6 +83,7 @@ const titleWithTemplate = isHomePage
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImageURL} />
+<meta property="twitter:image:alt" content={ogImageAlt} />
 <meta property="twitter:site" content="@nikolailehbrink" />
 <meta property="twitter:creator" content="@nikolailehbrink" />
 

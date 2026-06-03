@@ -18,7 +18,11 @@ import ContactForm from "@/components/react/ContactForm";
 import PostTeaser from "@/components/PostTeaser.astro";
 import { getPosts } from "@/lib/posts";
 import BaseHead from "@/components/BaseHead.astro";
+import Schema from "@/components/Schema.astro";
+import { profilePageSchema } from "@/lib/schema";
 import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
+
+const { origin } = Astro.url;
 
 const [career, projects, posts] = await Promise.all([
   getCollection("career"),
@@ -33,7 +37,9 @@ const educationExperiences = career.filter(
 ---
 
 <RootLayout>
-  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} slot="head" />
+  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} slot="head">
+    <Schema item={profilePageSchema(origin)} />
+  </BaseHead>
   <div class="flex flex-col items-start gap-8 sm:items-center sm:gap-16">
     <div
       class="relative flex animate-in items-center justify-center duration-1000
