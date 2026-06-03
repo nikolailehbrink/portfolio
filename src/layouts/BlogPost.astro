@@ -15,12 +15,14 @@ import TableOfContents from "@/components/TableOfContents.astro";
 import ViewCount from "@/components/ViewCount.astro";
 import Skeleton from "@/components/Skeleton.astro";
 import Schema from "@/components/Schema.astro";
+import RelatedPosts from "@/components/RelatedPosts.astro";
 import { breadcrumbSchema, personRef, websiteRef } from "@/lib/schema";
 import { getEntries } from "astro:content";
 
 type Props = CollectionEntry<"blog">["data"] & {
   readingTime: ReadingTime;
   headings: Array<TocEntry>;
+  relatedPosts?: Array<CollectionEntry<"blog"> & { readingTime: number }>;
 };
 
 const {
@@ -35,6 +37,7 @@ const {
   headings,
   authors: authorsReferences,
   showComments,
+  relatedPosts = [],
 } = Astro.props;
 
 const authors = await getEntries(authorsReferences);
@@ -264,6 +267,8 @@ const articleImage = {
         )
       }
     </div>
+
+    <RelatedPosts posts={relatedPosts} />
 
     {
       showComments ? (

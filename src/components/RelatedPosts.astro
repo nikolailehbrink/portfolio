@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from "astro:content";
+import PostTeaser from "@/components/PostTeaser.astro";
+import { ArticleNyTimesIcon } from "@phosphor-icons/react/dist/ssr/ArticleNyTimes";
+
+type RelatedPost = CollectionEntry<"blog"> & { readingTime: number };
+
+type Props = {
+  posts: Array<RelatedPost>;
+};
+
+const { posts } = Astro.props;
+---
+
+{
+  posts.length > 0 && (
+    <section class="mx-auto flex w-full max-w-4xl flex-col gap-4">
+      <h2 class="flex items-center gap-1 text-2xl font-bold">
+        <ArticleNyTimesIcon size={28} weight="duotone" />
+        Related posts
+      </h2>
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {posts.map(({ data, id, readingTime }) => (
+          <PostTeaser post={{ ...data, slug: id, readingTime }} />
+        ))}
+      </ul>
+    </section>
+  )
+}

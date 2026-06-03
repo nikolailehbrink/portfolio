@@ -1,4 +1,4 @@
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { slugify } from "./utils";
 import type { MarkdownHeading } from "astro";
 import { estimateReadingTime } from "./readingTime";
@@ -32,6 +32,29 @@ export async function getPosts(options?: {
   }
 
   return posts;
+}
+
+/**
+ * Rank other posts by shared tags, then fall back to the most recent ones so
+ * the related section is never empty. Internal links keep readers on the site
+ * and help search engines discover and connect the blog's content.
+ */
+export async function getRelatedPosts(
+  currentPost: CollectionEntry<"blog">,
+  take = 2,
+) {
+  const currentTags = new Set(currentPost.data.tags ?? []);
+  const sharedTagCount = (post: CollectionEntry<"blog">) =>
+    (post.data.tags ?? []).filter((tag) => currentTags.has(tag)).length;
+
+  return (await getPosts())
+    .filter((post) => post.id !== currentPost.id)
+    .sort(
+      (a, b) =>
+        sharedTagCount(b) - sharedTagCount(a) ||
+        b.data.publicationDate.getTime() - a.data.publicationDate.getTime(),
+    )
+    .slice(0, take);
 }
 
 export async function getBlogTags() {
