@@ -19,6 +19,7 @@ import {
 import { transformerCodeBlock } from "./src/lib/shiki/transformerCodeBlock";
 import { transformerLineNumbers } from "./src/lib/shiki/transformerLineNumbers";
 import { getLastmodMap } from "./src/lib/sitemap";
+import { indexNow } from "./src/lib/indexnow";
 
 const PRODUCTION_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 
@@ -91,6 +92,7 @@ export default defineConfig({
     }),
     react(),
     db(),
+    indexNow(),
   ],
   vite: {
     plugins: [tailwindcss(), arraybuffer()],
