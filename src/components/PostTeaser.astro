@@ -40,6 +40,8 @@ const formattedPublicationDate = formatDate(
 
 <li
   data-search={searchIndex}
+  data-publication-date={publicationDate.getTime()}
+  data-reading-time={readingTime}
   class={cn(
     `group relative flex flex-col rounded-lg border bg-card offset-border
     transition-colors hover:bg-muted`,

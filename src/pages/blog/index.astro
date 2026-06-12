@@ -2,16 +2,13 @@
 import BaseHead from "../../components/BaseHead.astro";
 import RootLayout from "@/layouts/RootLayout.astro";
 import { getBlogTags, getPosts } from "@/lib/posts";
-import NewsletterForm from "@/components/react/NewsletterForm";
+import BlogToolbar from "@/components/react/BlogToolbar";
 import PostTeaser from "@/components/PostTeaser.astro";
 import { track } from "@vercel/analytics/server";
-import { badgeVariants } from "@/components/react/ui/badge";
-import { cn } from "@/lib/utils";
 import Schema from "@/components/Schema.astro";
 import { breadcrumbSchema, personRef, websiteRef } from "@/lib/schema";
 import { getEntries } from "astro:content";
 import type { BlogPosting } from "schema-dts";
-import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
 
 export const prerender = false;
 
@@ -57,7 +54,6 @@ const schemaPosts = await Promise.all(
 if (filteredTag) {
   await track("blog-tag-filtered", { tag: filteredTag.name });
 }
-const hasFilteredTag = filteredTag !== undefined;
 ---
 
 <RootLayout>
@@ -88,67 +84,12 @@ const hasFilteredTag = filteredTag !== undefined;
     <p class="max-w-prose text-muted-foreground sm:text-center">
       {description}
     </p>
-    <NewsletterForm client:visible showText={false} className="max-w-2xl" />
-    <div class="relative mt-4 w-full max-w-xl">
-      <MagnifyingGlassIcon
-        size={20}
-        weight="duotone"
-        className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2
-          text-muted-foreground"
-      />
-      <input
-        id="blog-search"
-        type="search"
-        autocomplete="off"
-        placeholder="Search posts..."
-        aria-label="Search blog posts"
-        class="w-full rounded-lg border border-border bg-card py-2 pr-3 pl-10
-          text-sm offset-border placeholder:text-muted-foreground
-          focus-visible:border-ring focus-visible:ring-2
-          focus-visible:ring-ring/50 focus-visible:outline-none"
-      />
-    </div>
-    <div
-      class="relative grid max-w-xl overflow-hidden rounded-lg border
-        border-border bg-card offset-border"
-    >
-      <div
-        class="absolute inset-y-0 right-0 w-2 rounded-e-lg bg-linear-to-r
-          from-transparent to-card"
-      >
-      </div>
-      <form class="flex snap-x snap-mandatory gap-2 overflow-x-auto p-2">
-        <a
-          href="/blog"
-          class={cn(
-            "cursor-pointer snap-end scroll-mr-2",
-            badgeVariants({
-              variant: hasFilteredTag ? "secondary" : "default",
-            }),
-          )}
-          data-astro-prefetch>All</a
-        >
-        {
-          tags.map(({ name, slug }) => {
-            const isActive = filteredTag?.slug === slug;
-            return (
-              <button
-                {...(!isActive ? { name: "tag", value: slug } : {})}
-                class={cn(
-                  "cursor-pointer snap-end scroll-mr-2",
-                  badgeVariants({
-                    variant: isActive ? "default" : "secondary",
-                  }),
-                )}
-                type="submit"
-              >
-                {name}
-              </button>
-            );
-          })
-        }
-      </form>
-    </div>
+    <BlogToolbar
+      client:load
+      tags={tags}
+      activeTagSlug={filteredTag?.slug}
+      className="mt-4 w-full lg:max-w-5xl"
+    />
     <ul
       id="blog-list"
       class="mt-2 grid grid-cols-1 gap-4 rounded-md md:grid-cols-2 lg:max-w-5xl"
@@ -184,28 +125,3 @@ const hasFilteredTag = filteredTag !== undefined;
     </p>
   </div>
 </RootLayout>
-
-<script>
-  const input = document.getElementById(
-    "blog-search",
-  ) as HTMLInputElement | null;
-  const list = document.getElementById("blog-list");
-  const empty = document.getElementById("blog-search-empty");
-
-  input?.addEventListener("input", () => {
-    const terms = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    let visibleCount = 0;
-
-    list?.querySelectorAll<HTMLElement>("[data-search]").forEach((item) => {
-      const haystack = item.dataset.search ?? "";
-      const isMatch = terms.every((term) => haystack.includes(term));
-      item.classList.toggle("hidden", !isMatch);
-      if (isMatch) {
-        visibleCount++;
-      }
-    });
-
-    // Only surface the empty state while actively searching.
-    empty?.classList.toggle("hidden", terms.length === 0 || visibleCount > 0);
-  });
-</script>

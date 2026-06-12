@@ -16,10 +16,12 @@ import { withState } from "@astrojs/react/actions";
 
 export default function NewsletterForm({
   showText = true,
+  showCard = true,
   className,
   ...props
 }: React.ComponentProps<"form"> & {
   showText?: boolean;
+  showCard?: boolean;
 }) {
   const [state, action, isPending] = useActionState(
     withState(actions.newsletter),
@@ -40,8 +42,9 @@ export default function NewsletterForm({
     <form
       method="POST"
       className={cn(
-        `not-prose inline-grid w-full grid-cols-1 gap-2 rounded-xl border
-        bg-linear-to-b from-card to-card p-4 offset-border @lg:grid-cols-2`,
+        "not-prose inline-grid w-full grid-cols-1 gap-2 @lg:grid-cols-2",
+        showCard &&
+          "rounded-xl border bg-linear-to-b from-card to-card p-4 offset-border",
         className,
       )}
       {...props}
@@ -87,15 +90,15 @@ export default function NewsletterForm({
               <>
                 Sending
                 <CircleNotchIcon
+                  data-icon="inline-end"
                   className="animate-spin"
                   weight="duotone"
-                  size={20}
                 />
               </>
             ) : (
               <>
                 Join newsletter
-                <EnvelopeIcon weight="duotone" size={20} />
+                <EnvelopeIcon data-icon="inline-end" weight="duotone" />
               </>
             )}
           </Button>
