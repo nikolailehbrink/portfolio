@@ -1,9 +1,20 @@
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
 import { EnvelopeIcon } from "@phosphor-icons/react/dist/ssr/Envelope";
+import { XIcon } from "@phosphor-icons/react/dist/ssr/X";
 import { useState } from "react";
 import NewsletterForm from "./NewsletterForm";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxTrigger,
+  ComboboxValue,
+} from "./ui/combobox";
 import {
   Popover,
   PopoverContent,
@@ -31,6 +42,8 @@ const SORT_OPTIONS = [
 
 type SortOption = (typeof SORT_OPTIONS)[number]["value"];
 
+type TopicItem = { value: string; label: string };
+
 function getPostItems() {
   return Array.from(
     document.querySelectorAll<HTMLElement>("#blog-list [data-search]"),
@@ -48,10 +61,12 @@ export default function BlogToolbar({
 }) {
   const [sort, setSort] = useState<SortOption>("newest");
 
-  const topicItems = [
+  const topicItems: Array<TopicItem> = [
     { value: "all", label: "All topics" },
     ...tags.map(({ name, slug }) => ({ value: slug, label: name })),
   ];
+  const activeTopic =
+    topicItems.find(({ value }) => value === activeTagSlug) ?? topicItems[0];
 
   function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
     const terms = event.target.value
@@ -120,31 +135,44 @@ export default function BlogToolbar({
           className="bg-card pl-8 dark:bg-card"
         />
       </div>
-      <Select
+      <Combobox
         items={topicItems}
-        value={activeTagSlug ?? "all"}
-        onValueChange={(value) => {
-          if (value !== null) {
-            handleTagChange(value);
-          }
-        }}
+        value={activeTopic}
+        onValueChange={(item) => handleTagChange(item?.value ?? "all")}
       >
-        <SelectTrigger
-          className="bg-card dark:bg-card"
+        <ComboboxTrigger
           aria-label="Filter posts by topic"
+          render={
+            <Button
+              variant="outline"
+              className="justify-between bg-card font-normal dark:bg-card"
+            />
+          }
         >
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            {topicItems.map(({ value, label }) => (
-              <SelectItem key={value} value={value}>
-                {label}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+          <ComboboxValue />
+        </ComboboxTrigger>
+        <ComboboxContent className="min-w-48">
+          <ComboboxInput showTrigger={false} placeholder="Search topics..." />
+          <ComboboxEmpty>No topics found.</ComboboxEmpty>
+          <ComboboxList>
+            {(item: TopicItem) => (
+              <ComboboxItem key={item.value} value={item}>
+                {item.label}
+              </ComboboxItem>
+            )}
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
+      {activeTagSlug !== undefined && (
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Reset topic filter"
+          onClick={() => handleTagChange("all")}
+        >
+          <XIcon weight="duotone" />
+        </Button>
+      )}
       <Select
         items={SORT_OPTIONS}
         value={sort}
