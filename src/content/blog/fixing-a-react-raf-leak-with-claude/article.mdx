@@ -1,0 +1,162 @@
+---
+title: "How I fixed the most annoying bug for our customers with Claude Code"
+description: "How I used Claude Code with react-scan and agent-browser to track down a self-replicating requestAnimationFrame leak that dragged our chat down to 4 FPS."
+publicationDate: "2026-06-25T02:00:00Z"
+tags: ["React", "Performance", "Debugging", "Coding Agents"]
+---
+
+import Alert from "@/components/Alert.astro";
+import NewsletterForm from "@/components/react/NewsletterForm";
+import ChatLagVideo from "./ChatLagVideo.astro";
+import ChatFixedVideo from "./ChatFixedVideo.astro";
+import Figure from "./Figure.astro";
+import Fps from "./Fps.astro";
+import reactScanOverview from "./react-scan-overview.png";
+import reactScanChromeHint from "./react-scan-chrome-hint.png";
+
+At [meinGPT](https://meingpt.com/) we run a platform built around an AI chat, same idea as ChatGPT or Claude.ai. You can connect your tools, have it read your documents, generate images, you know the deal.
+
+Over the last few weeks one thing kept showing up in our support tickets:
+
+**The chat feels slow…**
+
+I'd noticed it myself in the local environment, but on production it was less obvious. Give a chat enough messages and a few PDFs, though, and it would slowly get sluggish and start to feel off.
+
+<ChatLagVideo />
+
+We'd already looked into it more than once without ever finding the cause, so two weeks ago I sat down with [Claude Code](https://code.claude.com/) and [Fable 5](https://www.anthropic.com/news/claude-fable-5-mythos-5) (before it was suspended) to fix it once and for all.
+
+## My first guess: too many re-renders
+
+When something gets slower the more you use it, re-rendering is the obvious suspect. 
+
+My theory went like this: the more messages a chat holds, the more React has to re-render, and if one component somewhere isn't memoized, it gets re-used on the next message and re-renders again - so the cost piles up with every message.
+
+I was wrong.
+
+## It wasn't the renders
+
+To narrow down that kind of thing I reached for [`react-scan`](https://github.com/aidenybai/react-scan), a handy tool for visualizing React component renders and their performance.
+
+Its Overview tab settled it: Of **1203 ms** total, only **109 ms** were actual React renders. The other **1094 ms** - the part actually hurting - was everything else: hooks, plain JavaScript, and the work the browser does to update the DOM and draw each frame.
+
+
+<Figure
+  src={reactScanOverview}
+  alt="react-scan's Overview tab: of 1203 ms total, only 109 ms went to React renders while 1094 ms went to JavaScript, DOM updates and drawing frames"
+/>
+
+The same tab told me where to look next: _"profile your app using the Chrome profiler when the performance problem arises."_ So that became the plan.
+
+<Figure
+  src={reactScanChromeHint}
+  alt={'react-scan\'s Overview tab with the "JavaScript, DOM updates, Draw Frame" breakdown expanded, explaining it\'s everything other than React renders and suggesting the Chrome profiler to dig deeper'}
+/>
+
+## Handing it to agent-browser
+
+This is where it got fun. Instead of profiling by hand, I let Claude do it through [`agent-browser`](https://agent-browser.dev), a browser-automation CLI from [Vercel](https://vercel.com) that lets an agent drive a real browser - open pages, click, type, read the DOM, and record traces - all from the command line.
+
+I'd given Claude one rule from the start: **don't just change code, reproduce the problem end to end and prove the fix with a before and after I can rerun myself.**
+
+So once I said "use the Chrome profiler," it mostly took over on its own.
+
+It spun up a fresh chat, typed a prompt that forces a long, streaming answer (the worst case), recorded a Chrome trace around the streaming with [`agent-browser profiler start`](https://agent-browser.dev/profiler) / [`stop`](https://agent-browser.dev/profiler), and dumped the raw trace to a JSON file.
+
+<NewsletterForm client:visible />
+
+## A trace file that was way too big
+
+It was the first real tell. A normal trace - just typing into the box - came out around **1.8 MB** with roughly 9,000 events. 
+
+The streaming one? Well, **360 MB**, with **1,315,451 events**, for about eight seconds of a single answer streaming in.
+
+Something was generating events by the hundreds of thousands. It was way too big to open in the DevTools UI, so Claude parsed the raw `traceEvents` with a small Python script and counted what was actually in there:
+
+> **437,190 `requestAnimationFrame` callbacks in 8 seconds.**
+
+That's around **900 per frame**. A healthy app schedules roughly **one**.
+
+## The bug: scheduling rAF inside a setState updater
+
+The trace pointed straight at a small hook we use called `useSmoothTypingText` - it reveals the streamed text character by character as it arrives. 
+
+Here's the relevant part:
+
+```ts filename="lib/hooks/useSmoothTypingText.ts" showLineNumbers highlight={8}
+export function useSmoothTypingText(text: string) {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const animate = () => {
+      setProgress((p) => {
+        const next = p + step;
+        if (next < text.length) requestAnimationFrame(animate); // ❌ inside the updater
+        return next;
+      });
+    };
+
+    requestAnimationFrame(animate);
+  }, [text]);
+
+  return text.slice(0, progress);
+}
+```
+
+That highlighted line is the whole bug.
+
+[A state updater is supposed to be a pure function](https://react.dev/reference/react/useState#setstate): take the previous state, return the next one without any side effects. React is allowed to call it more than once - in development under StrictMode it does on purpose, and during concurrent rendering it can too. This one scheduled a new animation frame every time it ran.
+
+So every time React invoked the updater more than once, each call forked its own `requestAnimationFrame` chain. Those chains scheduled more frames, whose updaters forked again, and so on. The cleanup only ever cancelled the _last_ `animationFrameId` it had seen, so every other chain kept running forever. 
+
+A few seconds of streaming and you had hundreds of self-replicating loops fighting for the main thread - and a chat at <Fps>4 FPS</Fps>.
+
+## The fix: move rAF out of the updater
+
+The fix is to keep exactly one animation-frame chain, schedule it _outside_ the updater, and keep the updater pure. To know when to stop, a ref mirrors the progress so the loop can read it without touching state:
+
+```ts filename="lib/hooks/useSmoothTypingText.ts" showLineNumbers
+export function useSmoothTypingText(text: string) {
+  // Start fully revealed: only text that grows after mount animates.
+  const [progress, setProgress] = useState(text.length);
+
+  // A ref mirrors progress so the loop can stop without touching state.
+  const progressRef = useRef(progress);
+  useEffect(() => {
+    progressRef.current = progress;
+  }, [progress]);
+
+  useEffect(() => {
+    const animate = () => {
+      if (progressRef.current >= text.length) return; // stop the chain
+
+      setProgress((p) => Math.min(text.length, p + step)); // ✅ pure: just returns
+      requestAnimationFrame(animate); // one chain, outside the updater
+    };
+
+    requestAnimationFrame(animate);
+  }, [text]);
+
+  return text.slice(0, progress);
+}
+```
+
+Now `animate` schedules the next frame exactly once per call, the `setProgress` updater only computes a value, and a ref decides when the chain ends. Already-finished messages start fully revealed, so they render statically instead of re-animating every time they mount.
+
+<Alert type="tip" title="Better yet, don't hand-roll it">
+
+The deeper lesson is that this hook probably shouldn't have existed. A character-by-character typing effect is a solved problem, and a hand-written `requestAnimationFrame` loop is exactly where subtle bugs like this hide.
+
+</Alert>
+
+## Make the agent prove it
+
+Claude implemented the fix, then used `agent-browser` to replay the same streaming prompt before and after, with the profiler running both times. The `requestAnimationFrame` count dropped from **437,190 to 778 per 8 seconds**. The trace shrank to a few MB, and the FPS drops were gone.
+
+<ChatFixedVideo />
+
+## What I'd take from this
+
+1. **Let the agent verify and debug its own work, end to end.** Once Claude could reproduce the bug, it could close the loop without me. It's the single biggest lever I've found for getting good results out of an agent - and Anthropic's [Claude Code best practices](https://code.claude.com/docs/en/best-practices#give-claude-a-way-to-verify-its-work) land on the same thing.
+2. **Know which tools to reach for, and when.** I had to know `react-scan` and `agent-browser` even existed to get here. The model can drive them, but pointing it at the right one is still on you.
+3. **Don't hand-roll what's already solved.** The whole bug lived in a custom typing hook that didn't need to exist. But If I were to write one with Claude today, I'd probably reach for the [`react-best-practices` skill](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices) to circumvent these kind of pitfalls.
