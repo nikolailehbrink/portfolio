@@ -1,5 +1,5 @@
 ---
-title: "How I fixed the most annoying bug for our customers with Claude Code"
+title: "Using Claude Code to fix our most-reported bug"
 description: "How I used Claude Code with react-scan and agent-browser to track down a self-replicating requestAnimationFrame leak that dragged our chat down to 4 FPS."
 publicationDate: "2026-06-25T02:00:00Z"
 tags: ["React", "Performance", "Debugging", "Coding Agents"]
@@ -151,7 +151,7 @@ The deeper lesson is that this hook probably shouldn't have existed. A character
 
 ## Make the agent prove it
 
-Claude implemented the fix, then used `agent-browser` to replay the same streaming prompt before and after, with the profiler running both times. The `requestAnimationFrame` count dropped from **437,190 to 778 per 8 seconds**. The trace shrank to a few MB, and the FPS drops were gone.
+Claude implemented the fix, then used `agent-browser` to replay the same streaming prompt before and after, with the profiler running both times. The `requestAnimationFrame` count dropped from **437,190 to 778 per 8 seconds**. The trace shrank to a few MB, and the FPS drops were gone, even with longer chats.
 
 <ChatFixedVideo />
 
