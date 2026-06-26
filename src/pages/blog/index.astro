@@ -30,7 +30,10 @@ const posts = await getPosts({ tag: filteredTag?.name });
 const schemaPosts = await Promise.all(
   posts.map(async ({ data, id: slug }) => {
     const authors = await getEntries(data.authors);
-    const postUrl = `${origin}/blog/${slug}`;
+    // Trailing slash to match the post page's canonical URL (`Astro.url.href`),
+    // so the `@id` below is byte-identical and the two BlogPosting nodes
+    // dedupe into one entity instead of two.
+    const postUrl = `${origin}/blog/${slug}/`;
 
     return {
       "@type": "BlogPosting",
