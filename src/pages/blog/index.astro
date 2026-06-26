@@ -17,12 +17,12 @@ const description =
   "A collection of my thoughts, ideas and experiences. I write about various topics, including web development, technology and personal topics.";
 
 const { searchParams, origin } = Astro.url;
-const tag = searchParams.get("tag");
+const tagSlugs = searchParams.getAll("tag");
 
 const tags = await getBlogTags();
-const filteredTag = tags.find(({ slug }) => slug === tag);
+const filteredTags = tags.filter(({ slug }) => tagSlugs.includes(slug));
 
-const posts = await getPosts({ tag: filteredTag?.name });
+const posts = await getPosts({ tags: filteredTags.map(({ name }) => name) });
 
 const schemaPosts = await Promise.all(
   posts.map(async ({ data, id: slug }) => {
@@ -51,8 +51,10 @@ const schemaPosts = await Promise.all(
   }),
 );
 
-if (filteredTag) {
-  await track("blog-tag-filtered", { tag: filteredTag.name });
+if (filteredTags.length > 0) {
+  await track("blog-tag-filtered", {
+    tag: filteredTags.map(({ name }) => name).join(", "),
+  });
 }
 ---
 
@@ -87,7 +89,7 @@ if (filteredTag) {
     <BlogToolbar
       client:load
       tags={tags}
-      activeTagSlug={filteredTag?.slug}
+      activeTagSlugs={filteredTags.map(({ slug }) => slug)}
       className="mt-4 w-full lg:max-w-5xl"
     />
     <ul
@@ -110,7 +112,10 @@ if (filteredTag) {
             class="col-span-2 rounded-lg bg-card p-4 py-3 text-center
               text-muted-foreground"
           >
-            No posts were found {filteredTag ? `for ${filteredTag.name}.` : "."}{" "}
+            No posts were found{" "}
+            {filteredTags.length > 0
+              ? `for ${filteredTags.map(({ name }) => name).join(", ")}.`
+              : "."}{" "}
             <br />
           </p>
         )
