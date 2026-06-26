@@ -1,4 +1,4 @@
-import { Output, streamText } from "ai";
+import { createTextStreamResponse, Output, streamText, toTextStream } from "ai";
 import type { APIRoute } from "astro";
 import { z } from "astro/zod";
 import { CHAT_KNOWLEDGE_BASE, SUGGESTIONS_MODEL } from "@/lib/ai";
@@ -42,5 +42,7 @@ Visitor asked: ${question ?? "(start of the conversation)"}
 Assistant replied: ${reply}`,
   });
 
-  return result.toTextStreamResponse();
+  return createTextStreamResponse({
+    stream: toTextStream({ stream: result.stream }),
+  });
 };

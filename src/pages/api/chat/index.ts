@@ -3,8 +3,9 @@ import {
   createUIMessageStream,
   createUIMessageStreamResponse,
   smoothStream,
-  stepCountIs,
+  isStepCount,
   streamText,
+  toUIMessageStream,
   type UIMessage,
 } from "ai";
 import { track } from "@vercel/analytics/server";
@@ -86,8 +87,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
           model: CHAT_MODEL,
           tools: chatTools,
           // Allow one tool call followed by a final text answer.
-          stopWhen: stepCountIs(3),
-          system: `You are an AI assistant for the personal website of **Nikolai Lehbrink**.
+          stopWhen: isStepCount(3),
+          instructions: `You are an AI assistant for the personal website of **Nikolai Lehbrink**.
 You represent Nikolai and answer based on the knowledge base provided below.
 
 ### Core Instructions
@@ -122,7 +123,7 @@ You can search Nikolai's blog with the \`searchPosts\` tool. Only call it when t
 ${CHAT_KNOWLEDGE_BASE}
 `,
           messages: await convertToModelMessages(messages),
-          onFinish() {
+          onEnd() {
             if (messageLimitReached) {
               writer.write({
                 type: "data-message-limit-reached",
@@ -135,7 +136,7 @@ ${CHAT_KNOWLEDGE_BASE}
             }
           },
         });
-        writer.merge(result.toUIMessageStream());
+        writer.merge(toUIMessageStream({ stream: result.stream }));
       },
     });
     return createUIMessageStreamResponse({ stream });
