@@ -8,16 +8,13 @@ import Navbar from "@/components/Navbar.astro";
 import Footer from "@/components/Footer.astro";
 import Schema from "@/components/Schema.astro";
 import { personSchema, websiteSchema } from "@/lib/schema";
+import { getCanonicalUrl } from "@/lib/utils";
 
 const { pathname, origin } = Astro.url;
 const isChatPage = pathname.startsWith("/chat");
 const isHomePage = pathname === "/";
 
-// Normalize to a trailing slash so SSR routes (`/blog`, `/chat`) emit the same
-// stable canonical as static pages and the sitemap, instead of mirroring
-// whichever slash form the request happened to use.
-const canonicalPathname = pathname.endsWith("/") ? pathname : `${pathname}/`;
-const canonicalURL = new URL(canonicalPathname, Astro.site);
+const canonicalURL = getCanonicalUrl(pathname, Astro.site);
 ---
 
 <html

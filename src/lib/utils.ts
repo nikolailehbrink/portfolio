@@ -10,6 +10,17 @@ export function slugify(slug: string) {
 }
 
 /**
+ * Build a page's canonical absolute URL: normalize to a trailing slash so
+ * server-rendered routes (`/blog`, `/chat`) match static pages and the sitemap,
+ * then resolve against the configured site origin. Shared by the canonical
+ * `<link>` and the og:url/twitter:url tags so the two never drift apart.
+ */
+export function getCanonicalUrl(pathname: string, site: URL | undefined) {
+  const normalized = pathname.endsWith("/") ? pathname : `${pathname}/`;
+  return new URL(normalized, site).href;
+}
+
+/**
  * Derive a blog post's id/slug from its path relative to the content base: the
  * folder name is the slug, unless the folder is prefixed with `_`, in which case
  * the file name is used. Shared by the content loader (`content.config.ts`) and

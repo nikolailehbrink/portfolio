@@ -3,6 +3,7 @@ import type { ImageMetadata } from "astro";
 
 import FallbackImage from "@/assets/og/home.webp";
 import { SITE_TITLE } from "@/consts";
+import { getCanonicalUrl } from "@/lib/utils";
 
 type Props = {
   title: string;
@@ -24,6 +25,10 @@ const {
 const { pathname, origin } = Astro.url;
 
 const isHomePage = pathname === "/";
+
+// Same canonical the RootLayout emits, so og:url/twitter:url never disagree
+// with the canonical link or point at a query-stringed/non-trailing variant.
+const canonicalURL = getCanonicalUrl(pathname, Astro.site);
 
 const ogImageURL = new URL(
   typeof image === "string" ? image : image.src,
@@ -59,7 +64,7 @@ const titleWithTemplate = isHomePage
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImageURL} />
@@ -79,7 +84,7 @@ const titleWithTemplate = isHomePage
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImageURL} />
