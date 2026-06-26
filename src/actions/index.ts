@@ -8,7 +8,9 @@ import NewsletterVerificationEmail, {
   PlainText,
 } from "@/components/react/emails/newsletter-verification";
 import { z } from "astro/zod";
-import { db, eq, sql, ViewCount } from "astro:db";
+import { eq, sql } from "drizzle-orm";
+import { db } from "@/db";
+import { viewCount } from "@/db/schema";
 import { RESEND_NEWSLETTER_AUDIENCE_ID } from "@/consts";
 
 export const server = {
@@ -200,14 +202,14 @@ export const server = {
         const { pathname } = input;
 
         const updatedViewCount = await db
-          .insert(ViewCount)
+          .insert(viewCount)
           .values({
             pathname,
           })
           .onConflictDoUpdate({
-            target: ViewCount.pathname,
+            target: viewCount.pathname,
             set: {
-              views: sql`views + 1`,
+              views: sql`${viewCount.views} + 1`,
             },
           })
           .returning();
@@ -220,16 +222,16 @@ export const server = {
       }),
       async handler(input) {
         const { pathname } = input;
-        const viewCount = await db
+        const rows = await db
           .select()
-          .from(ViewCount)
-          .where(eq(ViewCount.pathname, pathname));
-        return viewCount[0]?.views ?? 0;
+          .from(viewCount)
+          .where(eq(viewCount.pathname, pathname));
+        return rows[0]?.views ?? 0;
       },
     }),
     getAll: defineAction({
       async handler() {
-        const views = await db.select().from(ViewCount);
+        const views = await db.select().from(viewCount);
         return views.reduce((acc, current) => acc + current.views, 0);
       },
     }),

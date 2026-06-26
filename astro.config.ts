@@ -2,9 +2,8 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 import node from "@astrojs/node";
-import db from "@astrojs/db";
 import sitemap from "@astrojs/sitemap";
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import arraybuffer from "vite-plugin-arraybuffer";
 
@@ -69,6 +68,22 @@ export default defineConfig({
   },
   prefetch: true,
   site,
+  env: {
+    schema: {
+      // Optional: only needed in production. Local dev uses a local libSQL file
+      // (see src/db/index.ts), so these stay unset and unvalidated locally.
+      TURSO_DATABASE_URL: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
+      TURSO_AUTH_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
+    },
+  },
   redirects: {
     "/blog/tailwind-css-tips": "/blog/tailwindcss-v3-tips",
     "/blog/dear-danya": "/thoughts/dear-danya",
@@ -91,7 +106,6 @@ export default defineConfig({
       },
     }),
     react(),
-    db(),
     indexNow(),
   ],
   vite: {

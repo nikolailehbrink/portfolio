@@ -33,3 +33,7 @@ pnpm-debug.log*
 
 # AI SDK DevTools local capture
 .devtools/
+
+# Local libSQL dev database
+local.db
+local.db-*
