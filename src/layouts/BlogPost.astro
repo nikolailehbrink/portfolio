@@ -48,8 +48,9 @@ const formattedPublicationDate = formatDate(publicationDate);
 const formattedModificationDate = modificationDate
   ? formatDate(modificationDate)
   : null;
-const coverImageURL = new URL(cover ? cover.src : `${pathname}/og.png`, origin)
-  .href;
+// Resolve "og.png" relative to the post URL (which ends in a slash), so the
+// trailing slash joins cleanly instead of producing a `//og.png` redirect.
+const coverImageURL = new URL(cover ? cover.src : "og.png", href).href;
 
 // Reference the shared Person entity when the post is written by the site owner,
 // otherwise inline a Person for the guest author.
