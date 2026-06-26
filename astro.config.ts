@@ -3,7 +3,7 @@ import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, logHandlers } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import arraybuffer from "vite-plugin-arraybuffer";
 
@@ -67,6 +67,9 @@ export default defineConfig({
     },
   },
   prefetch: true,
+  // Structured JSON logs for Vercel observability on the SSR functions
+  // (chat/newsletter). `logger` is stable since Astro 7.
+  logger: logHandlers.json({ pretty: true }),
   site,
   env: {
     schema: {
