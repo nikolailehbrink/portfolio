@@ -61,7 +61,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-email": "6.5.0",
-    "react-medium-image-zoom": "5.4.5",
+    "react-medium-image-zoom": "5.4.8",
     "rehype-autolink-headings": "7.1.0",
     "resend": "6.12.4",
     "shadcn": "4.11.0",
