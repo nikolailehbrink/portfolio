@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@ai-sdk/devtools": "0.0.18",
-    "@ai-sdk/gateway": "3.0.122",
     "@ai-sdk/react": "3.0.196",
     "@astrojs/check": "0.9.9",
     "@astrojs/markdown-remark": "7.2.0",
@@ -48,8 +47,6 @@
     "@libsql/client": "0.17.4",
     "@mux/mux-player-astro": "3.13.0",
     "@phosphor-icons/react": "2.1.10",
-    "@radix-ui/react-label": "2.1.8",
-    "@radix-ui/react-slot": "1.2.4",
     "@tailwindcss/typography": "0.5.19",
     "@tailwindcss/vite": "4.3.0",
     "@types/react": "19.2.16",
