@@ -1,6 +1,8 @@
 export const SITE_TITLE = "Nikolai Lehbrink";
 export const SITE_DESCRIPTION =
   "Passionate fullstack developer dedicated to creating beautiful and functional web applications.";
+// Role used in the homepage <title> and the Person schema's jobTitle.
+export const JOB_TITLE = "Full Stack Developer";
 
 export const AI_CHAT_MESSAGE_LIMIT = import.meta.env.PROD ? 20 : 5;
 export const SECONDS_TO_CHAT_AGAIN = import.meta.env.PROD

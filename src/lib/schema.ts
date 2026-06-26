@@ -6,7 +6,7 @@ import type {
   WithContext,
 } from "schema-dts";
 import avatar from "@/assets/avatar.webp";
-import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
+import { JOB_TITLE, SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
 import { SOCIAL_LINKS } from "@/data/socials";
 
 // Stable anchors so every schema node can reference the same entity by `@id`
@@ -32,7 +32,7 @@ export function personSchema(origin: string): WithContext<Person> {
     url: new URL("/", origin).href,
     image: new URL(avatar.src, origin).href,
     description: SITE_DESCRIPTION,
-    jobTitle: "Full Stack Developer",
+    jobTitle: JOB_TITLE,
     sameAs: SOCIAL_LINKS.map(({ href }) => href),
     knowsAbout: [
       "Web Development",
