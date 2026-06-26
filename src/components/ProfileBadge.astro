@@ -5,13 +5,16 @@ import { XLogoIcon } from "@phosphor-icons/react/dist/ssr/XLogo";
 import { YoutubeLogoIcon } from "@phosphor-icons/react/dist/ssr/YoutubeLogo";
 import type { HTMLAttributes } from "astro/types";
 
+// `profileUrl` already includes the trailing separator so the handle appends
+// cleanly. GitHub/X need a slash; LinkedIn lives under `/in/`; YouTube handles
+// are prefixed with `@` and no slash.
 const SOCIAL_MEDIA_PLATFORMS = {
   GitHub: {
-    profileUrl: "https://github.com",
+    profileUrl: "https://github.com/",
     logo: GithubLogoIcon,
   },
   X: {
-    profileUrl: "https://x.com",
+    profileUrl: "https://x.com/",
     logo: XLogoIcon,
   },
   LinkedIn: {
@@ -35,7 +38,7 @@ const { profileUrl, logo: Logo } = SOCIAL_MEDIA_PLATFORMS[platform];
 
 <a
   {...props}
-  href={`${profileUrl}/${handle}`}
+  href={`${profileUrl}${handle}`}
   target="_blank"
   class="inline-flex items-center gap-1 rounded-md border border-border bg-card
     px-1.5 py-0.5 align-bottom text-sm no-underline hover:border-border
