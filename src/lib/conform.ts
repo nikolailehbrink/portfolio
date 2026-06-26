@@ -8,12 +8,15 @@ import type { HTMLInputTypeAttribute } from "react";
  * map the future field metadata onto native input/textarea props so the form
  * markup stays declarative.
  *
+ * `field.key` is intentionally left out: React 19 warns when a `key` is passed
+ * through a spread object, so callers must apply it directly via
+ * `key={field.key}` on the JSX element.
+ *
  * @see https://conform.guide/api/react/future/useForm
  */
 
 function getControlProps<Shape>(field: FieldMetadata<Shape>) {
   return {
-    key: field.key,
     id: field.id,
     name: field.name,
     form: field.formId,

@@ -61,6 +61,7 @@ export default function ContactForm({
           Email
         </Label>
         <Input
+          key={fields.email.key}
           {...getInputProps(fields.email, { type: "email" })}
           placeholder="john.doe@example.com"
         />
@@ -74,6 +75,7 @@ export default function ContactForm({
           Name
         </Label>
         <Input
+          key={fields.name.key}
           {...getInputProps(fields.name, { type: "text" })}
           placeholder="John Doe"
         />
@@ -85,6 +87,7 @@ export default function ContactForm({
           Subject
         </Label>
         <Input
+          key={fields.subject.key}
           {...getInputProps(fields.subject, { type: "text" })}
           placeholder="What can I help you with?"
         />
@@ -98,6 +101,7 @@ export default function ContactForm({
           Phone
         </Label>
         <Input
+          key={fields.phone.key}
           {...getInputProps(fields.phone, { type: "text" })}
           placeholder="+49 12345 6789"
         />
@@ -112,6 +116,7 @@ export default function ContactForm({
           Message
         </Label>
         <Textarea
+          key={fields.message.key}
           {...getTextareaProps(fields.message)}
           placeholder="Type your message here."
         />

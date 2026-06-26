@@ -38,7 +38,6 @@ export default function NewsletterForm({
 
   return (
     <form
-      method="POST"
       className={cn(
         `not-prose inline-grid w-full grid-cols-1 gap-2 rounded-xl border
         bg-linear-to-b from-card to-card p-4 offset-border @lg:grid-cols-2`,
@@ -79,6 +78,7 @@ export default function NewsletterForm({
         </Label>
         <div className="flex gap-2 max-sm:flex-col">
           <Input
+            key={fields.email.key}
             {...getInputProps(fields.email, { type: "email" })}
             placeholder="Enter your email"
           />
