@@ -1,26 +1,26 @@
-import { createGateway } from "@ai-sdk/gateway";
 import { devToolsMiddleware } from "@ai-sdk/devtools";
-import { wrapLanguageModel } from "ai";
+import { gateway, wrapLanguageModel, type GatewayModelId } from "ai";
 
-const gateway = createGateway({
-  apiKey: import.meta.env.AI_GATEWAY_API_KEY,
-});
-
-// The concrete model object `wrapLanguageModel` accepts - not the wider
-// `LanguageModel`, which also allows a bare model-id string.
-type WrappableModel = Parameters<typeof wrapLanguageModel>[0]["model"];
-
-function withDevTools(model: WrappableModel) {
-  if (!import.meta.env.DEV) {
-    return model;
-  }
-  return wrapLanguageModel({ model, middleware: devToolsMiddleware() });
+// The gateway authenticates via OIDC by reading `process.env.VERCEL_OIDC_TOKEN`.
+// In production Vercel injects it automatically; locally `astro dev` only loads
+// `.env` into `import.meta.env`, never `process.env`, so the lookup fails with a
+// misleading "Unauthenticated request to AI Gateway". Bridge it in dev only -
+// this block is tree-shaken from the production build, so no token is inlined.
+if (import.meta.env.DEV) {
+  process.env.VERCEL_OIDC_TOKEN ??= import.meta.env.VERCEL_OIDC_TOKEN;
 }
 
-export const CHAT_MODEL = withDevTools(gateway("openai/gpt-5.4-mini"));
-export const SUGGESTIONS_MODEL = withDevTools(gateway("openai/gpt-5.4-mini"));
+function withDevTools(modelId: GatewayModelId) {
+  if (!import.meta.env.DEV) {
+    return modelId;
+  }
+  return wrapLanguageModel({
+    model: gateway(modelId),
+    middleware: devToolsMiddleware(),
+  });
+}
 
-// What the chat can answer from. Shared so follow-up suggestions stay within the
-// same scope and don't propose unanswerable questions. Server-only - don't
-// import from a client component.
+export const CHAT_MODEL = withDevTools("openai/gpt-5.4-mini");
+export const SUGGESTIONS_MODEL = withDevTools("openai/gpt-5.4-mini");
+
 export const CHAT_KNOWLEDGE_BASE = import.meta.env.CHAT_KNOWLEDGE_BASE;
