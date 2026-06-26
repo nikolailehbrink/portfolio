@@ -1,0 +1,29 @@
+---
+type Props = {
+  mp4: string;
+  webm: string;
+  poster: string;
+  caption: string;
+};
+
+const { mp4, webm, poster, caption } = Astro.props;
+---
+
+<figure class="not-prose my-8">
+  <video
+    class="border-border h-auto w-full rounded-lg border"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster={poster}
+    aria-label={caption}
+  >
+    <source src={webm} type="video/webm" />
+    <source src={mp4} type="video/mp4" />
+  </video>
+  <figcaption class="text-muted-foreground mt-3 text-center text-sm">
+    {caption}
+  </figcaption>
+</figure>

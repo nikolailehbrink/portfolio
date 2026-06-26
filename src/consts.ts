@@ -2,7 +2,7 @@ export const SITE_TITLE = "Nikolai Lehbrink";
 export const SITE_DESCRIPTION =
   "Passionate fullstack developer dedicated to creating beautiful and functional web applications.";
 
-export const AI_CHAT_MESSAGE_LIMIT = import.meta.env.PROD ? 20 : 5;
+export const AI_CHAT_MESSAGE_LIMIT = import.meta.env.PROD ? 20 : 100;
 export const SECONDS_TO_CHAT_AGAIN = import.meta.env.PROD
   ? 1000 * 60 * 60 * 24 // 24 hours
   : 1000 * 60; // 1 minute

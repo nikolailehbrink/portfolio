@@ -1,0 +1,16 @@
+---
+import SelfHostedVideo from "./SelfHostedVideo.astro";
+import mp4 from "./chat-fixed.mp4?url";
+import webm from "./chat-fixed.webm?url";
+import poster from "./chat-fixed-poster.jpg?url";
+
+type Props = {
+  caption?: string;
+};
+
+const {
+  caption = "The same chat after the fix - react-scan's FPS meter sits at a smooth 60 while the reply streams in.",
+} = Astro.props;
+---
+
+<SelfHostedVideo mp4={mp4} webm={webm} poster={poster} caption={caption} />

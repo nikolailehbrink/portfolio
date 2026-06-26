@@ -5,7 +5,7 @@ import { estimateReadingTime } from "./readingTime";
 
 export async function getPosts(options?: {
   take?: number;
-  tag?: string | null;
+  tags?: Array<string>;
 }) {
   let posts = (
     await getCollection("blog", ({ data }) =>
@@ -16,10 +16,12 @@ export async function getPosts(options?: {
     readingTime: estimateReadingTime(post.body),
   }));
 
-  const { tag, take } = options || {};
+  const { tags, take } = options || {};
 
-  if (tag) {
-    posts = posts.filter((post) => post.data.tags?.includes(tag));
+  if (tags && tags.length > 0) {
+    posts = posts.filter((post) =>
+      tags.some((tag) => post.data.tags?.includes(tag)),
+    );
   }
 
   posts = posts.sort(

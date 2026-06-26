@@ -1,8 +1,19 @@
 ---
 import { cn } from "@/lib/utils";
-import { Image, type LocalImageProps } from "astro:assets";
+import { Image } from "astro:assets";
+import type { ComponentProps } from "astro/types";
 import avatar from "@/assets/avatar.webp";
-type Props = Omit<LocalImageProps, "alt" | "src" | "title">;
+
+// `Image`'s props are a discriminated union (local/remote, widths/densities).
+// A plain `Omit` collapses it into one flat type and breaks the discrimination,
+// so distribute the `Omit` across each union member to keep it intact.
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown
+  ? Omit<T, K>
+  : never;
+type Props = DistributiveOmit<
+  ComponentProps<typeof Image>,
+  "alt" | "src" | "title"
+>;
 const { class: className, ...props } = Astro.props;
 ---
 

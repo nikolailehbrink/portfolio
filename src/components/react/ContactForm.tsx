@@ -27,7 +27,9 @@ export default function ContactForm({
 }: React.ComponentProps<"form">) {
   const [state, action, isPending] = useActionState(
     withState(actions.contact),
-    null,
+    // withState() types the state as the action's (non-null) result, but there
+    // is none until the first submission, so start from an empty result.
+    null as unknown as Awaited<ReturnType<typeof actions.contact>>,
   );
   const { form, fields } = useForm(contactFormSchema, {
     // This not only syncs the error from the server

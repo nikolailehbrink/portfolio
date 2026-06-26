@@ -25,7 +25,9 @@ export default function NewsletterForm({
 }) {
   const [state, action, isPending] = useActionState(
     withState(actions.newsletter),
-    null,
+    // withState() types the state as the action's (non-null) result, but there
+    // is none until the first submission, so start from an empty result.
+    null as unknown as Awaited<ReturnType<typeof actions.newsletter>>,
   );
   const { form, fields } = useForm(newsletterFormSchema, {
     lastResult: state?.data?.result,

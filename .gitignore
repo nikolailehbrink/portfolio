@@ -33,3 +33,6 @@ pnpm-debug.log*
 
 # AI SDK DevTools local capture
 .devtools/
+
+# Blog ideas live in Obsidian, not in version control
+blog-ideas/

@@ -1,0 +1,16 @@
+---
+import SelfHostedVideo from "./SelfHostedVideo.astro";
+import mp4 from "./chat-lag.mp4?url";
+import webm from "./chat-lag.webm?url";
+import poster from "./chat-lag-poster.jpg?url";
+
+type Props = {
+  caption?: string;
+};
+
+const {
+  caption = "The meinGPT chat with react-scan's FPS meter (bottom right) stuck in the red while a reply streams in.",
+} = Astro.props;
+---
+
+<SelfHostedVideo mp4={mp4} webm={webm} poster={poster} caption={caption} />

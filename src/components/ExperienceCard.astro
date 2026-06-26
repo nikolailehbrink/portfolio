@@ -2,17 +2,15 @@
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import type { CollectionEntry } from "astro:content";
+import type { SvgComponent } from "astro/types";
 
 type Props = CollectionEntry<"career">["data"];
 
-const {
-  title,
-  description,
-  startDate,
-  endDate,
-  logo: Logo,
-  website,
-} = Astro.props;
+const { title, description, startDate, endDate, logo, website } = Astro.props;
+
+// The `image()` schema types SVG logos as `ImageMetadata`, but Astro renders
+// imported `.svg` files as components at runtime, so treat it as one here.
+const Logo = logo as unknown as SvgComponent;
 
 const DATE_TIME_FORMAT_OPTIONS = {
   year: "numeric",

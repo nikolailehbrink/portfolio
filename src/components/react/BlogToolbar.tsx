@@ -1,19 +1,20 @@
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
 import { EnvelopeIcon } from "@phosphor-icons/react/dist/ssr/Envelope";
-import { XIcon } from "@phosphor-icons/react/dist/ssr/X";
 import { useState } from "react";
 import NewsletterForm from "./NewsletterForm";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import {
   Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
   ComboboxContent,
   ComboboxEmpty,
-  ComboboxInput,
   ComboboxItem,
   ComboboxList,
-  ComboboxTrigger,
   ComboboxValue,
+  useComboboxAnchor,
 } from "./ui/combobox";
 import {
   Popover,
@@ -52,21 +53,23 @@ function getPostItems() {
 
 export default function BlogToolbar({
   tags,
-  activeTagSlug,
+  activeTagSlugs,
   className,
 }: {
   tags: Array<{ name: string; slug: string }>;
-  activeTagSlug?: string;
+  activeTagSlugs: Array<string>;
   className?: string;
 }) {
   const [sort, setSort] = useState<SortOption>("newest");
+  const topicsAnchor = useComboboxAnchor();
 
-  const topicItems: Array<TopicItem> = [
-    { value: "all", label: "All topics" },
-    ...tags.map(({ name, slug }) => ({ value: slug, label: name })),
-  ];
-  const activeTopic =
-    topicItems.find(({ value }) => value === activeTagSlug) ?? topicItems[0];
+  const topicItems: Array<TopicItem> = tags.map(({ name, slug }) => ({
+    value: slug,
+    label: name,
+  }));
+  const selectedTopics = topicItems.filter(({ value }) =>
+    activeTagSlugs.includes(value),
+  );
 
   function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
     const terms = event.target.value
@@ -113,8 +116,13 @@ export default function BlogToolbar({
     }
   }
 
-  function handleTagChange(slug: string) {
-    window.location.assign(slug === "all" ? "/blog" : `/blog?tag=${slug}`);
+  function handleTopicsChange(items: Array<TopicItem>) {
+    const params = new URLSearchParams();
+    for (const { value } of items) {
+      params.append("tag", value);
+    }
+    const query = params.toString();
+    window.location.assign(query ? `/blog?${query}` : "/blog");
   }
 
   return (
@@ -136,23 +144,31 @@ export default function BlogToolbar({
         />
       </div>
       <Combobox
+        multiple
+        autoHighlight
         items={topicItems}
-        value={activeTopic}
-        onValueChange={(item) => handleTagChange(item?.value ?? "all")}
+        value={selectedTopics}
+        onValueChange={handleTopicsChange}
       >
-        <ComboboxTrigger
-          aria-label="Filter posts by topic"
-          render={
-            <Button
-              variant="outline"
-              className="justify-between bg-card font-normal dark:bg-card"
-            />
-          }
+        <ComboboxChips
+          ref={topicsAnchor}
+          className="w-auto min-w-44 bg-card dark:bg-card"
         >
-          <ComboboxValue />
-        </ComboboxTrigger>
-        <ComboboxContent className="min-w-48">
-          <ComboboxInput showTrigger={false} placeholder="Search topics..." />
+          <ComboboxValue>
+            {(values: Array<TopicItem>) => (
+              <>
+                {values.map((item) => (
+                  <ComboboxChip key={item.value}>{item.label}</ComboboxChip>
+                ))}
+                <ComboboxChipsInput
+                  aria-label="Filter posts by topic"
+                  placeholder={values.length > 0 ? "" : "All topics"}
+                />
+              </>
+            )}
+          </ComboboxValue>
+        </ComboboxChips>
+        <ComboboxContent anchor={topicsAnchor} aria-label="Topics">
           <ComboboxEmpty>No topics found.</ComboboxEmpty>
           <ComboboxList>
             {(item: TopicItem) => (
@@ -163,16 +179,6 @@ export default function BlogToolbar({
           </ComboboxList>
         </ComboboxContent>
       </Combobox>
-      {activeTagSlug !== undefined && (
-        <Button
-          variant="ghost"
-          size="icon"
-          aria-label="Reset topic filter"
-          onClick={() => handleTagChange("all")}
-        >
-          <XIcon weight="duotone" />
-        </Button>
-      )}
       <Select
         items={SORT_OPTIONS}
         value={sort}
