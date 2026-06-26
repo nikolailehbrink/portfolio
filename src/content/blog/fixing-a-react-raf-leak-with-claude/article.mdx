@@ -7,8 +7,11 @@ tags: ["React", "Performance", "Debugging", "Coding Agents"]
 
 import Alert from "@/components/Alert.astro";
 import NewsletterForm from "@/components/react/NewsletterForm";
-import ChatLagVideo from "./ChatLagVideo.astro";
-import ChatFixedVideo from "./ChatFixedVideo.astro";
+import SelfHostedVideo from "./SelfHostedVideo.astro";
+import chatLagMp4 from "./chat-lag.mp4?url";
+import chatLagPoster from "./chat-lag-poster.jpg?url";
+import chatFixedMp4 from "./chat-fixed.mp4?url";
+import chatFixedPoster from "./chat-fixed-poster.jpg?url";
 import Figure from "./Figure.astro";
 import Fps from "./Fps.astro";
 import reactScanOverview from "./react-scan-overview.png";
@@ -22,13 +25,17 @@ Over the last few weeks one thing kept showing up in our support tickets:
 
 I'd noticed it myself in the local environment, but on production it was less obvious. Give a chat enough messages and a few PDFs, though, and it would slowly get sluggish and start to feel off.
 
-<ChatLagVideo />
+<SelfHostedVideo
+  mp4={chatLagMp4}
+  poster={chatLagPoster}
+  caption="The meinGPT chat with react-scan's FPS meter (bottom right) stuck in the red while a reply streams in."
+/>
 
 We'd already looked into it more than once without ever finding the cause, so two weeks ago I sat down with [Claude Code](https://code.claude.com/) and [Fable 5](https://www.anthropic.com/news/claude-fable-5-mythos-5) (before it was suspended) to fix it once and for all.
 
 ## My first guess: too many re-renders
 
-When something gets slower the more you use it, re-rendering is the obvious suspect. 
+When something gets slower the more you use it, re-rendering is the obvious suspect.
 
 My theory went like this: the more messages a chat holds, the more React has to re-render, and if one component somewhere isn't memoized, it gets re-used on the next message and re-renders again - so the cost piles up with every message.
 
@@ -40,7 +47,6 @@ To narrow down that kind of thing I reached for [`react-scan`](https://github.co
 
 Its Overview tab settled it: Of **1203 ms** total, only **109 ms** were actual React renders. The other **1094 ms** - the part actually hurting - was everything else: hooks, plain JavaScript, and the work the browser does to update the DOM and draw each frame.
 
-
 <Figure
   src={reactScanOverview}
   alt="react-scan's Overview tab: of 1203 ms total, only 109 ms went to React renders while 1094 ms went to JavaScript, DOM updates and drawing frames"
@@ -50,7 +56,9 @@ The same tab told me where to look next: _"profile your app using the Chrome pro
 
 <Figure
   src={reactScanChromeHint}
-  alt={'react-scan\'s Overview tab with the "JavaScript, DOM updates, Draw Frame" breakdown expanded, explaining it\'s everything other than React renders and suggesting the Chrome profiler to dig deeper'}
+  alt={
+    "react-scan's Overview tab with the \"JavaScript, DOM updates, Draw Frame\" breakdown expanded, explaining it's everything other than React renders and suggesting the Chrome profiler to dig deeper"
+  }
 />
 
 ## Handing it to agent-browser
@@ -67,7 +75,7 @@ It spun up a fresh chat, typed a prompt that forces a long, streaming answer (th
 
 ## A trace file that was way too big
 
-It was the first real tell. A normal trace - just typing into the box - came out around **1.8 MB** with roughly 9,000 events. 
+It was the first real tell. A normal trace - just typing into the box - came out around **1.8 MB** with roughly 9,000 events.
 
 The streaming one? Well, **360 MB**, with **1,315,451 events**, for about eight seconds of a single answer streaming in.
 
@@ -79,7 +87,7 @@ That's around **900 per frame**. A healthy app schedules roughly **one**.
 
 ## The bug: scheduling rAF inside a setState updater
 
-The trace pointed straight at a small hook we use called `useSmoothTypingText` - it reveals the streamed text character by character as it arrives. 
+The trace pointed straight at a small hook we use called `useSmoothTypingText` - it reveals the streamed text character by character as it arrives.
 
 Here's the relevant part:
 
@@ -107,7 +115,7 @@ That highlighted line is the whole bug.
 
 [A state updater is supposed to be a pure function](https://react.dev/reference/react/useState#setstate): take the previous state, return the next one without any side effects. React is allowed to call it more than once - in development under StrictMode it does on purpose, and during concurrent rendering it can too. This one scheduled a new animation frame every time it ran.
 
-So every time React invoked the updater more than once, each call forked its own `requestAnimationFrame` chain. Those chains scheduled more frames, whose updaters forked again, and so on. The cleanup only ever cancelled the _last_ `animationFrameId` it had seen, so every other chain kept running forever. 
+So every time React invoked the updater more than once, each call forked its own `requestAnimationFrame` chain. Those chains scheduled more frames, whose updaters forked again, and so on. The cleanup only ever cancelled the _last_ `animationFrameId` it had seen, so every other chain kept running forever.
 
 A few seconds of streaming and you had hundreds of self-replicating loops fighting for the main thread - and a chat at <Fps>4 FPS</Fps>.
 
@@ -153,7 +161,11 @@ The deeper lesson is that this hook probably shouldn't have existed. A character
 
 Claude implemented the fix, then used `agent-browser` to replay the same streaming prompt before and after, with the profiler running both times. The `requestAnimationFrame` count dropped from **437,190 to 778 per 8 seconds**. The trace shrank to a few MB, and the FPS drops were gone, even with longer chats.
 
-<ChatFixedVideo />
+<SelfHostedVideo
+  mp4={chatFixedMp4}
+  poster={chatFixedPoster}
+  caption="The same chat after the fix - react-scan's FPS meter sits at a smooth 60 while the reply streams in."
+/>
 
 ## What I'd take from this
 
