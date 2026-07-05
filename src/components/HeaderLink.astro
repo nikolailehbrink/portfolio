@@ -9,7 +9,7 @@ const { class: className, path, icon: Icon, label, ...props } = Astro.props;
 
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 const subpath = pathname.match(/[^/]+/g);
-const isActive = path === pathname || path === "/" + (subpath?.[0] || "");
+const isActive = path === pathname || path === `/${subpath?.[0] || ""}/`;
 ---
 
 <a

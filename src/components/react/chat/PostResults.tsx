@@ -12,7 +12,7 @@ export default function PostResults({ posts }: { posts: SearchPostsResult }) {
       {posts.map(({ title, description, slug }) => (
         <a
           key={slug}
-          href={`/blog/${slug}`}
+          href={`/blog/${slug}/`}
           className="flex flex-col gap-1 rounded-lg border border-border
             bg-muted/50 p-3 transition-colors hover:bg-muted"
         >

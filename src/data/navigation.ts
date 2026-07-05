@@ -18,17 +18,17 @@ export const NAVIGATION_LINKS = [
   },
   {
     label: "Blog",
-    path: "/blog",
+    path: "/blog/",
     icon: ArticleNyTimesIcon,
   },
   {
     label: "Chat",
-    path: "/chat",
+    path: "/chat/",
     icon: BrainIcon,
   },
   {
     label: "Thoughts",
-    path: "/thoughts",
+    path: "/thoughts/",
     icon: NotebookIcon,
   },
 ] as const satisfies Array<NavigationLink>;

@@ -116,7 +116,7 @@ Key patterns:
 - Emphasis with `_**bold italic**_` for key takeaways (e.g. _**a single spam email**_)
 - Italics with `_word_` for introducing terms or field names (e.g. _"company"_)
 - Link to external resources generously, especially MDN, official docs, and GitHub repos
-- Reference your own related posts with relative links (e.g. `[sitemap generation guide](/blog/sitemap-react-router-7)`)
+- Reference your own related posts with relative links, always with a trailing slash to match the canonical URL (e.g. `[sitemap generation guide](/blog/sitemap-react-router-7/)`)
 
 ### Structure
 
