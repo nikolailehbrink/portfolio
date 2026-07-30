@@ -1,0 +1,83 @@
+---
+export const prerender = false;
+
+import BaseHead from "@/components/BaseHead.astro";
+import KnowledgeEntryCard from "@/components/KnowledgeEntryCard.astro";
+import RootLayout from "@/layouts/RootLayout.astro";
+import { formatDate } from "@/lib/format";
+import {
+  KNOWLEDGE_LOG_CACHE_CONTROL,
+  getPublishedKnowledgeEntries,
+  groupEntriesByDay,
+} from "@/lib/knowledge-log/queries";
+
+// Rendered on demand, but cached at the edge: the database is only touched when
+// the CDN revalidates, not once per visitor.
+Astro.response.headers.set("Cache-Control", KNOWLEDGE_LOG_CACHE_CONTROL);
+
+const entries = await getPublishedKnowledgeEntries();
+const groups = groupEntriesByDay(entries);
+
+const title = "Knowledge Log";
+const description =
+  "A running log of things I learn, read, build and wonder about - captured on the go and published as they happen.";
+
+const DATE_FORMAT_OPTIONS = {
+  weekday: "short",
+  year: "numeric",
+  month: "short",
+  day: "2-digit",
+} satisfies Intl.DateTimeFormatOptions;
+---
+
+<RootLayout>
+  <BaseHead title={title} description={description} slot="head" />
+  <div class="flex w-full max-w-3xl flex-col gap-4">
+    <header class="flex flex-col gap-4 sm:items-center">
+      <h1 class="text-3xl font-bold sm:text-center sm:text-4xl">{title}</h1>
+      <p class="max-w-prose text-muted-foreground sm:text-center">
+        {description}
+      </p>
+    </header>
+    {
+      groups.length === 0 ? (
+        <p
+          class="mt-4 rounded-lg border border-dashed p-8 text-center text-sm
+            text-muted-foreground"
+        >
+          Nothing logged yet - the first entry will show up here.
+        </p>
+      ) : (
+        <div class="mt-4 flex flex-col">
+          {groups.map(({ date, entries: dayEntries }) => (
+            <section class="flex flex-col gap-3 sm:flex-row sm:gap-8">
+              <div class="sm:w-36 sm:shrink-0">
+                <h2 class="sm:sticky sm:top-24">
+                  <time
+                    datetime={date.toISOString().slice(0, 10)}
+                    class="text-sm font-semibold text-muted-foreground"
+                  >
+                    {formatDate(date, DATE_FORMAT_OPTIONS)}
+                  </time>
+                </h2>
+              </div>
+              <div
+                class="relative flex flex-col gap-4 pb-8 sm:border-s sm:ps-8
+                  sm:last:border-transparent"
+              >
+                <span
+                  class="absolute -start-[5px] top-1.5 hidden size-2.5
+                    rounded-full bg-sky-500 ring-4 ring-background sm:block"
+                  aria-hidden="true"
+                />
+                {dayEntries.map((entry) => (
+                  <KnowledgeEntryCard entry={entry} />
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</RootLayout>

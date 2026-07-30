@@ -17,4 +17,9 @@ if (import.meta.env.DEV) {
 export const CHAT_MODEL: GatewayModelId = "openai/gpt-5.4-mini";
 export const SUGGESTIONS_MODEL: GatewayModelId = "openai/gpt-5.4-mini";
 
+// Knowledge Log (private WhatsApp intake). Deliberately separate constants from
+// the public chat so the two can be tuned - or swapped - independently.
+export const KNOWLEDGE_LOG_MODEL: GatewayModelId = "openai/gpt-5.4-mini";
+export const KNOWLEDGE_LOG_TRANSCRIPTION_MODEL = "openai/gpt-4o-transcribe";
+
 export const CHAT_KNOWLEDGE_BASE = import.meta.env.CHAT_KNOWLEDGE_BASE;

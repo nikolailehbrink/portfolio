@@ -85,6 +85,37 @@ export default defineConfig({
         access: "secret",
         optional: true,
       }),
+      // Private Knowledge Log intake (WhatsApp Business Cloud API). All optional
+      // so builds and local dev work without them; the webhook refuses to run
+      // when one is missing instead of failing the whole build.
+      WHATSAPP_VERIFY_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
+      WHATSAPP_APP_SECRET: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
+      WHATSAPP_ACCESS_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
+      WHATSAPP_PHONE_NUMBER_ID: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
+      // The only sender allowed to create entries, in international format
+      // without a leading "+" (e.g. 4915112345678) - this is the whole
+      // authorization model for the Knowledge Log.
+      WHATSAPP_ALLOWED_NUMBER: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
     },
   },
   redirects: {

@@ -55,7 +55,16 @@ Content collections defined in `src/content.config.ts` with Zod schemas:
 
 ### Database
 
-Astro DB (SQLite) with a `ViewCount` table, configured in `db/config.ts`, seeded in `db/seed.ts`.
+Turso (libSQL) accessed through Drizzle ORM. The schema lives in `src/db/schema.ts` (`ViewCount`, `KnowledgeEntry`), the client in `src/db/index.ts` - local dev always talks to a local `local.db` file, production to Turso via `astro:env/server`. Schema changes are applied with `pnpm db:push`.
+
+### Knowledge Log
+
+A private intake pipeline that turns WhatsApp messages and voice notes into public timeline entries at `/knowledge-log/`. Deliberately separate from the public AI chat: its own model constants, its own tables, no shared tools or knowledge base.
+
+- `src/pages/api/whatsapp/webhook.ts` - Meta webhook (GET handshake, POST intake). Verifies `X-Hub-Signature-256`, then only accepts messages from `WHATSAPP_ALLOWED_NUMBER`; the message id is the idempotency key.
+- `src/lib/knowledge-log/ai.ts` - transcription (`transcribe`) and structuring (`generateText` + `Output.object`) through the AI Gateway.
+- `src/lib/knowledge-log/queries.ts` - cached reads plus the `Cache-Control` value the timeline page sends.
+- Required env vars: `WHATSAPP_VERIFY_TOKEN`, `WHATSAPP_APP_SECRET`, `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_ALLOWED_NUMBER`. All optional in the env schema - the webhook answers 503 when any is missing.
 
 ## Code Style
 
