@@ -6,7 +6,7 @@ description: Privacy policy for the website
 
 # Privacy Policy
 
-_Last updated: 05 June 2025_
+_Last updated: 14 October 2026_
 
 ## 1. Data Protection at a Glance
 
@@ -84,7 +84,6 @@ I would like to point out that data transmission over the Internet (e.g., when c
 
 Nikolai Lehbrink - Conception, Design and Development
 
-Phone: 00491794393782
 Email: [mail@nikolailehbr.ink](mailto:mail@nikolailehbr.ink)
 
 The responsible entity is the natural or legal person who alone or jointly with others determines the purposes and means of the processing of personal data (e.g., names, email addresses, etc.).

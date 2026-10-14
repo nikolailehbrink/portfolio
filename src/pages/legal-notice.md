@@ -6,7 +6,7 @@ description: Legal notice for the website
 
 # Legal Notice
 
-_Last updated: 05 June 2025_
+_Last updated: 14 October 2026_
 
 ## Website Operator
 
@@ -16,7 +16,7 @@ This website is operated by:
 Munich, Bavaria  
 Germany  
 Email: [mail@nikolailehbr.ink](mailto:mail@nikolailehbr.ink)  
-Phone: +49 (0) 179 4393782
+Contact form: [nikolailehbr.ink/#contact](/#contact)
 
 ---
 
