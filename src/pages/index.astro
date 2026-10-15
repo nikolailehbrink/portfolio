@@ -30,6 +30,14 @@ const [career, projects, posts] = await Promise.all([
   getPosts({ take: 2 }),
 ]);
 
+// Ongoing positions first, then most recent start date
+career.sort(
+  (a, b) =>
+    Number(a.data.endDate !== undefined) -
+      Number(b.data.endDate !== undefined) ||
+    b.data.startDate.getTime() - a.data.startDate.getTime(),
+);
+
 const workExperiences = career.filter((item) => item.data.type === "work");
 const educationExperiences = career.filter(
   (item) => item.data.type === "education",

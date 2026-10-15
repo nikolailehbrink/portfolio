@@ -1,8 +1,17 @@
 {
+  "meingpt": {
+    "title": "MeinGPT",
+    "description": "Full Stack Developer",
+    "startDate": "2026-01-01",
+    "logo": "@/assets/career/meingpt.svg",
+    "website": "https://meingpt.com",
+    "type": "work"
+  },
   "vanever": {
     "title": "Vanever (prev. Off Campers)",
     "description": "Full Stack Engineer",
     "startDate": "2024-06-08",
+    "endDate": "2025-12-31",
     "logo": "@/assets/career/vanever.svg",
     "website": "https://vanever.com",
     "type": "work"
