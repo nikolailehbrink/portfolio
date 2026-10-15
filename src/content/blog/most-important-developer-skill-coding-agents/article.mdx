@@ -1,0 +1,112 @@
+---
+title: "The most important developer skill in the age of coding agents"
+description: "Why knowing which tech exists for which job is your real edge when working with coding agents."
+publicationDate: "2026-06-03T12:00:00Z"
+draft: true
+tags: ["Coding Agents", "AI", "Developer Productivity", "Opinion"]
+---
+
+import Alert from "@/components/Alert.astro";
+import NewsletterForm from "@/components/react/NewsletterForm";
+
+A while back I heard about a few agencies shipping scroll-based marketing sites built almost entirely with Claude Code. Impressive turnaround. But every single one of them still felt _clunky_ - janky scrolling, animations that stutter, that uncanny "something's off" feeling.
+
+Here's the thing: I know why. As a developer, I know that smooth, buttery scroll animations are a solved problem. You reach for [GSAP](https://gsap.com/) with its ScrollSmoother and ScrollTrigger plugins, and the jank is gone.
+
+The agent didn't know to reach for it. So it hand-rolled scroll math instead, and produced something that technically works and feels wrong.
+
+That gap - between "technically works" and "actually good" - is where I think the most important developer skill of this era lives. It's not writing code anymore. It's knowing which technology exists for which job, and steering the agent toward it.
+
+In this article I want to walk through why I believe that, with the concrete examples that made it click for me.
+
+## The bottleneck moved from writing code to steering it
+
+For most of my career, the slow part of building software was writing it. Typing out the implementation, looking up APIs, wiring things together.
+
+That's not the bottleneck anymore. A coding agent writes a feature in seconds. What it can't do reliably is _choose well_ - and that's now the expensive part.
+
+So the job shifts. You're no longer the person typing every line. You're the person who decides what the agent should reach for, and who can tell within seconds whether what came back is any good.
+
+That second part is the quiet superpower. If you already know GSAP exists, you don't review 200 lines of custom scroll math - you glance at the output, see it's hand-rolled, and redirect: "use GSAP's ScrollSmoother instead." Five seconds.
+
+If you _don't_ know GSAP exists, you either ship the clunky version or burn twenty minutes debugging easing curves you should never have written in the first place.
+
+The agent is only as good as the direction you give it. And good direction comes from knowing the landscape.
+
+## Knowing the right tool turns slop into software
+
+Let me make this concrete. Here are the cases where I catch myself steering the agent away from its default and toward something that's been built, tested, and hardened by people who care about exactly that problem.
+
+### Animation: reach for GSAP, don't hand-roll scroll math
+
+This is the scroll-based site from the intro. The agent's instinct is to compute scroll positions, lerp some values, and request animation frames by hand. It compiles. It moves. It also stutters on every device that isn't the one it was tested on.
+
+[GSAP](https://gsap.com/) solves this properly, and its ScrollTrigger and ScrollSmoother plugins exist precisely so you don't reinvent inertia and easing. Knowing the plugin exists is the whole difference - the agent can wire it up perfectly once you point at it.
+
+### Auth: don't let the agent invent its own
+
+Authentication is the example I feel most strongly about. If you ask an agent to "add login", it will happily write you a homegrown auth system - sessions, password hashing, token logic, the works. It'll look plausible. It might even pass a quick test.
+
+<Alert type="warning" title="Never ship hand-rolled auth">
+  Auth is the one area where a subtle mistake isn't a bug - it's a security
+  incident. A coding agent improvising session handling or CSRF protection is
+  exactly the kind of plausible-looking code you don't want anywhere near
+  production.
+</Alert>
+
+I reach for [better-auth](https://www.better-auth.com/) instead. It's framework-agnostic, type-safe, and handles the parts you really don't want an agent guessing at (sessions, account linking, CSRF). There's even a `better-auth-best-practices` skill I point the agent at, so it follows the conventions instead of inventing them.
+
+And it composes. Need to bill users? Don't have the agent wire up Stripe webhooks by hand - there's a [Stripe plugin](https://www.better-auth.com/docs/plugins/stripe) for better-auth that handles subscriptions and customer syncing for you. Knowing that plugin exists is the difference between an afternoon and a week.
+
+### Your linter and formatter defaults changed
+
+This one's subtle, because the agent's defaults are _outdated_, not wrong. Ask it to set up linting and it reaches for ESLint and Prettier, since that's what a decade of training data says.
+
+But the defaults moved. These days I reach for [Oxlint](https://oxc.rs/docs/guide/usage/linter) instead of ESLint and Oxfmt instead of Prettier - both part of the Rust-based [oxc](https://oxc.rs/) toolchain, and both _dramatically_ faster.
+
+Same story with build tooling: [Vite](https://vite.dev/) 8 just shipped, and Vite+ from the VoidZero team bundles the whole toolchain into one coherent package. If you don't know these exist, you'll let the agent scaffold the slow, old setup and never question it.
+
+### Frameworks shipped things that change how you'd build
+
+Frameworks move fast, and the agent's mental model of them lags. A few examples I keep top of mind:
+
+[React Router 7](https://reactrouter.com/) in framework mode now has [middleware](https://reactrouter.com/how-to/middleware). That single feature lets you pull a huge amount of per-route boilerplate - auth checks, logging, context setup - into one place. If you know it landed, you spot the refactor instantly. If you don't, the agent keeps duplicating the same guard across every loader.
+
+The [AI SDK](https://ai-sdk.dev/) is on v6, and it added things that matter for real agent apps - better MCP and auth tooling, plus `needsApproval` so you can require a human to sign off on a tool call before it runs. That's the kind of primitive you'd otherwise have the agent reinvent badly.
+
+And for long-running, crash-safe orchestration there's [Vercel Workflows](https://vercel.com/docs/workflow) - durable execution, so you stop hand-rolling retry loops and state machines inside a request handler.
+
+## Why this compounds
+
+None of these individually is a big deal. Saving five minutes on a linter setup doesn't change your life.
+
+But it's not five minutes once. It's seconds-instead-of-minutes on _every_ verification, dozens of times a day, across every project.
+
+<NewsletterForm client:visible />
+
+When you know the landscape, reviewing the agent's output stops being a careful line-by-line audit and becomes pattern matching. "That's the GSAP approach, good." "That's hand-rolled auth, no." "That's the old ESLint setup, swap it." Each judgment takes _**seconds instead of minutes**_, and the time you save accumulates into a real, compounding edge.
+
+That's what I think separates developers who are genuinely faster with agents from the ones drowning in plausible-looking slop. It's not who writes the cleverest prompts. It's who has the broadest, most current map of what's out there - and the taste to apply it.
+
+## How to actually keep this map fresh
+
+The obvious objection: nobody can know everything, and the landscape changes weekly. True. But the bar is lower than it sounds.
+
+You don't need to know GSAP's API by heart. You need to know _**it exists**_ and what it's for. "Knowing it exists" is cheap to acquire and pays off the moment you need it - you can always read the docs (or let the agent read them) once you've pointed in the right direction.
+
+Here's roughly how I keep my own map current:
+
+- **Skim release notes and changelogs**, even for tools you're not using yet. You're not memorizing - you're indexing. "Oh, RR7 has middleware now" is enough.
+- **Collect skills and best-practice repos.** When I find a solid set of conventions (like that `better-auth-best-practices` skill), I keep it around and point the agent at it instead of re-explaining every time.
+- **Follow the people who build the tools**, not just the tools themselves. The folks behind VoidZero, better-auth, and Vercel broadcast what's coming long before you'd stumble into it.
+- **Ask "has someone solved this already?"** before letting the agent build from scratch. The answer is usually yes.
+
+<Alert type="tip">
+  A lot of this overlaps with how I keep project conventions in one place for
+  agents to follow - which I wrote about in [making AGENTS.md a single source of
+  truth](/blog/agents-md-single-source-of-truth/).
+</Alert>
+
+The coding agent isn't the bottleneck anymore, and honestly neither is your typing speed. The bottleneck is your map of what's out there, and how fast you can match a problem to the right tool.
+
+That map is the skill worth investing in. The agent will write the code. You just have to know what to ask it for.
