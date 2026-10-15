@@ -32,6 +32,7 @@ ${postLines}
 - [Home](${new URL("/", origin).href}): About Nikolai, projects, skills, and work experience
 - [Blog](${new URL("/blog/", origin).href}): All articles
 - [Chat](${new URL("/chat/", origin).href}): AI assistant that answers questions about Nikolai, his projects, and his blog posts
+- [Knowledge Log](${new URL("/knowledge-log/", origin).href}): Chronological log of learnings, resources, ideas, insights, and open questions
 - [RSS feed](${new URL("/rss.xml", origin).href}): Full-text feed of new posts
 `;
 

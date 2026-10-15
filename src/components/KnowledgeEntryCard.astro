@@ -1,0 +1,94 @@
+---
+import { ArrowSquareOutIcon } from "@phosphor-icons/react/dist/ssr/ArrowSquareOut";
+import { MicrophoneIcon } from "@phosphor-icons/react/dist/ssr/Microphone";
+
+import { KNOWLEDGE_ENTRY_TYPE_META } from "@/data/knowledge-log";
+import { locale } from "@/consts";
+import { cn } from "@/lib/utils";
+import type { KnowledgeEntry } from "@/lib/knowledge-log/queries";
+import { Badge, badgeVariants } from "./react/ui/badge";
+
+type Props = {
+  entry: KnowledgeEntry;
+};
+
+const { entry } = Astro.props;
+const { type, title, content, tags, sourceUrl, metadata } = entry;
+
+const {
+  label,
+  icon: TypeIcon,
+  className: typeClassName,
+} = KNOWLEDGE_ENTRY_TYPE_META[type];
+
+const timestamp = entry.publishedAt ?? entry.createdAt;
+const time = new Intl.DateTimeFormat(locale, {
+  hour: "2-digit",
+  minute: "2-digit",
+}).format(timestamp);
+
+// The model separates paragraphs with blank lines; content is plain text, so it
+// is rendered as text nodes rather than parsed as markup.
+const paragraphs = content.split(/\n{2,}/).filter(Boolean);
+
+const sourceHost = sourceUrl
+  ? new URL(sourceUrl).hostname.replace(/^www\./, "")
+  : null;
+---
+
+<article
+  id={entry.id}
+  class="flex flex-col gap-3 rounded-lg border bg-card p-4 offset-border"
+>
+  <div class="flex flex-wrap items-center gap-2">
+    <Badge className={cn(typeClassName)}>
+      <TypeIcon size={16} weight="duotone" />
+      {label}
+    </Badge>
+    {
+      metadata?.inputType === "audio" && (
+        <Badge variant="secondary" title="Captured as a voice note">
+          <MicrophoneIcon size={16} weight="duotone" />
+          Voice note
+        </Badge>
+      )
+    }
+    <time
+      datetime={timestamp.toISOString()}
+      class="ml-auto text-xs text-muted-foreground"
+    >
+      {time}
+    </time>
+  </div>
+  <h3 class="text-lg font-bold text-balance">{title}</h3>
+  <div class="flex flex-col gap-2 text-sm text-muted-foreground">
+    {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+  {
+    sourceUrl && (
+      <a
+        href={sourceUrl}
+        rel="noopener noreferrer nofollow"
+        target="_blank"
+        class={cn(
+          badgeVariants({ variant: "outline" }),
+          "max-w-full gap-1.5 hover:bg-muted",
+        )}
+      >
+        <ArrowSquareOutIcon size={16} weight="duotone" />
+        <span class="truncate">{sourceHost}</span>
+      </a>
+    )
+  }
+  {
+    tags.length > 0 && (
+      <ul class="flex flex-wrap gap-1.5">
+        {tags.map((tag) => (
+          <li>
+            <Badge variant="secondary">{tag}</Badge>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</article>
